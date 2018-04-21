@@ -10,6 +10,7 @@ cache:
   yarn: true
   directories:
     - frontend/node_modules
+    - backend/build
     - backend/node_modules
 
 before_install:
@@ -48,5 +49,3 @@ stages:
   - test
   - name: deploy
     if: branch = master
-
-after_success:
