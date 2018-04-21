@@ -6,6 +6,12 @@ language:
 node_js:
   - '8'
 
+cache:
+  yarn: true
+  directories:
+    - frontend/node_modules
+    - backend/node_modules
+
 before_install:
   - yarn global add now
   - echo "${DOTENV_STAGING}" > .env
@@ -30,6 +36,7 @@ jobs:
         - yarn --frozen-lockfile
         - yarn test
     - stage: deploy
+      script:
         - cd backend
         - yarn prisma login --key="${PRISMA_CLOUD_SESSION_KEY}"
         - yarn prisma deploy
