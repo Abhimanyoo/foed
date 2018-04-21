@@ -4,8 +4,8 @@ import * as Email from 'email-templates';
 
 const mailgunConfig = {
   auth: {
-    api_key: process.env.MAILGUN_API_KEY || '',
-    domain: process.env.MAILGUN_DOMAIN,
+    api_key: process.env.BACKEND_MAILGUN_API_KEY || '',
+    domain: process.env.BACKEND_MAILGUN_DOMAIN,
   },
 };
 
@@ -13,7 +13,7 @@ const transporter = createTransport(mailgun(mailgunConfig));
 
 const email = new Email({
   message: {
-    from: process.env.MAIL_FROM,
+    from: process.env.BACKEND_MAIL_FROM,
   },
   transport: transporter,
 });

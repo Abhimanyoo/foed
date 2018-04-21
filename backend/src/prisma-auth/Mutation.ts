@@ -11,7 +11,7 @@ import {
 } from '../generated/prisma';
 
 function generateToken(user: User) {
-  return jwt.sign({ userId: user.id }, process.env.APP_SECRET || '');
+  return jwt.sign({ userId: user.id }, process.env.BACKEND_APP_SECRET || '');
 }
 
 function validatePassword(value: string) {
