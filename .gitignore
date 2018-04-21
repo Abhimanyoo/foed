@@ -1,0 +1,7 @@
+node_modules/
+*.log*
+.postgres-data/
+build/
+.build/
+/.env
+.graphcoolrc

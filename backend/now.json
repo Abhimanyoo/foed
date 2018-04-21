@@ -1,0 +1,6 @@
+{
+  "name": "new-food-order-api",
+  "type": "npm",
+  "alias": ["new-food-order-api-staging"],
+  "public": false
+}

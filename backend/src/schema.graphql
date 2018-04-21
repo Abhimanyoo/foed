@@ -1,0 +1,81 @@
+# import Query.users, Query.user, Query.usersConnection, Mutation.deleteUser, UserUpdateInput, Employment, Query.restaurants, Query.restaurant, Query.restaurantsConnection, Mutation.createRestaurant, Mutation.updateRestaurant, Mutation.deleteRestaurant, Query.organizations, Query.organization, Query.organizationsConnection, Mutation.createOrganization, Mutation.updateOrganization, Mutation.deleteOrganization, Query.employments, Query.employmentsConnection, Mutation.deleteEmployment, Query.cards, Query.card, Query.cardsConnection, Mutation.createCard, Mutation.updateCard, Mutation.deleteCard, from "./generated/prisma.graphql"
+
+type Query {
+  currentUser: User
+  generateRestaurantSlug(name: String!): GenerateSlugPayload!
+  generateOrganizationSlug(name: String!): GenerateSlugPayload!
+}
+
+type Mutation {
+  # Auth
+  signupByInvite(
+    email: String!
+    inviteToken: String!
+    password: String!
+    name: String!
+  ): AuthPayload!
+  signup(email: String!, password: String!, name: String!): AuthPayload!
+  inviteUser(data: InviteUserInput): InviteUserPayload!
+  login(email: String!, password: String!): AuthPayload!
+  changePassword(
+    oldPassword: String!
+    newPassword: String!
+  ): ChangePasswordPayload!
+  updateCurrentUser(data: UserUpdateInput!): User
+  triggerPasswordReset(email: String!): TriggerPasswordResetPayload!
+  passwordReset(
+    email: String!
+    resetToken: String!
+    password: String!
+  ): PasswordResetPayload!
+}
+
+input InviteUserInput {
+  email: String!
+  restaurantId: ID!
+  permission: RestaurantPermission!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type ChangePasswordPayload {
+  id: ID!
+}
+
+type InviteUserPayload {
+  id: ID!
+}
+
+type TriggerPasswordResetPayload {
+  ok: Boolean!
+}
+
+type PasswordResetPayload {
+  id: ID!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  # For the record, I do not like this name but at least it is clear.
+  inviteAccepted: Boolean!
+  deletedAt: DateTime
+  isSuper: Boolean!
+  employments(
+    where: EmploymentWhereInput
+    orderBy: EmploymentOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Employment!]
+}
+
+type GenerateSlugPayload {
+  slug: String!
+}

@@ -1,0 +1,66 @@
+{
+  "name": "new-food-order-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@types/graphql": "^0.13.0",
+    "@types/jest": "^22.1.0",
+    "@types/lodash": "^4.14.104",
+    "@types/react": "^16.0.35",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-loadable": "^5.3.4",
+    "@types/react-router-dom": "^4.2.3",
+    "@types/yup": "^0.24.3",
+    "@volst/react-scripts": "2.0.0-8",
+    "apollo-codegen": "^0.19.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
+    "prettier": "^1.11.1",
+    "typescript": "^2.6.2",
+    "typescript-styled-plugin": "^0.6.0"
+  },
+  "dependencies": {
+    "@volst/ui-components": "^0.14.0",
+    "apollo-cache-inmemory": "^1.1.5",
+    "apollo-client": "^2.2.0",
+    "apollo-link": "^1.0.0",
+    "apollo-link-context": "^1.0.1",
+    "apollo-link-error": "^1.0.1",
+    "apollo-link-http": "^1.1.0",
+    "formik": "^1.0.0-alpha.6",
+    "graphql": "^0.13.1",
+    "graphql-tag": "^2.5.0",
+    "i18next": "^11.1.1",
+    "lodash": "^4.17.4",
+    "mobx": "^4.1.0",
+    "mobx-react": "^5.0.0",
+    "moment": "^2.19.1",
+    "prop-types": "^15.6.0",
+    "raven-js": "^3.19.1",
+    "react": "^16.1.0",
+    "react-apollo": "^2.1.3",
+    "react-dom": "^16.1.0",
+    "react-loadable": "^5.3.1",
+    "react-router-dom": "^4.2.2",
+    "react-test-renderer": "^16.1.0",
+    "styled-components": "^3.0.2",
+    "yup": "^0.24.1"
+  },
+  "resolutions": {
+    "apollo-codegen/graphql-config": "2.0.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,json,graphql}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "start": "ENV_FILE=../.env react-scripts start",
+    "build": "ENV_FILE=../.env react-scripts build",
+    "lint": "tsc --noEmit && tslint -p .",
+    "test": "react-scripts test --env=jsdom",
+    "precommit": "lint-staged",
+    "graphql-types": "cd src && apollo-codegen generate **/*.tsx --target typescript --output graphqlTypes.ts"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "rootDir": "src",
+    "outDir": "build",
+    "lib": ["esnext"],
+    "noUnusedLocals": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    // Disabled because Prisma generated TypeScript code which is not compatible with this flag
+    // "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "alwaysStrict": true,
+    "suppressImplicitAnyIndexErrors": true
+  }
+}
