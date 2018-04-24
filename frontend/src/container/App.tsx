@@ -28,6 +28,7 @@ const LOGGED_IN_USER = gql`
       id
       email
       name
+      isSuper
     }
   }
 `;

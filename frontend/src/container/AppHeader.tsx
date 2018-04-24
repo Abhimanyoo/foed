@@ -9,20 +9,21 @@ import {
 } from '@volst/ui-components';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { getDisplayName } from '../utils/user';
+import { CurrentUser } from '../Props';
 
 const MyLogo = () => <Logo>Volst</Logo>;
 
 export interface Props extends RouteComponentProps<{}> {
-  user: any;
+  user: CurrentUser;
 }
 
 class MyAppHeader extends React.Component<Props> {
   render() {
-    if (!this.props.user) {
+    const { user } = this.props;
+    if (!user) {
       return null;
     }
 
-    const { user } = this.props;
     const accountTitle = `${getDisplayName(user)}`;
     const account = <NavItem title={accountTitle} to="/account/details" />;
 
@@ -31,7 +32,9 @@ class MyAppHeader extends React.Component<Props> {
         <MenuRow tone={Tone.Dark}>
           <MyLogo />
           <NavMenu>
-            <NavItem title="Users" to="/user" activePath="/user" />
+            {user.isSuper && (
+              <NavItem title="Users" to="/user" activePath="/user" />
+            )}
             <NavItem title="Restaurants" to="/restaurant" />
             <NavItem title="Organizations" to="/organization" />
           </NavMenu>

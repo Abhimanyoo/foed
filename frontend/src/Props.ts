@@ -7,6 +7,7 @@ export interface CurrentUser {
   id: string;
   email: string;
   name: string;
+  isSuper: boolean;
 }
 
 export type AddNotification = (notification: NotificationProps) => void;

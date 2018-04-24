@@ -69,7 +69,12 @@ export class Router extends React.Component<Props, object> {
   };
 
   redirectFromHome = () => {
-    return <Redirect to="/user" />;
+    const { currentUser } = this.props;
+    let path = '/restaurant';
+    if (currentUser.isSuper) {
+      path = '/user';
+    }
+    return <Redirect to={path} />;
   };
 
   render() {
