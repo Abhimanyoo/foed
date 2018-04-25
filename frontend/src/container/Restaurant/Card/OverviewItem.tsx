@@ -71,7 +71,7 @@ export class RestaurantCardOverviewItem extends React.Component<
         <TableData alignRight>
           <Mutation mutation={PROMOTE_CARD}>
             {mutate => (
-              <Tooltip message="Promote to active menu" direction="sw">
+              <Tooltip message="Promote to active menu" direction="bottomLeft">
                 <Button
                   ghost
                   tone={Tone.Success}

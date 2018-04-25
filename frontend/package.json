@@ -20,7 +20,7 @@
     "typescript-styled-plugin": "^0.6.0"
   },
   "dependencies": {
-    "@volst/ui-components": "^0.14.0",
+    "@volst/ui-components": "^0.15.1",
     "apollo-cache-inmemory": "^1.1.5",
     "apollo-client": "^2.2.0",
     "apollo-link": "^1.0.0",
