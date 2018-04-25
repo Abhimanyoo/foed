@@ -1,17 +1,11 @@
-# the name for the service (will be part of the service's HTTP endpoint)
-service: new-food-order
-
-# the cluster and stage the service is deployed to
-stage: ${env:PRISMA_STAGE}
-
-# to disable authentication:
-# disableAuth: true
+endpoint: ${env:PRISMA_ENDPOINT}
 secret: ${env:BACKEND_PRISMA_SECRET}
-
-# the file path pointing to your data model
 datamodel: datamodel.graphql
 
 seed:
   import: seed.graphql
 
-cluster: ${env:PRISMA_CLUSTER}
+hooks:
+  post-deploy:
+    - graphql get-schema --project prisma
+    - graphql prepare

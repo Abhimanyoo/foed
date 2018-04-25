@@ -2,66 +2,6 @@ import { Prisma as BasePrisma, BasePrismaOptions } from 'prisma-binding';
 import { GraphQLResolveInfo } from 'graphql';
 
 export const typeDefs = `
-type Card implements Node {
-  id: ID!
-  name: String!
-  restaurant(where: RestaurantWhereInput): Restaurant!
-  activeRestaurant(where: RestaurantWhereInput): Restaurant
-  categories(where: CardCategoryWhereInput, orderBy: CardCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardCategory!]
-}
-
-type CardCategory implements Node {
-  id: ID!
-  name: String!
-  ordering: Int!
-  description: String!
-}
-
-type CardItem implements Node {
-  id: ID!
-  name: String!
-  description: String!
-  ordering: Int!
-  price: Float!
-}
-
-type Employment implements Node {
-  id: ID!
-  user(where: UserWhereInput): User!
-  restaurant(where: RestaurantWhereInput): Restaurant!
-  permission: RestaurantPermission!
-}
-
-type Organization implements Node {
-  id: ID!
-  name: String!
-  slug: String!
-}
-
-type Restaurant implements Node {
-  id: ID!
-  organization(where: OrganizationWhereInput): Organization
-  name: String!
-  slug: String!
-  employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment!]
-  activeCard(where: CardWhereInput): Card
-  cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card!]
-}
-
-type User implements Node {
-  id: ID!
-  email: String!
-  password: String!
-  name: String!
-  inviteToken: String
-  inviteAccepted: Boolean!
-  resetToken: String
-  resetExpires: DateTime
-  deletedAt: DateTime
-  isSuper: Boolean!
-  employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment!]
-}
-
 type AggregateCard {
   count: Int!
 }
@@ -95,6 +35,21 @@ type BatchPayload {
   The number of nodes that have been affected by the Batch operation.
   """
   count: Long!
+}
+
+type Card implements Node {
+  id: ID!
+  name: String!
+  restaurant(where: RestaurantWhereInput): Restaurant!
+  activeRestaurant(where: RestaurantWhereInput): Restaurant
+  categories(where: CardCategoryWhereInput, orderBy: CardCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardCategory!]
+}
+
+type CardCategory implements Node {
+  id: ID!
+  name: String!
+  ordering: Int!
+  description: String!
 }
 
 """
@@ -176,6 +131,10 @@ input CardCategorySubscriptionWhereInput {
   """
   OR: [CardCategorySubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CardCategorySubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -235,6 +194,10 @@ input CardCategoryWhereInput {
   Logical OR on all given filters.
   """
   OR: [CardCategoryWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CardCategoryWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -487,6 +450,14 @@ type CardEdge {
   cursor: String!
 }
 
+type CardItem implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  ordering: Int!
+  price: Float!
+}
+
 """
 A connection to a list of items.
 """
@@ -565,6 +536,10 @@ input CardItemSubscriptionWhereInput {
   """
   OR: [CardItemSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CardItemSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -599,6 +574,10 @@ input CardItemWhereInput {
   Logical OR on all given filters.
   """
   OR: [CardItemWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CardItemWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -855,6 +834,10 @@ input CardSubscriptionWhereInput {
   """
   OR: [CardSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CardSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -935,6 +918,10 @@ input CardWhereInput {
   Logical OR on all given filters.
   """
   OR: [CardWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CardWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -1054,6 +1041,13 @@ input CardWhereUniqueInput {
 
 scalar DateTime
 
+type Employment implements Node {
+  id: ID!
+  user(where: UserWhereInput): User!
+  restaurant(where: RestaurantWhereInput): Restaurant!
+  permission: RestaurantPermission!
+}
+
 """
 A connection to a list of items.
 """
@@ -1142,6 +1136,10 @@ input EmploymentSubscriptionWhereInput {
   """
   OR: [EmploymentSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [EmploymentSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -1225,6 +1223,10 @@ input EmploymentWhereInput {
   Logical OR on all given filters.
   """
   OR: [EmploymentWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [EmploymentWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -1321,6 +1323,12 @@ interface Node {
   id: ID!
 }
 
+type Organization implements Node {
+  id: ID!
+  name: String!
+  slug: String!
+}
+
 """
 A connection to a list of items.
 """
@@ -1396,6 +1404,10 @@ input OrganizationSubscriptionWhereInput {
   """
   OR: [OrganizationSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [OrganizationSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -1447,6 +1459,10 @@ input OrganizationWhereInput {
   Logical OR on all given filters.
   """
   OR: [OrganizationWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [OrganizationWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -1635,6 +1651,16 @@ type PageInfo {
   endCursor: String
 }
 
+type Restaurant implements Node {
+  id: ID!
+  organization(where: OrganizationWhereInput): Organization
+  name: String!
+  slug: String!
+  employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment!]
+  activeCard(where: CardWhereInput): Card
+  cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card!]
+}
+
 """
 A connection to a list of items.
 """
@@ -1754,6 +1780,10 @@ input RestaurantSubscriptionWhereInput {
   """
   OR: [RestaurantSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [RestaurantSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -1854,6 +1884,10 @@ input RestaurantWhereInput {
   Logical OR on all given filters.
   """
   OR: [RestaurantWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [RestaurantWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -2028,6 +2062,20 @@ input RestaurantWhereUniqueInput {
   slug: String
 }
 
+type User implements Node {
+  id: ID!
+  email: String!
+  password: String!
+  name: String!
+  inviteToken: String
+  inviteAccepted: Boolean!
+  resetToken: String
+  resetExpires: DateTime
+  deletedAt: DateTime
+  isSuper: Boolean!
+  employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment!]
+}
+
 """
 A connection to a list of items.
 """
@@ -2144,6 +2192,10 @@ input UserSubscriptionWhereInput {
   """
   OR: [UserSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [UserSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -2209,6 +2261,10 @@ input UserWhereInput {
   Logical OR on all given filters.
   """
   OR: [UserWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [UserWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -2634,20 +2690,20 @@ type Mutation {
   upsertCard(where: CardWhereUniqueInput!, create: CardCreateInput!, update: CardUpdateInput!): Card!
   upsertCardCategory(where: CardCategoryWhereUniqueInput!, create: CardCategoryCreateInput!, update: CardCategoryUpdateInput!): CardCategory!
   upsertCardItem(where: CardItemWhereUniqueInput!, create: CardItemCreateInput!, update: CardItemUpdateInput!): CardItem!
-  updateManyOrganizations(data: OrganizationUpdateInput!, where: OrganizationWhereInput!): BatchPayload!
-  updateManyRestaurants(data: RestaurantUpdateInput!, where: RestaurantWhereInput!): BatchPayload!
-  updateManyEmployments(data: EmploymentUpdateInput!, where: EmploymentWhereInput!): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
-  updateManyCards(data: CardUpdateInput!, where: CardWhereInput!): BatchPayload!
-  updateManyCardCategories(data: CardCategoryUpdateInput!, where: CardCategoryWhereInput!): BatchPayload!
-  updateManyCardItems(data: CardItemUpdateInput!, where: CardItemWhereInput!): BatchPayload!
-  deleteManyOrganizations(where: OrganizationWhereInput!): BatchPayload!
-  deleteManyRestaurants(where: RestaurantWhereInput!): BatchPayload!
-  deleteManyEmployments(where: EmploymentWhereInput!): BatchPayload!
-  deleteManyUsers(where: UserWhereInput!): BatchPayload!
-  deleteManyCards(where: CardWhereInput!): BatchPayload!
-  deleteManyCardCategories(where: CardCategoryWhereInput!): BatchPayload!
-  deleteManyCardItems(where: CardItemWhereInput!): BatchPayload!
+  updateManyOrganizations(data: OrganizationUpdateInput!, where: OrganizationWhereInput): BatchPayload!
+  updateManyRestaurants(data: RestaurantUpdateInput!, where: RestaurantWhereInput): BatchPayload!
+  updateManyEmployments(data: EmploymentUpdateInput!, where: EmploymentWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyCards(data: CardUpdateInput!, where: CardWhereInput): BatchPayload!
+  updateManyCardCategories(data: CardCategoryUpdateInput!, where: CardCategoryWhereInput): BatchPayload!
+  updateManyCardItems(data: CardItemUpdateInput!, where: CardItemWhereInput): BatchPayload!
+  deleteManyOrganizations(where: OrganizationWhereInput): BatchPayload!
+  deleteManyRestaurants(where: RestaurantWhereInput): BatchPayload!
+  deleteManyEmployments(where: EmploymentWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyCards(where: CardWhereInput): BatchPayload!
+  deleteManyCardCategories(where: CardCategoryWhereInput): BatchPayload!
+  deleteManyCardItems(where: CardItemWhereInput): BatchPayload!
 }
 
 type Query {
@@ -2807,6 +2863,7 @@ export interface RestaurantCreateWithoutActiveCardInput {
 export interface OrganizationWhereInput {
   AND?: OrganizationWhereInput[] | OrganizationWhereInput;
   OR?: OrganizationWhereInput[] | OrganizationWhereInput;
+  NOT?: OrganizationWhereInput[] | OrganizationWhereInput;
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -2893,6 +2950,7 @@ export interface CardCategoryUpdateManyInput {
 export interface CardCategoryWhereInput {
   AND?: CardCategoryWhereInput[] | CardCategoryWhereInput;
   OR?: CardCategoryWhereInput[] | CardCategoryWhereInput;
+  NOT?: CardCategoryWhereInput[] | CardCategoryWhereInput;
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -2953,6 +3011,7 @@ export interface OrganizationCreateInput {
 export interface CardItemSubscriptionWhereInput {
   AND?: CardItemSubscriptionWhereInput[] | CardItemSubscriptionWhereInput;
   OR?: CardItemSubscriptionWhereInput[] | CardItemSubscriptionWhereInput;
+  NOT?: CardItemSubscriptionWhereInput[] | CardItemSubscriptionWhereInput;
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
@@ -2976,6 +3035,9 @@ export interface CardCategorySubscriptionWhereInput {
   OR?:
     | CardCategorySubscriptionWhereInput[]
     | CardCategorySubscriptionWhereInput;
+  NOT?:
+    | CardCategorySubscriptionWhereInput[]
+    | CardCategorySubscriptionWhereInput;
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
@@ -2991,6 +3053,7 @@ export interface OrganizationCreateOneInput {
 export interface UserSubscriptionWhereInput {
   AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
   OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
@@ -3008,6 +3071,7 @@ export interface EmploymentCreateManyWithoutRestaurantInput {
 export interface EmploymentSubscriptionWhereInput {
   AND?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
   OR?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
+  NOT?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
@@ -3023,6 +3087,7 @@ export interface EmploymentCreateWithoutRestaurantInput {
 export interface RestaurantSubscriptionWhereInput {
   AND?: RestaurantSubscriptionWhereInput[] | RestaurantSubscriptionWhereInput;
   OR?: RestaurantSubscriptionWhereInput[] | RestaurantSubscriptionWhereInput;
+  NOT?: RestaurantSubscriptionWhereInput[] | RestaurantSubscriptionWhereInput;
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
@@ -3040,6 +3105,9 @@ export interface OrganizationSubscriptionWhereInput {
     | OrganizationSubscriptionWhereInput[]
     | OrganizationSubscriptionWhereInput;
   OR?:
+    | OrganizationSubscriptionWhereInput[]
+    | OrganizationSubscriptionWhereInput;
+  NOT?:
     | OrganizationSubscriptionWhereInput[]
     | OrganizationSubscriptionWhereInput;
   mutation_in?: MutationType[] | MutationType;
@@ -3255,6 +3323,7 @@ export interface UserCreateInput {
 export interface UserWhereInput {
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
+  NOT?: UserWhereInput[] | UserWhereInput;
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -3375,6 +3444,7 @@ export interface RestaurantUpdateWithoutCardsDataInput {
 export interface CardSubscriptionWhereInput {
   AND?: CardSubscriptionWhereInput[] | CardSubscriptionWhereInput;
   OR?: CardSubscriptionWhereInput[] | CardSubscriptionWhereInput;
+  NOT?: CardSubscriptionWhereInput[] | CardSubscriptionWhereInput;
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
@@ -3475,6 +3545,7 @@ export interface OrganizationUpsertNestedInput {
 export interface CardWhereInput {
   AND?: CardWhereInput[] | CardWhereInput;
   OR?: CardWhereInput[] | CardWhereInput;
+  NOT?: CardWhereInput[] | CardWhereInput;
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -3528,6 +3599,7 @@ export interface EmploymentUpdateManyWithoutRestaurantInput {
 export interface RestaurantWhereInput {
   AND?: RestaurantWhereInput[] | RestaurantWhereInput;
   OR?: RestaurantWhereInput[] | RestaurantWhereInput;
+  NOT?: RestaurantWhereInput[] | RestaurantWhereInput;
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -3661,6 +3733,7 @@ export interface UserUpsertWithoutEmploymentsInput {
 export interface EmploymentWhereInput {
   AND?: EmploymentWhereInput[] | EmploymentWhereInput;
   OR?: EmploymentWhereInput[] | EmploymentWhereInput;
+  NOT?: EmploymentWhereInput[] | EmploymentWhereInput;
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -3712,6 +3785,7 @@ export interface CardWhereUniqueInput {
 export interface CardItemWhereInput {
   AND?: CardItemWhereInput[] | CardItemWhereInput;
   OR?: CardItemWhereInput[] | CardItemWhereInput;
+  NOT?: CardItemWhereInput[] | CardItemWhereInput;
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -4506,59 +4580,59 @@ export type Mutation = {
     info?: GraphQLResolveInfo | string
   ) => Promise<CardItem>;
   updateManyOrganizations: (
-    args: { data: OrganizationUpdateInput; where: OrganizationWhereInput },
+    args: { data: OrganizationUpdateInput; where?: OrganizationWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   updateManyRestaurants: (
-    args: { data: RestaurantUpdateInput; where: RestaurantWhereInput },
+    args: { data: RestaurantUpdateInput; where?: RestaurantWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   updateManyEmployments: (
-    args: { data: EmploymentUpdateInput; where: EmploymentWhereInput },
+    args: { data: EmploymentUpdateInput; where?: EmploymentWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   updateManyUsers: (
-    args: { data: UserUpdateInput; where: UserWhereInput },
+    args: { data: UserUpdateInput; where?: UserWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   updateManyCards: (
-    args: { data: CardUpdateInput; where: CardWhereInput },
+    args: { data: CardUpdateInput; where?: CardWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   updateManyCardCategories: (
-    args: { data: CardCategoryUpdateInput; where: CardCategoryWhereInput },
+    args: { data: CardCategoryUpdateInput; where?: CardCategoryWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   updateManyCardItems: (
-    args: { data: CardItemUpdateInput; where: CardItemWhereInput },
+    args: { data: CardItemUpdateInput; where?: CardItemWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   deleteManyOrganizations: (
-    args: { where: OrganizationWhereInput },
+    args: { where?: OrganizationWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   deleteManyRestaurants: (
-    args: { where: RestaurantWhereInput },
+    args: { where?: RestaurantWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   deleteManyEmployments: (
-    args: { where: EmploymentWhereInput },
+    args: { where?: EmploymentWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   deleteManyUsers: (
-    args: { where: UserWhereInput },
+    args: { where?: UserWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   deleteManyCards: (
-    args: { where: CardWhereInput },
+    args: { where?: CardWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   deleteManyCardCategories: (
-    args: { where: CardCategoryWhereInput },
+    args: { where?: CardCategoryWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
   deleteManyCardItems: (
-    args: { where: CardItemWhereInput },
+    args: { where?: CardItemWhereInput },
     info?: GraphQLResolveInfo | string
   ) => Promise<BatchPayload>;
 };
