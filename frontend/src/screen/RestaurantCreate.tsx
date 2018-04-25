@@ -33,8 +33,11 @@ export class RestaurantCreate extends React.Component<ScreenProps, {}> {
   handleSubmit = async (values: any, mutate, id?: string) => {
     try {
       const newValues = Object.assign({}, values);
+      // TODO: perhaps this can be a helper method for connecting relations
       if (newValues.organization) {
         newValues.organization = { connect: { id: newValues.organization } };
+      } else {
+        newValues.organization = undefined;
       }
       await mutate({
         variables: { data: newValues },

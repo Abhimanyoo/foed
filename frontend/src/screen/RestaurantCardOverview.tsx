@@ -21,6 +21,9 @@ const All_CARDS = gql`
     cards(first: $first, skip: $skip, where: $where) {
       id
       name
+      activeRestaurant {
+        id
+      }
     }
     cardsConnection(where: $where) {
       aggregate {
@@ -53,7 +56,12 @@ export class RestaurantCardOverview extends React.Component<ScreenProps, {}> {
                 </Link>
                 <OverviewTable
                   headings={['Name']}
-                  item={props => <RestaurantCardOverviewItem {...props} />}
+                  item={props => (
+                    <RestaurantCardOverviewItem
+                      {...props}
+                      restaurantId={restaurantId}
+                    />
+                  )}
                   data={data}
                   refetch={refetch}
                   name="cards"

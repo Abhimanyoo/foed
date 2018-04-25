@@ -20,7 +20,22 @@ const DELETE_CARD = gql`
   }
 `;
 
-export class RestaurantCardOverviewItem extends React.Component<ItemProps, {}> {
+const PROMOTE_CARD = gql`
+  mutation promoteCard($restaurantId: ID!, $data: RestaurantUpdateInput!) {
+    updateRestaurant(where: { id: $restaurantId }, data: $data) {
+      id
+    }
+  }
+`;
+
+interface MyItemProps extends ItemProps {
+  restaurantId: string;
+}
+
+export class RestaurantCardOverviewItem extends React.Component<
+  MyItemProps,
+  {}
+> {
   handleDelete = mutate => {
     const { model } = this.props;
     confirm({
@@ -35,17 +50,38 @@ export class RestaurantCardOverviewItem extends React.Component<ItemProps, {}> {
     });
   };
 
+  handlePromote = async mutate => {
+    const { model, restaurantId } = this.props;
+    await mutate({
+      variables: {
+        restaurantId,
+        data: {
+          activeCard: { connect: { id: model.id } },
+        },
+      },
+    });
+    this.props.refetch();
+  };
+
   render() {
     const { model } = this.props;
     return (
-      <TableRow>
+      <TableRow highlight={!!model.activeRestaurant}>
         <TableData>{model.name}</TableData>
         <TableData alignRight>
-          <Tooltip message="Promote to active menu" direction="sw">
-            <Button ghost tone={Tone.Success}>
-              <IconLoyalty />
-            </Button>
-          </Tooltip>
+          <Mutation mutation={PROMOTE_CARD}>
+            {mutate => (
+              <Tooltip message="Promote to active menu" direction="sw">
+                <Button
+                  ghost
+                  tone={Tone.Success}
+                  onClick={() => this.handlePromote(mutate)}
+                >
+                  <IconLoyalty />
+                </Button>
+              </Tooltip>
+            )}
+          </Mutation>{' '}
           <Mutation mutation={DELETE_CARD}>
             {mutate => (
               <Button
