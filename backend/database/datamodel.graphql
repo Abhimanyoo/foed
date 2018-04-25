@@ -57,6 +57,7 @@ type CardCategory {
   name: String!
   ordering: Int!
   description: String!
+  items: [CardItem!]! @relation(name: "CardCategoryToCardItem", onDelete: CASCADE)
 }
 
 type CardItem {

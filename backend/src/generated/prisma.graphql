@@ -1,5 +1,5 @@
 # source: http://localhost:4466/new-food-order/dev
-# timestamp: Wed Apr 25 2018 11:44:14 GMT+0200 (CEST)
+# timestamp: Wed Apr 25 2018 16:41:34 GMT+0200 (CEST)
 
 type AggregateCard {
   count: Int!
@@ -57,6 +57,15 @@ type CardCategory implements Node {
   name: String!
   ordering: Int!
   description: String!
+  items(
+    where: CardItemWhereInput
+    orderBy: CardItemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CardItem!]
 }
 
 """
@@ -79,6 +88,7 @@ input CardCategoryCreateInput {
   name: String!
   ordering: Int!
   description: String!
+  items: CardItemCreateManyInput
 }
 
 input CardCategoryCreateManyInput {
@@ -172,12 +182,14 @@ input CardCategoryUpdateDataInput {
   name: String
   ordering: Int
   description: String
+  items: CardItemUpdateManyInput
 }
 
 input CardCategoryUpdateInput {
   name: String
   ordering: Int
   description: String
+  items: CardItemUpdateManyInput
 }
 
 input CardCategoryUpdateManyInput {
@@ -449,6 +461,9 @@ input CardCategoryWhereInput {
   All values not ending with the given string.
   """
   description_not_ends_with: String
+  items_every: CardItemWhereInput
+  items_some: CardItemWhereInput
+  items_none: CardItemWhereInput
 }
 
 input CardCategoryWhereUniqueInput {
@@ -546,6 +561,11 @@ input CardItemCreateInput {
   price: Float!
 }
 
+input CardItemCreateManyInput {
+  create: [CardItemCreateInput!]
+  connect: [CardItemWhereUniqueInput!]
+}
+
 """
 An edge in a connection.
 """
@@ -631,11 +651,38 @@ input CardItemSubscriptionWhereInput {
   node: CardItemWhereInput
 }
 
+input CardItemUpdateDataInput {
+  name: String
+  description: String
+  ordering: Int
+  price: Float
+}
+
 input CardItemUpdateInput {
   name: String
   description: String
   ordering: Int
   price: Float
+}
+
+input CardItemUpdateManyInput {
+  create: [CardItemCreateInput!]
+  connect: [CardItemWhereUniqueInput!]
+  disconnect: [CardItemWhereUniqueInput!]
+  delete: [CardItemWhereUniqueInput!]
+  update: [CardItemUpdateWithWhereUniqueNestedInput!]
+  upsert: [CardItemUpsertWithWhereUniqueNestedInput!]
+}
+
+input CardItemUpdateWithWhereUniqueNestedInput {
+  where: CardItemWhereUniqueInput!
+  data: CardItemUpdateDataInput!
+}
+
+input CardItemUpsertWithWhereUniqueNestedInput {
+  where: CardItemWhereUniqueInput!
+  update: CardItemUpdateDataInput!
+  create: CardItemCreateInput!
 }
 
 input CardItemWhereInput {

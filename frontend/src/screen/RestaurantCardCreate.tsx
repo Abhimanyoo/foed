@@ -21,6 +21,11 @@ const CREATE_CARD = gql`
   }
 `;
 
+const INITIAL_VALUES = {
+  name: '',
+  categories: [],
+};
+
 export class RestaurantCardCreate extends React.Component<ScreenProps, {}> {
   handleSubmit = async (values: any, actions: FormikActions<any>, mutate) => {
     try {
@@ -61,16 +66,13 @@ export class RestaurantCardCreate extends React.Component<ScreenProps, {}> {
                       onSubmit={(values, actions) =>
                         this.handleSubmit(values, actions, mutate)
                       }
-                      initialValues={{
-                        name: '',
-                      }}
+                      initialValues={INITIAL_VALUES}
                     />
                   )}
                 </Mutation>
               </Col>
             </Row>
           </Content>
-          )}
         </ContentContainer>
       </Body>
     );
