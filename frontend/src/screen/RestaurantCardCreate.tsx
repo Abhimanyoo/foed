@@ -2,16 +2,11 @@ import * as React from 'react';
 import gql from 'graphql-tag';
 import { RestaurantCardCreateForm } from '../container/Restaurant/Card/CreateForm';
 import { ScreenProps } from '../Props';
-import {
-  Body,
-  ContentContainer,
-  Content,
-  Row,
-  Col,
-} from '@volst/ui-components';
+import { Body, ContentContainer, Content } from '@volst/ui-components';
 import { Mutation } from 'react-apollo';
 import { RestaurantTopMenu } from '../container/Restaurant/TopMenu';
 import { FormikActions } from 'formik';
+import { mutationFormat, connect, create } from '../utils/mutationFormat';
 
 const CREATE_CARD = gql`
   mutation createCard($data: CardCreateInput!) {
@@ -30,8 +25,13 @@ export class RestaurantCardCreate extends React.Component<ScreenProps, {}> {
   handleSubmit = async (values: any, actions: FormikActions<any>, mutate) => {
     try {
       const restaurantId = this.props.match.params.restaurantId;
-      const newValues = Object.assign({}, values);
-      newValues.restaurant = { connect: { id: restaurantId } };
+      values.restaurant = restaurantId;
+      const newValues = mutationFormat(values, {
+        restaurant: connect,
+        categories: {
+          __format: create,
+        },
+      });
       await mutate({
         variables: { data: newValues },
       });
@@ -58,20 +58,16 @@ export class RestaurantCardCreate extends React.Component<ScreenProps, {}> {
         <RestaurantTopMenu id={restaurantId} />
         <ContentContainer>
           <Content>
-            <Row>
-              <Col xs={12} sm={6} md={4}>
-                <Mutation mutation={CREATE_CARD}>
-                  {mutate => (
-                    <RestaurantCardCreateForm
-                      onSubmit={(values, actions) =>
-                        this.handleSubmit(values, actions, mutate)
-                      }
-                      initialValues={INITIAL_VALUES}
-                    />
-                  )}
-                </Mutation>
-              </Col>
-            </Row>
+            <Mutation mutation={CREATE_CARD}>
+              {mutate => (
+                <RestaurantCardCreateForm
+                  onSubmit={(values, actions) =>
+                    this.handleSubmit(values, actions, mutate)
+                  }
+                  initialValues={INITIAL_VALUES}
+                />
+              )}
+            </Mutation>
           </Content>
         </ContentContainer>
       </Body>

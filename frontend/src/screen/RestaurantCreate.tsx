@@ -11,6 +11,7 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { ScreenProps } from '../Props';
 import { RestaurantCreateForm } from '../container/Restaurant/CreateForm';
+import { mutationFormat, connect } from '../utils/mutationFormat';
 
 const CREATE_RESTAURANT = gql`
   mutation createRestaurant($data: RestaurantCreateInput!) {
@@ -32,13 +33,9 @@ const ALL_ORGANIZATIONS = gql`
 export class RestaurantCreate extends React.Component<ScreenProps, {}> {
   handleSubmit = async (values: any, mutate, id?: string) => {
     try {
-      const newValues = Object.assign({}, values);
-      // TODO: perhaps this can be a helper method for connecting relations
-      if (newValues.organization) {
-        newValues.organization = { connect: { id: newValues.organization } };
-      } else {
-        newValues.organization = undefined;
-      }
+      const newValues = mutationFormat(values, {
+        organization: connect,
+      });
       await mutate({
         variables: { data: newValues },
       });
