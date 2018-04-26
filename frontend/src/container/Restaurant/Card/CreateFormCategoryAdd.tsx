@@ -12,7 +12,9 @@ interface Props {
   onAdd: (category: object) => void;
 }
 
-const initialState = { input: { name: '', description: '', items: [] } };
+const initialState = {
+  input: { name: '', description: '', ordering: 0, items: [] },
+};
 
 export class CreateFormCategoryAdd extends React.Component<
   Props,

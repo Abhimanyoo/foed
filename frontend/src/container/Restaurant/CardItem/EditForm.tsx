@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { FormikProps } from '../../../component/Form';
-import { FormField, TextInput, NumberInput } from '@volst/ui-components';
+import {
+  FormField,
+  TextInput,
+  NumberInput,
+  TextArea,
+} from '@volst/ui-components';
 
 interface Props {
   form: FormikProps<any>;
@@ -21,6 +26,17 @@ export class RestaurantCardItemEditForm extends React.Component<Props, {}> {
             value={myValues.name}
             onChange={form.handleChange}
             onBlur={form.handleBlur}
+          />
+        </FormField>
+        <FormField label="Description" required>
+          <TextArea
+            name={`${prefix}.description`}
+            value={myValues.description}
+            onChange={form.handleChange}
+            onBlur={form.handleBlur}
+            autoSize
+            rows={2}
+            maxRows={10}
           />
         </FormField>
         <FormField label="Price" required>

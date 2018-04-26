@@ -7,6 +7,8 @@ import {
   TextInput,
   Heading,
   Subheading,
+  Row,
+  Col,
 } from '@volst/ui-components';
 import { FormikConfig } from 'formik';
 import { CreateFormCategoryList } from './CreateFormCategoryList';
@@ -32,21 +34,29 @@ export class RestaurantCardCreateForm extends Component<Props, {}> {
         render={form => (
           <div>
             <Heading>Step 1 – Name and categories</Heading>
-            <FormField label="Name" error={form.realErrors.name} required>
-              <TextInput
-                name="name"
-                value={form.values.name}
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                autoFocus
-              />
-            </FormField>
-            <CreateFormCategoryList form={form} />
+            <Row>
+              <Col xs={12} sm={5} md={3}>
+                <FormField label="Name" error={form.realErrors.name} required>
+                  <TextInput
+                    name="name"
+                    value={form.values.name}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                    autoFocus
+                  />
+                </FormField>
+                <CreateFormCategoryList form={form} />
+              </Col>
+            </Row>
             <Heading>Step 2 – Dishes</Heading>
             {form.values.categories.map((category, index) => (
               <div>
-                <Subheading>{category.name}</Subheading>
-                <CreateFormItemList form={form} categoryIndex={index} />
+                <Subheading underline>{category.name}</Subheading>
+                <Row>
+                  <Col xs={12} sm={5} md={3}>
+                    <CreateFormItemList form={form} categoryIndex={index} />
+                  </Col>
+                </Row>
               </div>
             ))}
             <ActionBar>

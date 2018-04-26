@@ -12,7 +12,9 @@ interface Props {
   onAdd: (item: object) => void;
 }
 
-const initialState = { input: { name: '', description: '', price: 0 } };
+const initialState = {
+  input: { name: '', description: '', price: 0, ordering: 0 },
+};
 
 export class CreateFormItemAdd extends React.Component<Props, { input: any }> {
   state = initialState;
