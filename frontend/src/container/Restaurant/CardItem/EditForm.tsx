@@ -28,7 +28,7 @@ export class RestaurantCardItemEditForm extends React.Component<Props, {}> {
             onBlur={form.handleBlur}
           />
         </FormField>
-        <FormField label="Description" required>
+        <FormField label="Description">
           <TextArea
             name={`${prefix}.description`}
             value={myValues.description}

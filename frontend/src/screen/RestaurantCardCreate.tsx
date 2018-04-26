@@ -7,6 +7,7 @@ import { Mutation } from 'react-apollo';
 import { RestaurantTopMenu } from '../container/Restaurant/TopMenu';
 import { FormikActions } from 'formik';
 import { mutationFormat, connect, create } from '../utils/mutationFormat';
+import { decimalToFloat } from '../utils/currency';
 
 const CREATE_CARD = gql`
   mutation createCard($data: CardCreateInput!) {
@@ -30,6 +31,10 @@ export class RestaurantCardCreate extends React.Component<ScreenProps, {}> {
         restaurant: connect,
         categories: {
           __format: create,
+          items: {
+            __format: create,
+            price: decimalToFloat,
+          },
         },
       });
       await mutate({
