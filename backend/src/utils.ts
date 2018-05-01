@@ -1,4 +1,10 @@
 import * as speakingurl from 'speakingurl';
+import { Prisma } from './generated/prisma';
+
+export interface Context {
+  db: Prisma;
+  request: any;
+}
 
 export async function generateSlug(
   name: string,

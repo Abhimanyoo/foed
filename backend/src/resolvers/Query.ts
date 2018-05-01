@@ -1,11 +1,7 @@
-import { getUserId, Context, forwardTo } from '../prisma-auth';
-import { generateSlug } from '../utils';
+import { getUserId, forwardTo } from '@volst/prisma-auth';
+import { Context, generateSlug } from '../utils';
 
 export const Query = {
-  currentUser(parent: any, args: any, ctx: Context, info: any) {
-    const id = getUserId(ctx);
-    return ctx.db.query.user({ where: { id } }, info);
-  },
   user: forwardTo({}),
   users: forwardTo({}),
   usersConnection: forwardTo({}),

@@ -1,4 +1,4 @@
-import { forwardTo } from '../prisma-auth';
+import { forwardTo } from '@volst/prisma-auth';
 
 export const Mutation = {
   createRestaurant: forwardTo({}),
