@@ -1,5 +1,5 @@
 # source: http://localhost:4466/new-food-order/dev
-# timestamp: Wed Apr 25 2018 16:41:34 GMT+0200 (CEST)
+# timestamp: Tue May 01 2018 16:10:50 GMT+0200 (CEST)
 
 type AggregateCard {
   count: Int!
@@ -10,6 +10,10 @@ type AggregateCardCategory {
 }
 
 type AggregateCardItem {
+  count: Int!
+}
+
+type AggregateCardSubitem {
   count: Int!
 }
 
@@ -536,6 +540,15 @@ type CardItem implements Node {
   description: String!
   ordering: Int!
   price: Float!
+  subitems(
+    where: CardSubitemWhereInput
+    orderBy: CardSubitemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CardSubitem!]
 }
 
 """
@@ -559,6 +572,7 @@ input CardItemCreateInput {
   description: String!
   ordering: Int!
   price: Float!
+  subitems: CardSubitemCreateManyInput
 }
 
 input CardItemCreateManyInput {
@@ -656,6 +670,7 @@ input CardItemUpdateDataInput {
   description: String
   ordering: Int
   price: Float
+  subitems: CardSubitemUpdateManyInput
 }
 
 input CardItemUpdateInput {
@@ -663,6 +678,7 @@ input CardItemUpdateInput {
   description: String
   ordering: Int
   price: Float
+  subitems: CardSubitemUpdateManyInput
 }
 
 input CardItemUpdateManyInput {
@@ -970,6 +986,9 @@ input CardItemWhereInput {
   All values greater than or equal the given value.
   """
   price_gte: Float
+  subitems_every: CardSubitemWhereInput
+  subitems_some: CardSubitemWhereInput
+  subitems_none: CardSubitemWhereInput
 }
 
 input CardItemWhereUniqueInput {
@@ -990,6 +1009,407 @@ enum CardOrderByInput {
 type CardPreviousValues {
   id: ID!
   name: String!
+}
+
+type CardSubitem implements Node {
+  id: ID!
+  type: CardSubitemTypes!
+  name: String!
+  ordering: Int!
+  price: Float!
+}
+
+"""
+A connection to a list of items.
+"""
+type CardSubitemConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [CardSubitemEdge]!
+  aggregate: AggregateCardSubitem!
+}
+
+input CardSubitemCreateInput {
+  type: CardSubitemTypes!
+  name: String!
+  ordering: Int!
+  price: Float!
+}
+
+input CardSubitemCreateManyInput {
+  create: [CardSubitemCreateInput!]
+  connect: [CardSubitemWhereUniqueInput!]
+}
+
+"""
+An edge in a connection.
+"""
+type CardSubitemEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: CardSubitem!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum CardSubitemOrderByInput {
+  id_ASC
+  id_DESC
+  type_ASC
+  type_DESC
+  name_ASC
+  name_DESC
+  ordering_ASC
+  ordering_DESC
+  price_ASC
+  price_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CardSubitemPreviousValues {
+  id: ID!
+  type: CardSubitemTypes!
+  name: String!
+  ordering: Int!
+  price: Float!
+}
+
+type CardSubitemSubscriptionPayload {
+  mutation: MutationType!
+  node: CardSubitem
+  updatedFields: [String!]
+  previousValues: CardSubitemPreviousValues
+}
+
+input CardSubitemSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [CardSubitemSubscriptionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [CardSubitemSubscriptionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CardSubitemSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CardSubitemWhereInput
+}
+
+enum CardSubitemTypes {
+  ADDITION
+  VARIANT
+}
+
+input CardSubitemUpdateDataInput {
+  type: CardSubitemTypes
+  name: String
+  ordering: Int
+  price: Float
+}
+
+input CardSubitemUpdateInput {
+  type: CardSubitemTypes
+  name: String
+  ordering: Int
+  price: Float
+}
+
+input CardSubitemUpdateManyInput {
+  create: [CardSubitemCreateInput!]
+  connect: [CardSubitemWhereUniqueInput!]
+  disconnect: [CardSubitemWhereUniqueInput!]
+  delete: [CardSubitemWhereUniqueInput!]
+  update: [CardSubitemUpdateWithWhereUniqueNestedInput!]
+  upsert: [CardSubitemUpsertWithWhereUniqueNestedInput!]
+}
+
+input CardSubitemUpdateWithWhereUniqueNestedInput {
+  where: CardSubitemWhereUniqueInput!
+  data: CardSubitemUpdateDataInput!
+}
+
+input CardSubitemUpsertWithWhereUniqueNestedInput {
+  where: CardSubitemWhereUniqueInput!
+  update: CardSubitemUpdateDataInput!
+  create: CardSubitemCreateInput!
+}
+
+input CardSubitemWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [CardSubitemWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [CardSubitemWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CardSubitemWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  type: CardSubitemTypes
+
+  """
+  All values that are not equal to given value.
+  """
+  type_not: CardSubitemTypes
+
+  """
+  All values that are contained in given list.
+  """
+  type_in: [CardSubitemTypes!]
+
+  """
+  All values that are not contained in given list.
+  """
+  type_not_in: [CardSubitemTypes!]
+  name: String
+
+  """
+  All values that are not equal to given value.
+  """
+  name_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  name_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  name_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  name_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  name_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  name_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  name_gte: String
+
+  """
+  All values containing the given string.
+  """
+  name_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  name_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  name_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  name_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  name_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  name_not_ends_with: String
+  ordering: Int
+
+  """
+  All values that are not equal to given value.
+  """
+  ordering_not: Int
+
+  """
+  All values that are contained in given list.
+  """
+  ordering_in: [Int!]
+
+  """
+  All values that are not contained in given list.
+  """
+  ordering_not_in: [Int!]
+
+  """
+  All values less than the given value.
+  """
+  ordering_lt: Int
+
+  """
+  All values less than or equal the given value.
+  """
+  ordering_lte: Int
+
+  """
+  All values greater than the given value.
+  """
+  ordering_gt: Int
+
+  """
+  All values greater than or equal the given value.
+  """
+  ordering_gte: Int
+  price: Float
+
+  """
+  All values that are not equal to given value.
+  """
+  price_not: Float
+
+  """
+  All values that are contained in given list.
+  """
+  price_in: [Float!]
+
+  """
+  All values that are not contained in given list.
+  """
+  price_not_in: [Float!]
+
+  """
+  All values less than the given value.
+  """
+  price_lt: Float
+
+  """
+  All values less than or equal the given value.
+  """
+  price_lte: Float
+
+  """
+  All values greater than the given value.
+  """
+  price_gt: Float
+
+  """
+  All values greater than or equal the given value.
+  """
+  price_gte: Float
+}
+
+input CardSubitemWhereUniqueInput {
+  id: ID
 }
 
 type CardSubscriptionPayload {
@@ -1550,6 +1970,7 @@ type Mutation {
   createCard(data: CardCreateInput!): Card!
   createCardCategory(data: CardCategoryCreateInput!): CardCategory!
   createCardItem(data: CardItemCreateInput!): CardItem!
+  createCardSubitem(data: CardSubitemCreateInput!): CardSubitem!
   updateOrganization(
     data: OrganizationUpdateInput!
     where: OrganizationWhereUniqueInput!
@@ -1572,6 +1993,10 @@ type Mutation {
     data: CardItemUpdateInput!
     where: CardItemWhereUniqueInput!
   ): CardItem
+  updateCardSubitem(
+    data: CardSubitemUpdateInput!
+    where: CardSubitemWhereUniqueInput!
+  ): CardSubitem
   deleteOrganization(where: OrganizationWhereUniqueInput!): Organization
   deleteRestaurant(where: RestaurantWhereUniqueInput!): Restaurant
   deleteEmployment(where: EmploymentWhereUniqueInput!): Employment
@@ -1579,6 +2004,7 @@ type Mutation {
   deleteCard(where: CardWhereUniqueInput!): Card
   deleteCardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
   deleteCardItem(where: CardItemWhereUniqueInput!): CardItem
+  deleteCardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
   upsertOrganization(
     where: OrganizationWhereUniqueInput!
     create: OrganizationCreateInput!
@@ -1614,6 +2040,11 @@ type Mutation {
     create: CardItemCreateInput!
     update: CardItemUpdateInput!
   ): CardItem!
+  upsertCardSubitem(
+    where: CardSubitemWhereUniqueInput!
+    create: CardSubitemCreateInput!
+    update: CardSubitemUpdateInput!
+  ): CardSubitem!
   updateManyOrganizations(
     data: OrganizationUpdateInput!
     where: OrganizationWhereInput
@@ -1636,6 +2067,10 @@ type Mutation {
     data: CardItemUpdateInput!
     where: CardItemWhereInput
   ): BatchPayload!
+  updateManyCardSubitems(
+    data: CardSubitemUpdateInput!
+    where: CardSubitemWhereInput
+  ): BatchPayload!
   deleteManyOrganizations(where: OrganizationWhereInput): BatchPayload!
   deleteManyRestaurants(where: RestaurantWhereInput): BatchPayload!
   deleteManyEmployments(where: EmploymentWhereInput): BatchPayload!
@@ -1643,6 +2078,7 @@ type Mutation {
   deleteManyCards(where: CardWhereInput): BatchPayload!
   deleteManyCardCategories(where: CardCategoryWhereInput): BatchPayload!
   deleteManyCardItems(where: CardItemWhereInput): BatchPayload!
+  deleteManyCardSubitems(where: CardSubitemWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -2105,6 +2541,15 @@ type Query {
     first: Int
     last: Int
   ): [CardItem]!
+  cardSubitems(
+    where: CardSubitemWhereInput
+    orderBy: CardSubitemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CardSubitem]!
   organization(where: OrganizationWhereUniqueInput!): Organization
   restaurant(where: RestaurantWhereUniqueInput!): Restaurant
   employment(where: EmploymentWhereUniqueInput!): Employment
@@ -2112,6 +2557,7 @@ type Query {
   card(where: CardWhereUniqueInput!): Card
   cardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
   cardItem(where: CardItemWhereUniqueInput!): CardItem
+  cardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
   organizationsConnection(
     where: OrganizationWhereInput
     orderBy: OrganizationOrderByInput
@@ -2175,6 +2621,15 @@ type Query {
     first: Int
     last: Int
   ): CardItemConnection!
+  cardSubitemsConnection(
+    where: CardSubitemWhereInput
+    orderBy: CardSubitemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): CardSubitemConnection!
 
   """
   Fetches an object given its ID
@@ -2679,6 +3134,9 @@ type Subscription {
     where: CardCategorySubscriptionWhereInput
   ): CardCategorySubscriptionPayload
   cardItem(where: CardItemSubscriptionWhereInput): CardItemSubscriptionPayload
+  cardSubitem(
+    where: CardSubitemSubscriptionWhereInput
+  ): CardSubitemSubscriptionPayload
 }
 
 type User implements Node {

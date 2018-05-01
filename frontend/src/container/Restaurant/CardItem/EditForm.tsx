@@ -5,7 +5,9 @@ import {
   TextInput,
   NumberInput,
   TextArea,
+  Subheading,
 } from '@volst/ui-components';
+import { CardItemEditFormSubitemTable } from './EditFormSubitemTable';
 
 interface Props {
   form: FormikProps<any>;
@@ -50,6 +52,20 @@ export class RestaurantCardItemEditForm extends React.Component<Props, {}> {
             decimalSymbol=","
           />
         </FormField>
+        <Subheading>Variants</Subheading>
+        <CardItemEditFormSubitemTable
+          form={form}
+          prefix={prefix}
+          item={myValues}
+          type="VARIANT"
+        />
+        <Subheading>Additions</Subheading>
+        <CardItemEditFormSubitemTable
+          form={form}
+          prefix={prefix}
+          item={myValues}
+          type="ADDITION"
+        />
       </div>
     );
   }

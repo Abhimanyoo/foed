@@ -4,6 +4,11 @@ enum RestaurantPermission {
   OWNER
 }
 
+enum CardSubitemTypes {
+  ADDITION
+  VARIANT
+}
+
 type Organization {
   id: ID! @unique
   name: String!
@@ -57,7 +62,8 @@ type CardCategory {
   name: String!
   ordering: Int!
   description: String!
-  items: [CardItem!]! @relation(name: "CardCategoryToCardItem", onDelete: CASCADE)
+  items: [CardItem!]!
+    @relation(name: "CardCategoryToCardItem", onDelete: CASCADE)
 }
 
 type CardItem {
@@ -66,6 +72,14 @@ type CardItem {
   description: String!
   ordering: Int!
   price: Float!
-  # TODO: add "additions" (i.e. pizza toppings)
-  # TODO: add "versions" (i.e. white bread, ...)
+  subitems: [CardSubitem!]!
+    @relation(name: "CardItemSubitems", onDelete: CASCADE)
+}
+
+type CardSubitem {
+  id: ID! @unique
+  type: CardSubitemTypes!
+  name: String!
+  ordering: Int!
+  price: Float!
 }

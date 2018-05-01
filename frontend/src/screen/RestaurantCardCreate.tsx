@@ -34,6 +34,10 @@ export class RestaurantCardCreate extends React.Component<ScreenProps, {}> {
           items: {
             __format: create,
             price: decimalToFloat,
+            subitems: {
+              __format: create,
+              price: decimalToFloat,
+            },
           },
         },
       });
