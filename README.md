@@ -19,7 +19,9 @@ Our app intends to fix that by allowing you to order from your phone, without in
 Copy `.env.example` to `.env` in the repository root, and paste the URL in the `REACT_APP_GRAPHQL_URL` variable.
 
 ```bash
-cd backend/
+cd backend/database
+docker-compose up -d
+cd ..
 yarn && yarn start
 ```
 
