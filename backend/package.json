@@ -22,7 +22,7 @@
     ]
   },
   "dependencies": {
-    "@volst/prisma-auth": "^0.1.0",
+    "@volst/prisma-auth": "^0.2.0",
     "email-templates": "^3.3.3",
     "graphql-yoga": "1.13.1",
     "nodemailer": "^4.4.2",

@@ -16,9 +16,6 @@ cache:
 before_install:
   - yarn global add now dotenv-filter-cli
 
-script:
-  npm run ci
-
 jobs:
   include:
     - stage: build

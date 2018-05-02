@@ -1,6 +1,29 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from 'prisma-binding';
 import * as resolvers from './resolvers';
+import { email } from './mailer';
+import { prismaAuthConfig } from '@volst/prisma-auth';
+
+const authOptions = {
+  mailer: email,
+  mailAppUrl: process.env.BACKEND_MAIL_APP_URL,
+  secret: process.env.BACKEND_APP_SECRET || '',
+  hookInviteUserPostCreate(data: any, ctx: any, user: any) {
+    const hasRestaurant =
+      !!user.employments &&
+      user.employments.some(e => e.restaurant.id === data.restaurantId);
+    if (hasRestaurant) {
+      throw new Error('User with email already exists in this restaurant');
+    }
+    return ctx.db.mutation.createEmployment({
+      data: {
+        permission: data.permission,
+        user: { connect: { id: user.id } },
+        restaurant: { connect: { id: data.restaurantId } },
+      },
+    });
+  },
+};
 
 const server = new GraphQLServer({
   typeDefs: 'src/schema.graphql',
@@ -12,10 +35,11 @@ const server = new GraphQLServer({
     ...req,
     db: new Prisma({
       typeDefs: 'src/generated/prisma.graphql',
-      endpoint: process.env.PRISMA_ENDPOINT, // the endpoint of the Prisma DB service (value is set in .env)
-      secret: process.env.BACKEND_PRISMA_SECRET, // taken from database/prisma.yml (value is set in .env)
-      debug: true, // log all GraphQL queries & mutations
+      endpoint: process.env.PRISMA_ENDPOINT,
+      secret: process.env.BACKEND_PRISMA_SECRET,
+      debug: true,
     }),
+    prismaAuth: prismaAuthConfig(authOptions),
   }),
 });
 

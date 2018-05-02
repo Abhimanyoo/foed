@@ -8,8 +8,8 @@ import { ScreenProps } from '../Props';
 import { RegisterForm } from '../container/Account/RegisterForm';
 
 const REGISTER_USER = gql`
-  mutation signup($email: String!, $name: String!, $password: String!) {
-    signup(email: $email, name: $name, password: $password) {
+  mutation signup(data: SignupInput!) {
+    signup(data: $data) {
       token
     }
   }
@@ -20,7 +20,7 @@ export class UserRegister extends React.Component<ScreenProps, {}> {
   handleSubmit = async (values, actions, mutate) => {
     try {
       const res = await mutate({
-        variables: values,
+        variables: { data: values },
       });
       const token = res.data.signup.token;
       localStorage.setItem('authToken', token);

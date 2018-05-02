@@ -135,12 +135,12 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.0.tgz#5a7306e367c539b9f6543499de8dd519fac37a8b"
 
 "@types/node@*":
-  version "8.10.11"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.11.tgz#971ea8cb91adbe0b74e3fbd867dec192d5893a5f"
+  version "10.0.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.3.tgz#1f89840c7aac2406cc43a2ecad98fc02a8e130e4"
 
 "@types/node@^9.4.6":
-  version "9.6.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.8.tgz#32e3d3ef9ea285caeec70a05ab157847920a3fe4"
+  version "9.6.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.9.tgz#1fa47c22fdc357a808535edd522b3d34facfa419"
 
 "@types/nodemailer-mailgun-transport@^1.3.3":
   version "1.3.3"
@@ -180,9 +180,9 @@
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.5.3.tgz#91b728599544efbb7386d8b6633693a3c2e7ade5"
 
-"@volst/prisma-auth@^0.1.0":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@volst/prisma-auth/-/prisma-auth-0.1.3.tgz#8af32460d021ac8c694e972f2cc4c03449f66e96"
+"@volst/prisma-auth@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@volst/prisma-auth/-/prisma-auth-0.2.0.tgz#c5641c01e9209ff132179e0fa3cbbc595c267dbe"
   dependencies:
     "@types/bcryptjs" "^2.4.1"
     "@types/jsonwebtoken" "^7.2.6"
@@ -421,8 +421,8 @@ apollo-upload-server@^5.0.0:
     object-path "^0.11.4"
 
 apollo-utilities@^1.0.0, apollo-utilities@^1.0.1:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.11.tgz#cd36bfa6e5c04eea2caf0c204a0f38a0ad550802"
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.12.tgz#9e2b2a34cf89f3bf0d73a664effd8c1bb5d1b7f7"
 
 app-root-path@^2.0.1:
   version "2.0.1"
@@ -602,8 +602,8 @@ aws-lambda@^0.1.2:
     dotenv "^0.4.0"
 
 aws-sdk@^*:
-  version "2.230.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.230.1.tgz#494cef6aed2e16db1ed9c12acf4bd2a7317f5365"
+  version "2.231.1"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.231.1.tgz#ff0a63f73c71b6b098389b926b857b13816bd5f9"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"

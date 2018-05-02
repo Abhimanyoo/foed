@@ -8,18 +8,8 @@ import { ScreenProps } from '../Props';
 import { RegisterInviteForm } from '../container/Account/RegisterInviteForm';
 
 const REGISTER_USER = gql`
-  mutation signupByInvite(
-    $email: String!
-    $name: String!
-    $password: String!
-    $inviteToken: String!
-  ) {
-    signupByInvite(
-      email: $email
-      name: $name
-      password: $password
-      inviteToken: $inviteToken
-    ) {
+  mutation signupByInvite(data: SignupByInviteInput!) {
+    signupByInvite(data: $data) {
       token
     }
   }
@@ -30,7 +20,7 @@ export class UserRegisterInvite extends React.Component<ScreenProps, {}> {
   handleSubmit = async (values, actions, mutate) => {
     try {
       const res = await mutate({
-        variables: values,
+        variables: { data: values },
       });
       const token = res.data.signupByInvite.token;
       localStorage.setItem('authToken', token);

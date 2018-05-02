@@ -3,7 +3,7 @@
 # import Employment, Query.employments, Query.employmentsConnection, Mutation.deleteEmployment from "./generated/prisma.graphql"
 # import Query.cards, Query.card, Query.cardsConnection, Mutation.createCard, Mutation.updateCard, Mutation.deleteCard from "./generated/prisma.graphql"
 # import Query.restaurants, Query.restaurant, Query.restaurantsConnection, Mutation.createRestaurant, Mutation.updateRestaurant, Mutation.deleteRestaurant from "./generated/prisma.graphql"
-# import Query.*, Mutation.signupByInvite, Mutation.signup, Mutation.login, Mutation.changePassword, Mutation.updateCurrentUser, Mutation.triggerPasswordReset, Mutation.passwordReset, InviteUserPayload from "../node_modules/@volst/prisma-auth/schema.graphql"
+# import Query.*, Mutation.signupByInvite, Mutation.signup, Mutation.login, Mutation.changePassword, Mutation.updateCurrentUser, Mutation.triggerPasswordReset, Mutation.passwordReset, UserIdPayload from "../node_modules/@volst/prisma-auth/schema.graphql"
 
 type Query {
   generateRestaurantSlug(name: String!): GenerateSlugPayload!
@@ -11,7 +11,7 @@ type Query {
 }
 
 type Mutation {
-  inviteUser(data: InviteUserInput): InviteUserPayload!
+  inviteUser(data: InviteUserInput): UserIdPayload!
 }
 
 input InviteUserInput {
