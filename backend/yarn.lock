@@ -180,9 +180,9 @@
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.5.3.tgz#91b728599544efbb7386d8b6633693a3c2e7ade5"
 
-"@volst/prisma-auth@^0.2.0":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@volst/prisma-auth/-/prisma-auth-0.2.1.tgz#14c8729cbd59f9747a54447d3fd2fb82a3963616"
+"@volst/prisma-auth@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@volst/prisma-auth/-/prisma-auth-0.3.0.tgz#ad42c07b6c66a7d22cb34f731238849e43490b32"
   dependencies:
     "@types/bcryptjs" "^2.4.1"
     "@types/jsonwebtoken" "^7.2.6"
