@@ -8,7 +8,7 @@ import { ScreenProps } from '../Props';
 import { RegisterForm } from '../container/Account/RegisterForm';
 
 const REGISTER_USER = gql`
-  mutation signup(data: SignupInput!) {
+  mutation signup($data: SignupInput!) {
     signup(data: $data) {
       token
     }

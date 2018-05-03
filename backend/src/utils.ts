@@ -1,9 +1,11 @@
 import * as speakingurl from 'speakingurl';
 import { Prisma } from './generated/prisma';
+import { IPrismaAuthConfig } from '@volst/prisma-auth/dist/src/Config';
 
 export interface Context {
   db: Prisma;
   request: any;
+  prismaAuth: IPrismaAuthConfig;
 }
 
 export async function generateSlug(
