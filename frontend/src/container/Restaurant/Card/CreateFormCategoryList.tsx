@@ -12,12 +12,65 @@ import {
   TableRow,
 } from '@volst/ui-components';
 import { CreateFormCategoryAdd } from './CreateFormCategoryAdd';
+import { DragHandle } from '../../../component/DragHandle';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 
 interface Props {
   form: FormikProps<any>;
 }
 
+interface SortableListProps {
+  items: any[];
+  onRemove: (index: number) => void;
+}
+
+const SortableList = SortableContainer(
+  ({ items, onRemove }: SortableListProps) => {
+    return (
+      <TableBody>
+        {items.map((category, index) => (
+          <SortableItem
+            key={`item-${index}`}
+            item={category}
+            index={index}
+            onRemove={onRemove}
+          />
+        ))}
+      </TableBody>
+    );
+  }
+);
+
+interface SortableItemProps {
+  item: any;
+  index: number;
+  onRemove: (index: number) => void;
+}
+
+const SortableItem = SortableElement(
+  ({ item, index, onRemove }: SortableItemProps) => (
+    <TableRow>
+      <TableData>
+        <DragHandle />
+        {item.name}
+      </TableData>
+      <TableData alignRight>
+        <Button ghost>
+          <IconEdit />
+        </Button>
+        <Button onClick={() => onRemove(index)} ghost tone={Tone.Danger}>
+          <IconDelete />
+        </Button>
+      </TableData>
+    </TableRow>
+  )
+);
+
 export class CreateFormCategoryList extends React.Component<Props, {}> {
+  handleSortEnd = ({ oldIndex, newIndex }, arrayHelpers) => {
+    arrayHelpers.move(oldIndex, newIndex);
+  };
+
   render() {
     const {
       form: { values },
@@ -30,25 +83,11 @@ export class CreateFormCategoryList extends React.Component<Props, {}> {
           <div>
             <CreateFormCategoryAdd onAdd={arrayHelpers.push} />
             <Table>
-              <TableBody>
-                {values.categories.map((category, index) => (
-                  <TableRow>
-                    <TableData>{category.name}</TableData>
-                    <TableData alignRight>
-                      <Button ghost>
-                        <IconEdit />
-                      </Button>
-                      <Button
-                        onClick={() => arrayHelpers.remove(index)}
-                        ghost
-                        tone={Tone.Danger}
-                      >
-                        <IconDelete />
-                      </Button>
-                    </TableData>
-                  </TableRow>
-                ))}
-              </TableBody>
+              <SortableList
+                items={values.categories}
+                onRemove={arrayHelpers.remove}
+                onSortEnd={swap => this.handleSortEnd(swap, arrayHelpers)}
+              />
             </Table>
           </div>
         )}
