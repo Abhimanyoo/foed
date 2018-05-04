@@ -1,4 +1,4 @@
-endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: ${env:BACKEND_PRISMA_ENDPOINT}
 secret: ${env:BACKEND_PRISMA_SECRET}
 datamodel: datamodel.graphql
 
