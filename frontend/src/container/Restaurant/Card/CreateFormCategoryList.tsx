@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { FormikProps } from '../../../component/Form';
 import { FieldArray } from 'formik';
-import { Button, Tone, IconDelete, IconEdit } from '@volst/ui-components';
-import { Table, TableRow, TableData } from '../../../component/FakeTable';
+import { Table } from '../../../component/FakeTable';
 import { CreateFormCategoryAdd } from './CreateFormCategoryAdd';
-import { DragHandle } from '../../../component/DragHandle';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import { CreateFormCategoryListRow } from './CreateFormCategoryListRow';
 
 interface Props {
   form: FormikProps<any>;
@@ -14,10 +13,11 @@ interface Props {
 interface SortableListProps {
   items: any[];
   onRemove: (index: number) => void;
+  form: FormikProps<any>;
 }
 
 const SortableList = SortableContainer(
-  ({ items, onRemove }: SortableListProps) => {
+  ({ items, form, onRemove }: SortableListProps) => {
     return (
       <Table>
         {items.map((category, index) => (
@@ -25,6 +25,8 @@ const SortableList = SortableContainer(
             key={`item-${index}`}
             item={category}
             index={index}
+            index2={index}
+            form={form}
             onRemove={onRemove}
           />
         ))}
@@ -35,34 +37,25 @@ const SortableList = SortableContainer(
 
 interface SortableItemProps {
   item: any;
-  index: number;
+  index2: number;
   onRemove: (index: number) => void;
+  form: FormikProps<any>;
 }
 
 const SortableItem = SortableElement(
-  ({ item, index, onRemove }: SortableItemProps) => (
-    <TableRow>
-      <TableData size={0}>
-        <DragHandle />
-      </TableData>
-      <TableData>{item.name}</TableData>
-      <TableData alignRight>
-        <Button ghost>
-          <IconEdit />
-        </Button>
-        <Button onClick={() => onRemove(index)} ghost tone={Tone.Danger}>
-          <IconDelete />
-        </Button>
-      </TableData>
-    </TableRow>
+  ({ item, index2, form, onRemove }: SortableItemProps) => (
+    <CreateFormCategoryListRow
+      category={item}
+      index={index2}
+      form={form}
+      onRemove={() => onRemove(index2)}
+    />
   )
 );
 
 export class CreateFormCategoryList extends React.Component<Props, {}> {
   render() {
-    const {
-      form: { values },
-    } = this.props;
+    const { form } = this.props;
 
     return (
       <FieldArray
@@ -71,8 +64,9 @@ export class CreateFormCategoryList extends React.Component<Props, {}> {
           <div>
             <CreateFormCategoryAdd onAdd={arrayHelpers.push} />
             <SortableList
-              items={values.categories}
+              items={form.values.categories}
               onRemove={arrayHelpers.remove}
+              form={form}
               onSortEnd={({ oldIndex, newIndex }) =>
                 arrayHelpers.move(oldIndex, newIndex)
               }

@@ -11,7 +11,7 @@ import {
   IconAddCircle,
 } from '@volst/ui-components';
 import { Table, TableRow, TableData } from '../../../component/FakeTable';
-import { DragHandle } from '../../../component/DragHandle';
+// import { DragHandle } from '../../../component/DragHandle';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { injectGlobal } from 'styled-components';
 
@@ -87,9 +87,6 @@ const SortableItem = SortableElement(
     if (item.type !== type) return <div />;
     return (
       <TableRow>
-        <TableData size={0}>
-          <DragHandle />
-        </TableData>
         <TableData>
           <FormField required noPadding>
             <TextInput
