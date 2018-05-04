@@ -40,9 +40,13 @@ type User {
   name: String!
   inviteToken: String
   inviteAccepted: Boolean! @default(value: "true")
+  emailConfirmed: Boolean! @default(value: "true")
+  emailConfirmToken: String
   resetToken: String
   resetExpires: DateTime
   deletedAt: DateTime
+  lastLogin: DateTime
+  joinedAt: DateTime!
   isSuper: Boolean! @default(value: "false")
   employments: [Employment!]!
     @relation(name: "EmploymentToUser", onDelete: CASCADE)

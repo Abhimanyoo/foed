@@ -2467,9 +2467,13 @@ type User implements Node {
   name: String!
   inviteToken: String
   inviteAccepted: Boolean!
+  emailConfirmed: Boolean!
+  emailConfirmToken: String
   resetToken: String
   resetExpires: DateTime
   deletedAt: DateTime
+  lastLogin: DateTime
+  joinedAt: DateTime!
   isSuper: Boolean!
   employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment!]
 }
@@ -2495,9 +2499,13 @@ input UserCreateInput {
   name: String!
   inviteToken: String
   inviteAccepted: Boolean
+  emailConfirmed: Boolean
+  emailConfirmToken: String
   resetToken: String
   resetExpires: DateTime
   deletedAt: DateTime
+  lastLogin: DateTime
+  joinedAt: DateTime!
   isSuper: Boolean
   employments: EmploymentCreateManyWithoutUserInput
 }
@@ -2513,9 +2521,13 @@ input UserCreateWithoutEmploymentsInput {
   name: String!
   inviteToken: String
   inviteAccepted: Boolean
+  emailConfirmed: Boolean
+  emailConfirmToken: String
   resetToken: String
   resetExpires: DateTime
   deletedAt: DateTime
+  lastLogin: DateTime
+  joinedAt: DateTime!
   isSuper: Boolean
 }
 
@@ -2546,12 +2558,20 @@ enum UserOrderByInput {
   inviteToken_DESC
   inviteAccepted_ASC
   inviteAccepted_DESC
+  emailConfirmed_ASC
+  emailConfirmed_DESC
+  emailConfirmToken_ASC
+  emailConfirmToken_DESC
   resetToken_ASC
   resetToken_DESC
   resetExpires_ASC
   resetExpires_DESC
   deletedAt_ASC
   deletedAt_DESC
+  lastLogin_ASC
+  lastLogin_DESC
+  joinedAt_ASC
+  joinedAt_DESC
   isSuper_ASC
   isSuper_DESC
   updatedAt_ASC
@@ -2567,9 +2587,13 @@ type UserPreviousValues {
   name: String!
   inviteToken: String
   inviteAccepted: Boolean!
+  emailConfirmed: Boolean!
+  emailConfirmToken: String
   resetToken: String
   resetExpires: DateTime
   deletedAt: DateTime
+  lastLogin: DateTime
+  joinedAt: DateTime!
   isSuper: Boolean!
 }
 
@@ -2618,9 +2642,13 @@ input UserUpdateInput {
   name: String
   inviteToken: String
   inviteAccepted: Boolean
+  emailConfirmed: Boolean
+  emailConfirmToken: String
   resetToken: String
   resetExpires: DateTime
   deletedAt: DateTime
+  lastLogin: DateTime
+  joinedAt: DateTime
   isSuper: Boolean
   employments: EmploymentUpdateManyWithoutUserInput
 }
@@ -2639,9 +2667,13 @@ input UserUpdateWithoutEmploymentsDataInput {
   name: String
   inviteToken: String
   inviteAccepted: Boolean
+  emailConfirmed: Boolean
+  emailConfirmToken: String
   resetToken: String
   resetExpires: DateTime
   deletedAt: DateTime
+  lastLogin: DateTime
+  joinedAt: DateTime
   isSuper: Boolean
 }
 
@@ -2933,6 +2965,64 @@ input UserWhereInput {
   All values that are not equal to given value.
   """
   inviteAccepted_not: Boolean
+  emailConfirmed: Boolean
+  """
+  All values that are not equal to given value.
+  """
+  emailConfirmed_not: Boolean
+  emailConfirmToken: String
+  """
+  All values that are not equal to given value.
+  """
+  emailConfirmToken_not: String
+  """
+  All values that are contained in given list.
+  """
+  emailConfirmToken_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  emailConfirmToken_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  emailConfirmToken_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  emailConfirmToken_lte: String
+  """
+  All values greater than the given value.
+  """
+  emailConfirmToken_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  emailConfirmToken_gte: String
+  """
+  All values containing the given string.
+  """
+  emailConfirmToken_contains: String
+  """
+  All values not containing the given string.
+  """
+  emailConfirmToken_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  emailConfirmToken_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  emailConfirmToken_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  emailConfirmToken_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  emailConfirmToken_not_ends_with: String
   resetToken: String
   """
   All values that are not equal to given value.
@@ -3044,6 +3134,64 @@ input UserWhereInput {
   All values greater than or equal the given value.
   """
   deletedAt_gte: DateTime
+  lastLogin: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  lastLogin_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  lastLogin_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  lastLogin_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  lastLogin_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  lastLogin_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  lastLogin_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  lastLogin_gte: DateTime
+  joinedAt: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  joinedAt_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  joinedAt_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  joinedAt_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  joinedAt_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  joinedAt_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  joinedAt_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  joinedAt_gte: DateTime
   isSuper: Boolean
   """
   All values that are not equal to given value.
@@ -3253,12 +3401,20 @@ export type UserOrderByInput =
   | 'inviteToken_DESC'
   | 'inviteAccepted_ASC'
   | 'inviteAccepted_DESC'
+  | 'emailConfirmed_ASC'
+  | 'emailConfirmed_DESC'
+  | 'emailConfirmToken_ASC'
+  | 'emailConfirmToken_DESC'
   | 'resetToken_ASC'
   | 'resetToken_DESC'
   | 'resetExpires_ASC'
   | 'resetExpires_DESC'
   | 'deletedAt_ASC'
   | 'deletedAt_DESC'
+  | 'lastLogin_ASC'
+  | 'lastLogin_DESC'
+  | 'joinedAt_ASC'
+  | 'joinedAt_DESC'
   | 'isSuper_ASC'
   | 'isSuper_DESC'
   | 'updatedAt_ASC'
@@ -3606,9 +3762,13 @@ export interface UserCreateWithoutEmploymentsInput {
   name: String;
   inviteToken?: String;
   inviteAccepted?: Boolean;
+  emailConfirmed?: Boolean;
+  emailConfirmToken?: String;
   resetToken?: String;
   resetExpires?: DateTime;
   deletedAt?: DateTime;
+  lastLogin?: DateTime;
+  joinedAt: DateTime;
   isSuper?: Boolean;
 }
 
@@ -3870,9 +4030,13 @@ export interface UserCreateInput {
   name: String;
   inviteToken?: String;
   inviteAccepted?: Boolean;
+  emailConfirmed?: Boolean;
+  emailConfirmToken?: String;
   resetToken?: String;
   resetExpires?: DateTime;
   deletedAt?: DateTime;
+  lastLogin?: DateTime;
+  joinedAt: DateTime;
   isSuper?: Boolean;
   employments?: EmploymentCreateManyWithoutUserInput;
 }
@@ -4160,9 +4324,13 @@ export interface UserUpdateWithoutEmploymentsDataInput {
   name?: String;
   inviteToken?: String;
   inviteAccepted?: Boolean;
+  emailConfirmed?: Boolean;
+  emailConfirmToken?: String;
   resetToken?: String;
   resetExpires?: DateTime;
   deletedAt?: DateTime;
+  lastLogin?: DateTime;
+  joinedAt?: DateTime;
   isSuper?: Boolean;
 }
 
@@ -4242,6 +4410,22 @@ export interface UserWhereInput {
   inviteToken_not_ends_with?: String;
   inviteAccepted?: Boolean;
   inviteAccepted_not?: Boolean;
+  emailConfirmed?: Boolean;
+  emailConfirmed_not?: Boolean;
+  emailConfirmToken?: String;
+  emailConfirmToken_not?: String;
+  emailConfirmToken_in?: String[] | String;
+  emailConfirmToken_not_in?: String[] | String;
+  emailConfirmToken_lt?: String;
+  emailConfirmToken_lte?: String;
+  emailConfirmToken_gt?: String;
+  emailConfirmToken_gte?: String;
+  emailConfirmToken_contains?: String;
+  emailConfirmToken_not_contains?: String;
+  emailConfirmToken_starts_with?: String;
+  emailConfirmToken_not_starts_with?: String;
+  emailConfirmToken_ends_with?: String;
+  emailConfirmToken_not_ends_with?: String;
   resetToken?: String;
   resetToken_not?: String;
   resetToken_in?: String[] | String;
@@ -4272,6 +4456,22 @@ export interface UserWhereInput {
   deletedAt_lte?: DateTime;
   deletedAt_gt?: DateTime;
   deletedAt_gte?: DateTime;
+  lastLogin?: DateTime;
+  lastLogin_not?: DateTime;
+  lastLogin_in?: DateTime[] | DateTime;
+  lastLogin_not_in?: DateTime[] | DateTime;
+  lastLogin_lt?: DateTime;
+  lastLogin_lte?: DateTime;
+  lastLogin_gt?: DateTime;
+  lastLogin_gte?: DateTime;
+  joinedAt?: DateTime;
+  joinedAt_not?: DateTime;
+  joinedAt_in?: DateTime[] | DateTime;
+  joinedAt_not_in?: DateTime[] | DateTime;
+  joinedAt_lt?: DateTime;
+  joinedAt_lte?: DateTime;
+  joinedAt_gt?: DateTime;
+  joinedAt_gte?: DateTime;
   isSuper?: Boolean;
   isSuper_not?: Boolean;
   employments_every?: EmploymentWhereInput;
@@ -4411,9 +4611,13 @@ export interface UserUpdateInput {
   name?: String;
   inviteToken?: String;
   inviteAccepted?: Boolean;
+  emailConfirmed?: Boolean;
+  emailConfirmToken?: String;
   resetToken?: String;
   resetExpires?: DateTime;
   deletedAt?: DateTime;
+  lastLogin?: DateTime;
+  joinedAt?: DateTime;
   isSuper?: Boolean;
   employments?: EmploymentUpdateManyWithoutUserInput;
 }
@@ -4574,9 +4778,13 @@ export interface User extends Node {
   name: String;
   inviteToken?: String;
   inviteAccepted: Boolean;
+  emailConfirmed: Boolean;
+  emailConfirmToken?: String;
   resetToken?: String;
   resetExpires?: DateTime;
   deletedAt?: DateTime;
+  lastLogin?: DateTime;
+  joinedAt: DateTime;
   isSuper: Boolean;
   employments?: Employment[];
 }
@@ -4739,9 +4947,13 @@ export interface UserPreviousValues {
   name: String;
   inviteToken?: String;
   inviteAccepted: Boolean;
+  emailConfirmed: Boolean;
+  emailConfirmToken?: String;
   resetToken?: String;
   resetExpires?: DateTime;
   deletedAt?: DateTime;
+  lastLogin?: DateTime;
+  joinedAt: DateTime;
   isSuper: Boolean;
 }
 

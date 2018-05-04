@@ -25,9 +25,11 @@ type User {
   id: ID!
   email: String!
   name: String!
-  # For the record, I do not like this name but at least it is clear.
   inviteAccepted: Boolean!
+  emailConfirmed: Boolean!
   deletedAt: DateTime
+  lastLogin: DateTime
+  joinedAt: DateTime!
   isSuper: Boolean!
   employments(
     where: EmploymentWhereInput
