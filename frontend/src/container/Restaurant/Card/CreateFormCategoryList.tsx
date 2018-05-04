@@ -1,16 +1,8 @@
 import * as React from 'react';
 import { FormikProps } from '../../../component/Form';
 import { FieldArray } from 'formik';
-import {
-  Button,
-  Tone,
-  IconDelete,
-  IconEdit,
-  TableData,
-  TableBody,
-  Table,
-  TableRow,
-} from '@volst/ui-components';
+import { Button, Tone, IconDelete, IconEdit } from '@volst/ui-components';
+import { Table, TableRow, TableData } from '../../../component/FakeTable';
 import { CreateFormCategoryAdd } from './CreateFormCategoryAdd';
 import { DragHandle } from '../../../component/DragHandle';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
@@ -27,7 +19,7 @@ interface SortableListProps {
 const SortableList = SortableContainer(
   ({ items, onRemove }: SortableListProps) => {
     return (
-      <TableBody>
+      <Table>
         {items.map((category, index) => (
           <SortableItem
             key={`item-${index}`}
@@ -36,7 +28,7 @@ const SortableList = SortableContainer(
             onRemove={onRemove}
           />
         ))}
-      </TableBody>
+      </Table>
     );
   }
 );
@@ -50,10 +42,10 @@ interface SortableItemProps {
 const SortableItem = SortableElement(
   ({ item, index, onRemove }: SortableItemProps) => (
     <TableRow>
-      <TableData>
+      <TableData size={0}>
         <DragHandle />
-        {item.name}
       </TableData>
+      <TableData>{item.name}</TableData>
       <TableData alignRight>
         <Button ghost>
           <IconEdit />
@@ -67,10 +59,6 @@ const SortableItem = SortableElement(
 );
 
 export class CreateFormCategoryList extends React.Component<Props, {}> {
-  handleSortEnd = ({ oldIndex, newIndex }, arrayHelpers) => {
-    arrayHelpers.move(oldIndex, newIndex);
-  };
-
   render() {
     const {
       form: { values },
@@ -82,13 +70,14 @@ export class CreateFormCategoryList extends React.Component<Props, {}> {
         render={arrayHelpers => (
           <div>
             <CreateFormCategoryAdd onAdd={arrayHelpers.push} />
-            <Table>
-              <SortableList
-                items={values.categories}
-                onRemove={arrayHelpers.remove}
-                onSortEnd={swap => this.handleSortEnd(swap, arrayHelpers)}
-              />
-            </Table>
+            <SortableList
+              items={values.categories}
+              onRemove={arrayHelpers.remove}
+              onSortEnd={({ oldIndex, newIndex }) =>
+                arrayHelpers.move(oldIndex, newIndex)
+              }
+              useDragHandle
+            />
           </div>
         )}
       />

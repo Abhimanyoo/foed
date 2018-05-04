@@ -27,7 +27,7 @@ interface Props {
 export class CardItemEditFormSubitemTable extends React.Component<Props, {}> {
   render() {
     const { form, prefix, item, type } = this.props;
-    const initialSubitemState = { name: '', price: 0, ordering: 0, type };
+    const initialSubitemState = { name: '', price: '', ordering: 0, type };
     return (
       <FieldArray
         name={`${prefix}.subitems`}
