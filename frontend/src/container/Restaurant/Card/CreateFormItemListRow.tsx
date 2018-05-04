@@ -3,7 +3,7 @@ import { FormikProps } from '../../../component/Form';
 import { Button, Tone, IconDelete, IconEdit } from '@volst/ui-components';
 import { TableRow, TableData } from '../../../component/FakeTable';
 import { ModalCardItemEdit } from '../../../screen/ModalCardItemEdit';
-import { DragHandle } from '../../../component/DragHandle';
+// import { DragHandle } from '../../../component/DragHandle';
 
 interface Props {
   categoryIndex: number;
@@ -20,12 +20,8 @@ export class CreateFormItemListRow extends React.Component<
   state = { showEdit: false };
   render() {
     const { item } = this.props;
-    console.log('ff', this.props);
     return (
       <TableRow>
-        <TableData size={0}>
-          <DragHandle />
-        </TableData>
         <TableData>{item.name}</TableData>
         <TableData alignRight>
           <Button ghost onClick={() => this.setState({ showEdit: true })}>

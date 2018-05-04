@@ -19,6 +19,7 @@ export const TableRow = styled.div`
 interface TableDataProps {
   alignRight?: boolean;
   size?: number;
+  header?: boolean;
 }
 
 export const TableData = styled.div`
@@ -27,4 +28,5 @@ export const TableData = styled.div`
   font-size: 14px;
   text-align: ${(props: TableDataProps) =>
     props.alignRight ? 'right' : 'left'};
+  font-weight: ${props => (props.header ? 'bold' : 'normal')};
 `;
