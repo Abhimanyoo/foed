@@ -4,6 +4,7 @@ mutation {
       email: "info@volst.nl"
       password: "$2a$10$hACwQ5/HQI6FhbIISOUVeusy3sKyUDhSq36fF5d/54aAdiygJPFzm" # plaintext password: "nooneknows"
       name: "Henk"
+      joinedAt: "2018-05-05T15:01:53+00:00"
     }
   ) {
     id
