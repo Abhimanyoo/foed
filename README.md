@@ -13,10 +13,11 @@ Our app intends to fix that by allowing you to order from your phone, without in
 - [Docker](https://docs.docker.com/docker-for-mac/install/)
 - Node.js v8+
 - [Yarn](https://yarnpkg.com/en/)
+- macOS or Linux
 
 ## Install
 
-Copy `.env.example` to `.env` in the repository root, and paste the URL in the `REACT_APP_GRAPHQL_URL` variable.
+Copy `.env.example` to `.env` in the repository root;
 
 ```bash
 cd backend/database
