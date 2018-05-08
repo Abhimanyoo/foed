@@ -11,7 +11,7 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { ScreenProps } from '../Props';
 import { RestaurantCreateForm } from '../container/Restaurant/CreateForm';
-import { mutationFormat, connect } from '../utils/mutationFormat';
+import { parseFormToMutation, connect } from '@volst/graphql-form-helpers';
 
 const CREATE_RESTAURANT = gql`
   mutation createRestaurant($data: RestaurantCreateInput!) {
@@ -33,7 +33,7 @@ const ALL_ORGANIZATIONS = gql`
 export class RestaurantCreate extends React.Component<ScreenProps, {}> {
   handleSubmit = async (values: any, mutate, id?: string) => {
     try {
-      const newValues = mutationFormat(values, {
+      const newValues = parseFormToMutation(values, {
         organization: connect,
       });
       await mutate({

@@ -6,10 +6,14 @@ import { Body, ContentContainer, Content } from '@volst/ui-components';
 import { Mutation } from 'react-apollo';
 import { RestaurantTopMenu } from '../container/Restaurant/TopMenu';
 import { FormikActions } from 'formik';
-import { mutationFormat, connect, save } from '../utils/mutationFormat';
+import {
+  parseQueryToForm,
+  parseFormToMutation,
+  connect,
+  save,
+} from '@volst/graphql-form-helpers';
 import { decimalToFloat } from '../utils/currency';
 import { Query } from '../component/Query';
-import { parseQueryResultsToForm } from '../utils/mutation';
 
 const EDIT_CARD = gql`
   mutation updateCard($id: ID!, $data: CardUpdateInput!) {
@@ -73,7 +77,7 @@ export class RestaurantCardEdit extends React.Component<ScreenProps, {}> {
     try {
       const restaurantId = this.props.match.params.restaurantId;
       values.restaurant = restaurantId;
-      const newValues = mutationFormat(values, SCHEME);
+      const newValues = parseFormToMutation(values, SCHEME);
       await mutate({
         variables: { id, data: newValues },
       });
@@ -110,7 +114,7 @@ export class RestaurantCardEdit extends React.Component<ScreenProps, {}> {
                       onSubmit={(values, actions) =>
                         this.handleSubmit(values, actions, mutate, id)
                       }
-                      initialValues={parseQueryResultsToForm(data.card, {})}
+                      initialValues={parseQueryToForm(data.card, {})}
                     />
                   )}
                 </Mutation>

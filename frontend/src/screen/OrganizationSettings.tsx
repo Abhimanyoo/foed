@@ -10,7 +10,7 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { ScreenProps } from '../Props';
 import { OrganizationSettingsForm } from '../container/Organization/SettingsForm';
-import { parseQueryResultsToForm } from '../utils/mutation';
+import { parseQueryToForm } from '@volst/graphql-form-helpers';
 import { OrganizationTopMenu } from '../container/Organization/TopMenu';
 
 const UPDATE_ORGANIZATION = gql`
@@ -65,10 +65,9 @@ export class OrganizationSettings extends React.Component<ScreenProps, {}> {
                           onSubmit={values =>
                             this.handleSubmit(values, mutate, id)
                           }
-                          initialValues={parseQueryResultsToForm(
-                            data.organization,
-                            { name: '' }
-                          )}
+                          initialValues={parseQueryToForm(data.organization, {
+                            name: '',
+                          })}
                         />
                       )}
                     </Mutation>

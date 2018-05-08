@@ -10,7 +10,7 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { ScreenProps } from '../Props';
 import { RestaurantSettingsForm } from '../container/Restaurant/SettingsForm';
-import { parseQueryResultsToForm } from '../utils/mutation';
+import { parseQueryToForm } from '@volst/graphql-form-helpers';
 import { RestaurantTopMenu } from '../container/Restaurant/TopMenu';
 
 const UPDATE_RESTAURANT = gql`
@@ -65,10 +65,9 @@ export class RestaurantSettings extends React.Component<ScreenProps, {}> {
                           onSubmit={values =>
                             this.handleSubmit(values, mutate, id)
                           }
-                          initialValues={parseQueryResultsToForm(
-                            data.restaurant,
-                            { name: '' }
-                          )}
+                          initialValues={parseQueryToForm(data.restaurant, {
+                            name: '',
+                          })}
                         />
                       )}
                     </Mutation>
