@@ -42,6 +42,9 @@ const RestaurantCardOverview = Loadable(() =>
 const RestaurantCardCreate = Loadable(() =>
   import('../screen/RestaurantCardCreate').then(m => m.RestaurantCardCreate)
 );
+const RestaurantCardEdit = Loadable(() =>
+  import('../screen/RestaurantCardEdit').then(m => m.RestaurantCardEdit)
+);
 const OrganizationOverview = Loadable(() =>
   import('../screen/OrganizationOverview').then(m => m.OrganizationOverview)
 );
@@ -152,6 +155,11 @@ export class Router extends React.Component<Props, object> {
           path="/restaurant/:restaurantId/card/add"
           exact
           render={this.route(RestaurantCardCreate)}
+        />
+        <Route
+          path="/restaurant/:restaurantId/card/:id/edit"
+          exact
+          render={this.route(RestaurantCardEdit)}
         />
         <Route
           path="/organization/:id"

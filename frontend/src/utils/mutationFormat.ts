@@ -69,3 +69,29 @@ export function create(values?: object) {
   }
   return undefined;
 }
+
+// We don't call it `upsert`, because Prisma has a mutation named that way and we don't want to imply it is that.
+export function save(values?: any[]) {
+  if (values) {
+    const creates: any[] = [];
+    const updates: any[] = [];
+    values.forEach(value => {
+      const id = value.id;
+      delete value.id;
+      if (id) {
+        updates.push({ where: { id }, data: value });
+      } else {
+        creates.push(value);
+      }
+    });
+    const output: { create?: any; update?: any } = {};
+    if (creates.length > 0) {
+      output.create = creates;
+    }
+    if (updates.length > 0) {
+      output.update = updates;
+    }
+    return output;
+  }
+  return undefined;
+}

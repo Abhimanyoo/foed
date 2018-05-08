@@ -27,7 +27,7 @@ export class CreateFormItemListRow extends React.Component<
         </TableData>
         <TableData>{item.name}</TableData>
         <TableData alignRight>
-          <Button ghost>
+          <Button ghost onClick={() => this.setState({ showEdit: true })}>
             <IconEdit />
           </Button>
           <Button onClick={this.props.onRemove} ghost tone={Tone.Danger}>

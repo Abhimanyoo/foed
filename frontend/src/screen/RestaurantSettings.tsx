@@ -31,7 +31,7 @@ const RESTAURANT = gql`
 `;
 
 export class RestaurantSettings extends React.Component<ScreenProps, {}> {
-  handleSubmit = async (values: object, mutate, id?: string) => {
+  handleSubmit = async (values: object, mutate, id: string) => {
     try {
       await mutate({
         variables: { id, data: values },

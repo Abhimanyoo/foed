@@ -6,6 +6,8 @@ import {
   IconLoyalty,
   Tooltip,
   confirm,
+  Link,
+  IconEdit,
 } from '@volst/ui-components';
 import { TableRow, TableData } from '@volst/ui-components';
 import { Mutation } from 'react-apollo';
@@ -64,11 +66,14 @@ export class RestaurantCardOverviewItem extends React.Component<
   };
 
   render() {
-    const { model } = this.props;
+    const { model, restaurantId } = this.props;
     return (
       <TableRow highlight={!!model.activeRestaurant}>
         <TableData>{model.name}</TableData>
         <TableData alignRight>
+          <Link to={`/restaurant/${restaurantId}/card/${model.id}/edit`} ghost>
+            <IconEdit />
+          </Link>
           <Mutation mutation={PROMOTE_CARD}>
             {mutate => (
               <Tooltip message="Promote to active menu" direction="bottomLeft">

@@ -22,25 +22,27 @@ const INITIAL_VALUES = {
   categories: [],
 };
 
+const SCHEME = {
+  restaurant: connect,
+  categories: {
+    __format: create,
+    items: {
+      __format: create,
+      price: decimalToFloat,
+      subitems: {
+        __format: create,
+        price: decimalToFloat,
+      },
+    },
+  },
+};
+
 export class RestaurantCardCreate extends React.Component<ScreenProps, {}> {
   handleSubmit = async (values: any, actions: FormikActions<any>, mutate) => {
     try {
       const restaurantId = this.props.match.params.restaurantId;
       values.restaurant = restaurantId;
-      const newValues = mutationFormat(values, {
-        restaurant: connect,
-        categories: {
-          __format: create,
-          items: {
-            __format: create,
-            price: decimalToFloat,
-            subitems: {
-              __format: create,
-              price: decimalToFloat,
-            },
-          },
-        },
-      });
+      const newValues = mutationFormat(values, SCHEME);
       await mutate({
         variables: { data: newValues },
       });
