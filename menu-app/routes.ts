@@ -5,6 +5,6 @@
 
 import nextRoutes from '@volst/next-routes';
 const myRoutes = nextRoutes({});
-myRoutes.add('organization', '/organization/:id');
+myRoutes.add('organization', '/organization/:slug');
 
 export default myRoutes;

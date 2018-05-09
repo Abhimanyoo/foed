@@ -10,7 +10,7 @@ export class OrganizationListItem extends React.Component<Props, {}> {
     const { organization } = this.props;
     return (
       <div>
-        <R.Link route={`/organization/${organization.id}`}>
+        <R.Link route={`/organization/${organization.slug}`}>
           <a>{organization.name}</a>
         </R.Link>
       </div>

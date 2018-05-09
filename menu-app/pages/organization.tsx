@@ -3,18 +3,18 @@ import { withApollo } from '../withApollo';
 import { Page } from '../component/Page';
 
 interface Props {
-  id: string;
+  slug: string;
 }
 
 class Organization extends React.Component<Props, {}> {
-  static getInitialProps({ query: { id } }) {
-    return { id };
+  static getInitialProps({ query: { slug } }) {
+    return { slug };
   }
 
   render() {
     return (
       <Page>
-        <h1>Organization {this.props.id}</h1>
+        <h1>Organization {this.props.slug}</h1>
       </Page>
     );
   }

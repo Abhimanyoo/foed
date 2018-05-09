@@ -7,7 +7,7 @@ import { OrganizationListItem } from '../container/OrganizationList/ListItem';
 const ALL_ORGANIZATIONS = gql`
   query allOrganizationNames {
     organizations {
-      id
+      slug
       name
     }
   }
@@ -20,7 +20,7 @@ const Index = withApollo(() => (
         return (
           <div>
             {result.data.organizations.map(org => (
-              <OrganizationListItem key={org.id} organization={org} />
+              <OrganizationListItem key={org.slug} organization={org} />
             ))}
           </div>
         );
@@ -28,7 +28,5 @@ const Index = withApollo(() => (
     </Query>
   </Page>
 ));
-
-console.log('ff', Index);
 
 export default Index;
