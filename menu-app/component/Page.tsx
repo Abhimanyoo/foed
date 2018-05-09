@@ -9,6 +9,7 @@ export const Page = ({ children }) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
+        <link rel="manifest" href="/static/manifest.json" />
       </Head>
       <style jsx global>{`
         body {

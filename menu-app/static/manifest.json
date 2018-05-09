@@ -1,0 +1,9 @@
+{
+  "name": "New Food Order",
+  "short_name": "New Food Order",
+  "background_color": "#ffffff",
+  "theme_color": "#40987a",
+  "description": "Order food from your phone.",
+  "display": "standalone",
+  "start_url": "."
+}
