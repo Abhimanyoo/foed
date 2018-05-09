@@ -57,7 +57,7 @@ export class RestaurantUserInviteForm extends React.Component<Props, {}> {
           <div>
             <Text>
               After inviting, an email will be sent wherein the user will be
-              asked to register for New Food Order.
+              asked to register for Foed.
             </Text>
             <FormField label="Email" error={realErrors.email} required>
               <TextInput

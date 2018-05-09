@@ -35,7 +35,7 @@ export class RegisterForm extends Component<Props, {}> {
         }) => (
           <div>
             <Text tone={Tone.Light}>
-              Please fill in the fields to create an account for New Food Order.
+              Please fill in the fields to create an account for Foed.
             </Text>
             <FormField label="Email" error={realErrors.email} required>
               <LoginTextInput

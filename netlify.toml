@@ -3,7 +3,7 @@
   publish = "frontend/build/"
   functions = "../backend/build/lambda/"
   command = "yarn build && cd ../backend && yarn && yarn build"
-  environment = { REACT_APP_GRAPHQL_URL = "https://nfo-staging.now.sh/api", REACT_APP_GRAPHQL_WS = "wss://eu1.prisma.sh/kees-kluskens/new-food-order/staging" }
+  environment = { REACT_APP_GRAPHQL_URL = "https://nfo-staging.now.sh/api", REACT_APP_GRAPHQL_WS = "wss://eu1.prisma.sh/kees-kluskens/foed/staging" }
 
 [[redirects]]
   from = "/*"

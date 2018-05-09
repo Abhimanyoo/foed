@@ -1,6 +1,6 @@
-# New Food Order
+# Foed
 
-New Food Order is a concept app by Volst.
+Foed is a concept app by Volst.
 
 ## The idea
 

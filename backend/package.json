@@ -1,5 +1,5 @@
 {
-  "name": "new-food-order-backend",
+  "name": "foed-backend",
   "private": true,
   "scripts": {
     "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",

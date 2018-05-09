@@ -1,4 +1,4 @@
-# source: http://localhost:4466/new-food-order/dev
+# source: http://localhost:4466/foed/dev
 # timestamp: Fri May 04 2018 11:11:48 GMT+0200 (CEST)
 
 type AggregateCard {

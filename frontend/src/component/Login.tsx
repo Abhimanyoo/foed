@@ -38,4 +38,4 @@ export const LoginTextInput = styled(TextInput as any)`
   }
 `;
 
-export const LoginLogo = () => <StyledLogo>new food order</StyledLogo>;
+export const LoginLogo = () => <StyledLogo>foed</StyledLogo>;
