@@ -2,7 +2,7 @@ import { Page } from '../component/Page';
 import { withApollo } from '../withApollo';
 import { Query } from '../component/Query';
 import gql from 'graphql-tag';
-import { OrganizationListItem } from '../container/OrganizationList/ListItem';
+import { OrganizationOverview } from '../container/Organization/Overview';
 
 const ALL_ORGANIZATIONS = gql`
   query allOrganizationNames {
@@ -16,15 +16,9 @@ const ALL_ORGANIZATIONS = gql`
 const Index = withApollo(() => (
   <Page>
     <Query query={ALL_ORGANIZATIONS}>
-      {result => {
-        return (
-          <div>
-            {result.data.organizations.map(org => (
-              <OrganizationListItem key={org.slug} organization={org} />
-            ))}
-          </div>
-        );
-      }}
+      {result => (
+        <OrganizationOverview organizations={result.data.organizations} />
+      )}
     </Query>
   </Page>
 ));

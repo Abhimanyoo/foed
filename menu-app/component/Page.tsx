@@ -9,7 +9,17 @@ if (typeof window !== 'undefined') {
 
 injectGlobal`
   body {
-    font: 11px menlo;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    color: #fff;
+    margin: 0;
+    background: url('/static/bg.jpg') no-repeat center center;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
   }
 `;
 
