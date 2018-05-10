@@ -13,9 +13,7 @@ export const Page = ({ children }) => {
       </Head>
       <style jsx global>{`
         body {
-          background: #000;
           font: 11px menlo;
-          color: #fff;
         }
       `}</style>
       {children}
