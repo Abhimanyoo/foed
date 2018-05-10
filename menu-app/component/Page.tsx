@@ -1,22 +1,18 @@
 import { Fragment } from 'react';
-import Head from 'next/head';
+import { hydrate, injectGlobal } from 'react-emotion';
 
-// TODO https://github.com/zeit/next.js/tree/master/examples/with-apollo/
+// Adds server generated styles to emotion cache.
+// '__NEXT_DATA__.ids' is set in '_document.tsx'
+if (typeof window !== 'undefined') {
+  hydrate((window as any).__NEXT_DATA__.ids);
+}
+
+injectGlobal`
+  body {
+    font: 11px menlo;
+  }
+`;
 
 export const Page = ({ children }) => {
-  return (
-    <Fragment>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charSet="utf-8" />
-        <link rel="manifest" href="/static/manifest.json" />
-      </Head>
-      <style jsx global>{`
-        body {
-          font: 11px menlo;
-        }
-      `}</style>
-      {children}
-    </Fragment>
-  );
+  return <Fragment>{children}</Fragment>;
 };
