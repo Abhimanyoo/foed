@@ -1,5 +1,5 @@
 # source: http://localhost:4466/foed/dev
-# timestamp: Fri May 04 2018 11:11:48 GMT+0200 (CEST)
+# timestamp: Thu May 10 2018 13:46:11 GMT+0200 (CEST)
 
 type AggregateCard {
   count: Int!
@@ -2101,6 +2101,15 @@ type Organization implements Node {
   id: ID!
   name: String!
   slug: String!
+  restaurants(
+    where: RestaurantWhereInput
+    orderBy: RestaurantOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Restaurant!]
 }
 
 """
@@ -2122,11 +2131,17 @@ type OrganizationConnection {
 input OrganizationCreateInput {
   name: String!
   slug: String!
+  restaurants: RestaurantCreateManyWithoutOrganizationInput
 }
 
-input OrganizationCreateOneInput {
-  create: OrganizationCreateInput
+input OrganizationCreateOneWithoutRestaurantsInput {
+  create: OrganizationCreateWithoutRestaurantsInput
   connect: OrganizationWhereUniqueInput
+}
+
+input OrganizationCreateWithoutRestaurantsInput {
+  name: String!
+  slug: String!
 }
 
 """
@@ -2208,28 +2223,29 @@ input OrganizationSubscriptionWhereInput {
   node: OrganizationWhereInput
 }
 
-input OrganizationUpdateDataInput {
-  name: String
-  slug: String
-}
-
 input OrganizationUpdateInput {
   name: String
   slug: String
+  restaurants: RestaurantUpdateManyWithoutOrganizationInput
 }
 
-input OrganizationUpdateOneInput {
-  create: OrganizationCreateInput
+input OrganizationUpdateOneWithoutRestaurantsInput {
+  create: OrganizationCreateWithoutRestaurantsInput
   connect: OrganizationWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: OrganizationUpdateDataInput
-  upsert: OrganizationUpsertNestedInput
+  update: OrganizationUpdateWithoutRestaurantsDataInput
+  upsert: OrganizationUpsertWithoutRestaurantsInput
 }
 
-input OrganizationUpsertNestedInput {
-  update: OrganizationUpdateDataInput!
-  create: OrganizationCreateInput!
+input OrganizationUpdateWithoutRestaurantsDataInput {
+  name: String
+  slug: String
+}
+
+input OrganizationUpsertWithoutRestaurantsInput {
+  update: OrganizationUpdateWithoutRestaurantsDataInput!
+  create: OrganizationCreateWithoutRestaurantsInput!
 }
 
 input OrganizationWhereInput {
@@ -2445,6 +2461,9 @@ input OrganizationWhereInput {
   All values not ending with the given string.
   """
   slug_not_ends_with: String
+  restaurants_every: RestaurantWhereInput
+  restaurants_some: RestaurantWhereInput
+  restaurants_none: RestaurantWhereInput
 }
 
 input OrganizationWhereUniqueInput {
@@ -2687,10 +2706,15 @@ type RestaurantConnection {
 input RestaurantCreateInput {
   name: String!
   slug: String!
-  organization: OrganizationCreateOneInput
+  organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
+}
+
+input RestaurantCreateManyWithoutOrganizationInput {
+  create: [RestaurantCreateWithoutOrganizationInput!]
+  connect: [RestaurantWhereUniqueInput!]
 }
 
 input RestaurantCreateOneWithoutActiveCardInput {
@@ -2711,7 +2735,7 @@ input RestaurantCreateOneWithoutEmploymentsInput {
 input RestaurantCreateWithoutActiveCardInput {
   name: String!
   slug: String!
-  organization: OrganizationCreateOneInput
+  organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
 }
@@ -2719,7 +2743,7 @@ input RestaurantCreateWithoutActiveCardInput {
 input RestaurantCreateWithoutCardsInput {
   name: String!
   slug: String!
-  organization: OrganizationCreateOneInput
+  organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
 }
@@ -2727,7 +2751,15 @@ input RestaurantCreateWithoutCardsInput {
 input RestaurantCreateWithoutEmploymentsInput {
   name: String!
   slug: String!
-  organization: OrganizationCreateOneInput
+  organization: OrganizationCreateOneWithoutRestaurantsInput
+  activeCard: CardCreateOneWithoutActiveRestaurantInput
+  cards: CardCreateManyWithoutRestaurantInput
+}
+
+input RestaurantCreateWithoutOrganizationInput {
+  name: String!
+  slug: String!
+  employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
 }
@@ -2820,10 +2852,19 @@ input RestaurantSubscriptionWhereInput {
 input RestaurantUpdateInput {
   name: String
   slug: String
-  organization: OrganizationUpdateOneInput
+  organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
+}
+
+input RestaurantUpdateManyWithoutOrganizationInput {
+  create: [RestaurantCreateWithoutOrganizationInput!]
+  connect: [RestaurantWhereUniqueInput!]
+  disconnect: [RestaurantWhereUniqueInput!]
+  delete: [RestaurantWhereUniqueInput!]
+  update: [RestaurantUpdateWithWhereUniqueWithoutOrganizationInput!]
+  upsert: [RestaurantUpsertWithWhereUniqueWithoutOrganizationInput!]
 }
 
 input RestaurantUpdateOneWithoutActiveCardInput {
@@ -2854,7 +2895,7 @@ input RestaurantUpdateOneWithoutEmploymentsInput {
 input RestaurantUpdateWithoutActiveCardDataInput {
   name: String
   slug: String
-  organization: OrganizationUpdateOneInput
+  organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
 }
@@ -2862,7 +2903,7 @@ input RestaurantUpdateWithoutActiveCardDataInput {
 input RestaurantUpdateWithoutCardsDataInput {
   name: String
   slug: String
-  organization: OrganizationUpdateOneInput
+  organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
 }
@@ -2870,9 +2911,22 @@ input RestaurantUpdateWithoutCardsDataInput {
 input RestaurantUpdateWithoutEmploymentsDataInput {
   name: String
   slug: String
-  organization: OrganizationUpdateOneInput
+  organization: OrganizationUpdateOneWithoutRestaurantsInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
+}
+
+input RestaurantUpdateWithoutOrganizationDataInput {
+  name: String
+  slug: String
+  employments: EmploymentUpdateManyWithoutRestaurantInput
+  activeCard: CardUpdateOneWithoutActiveRestaurantInput
+  cards: CardUpdateManyWithoutRestaurantInput
+}
+
+input RestaurantUpdateWithWhereUniqueWithoutOrganizationInput {
+  where: RestaurantWhereUniqueInput!
+  data: RestaurantUpdateWithoutOrganizationDataInput!
 }
 
 input RestaurantUpsertWithoutActiveCardInput {
@@ -2888,6 +2942,12 @@ input RestaurantUpsertWithoutCardsInput {
 input RestaurantUpsertWithoutEmploymentsInput {
   update: RestaurantUpdateWithoutEmploymentsDataInput!
   create: RestaurantCreateWithoutEmploymentsInput!
+}
+
+input RestaurantUpsertWithWhereUniqueWithoutOrganizationInput {
+  where: RestaurantWhereUniqueInput!
+  update: RestaurantUpdateWithoutOrganizationDataInput!
+  create: RestaurantCreateWithoutOrganizationInput!
 }
 
 input RestaurantWhereInput {

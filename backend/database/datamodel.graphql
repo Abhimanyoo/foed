@@ -13,11 +13,12 @@ type Organization {
   id: ID! @unique
   name: String!
   slug: String! @unique
+  restaurants: [Restaurant!]! @relation(name: "RestaurantOrganization")
 }
 
 type Restaurant {
   id: ID! @unique
-  organization: Organization
+  organization: Organization @relation(name: "RestaurantOrganization")
   name: String!
   slug: String! @unique
   employments: [Employment!]!

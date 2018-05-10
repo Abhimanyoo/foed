@@ -36,7 +36,7 @@ jobs:
       script:
         - cd backend
         - yarn prisma login --key="${PRISMA_CLOUD_SESSION_KEY}"
-        - yarn prisma deploy
+        - yarn prisma deploy --force
         - dotenv-filter --prefix=BACKEND_ > .env.now
         - now --dotenv=.env.now -t ${NOW_TOKEN} -T volst
         - now alias -t ${NOW_TOKEN} -T volst
