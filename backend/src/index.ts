@@ -4,8 +4,6 @@ import * as resolvers from './resolvers';
 import { email } from './mailer';
 import { prismaAuthConfig } from '@volst/prisma-auth';
 
-console.log('CHECK IF THIS IS EVEN UPDATING');
-
 const authOptions = {
   mailer: email,
   mailAppUrl: process.env.BACKEND_MAIL_APP_URL,
