@@ -40,7 +40,7 @@ jobs:
     - stage: deploy
       script:
         - cd backend
-        - "echo \"cloudSessionKey: >-\\n  ${PRISMA_CLOUD_SESSION_KEY}\" > ~/.prisma/config.yml"
+        - "echo \"cloudSessionKey: ${PRISMA_CLOUD_SESSION_KEY}\" > ~/.prisma/config.yml"
         - yarn prisma login
         - yarn prisma deploy --force
         - dotenv-filter --prefix=BACKEND_ > .env.now
