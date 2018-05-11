@@ -9,6 +9,7 @@ node_js:
 cache:
   yarn: true
   directories:
+    - frontend/build
     - frontend/node_modules
     - backend/build
     - backend/node_modules

@@ -1,8 +1,7 @@
 {
-  "name": "foed-admin",
+  "name": "foed-menu",
   "type": "npm",
-  "alias": ["admin.foed.app"],
-  "files": ["build", "package.json"],
+  "alias": ["foed.app"],
   "public": false,
   "env": {
     "NODE_ENV": "production"
