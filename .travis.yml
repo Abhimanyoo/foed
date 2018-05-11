@@ -13,6 +13,8 @@ cache:
     - frontend/node_modules
     - backend/build
     - backend/node_modules
+    - menu-app/build
+    - menu-app/.next
 
 before_install:
   - yarn global add now dotenv-filter-cli
