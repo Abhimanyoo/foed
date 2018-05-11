@@ -9,7 +9,7 @@ export class OrganizationListItem extends React.Component<Props, {}> {
   render() {
     const { organization } = this.props;
     return (
-      <GridItem route={`/organization/${organization.slug}`}>
+      <GridItem route={`/organization/${organization.slug}`} prefetch>
         <GridItemTitle>{organization.name}</GridItemTitle>
       </GridItem>
     );
