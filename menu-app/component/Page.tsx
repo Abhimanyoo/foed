@@ -8,18 +8,24 @@ if (typeof window !== 'undefined') {
 }
 
 injectGlobal`
+  html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
   body {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
     color: #fff;
     margin: 0;
     background: url('/static/bg.jpg') no-repeat center center;
-    box-sizing: border-box;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  *, *:before, *:after {
-    box-sizing: inherit;
+    padding: 0.1px;
   }
 `;
 
