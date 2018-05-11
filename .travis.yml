@@ -23,6 +23,11 @@ jobs:
         - cd backend
         - yarn --frozen-lockfile
         - yarn build
+    - stage: build
+      script:
+        - cd frontend
+        - yarn --frozen-lockfile
+        - yarn build
     - stage: test
       script:
         - cd backend
@@ -30,7 +35,6 @@ jobs:
     - stage: test
       script:
         - cd frontend
-        - yarn --frozen-lockfile
         - yarn test
     - stage: deploy
       script:
@@ -39,6 +43,11 @@ jobs:
         - yarn prisma deploy --force
         - dotenv-filter --prefix=BACKEND_ > .env.now
         - now --dotenv=.env.now -t ${NOW_TOKEN} -T volst
+        - now alias -t ${NOW_TOKEN} -T volst
+    - stage: deploy
+      script:
+        - cd frontend
+        - now -t ${NOW_TOKEN} -T volst
         - now alias -t ${NOW_TOKEN} -T volst
 
 stages:

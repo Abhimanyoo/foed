@@ -1,6 +1,6 @@
 {
   "name": "foed-api",
   "type": "npm",
-  "alias": ["foed-api-staging"],
+  "alias": ["api.foed.app"],
   "public": false
 }

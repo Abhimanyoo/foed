@@ -1,0 +1,10 @@
+{
+  "name": "foed",
+  "type": "npm",
+  "alias": ["admin.foed.app"],
+  "files": ["build", "package.json"],
+  "public": false,
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
