@@ -9,7 +9,7 @@
     "noUnusedParameters": true,
     "baseUrl": ".",
     "lib": [
-      "es2016"
+      "esnext"
     ]
   },
   "include": [

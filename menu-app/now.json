@@ -2,6 +2,7 @@
   "name": "foed-menu",
   "type": "npm",
   "alias": ["foed.app"],
+  "files": [".next", "static", "server.js", "routes.js", "package.json"],
   "public": false,
   "env": {
     "NODE_ENV": "production"

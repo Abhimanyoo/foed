@@ -5,8 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "PORT=3001 ts-node -P tsconfig.server.json server.ts",
-    "build": "next build",
-    "prod-start": "NODE_ENV=production ts-node -P tsconfig.server.json server.ts"
+    "now-start": "NODE_ENV=production node server.js",
+    "build": "tsc -P tsconfig.server.json && next build",
+    "now-build": "echo"
   },
   "dependencies": {
     "@types/next": "^2.4.9",

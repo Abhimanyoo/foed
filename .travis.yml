@@ -19,30 +19,33 @@ before_install:
 
 jobs:
   include:
-    # - stage: build
-    #   script:
-    #     - cd backend
-    #     - yarn --frozen-lockfile
-    #     - yarn build
-    # - stage: build
-    #   script:
-    #     - cd frontend
-    #     - yarn --frozen-lockfile
-    #     - yarn build
-    # - stage: test
-    #   script:
-    #     - cd backend
-    #     - yarn test
-    # - stage: test
-    #   script:
-    #     - cd frontend
-    #     - yarn test
+    - stage: build
+      script:
+        - cd backend
+        - yarn --frozen-lockfile
+        - yarn build
+    - stage: build
+      script:
+        - cd frontend
+        - yarn --frozen-lockfile
+        - yarn build
+    - stage: build
+      script:
+        - cd menu-app
+        - yarn --frozen-lockfile
+        - yarn build
+    - stage: test
+      script:
+        - cd backend
+        - yarn test
+    - stage: test
+      script:
+        - cd frontend
+        - yarn test
     - stage: deploy
       script:
         - cd backend
         - "mkdir -p ~/.prisma && echo \"cloudSessionKey: ${PRISMA_CLOUD_SESSION_KEY}\" > ~/.prisma/config.yml"
-        - node -e 'console.log(process.env.PRISMA_CLOUD_SESSION_KEY)'
-        - cat ~/.prisma/config.yml # has a temporary fake session key
         - yarn prisma login
         - yarn prisma deploy --force
         - dotenv-filter --prefix=BACKEND_ > .env.now
@@ -53,9 +56,14 @@ jobs:
         - cd frontend
         - now -t ${NOW_TOKEN} -T volst --no-verify
         - now alias -t ${NOW_TOKEN} -T volst
+    - stage: deploy
+      script:
+        - cd menu-app
+        - now -t ${NOW_TOKEN} -T volst --no-verify
+        - now alias -t ${NOW_TOKEN} -T volst
 
 stages:
-  # - build
-  # - test
+  - build
+  - test
   - name: deploy
     if: branch = master
