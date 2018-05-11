@@ -23,35 +23,35 @@ jobs:
   include:
     - stage: build
       script:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^backend/' || exit
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(backend/|\.travis.yml)' || exit
         - cd backend
         - yarn --frozen-lockfile
         - yarn build
     - stage: build
       script:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^frontend/' || exit
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(frontend/|\.travis.yml)' || exit
         - cd frontend
         - yarn --frozen-lockfile
         - yarn build
     - stage: build
       script:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^menu-app/' || exit
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(menu-app/|\.travis.yml)' || exit
         - cd menu-app
         - yarn --frozen-lockfile
         - yarn build
     - stage: test
       script:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^backend/' || exit
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(backend/|\.travis.yml)' || exit
         - cd backend
         - yarn test
     - stage: test
       script:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^frontend/' || exit
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(frontend/|\.travis.yml)' || exit
         - cd frontend
         - yarn test
     - stage: deploy
       script:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^backend/' || exit
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(backend/|\.travis.yml)' || exit
         - cd backend
         - "mkdir -p ~/.prisma && echo \"cloudSessionKey: ${PRISMA_CLOUD_SESSION_KEY}\" > ~/.prisma/config.yml"
         - yarn prisma login
@@ -61,13 +61,13 @@ jobs:
         - now alias -t ${NOW_TOKEN} -T volst
     - stage: deploy
       script:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^frontend/' || exit
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(frontend/|\.travis.yml)' || exit
         - cd frontend
         - now -t ${NOW_TOKEN} -T volst --no-verify
         - now alias -t ${NOW_TOKEN} -T volst
     - stage: deploy
       script:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^menu-app/' || exit
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(menu-app/|\.travis.yml)' || exit
         - cd menu-app
         - now -t ${NOW_TOKEN} -T volst --no-verify
         - now alias -t ${NOW_TOKEN} -T volst
