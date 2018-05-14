@@ -6,6 +6,7 @@ import { UserRegister } from '../screen/UserRegister';
 import { UserRegisterInvite } from '../screen/UserRegisterInvite';
 import { UserForgotPassword } from '../screen/UserForgotPassword';
 import { UserResetPassword } from '../screen/UserResetPassword';
+import { UserEmailConfirm } from '../screen/UserEmailConfirm';
 import { NotFound } from '../container/NotFound';
 import { CurrentUser, AddNotification } from '../Props';
 
@@ -105,6 +106,11 @@ export class Router extends React.Component<Props, object> {
           path="/account/password"
           exact
           render={this.route(AccountChangePassword)}
+        />
+        <Route
+          path="/confirm-email/:email/:emailConfirmToken"
+          exact
+          render={this.route(UserEmailConfirm)}
         />
         <Route
           path="/restaurant"
