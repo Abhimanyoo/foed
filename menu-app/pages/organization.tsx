@@ -14,7 +14,7 @@ const ORGANIZATION_DETAILS = gql`
     organization(where: { slug: $slug }) {
       id
       name
-      restaurants(where: { visible: true }) {
+      restaurants(where: { visible: true, activeCard: { id_contains: "" } }) {
         id
         name
         slug
