@@ -42,8 +42,9 @@ function transformOpts(opts: FFormikProps<any>) {
   const myOpts: FormikProps<any> = Object.assign({}, opts, {
     realErrors: {},
   });
+  // We can't use `opts.handleChange` since it doesn't work if `value` is a boolean
   myOpts.handleChange = (name: string, value: any) =>
-    opts.handleChange(name)(value);
+    opts.setFieldValue(name, value);
   myOpts.handleBlur = (name: string) => opts.setFieldTouched(name);
 
   Object.keys(myOpts.errors).forEach(name => {

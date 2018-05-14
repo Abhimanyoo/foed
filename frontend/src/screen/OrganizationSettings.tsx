@@ -6,12 +6,13 @@ import {
   Col,
   Content,
 } from '@volst/ui-components';
-import { Query, Mutation } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { ScreenProps } from '../Props';
 import { OrganizationSettingsForm } from '../container/Organization/SettingsForm';
 import { parseQueryToForm } from '@volst/graphql-form-helpers';
 import { OrganizationTopMenu } from '../container/Organization/TopMenu';
+import { Query } from '../component/Query';
 
 const UPDATE_ORGANIZATION = gql`
   mutation updateOrganization($id: ID, $data: OrganizationUpdateInput!) {
@@ -26,6 +27,7 @@ const ORGANIZATION = gql`
     organization(where: { id: $id }) {
       id
       name
+      visible
     }
   }
 `;
@@ -54,7 +56,11 @@ export class OrganizationSettings extends React.Component<ScreenProps, {}> {
       <Body>
         <OrganizationTopMenu id={id} />
         <ContentContainer>
-          <Query query={ORGANIZATION} variables={{ id }}>
+          <Query
+            query={ORGANIZATION}
+            variables={{ id }}
+            fetchPolicy="network-only"
+          >
             {({ data }) => (
               <Content>
                 <Row>
@@ -65,9 +71,7 @@ export class OrganizationSettings extends React.Component<ScreenProps, {}> {
                           onSubmit={values =>
                             this.handleSubmit(values, mutate, id)
                           }
-                          initialValues={parseQueryToForm(data.organization, {
-                            name: '',
-                          })}
+                          initialValues={parseQueryToForm(data.organization)}
                         />
                       )}
                     </Mutation>

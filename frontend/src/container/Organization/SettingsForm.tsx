@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { Form } from '../../component/Form';
-import { Button, ActionBar, FormField, TextInput } from '@volst/ui-components';
+import {
+  Button,
+  ActionBar,
+  FormField,
+  TextInput,
+  Checkbox,
+} from '@volst/ui-components';
 import { FormikConfig } from 'formik';
 import Yup from 'yup';
 
@@ -29,13 +35,25 @@ export class OrganizationSettingsForm extends Component<Props, {}> {
           handleChange,
         }) => (
           <div>
-            <FormField label="Full name" error={realErrors.name} required>
+            <FormField
+              label="Organization name"
+              error={realErrors.name}
+              required
+            >
               <TextInput
                 name="name"
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoFocus
+              />
+            </FormField>
+            <FormField label="" error={realErrors.visible}>
+              <Checkbox
+                name="visible"
+                label="Visible in menu app"
+                value={values.visible || false}
+                onChange={handleChange}
               />
             </FormField>
             <ActionBar>

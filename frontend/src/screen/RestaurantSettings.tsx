@@ -6,12 +6,13 @@ import {
   Col,
   Content,
 } from '@volst/ui-components';
-import { Query, Mutation } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { ScreenProps } from '../Props';
 import { RestaurantSettingsForm } from '../container/Restaurant/SettingsForm';
-import { parseQueryToForm } from '@volst/graphql-form-helpers';
 import { RestaurantTopMenu } from '../container/Restaurant/TopMenu';
+import { parseQueryToForm } from '@volst/graphql-form-helpers';
+import { Query } from '../component/Query';
 
 const UPDATE_RESTAURANT = gql`
   mutation updateRestaurant($id: ID, $data: RestaurantUpdateInput!) {
@@ -26,6 +27,7 @@ const RESTAURANT = gql`
     restaurant(where: { id: $id }) {
       id
       name
+      visible
     }
   }
 `;
@@ -54,7 +56,11 @@ export class RestaurantSettings extends React.Component<ScreenProps, {}> {
       <Body>
         <RestaurantTopMenu id={id} />
         <ContentContainer>
-          <Query query={RESTAURANT} variables={{ id }}>
+          <Query
+            query={RESTAURANT}
+            variables={{ id }}
+            fetchPolicy="network-only"
+          >
             {({ data }) => (
               <Content>
                 <Row>
@@ -65,9 +71,7 @@ export class RestaurantSettings extends React.Component<ScreenProps, {}> {
                           onSubmit={values =>
                             this.handleSubmit(values, mutate, id)
                           }
-                          initialValues={parseQueryToForm(data.restaurant, {
-                            name: '',
-                          })}
+                          initialValues={parseQueryToForm(data.restaurant)}
                         />
                       )}
                     </Mutation>

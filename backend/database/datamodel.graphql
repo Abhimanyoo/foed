@@ -13,6 +13,7 @@ type Organization {
   id: ID! @unique
   name: String!
   slug: String! @unique
+  visible: Boolean @default(value: "false")
   restaurants: [Restaurant!]! @relation(name: "RestaurantOrganization")
 }
 
@@ -21,6 +22,7 @@ type Restaurant {
   organization: Organization @relation(name: "RestaurantOrganization")
   name: String!
   slug: String! @unique
+  visible: Boolean @default(value: "false")
   employments: [Employment!]!
     @relation(name: "RestaurantEmployment", onDelete: CASCADE)
   activeCard: Card @relation(name: "RestaurantActiveCard", onDelete: CASCADE)

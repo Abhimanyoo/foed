@@ -1,5 +1,5 @@
 # source: http://localhost:4466/foed/dev
-# timestamp: Thu May 10 2018 13:46:11 GMT+0200 (CEST)
+# timestamp: Mon May 14 2018 15:44:14 GMT+0200 (CEST)
 
 type AggregateCard {
   count: Int!
@@ -2101,6 +2101,7 @@ type Organization implements Node {
   id: ID!
   name: String!
   slug: String!
+  visible: Boolean
   restaurants(
     where: RestaurantWhereInput
     orderBy: RestaurantOrderByInput
@@ -2131,6 +2132,7 @@ type OrganizationConnection {
 input OrganizationCreateInput {
   name: String!
   slug: String!
+  visible: Boolean
   restaurants: RestaurantCreateManyWithoutOrganizationInput
 }
 
@@ -2142,6 +2144,7 @@ input OrganizationCreateOneWithoutRestaurantsInput {
 input OrganizationCreateWithoutRestaurantsInput {
   name: String!
   slug: String!
+  visible: Boolean
 }
 
 """
@@ -2166,6 +2169,8 @@ enum OrganizationOrderByInput {
   name_DESC
   slug_ASC
   slug_DESC
+  visible_ASC
+  visible_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2176,6 +2181,7 @@ type OrganizationPreviousValues {
   id: ID!
   name: String!
   slug: String!
+  visible: Boolean
 }
 
 type OrganizationSubscriptionPayload {
@@ -2226,6 +2232,7 @@ input OrganizationSubscriptionWhereInput {
 input OrganizationUpdateInput {
   name: String
   slug: String
+  visible: Boolean
   restaurants: RestaurantUpdateManyWithoutOrganizationInput
 }
 
@@ -2241,6 +2248,7 @@ input OrganizationUpdateOneWithoutRestaurantsInput {
 input OrganizationUpdateWithoutRestaurantsDataInput {
   name: String
   slug: String
+  visible: Boolean
 }
 
 input OrganizationUpsertWithoutRestaurantsInput {
@@ -2461,6 +2469,12 @@ input OrganizationWhereInput {
   All values not ending with the given string.
   """
   slug_not_ends_with: String
+  visible: Boolean
+
+  """
+  All values that are not equal to given value.
+  """
+  visible_not: Boolean
   restaurants_every: RestaurantWhereInput
   restaurants_some: RestaurantWhereInput
   restaurants_none: RestaurantWhereInput
@@ -2666,6 +2680,7 @@ type Restaurant implements Node {
   organization(where: OrganizationWhereInput): Organization
   name: String!
   slug: String!
+  visible: Boolean
   employments(
     where: EmploymentWhereInput
     orderBy: EmploymentOrderByInput
@@ -2706,6 +2721,7 @@ type RestaurantConnection {
 input RestaurantCreateInput {
   name: String!
   slug: String!
+  visible: Boolean
   organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
@@ -2735,6 +2751,7 @@ input RestaurantCreateOneWithoutEmploymentsInput {
 input RestaurantCreateWithoutActiveCardInput {
   name: String!
   slug: String!
+  visible: Boolean
   organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
@@ -2743,6 +2760,7 @@ input RestaurantCreateWithoutActiveCardInput {
 input RestaurantCreateWithoutCardsInput {
   name: String!
   slug: String!
+  visible: Boolean
   organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
@@ -2751,6 +2769,7 @@ input RestaurantCreateWithoutCardsInput {
 input RestaurantCreateWithoutEmploymentsInput {
   name: String!
   slug: String!
+  visible: Boolean
   organization: OrganizationCreateOneWithoutRestaurantsInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
@@ -2759,6 +2778,7 @@ input RestaurantCreateWithoutEmploymentsInput {
 input RestaurantCreateWithoutOrganizationInput {
   name: String!
   slug: String!
+  visible: Boolean
   employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
@@ -2786,6 +2806,8 @@ enum RestaurantOrderByInput {
   name_DESC
   slug_ASC
   slug_DESC
+  visible_ASC
+  visible_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2802,6 +2824,7 @@ type RestaurantPreviousValues {
   id: ID!
   name: String!
   slug: String!
+  visible: Boolean
 }
 
 type RestaurantSubscriptionPayload {
@@ -2852,6 +2875,7 @@ input RestaurantSubscriptionWhereInput {
 input RestaurantUpdateInput {
   name: String
   slug: String
+  visible: Boolean
   organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
@@ -2895,6 +2919,7 @@ input RestaurantUpdateOneWithoutEmploymentsInput {
 input RestaurantUpdateWithoutActiveCardDataInput {
   name: String
   slug: String
+  visible: Boolean
   organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
@@ -2903,6 +2928,7 @@ input RestaurantUpdateWithoutActiveCardDataInput {
 input RestaurantUpdateWithoutCardsDataInput {
   name: String
   slug: String
+  visible: Boolean
   organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
@@ -2911,6 +2937,7 @@ input RestaurantUpdateWithoutCardsDataInput {
 input RestaurantUpdateWithoutEmploymentsDataInput {
   name: String
   slug: String
+  visible: Boolean
   organization: OrganizationUpdateOneWithoutRestaurantsInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
@@ -2919,6 +2946,7 @@ input RestaurantUpdateWithoutEmploymentsDataInput {
 input RestaurantUpdateWithoutOrganizationDataInput {
   name: String
   slug: String
+  visible: Boolean
   employments: EmploymentUpdateManyWithoutRestaurantInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
@@ -3163,6 +3191,12 @@ input RestaurantWhereInput {
   All values not ending with the given string.
   """
   slug_not_ends_with: String
+  visible: Boolean
+
+  """
+  All values that are not equal to given value.
+  """
+  visible_not: Boolean
   organization: OrganizationWhereInput
   employments_every: EmploymentWhereInput
   employments_some: EmploymentWhereInput
