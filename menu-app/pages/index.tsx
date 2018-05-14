@@ -6,7 +6,7 @@ import { OrganizationOverview } from '../container/Organization/Overview';
 
 const ALL_ORGANIZATIONS = gql`
   query allOrganizationNames {
-    organizations {
+    organizations(where: { visible: true }) {
       slug
       name
     }
