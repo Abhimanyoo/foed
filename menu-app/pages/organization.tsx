@@ -1,5 +1,4 @@
 import React from 'react';
-import { withApollo } from '../withApollo';
 import { Page } from '../component/Page';
 import { Query } from '../component/Query';
 import { RestaurantOverview } from '../container/Restaurant/Overview';
@@ -23,7 +22,7 @@ const ORGANIZATION_DETAILS = gql`
   }
 `;
 
-class RestaurantOverviewPage extends React.Component<Props, {}> {
+export default class RestaurantOverviewPage extends React.Component<Props, {}> {
   static getInitialProps({ query: { slug } }) {
     return { slug };
   }
@@ -41,5 +40,3 @@ class RestaurantOverviewPage extends React.Component<Props, {}> {
     );
   }
 }
-
-export default withApollo(RestaurantOverviewPage);

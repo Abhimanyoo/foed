@@ -1,5 +1,4 @@
 import { Page } from '../component/Page';
-import { withApollo } from '../withApollo';
 import { Query } from '../component/Query';
 import gql from 'graphql-tag';
 import { OrganizationOverview } from '../container/Organization/Overview';
@@ -13,7 +12,7 @@ const ALL_ORGANIZATIONS = gql`
   }
 `;
 
-const Index = withApollo(() => (
+export default () => (
   <Page>
     <Query query={ALL_ORGANIZATIONS}>
       {result => (
@@ -21,6 +20,4 @@ const Index = withApollo(() => (
       )}
     </Query>
   </Page>
-));
-
-export default Index;
+);

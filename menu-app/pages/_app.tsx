@@ -1,15 +1,4 @@
-import App, { Container } from 'next/app';
-import React from 'react';
+import { ApolloApp } from 'next-with-apollo';
+import { withApollo } from '../withApollo';
 
-// Not really necessary at the moment but it will be.
-// TODO fix types
-export default class MyApp extends App {
-  render() {
-    const { Component, pageProps } = this.props;
-    return (
-      <Container>
-        <Component {...pageProps} />
-      </Container>
-    );
-  }
-}
+export default withApollo(ApolloApp);
