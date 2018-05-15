@@ -73,7 +73,7 @@ jobs:
         - now alias -t ${NOW_TOKEN} -T volst
 
 stages:
-  # - build
+  - build
   - test
   - name: deploy
     if: branch = master
