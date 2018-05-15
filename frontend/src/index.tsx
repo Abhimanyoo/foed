@@ -5,7 +5,7 @@ import { theme } from './styles';
 import { BrowserRouter } from 'react-router-dom';
 import { VolstTheme } from '@volst/ui-components';
 import { ApolloProvider } from 'react-apollo';
-import { createHttpLink } from 'apollo-link-http';
+import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context';
@@ -25,7 +25,7 @@ const authLink = setContext((_, { headers }) => {
   return headers;
 });
 
-const httpLink = createHttpLink({
+const uploadLink = createUploadLink({
   uri: process.env.REACT_APP_GRAPHQL_URL,
 });
 
@@ -41,7 +41,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const client = new ApolloClient({
-  link: errorLink.concat(authLink).concat(httpLink),
+  link: errorLink.concat(authLink).concat(uploadLink),
   cache: new InMemoryCache(),
 });
 

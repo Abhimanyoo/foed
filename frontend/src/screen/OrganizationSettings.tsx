@@ -28,6 +28,7 @@ const ORGANIZATION = gql`
       id
       name
       visible
+      imageUrl
     }
   }
 `;

@@ -35,6 +35,10 @@ export const GridItemTitle = styled('span')`
   left: 15px;
 `;
 
+export const GridItemImage = styled('img')`
+  max-width: 100%;
+`;
+
 export const GridItem = ({ children, ...props }: LinkProps) => (
   <R.Link {...props}>
     <a className={linkStyles}>{children}</a>

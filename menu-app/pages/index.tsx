@@ -8,6 +8,7 @@ const ALL_ORGANIZATIONS = gql`
     organizations(where: { visible: true }) {
       slug
       name
+      imageUrl
     }
   }
 `;

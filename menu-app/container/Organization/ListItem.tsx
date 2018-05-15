@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GridItem, GridItemTitle } from '../../component/Grid';
+import { GridItem, GridItemTitle, GridItemImage } from '../../component/Grid';
 
 interface Props {
   organization: any;
@@ -10,7 +10,12 @@ export class OrganizationListItem extends React.Component<Props, {}> {
     const { organization } = this.props;
     return (
       <GridItem route={`/organization/${organization.slug}`} prefetch>
-        <GridItemTitle>{organization.name}</GridItemTitle>
+        <React.Fragment>
+          <GridItemTitle>{organization.name}</GridItemTitle>
+          {organization.imageUrl && (
+            <GridItemImage src={organization.imageUrl} />
+          )}
+        </React.Fragment>
       </GridItem>
     );
   }

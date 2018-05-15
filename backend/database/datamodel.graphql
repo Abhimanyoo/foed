@@ -14,6 +14,7 @@ type Organization {
   name: String!
   slug: String! @unique
   visible: Boolean @default(value: "false")
+  imageUrl: String
   restaurants: [Restaurant!]! @relation(name: "RestaurantOrganization")
 }
 

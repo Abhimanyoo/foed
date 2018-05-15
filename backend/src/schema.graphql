@@ -5,6 +5,8 @@
 # import Query.restaurants, Query.restaurant, Query.restaurantsConnection, Mutation.createRestaurant, Mutation.updateRestaurant, Mutation.deleteRestaurant from "./generated/prisma.graphql"
 # import Mutation.signupByInvite, Mutation.signup, Mutation.login, Mutation.changePassword, Mutation.updateCurrentUser, Mutation.triggerPasswordReset, Mutation.passwordReset, Mutation.confirmEmail, UserIdPayload from "../node_modules/@volst/prisma-auth/schema.graphql"
 
+scalar Upload
+
 type Query {
   currentUser: User
   generateRestaurantSlug(name: String!): GenerateSlugPayload!
@@ -13,6 +15,7 @@ type Query {
 
 type Mutation {
   inviteUser(data: InviteUserInput): UserIdPayload!
+  singleUpload(file: Upload!): UploadPayload!
 }
 
 input InviteUserInput {
@@ -44,4 +47,8 @@ type User {
 
 type GenerateSlugPayload {
   slug: String!
+}
+
+type UploadPayload {
+  url: String!
 }

@@ -9,6 +9,7 @@ import {
 } from '@volst/ui-components';
 import { FormikConfig } from 'formik';
 import Yup from 'yup';
+import { ImageUpload } from '../ImageUpload';
 
 interface Props {
   onSubmit: FormikConfig<any>['onSubmit'];
@@ -53,6 +54,13 @@ export class OrganizationSettingsForm extends Component<Props, {}> {
                 name="visible"
                 label="Visible in menu app"
                 value={values.visible || false}
+                onChange={handleChange}
+              />
+            </FormField>
+            <FormField label="Image" error={realErrors.imageUrl} required>
+              <ImageUpload
+                name="imageUrl"
+                value={values.imageUrl}
                 onChange={handleChange}
               />
             </FormField>

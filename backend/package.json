@@ -28,9 +28,11 @@
     "graphql-yoga": "1.13.1",
     "nodemailer": "^4.4.2",
     "nodemailer-mailgun-transport": "^1.4.0",
+    "now-storage": "^1.2.0",
     "prisma-binding": "1.5.19",
     "pug": "^2.0.0-rc.4",
     "speakingurl": "^14.0.1",
+    "stream-to-array": "^2.3.0",
     "validator": "^10.2.0"
   },
   "devDependencies": {

@@ -1726,6 +1726,7 @@ type Organization implements Node {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
   restaurants(where: RestaurantWhereInput, orderBy: RestaurantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Restaurant!]
 }
 
@@ -1748,6 +1749,7 @@ input OrganizationCreateInput {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
   restaurants: RestaurantCreateManyWithoutOrganizationInput
 }
 
@@ -1760,6 +1762,7 @@ input OrganizationCreateWithoutRestaurantsInput {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
 }
 
 """
@@ -1785,6 +1788,8 @@ enum OrganizationOrderByInput {
   slug_DESC
   visible_ASC
   visible_DESC
+  imageUrl_ASC
+  imageUrl_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1796,6 +1801,7 @@ type OrganizationPreviousValues {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
 }
 
 type OrganizationSubscriptionPayload {
@@ -1841,6 +1847,7 @@ input OrganizationUpdateInput {
   name: String
   slug: String
   visible: Boolean
+  imageUrl: String
   restaurants: RestaurantUpdateManyWithoutOrganizationInput
 }
 
@@ -1857,6 +1864,7 @@ input OrganizationUpdateWithoutRestaurantsDataInput {
   name: String
   slug: String
   visible: Boolean
+  imageUrl: String
 }
 
 input OrganizationUpsertWithoutRestaurantsInput {
@@ -2041,6 +2049,59 @@ input OrganizationWhereInput {
   All values that are not equal to given value.
   """
   visible_not: Boolean
+  imageUrl: String
+  """
+  All values that are not equal to given value.
+  """
+  imageUrl_not: String
+  """
+  All values that are contained in given list.
+  """
+  imageUrl_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  imageUrl_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  imageUrl_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  imageUrl_lte: String
+  """
+  All values greater than the given value.
+  """
+  imageUrl_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  imageUrl_gte: String
+  """
+  All values containing the given string.
+  """
+  imageUrl_contains: String
+  """
+  All values not containing the given string.
+  """
+  imageUrl_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  imageUrl_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  imageUrl_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  imageUrl_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  imageUrl_not_ends_with: String
   restaurants_every: RestaurantWhereInput
   restaurants_some: RestaurantWhereInput
   restaurants_none: RestaurantWhereInput
@@ -3415,6 +3476,8 @@ export type OrganizationOrderByInput =
   | 'slug_DESC'
   | 'visible_ASC'
   | 'visible_DESC'
+  | 'imageUrl_ASC'
+  | 'imageUrl_DESC'
   | 'updatedAt_ASC'
   | 'updatedAt_DESC'
   | 'createdAt_ASC'
@@ -3580,6 +3643,20 @@ export interface OrganizationWhereInput {
   slug_not_ends_with?: String;
   visible?: Boolean;
   visible_not?: Boolean;
+  imageUrl?: String;
+  imageUrl_not?: String;
+  imageUrl_in?: String[] | String;
+  imageUrl_not_in?: String[] | String;
+  imageUrl_lt?: String;
+  imageUrl_lte?: String;
+  imageUrl_gt?: String;
+  imageUrl_gte?: String;
+  imageUrl_contains?: String;
+  imageUrl_not_contains?: String;
+  imageUrl_starts_with?: String;
+  imageUrl_not_starts_with?: String;
+  imageUrl_ends_with?: String;
+  imageUrl_not_ends_with?: String;
   restaurants_every?: RestaurantWhereInput;
   restaurants_some?: RestaurantWhereInput;
   restaurants_none?: RestaurantWhereInput;
@@ -3763,6 +3840,7 @@ export interface OrganizationCreateWithoutRestaurantsInput {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
 }
 
 export interface RestaurantWhereUniqueInput {
@@ -3994,6 +4072,7 @@ export interface OrganizationCreateInput {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
   restaurants?: RestaurantCreateManyWithoutOrganizationInput;
 }
 
@@ -4188,6 +4267,7 @@ export interface OrganizationUpdateInput {
   name?: String;
   slug?: String;
   visible?: Boolean;
+  imageUrl?: String;
   restaurants?: RestaurantUpdateManyWithoutOrganizationInput;
 }
 
@@ -4688,6 +4768,7 @@ export interface OrganizationUpdateWithoutRestaurantsDataInput {
   name?: String;
   slug?: String;
   visible?: Boolean;
+  imageUrl?: String;
 }
 
 export interface CardUpsertWithWhereUniqueWithoutRestaurantInput {
@@ -4964,6 +5045,7 @@ export interface OrganizationPreviousValues {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
 }
 
 /*
@@ -4980,6 +5062,7 @@ export interface Organization extends Node {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
   restaurants?: Restaurant[];
 }
 
