@@ -21,7 +21,7 @@
     "typescript-styled-plugin": "^0.6.0"
   },
   "dependencies": {
-    "@volst/graphql-form-helpers": "^0.1.0",
+    "@volst/graphql-form-helpers": "^0.2.2",
     "@volst/ui-components": "^0.15.1",
     "apollo-cache-inmemory": "^1.1.5",
     "apollo-client": "^2.2.0",
@@ -29,7 +29,7 @@
     "apollo-link-context": "^1.0.1",
     "apollo-link-error": "^1.0.1",
     "apollo-link-http": "^1.1.0",
-    "formik": "^1.0.0-alpha.6",
+    "formik": "^1.0.0-beta.1",
     "graphql": "^0.13.1",
     "graphql-tag": "^2.5.0",
     "i18next": "^11.1.1",
