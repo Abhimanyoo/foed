@@ -29,7 +29,7 @@
     "nodemailer": "^4.4.2",
     "nodemailer-mailgun-transport": "^1.4.0",
     "now-storage": "^1.2.0",
-    "prisma-binding": "1.5.19",
+    "prisma-binding": "2.0.0",
     "pug": "^2.0.0-rc.4",
     "sharp": "^0.20.2",
     "speakingurl": "^14.0.1",

@@ -8,4 +8,4 @@ seed:
 hooks:
   post-deploy:
     - graphql get-schema --project prisma
-    - graphql prepare
+    - graphql codegen

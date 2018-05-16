@@ -1,8 +1,636 @@
-import { Prisma as BasePrisma, BasePrismaOptions } from 'prisma-binding';
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLSchema } from 'graphql';
+import { IResolvers } from 'graphql-tools/dist/Interfaces';
+import { Options } from 'graphql-binding';
+import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding';
 
-export const typeDefs = `
-type AggregateCard {
+export interface Query {
+  organizations: <T = Organization[]>(
+    args: {
+      where?: OrganizationWhereInput;
+      orderBy?: OrganizationOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  restaurants: <T = Restaurant[]>(
+    args: {
+      where?: RestaurantWhereInput;
+      orderBy?: RestaurantOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  employments: <T = Employment[]>(
+    args: {
+      where?: EmploymentWhereInput;
+      orderBy?: EmploymentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  users: <T = User[]>(
+    args: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cards: <T = Card[]>(
+    args: {
+      where?: CardWhereInput;
+      orderBy?: CardOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardCategories: <T = CardCategory[]>(
+    args: {
+      where?: CardCategoryWhereInput;
+      orderBy?: CardCategoryOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardItems: <T = CardItem[]>(
+    args: {
+      where?: CardItemWhereInput;
+      orderBy?: CardItemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardSubitems: <T = CardSubitem[]>(
+    args: {
+      where?: CardSubitemWhereInput;
+      orderBy?: CardSubitemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  organization: <T = Organization | null>(
+    args: { where: OrganizationWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  restaurant: <T = Restaurant | null>(
+    args: { where: RestaurantWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  employment: <T = Employment | null>(
+    args: { where: EmploymentWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  user: <T = User | null>(
+    args: { where: UserWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  card: <T = Card | null>(
+    args: { where: CardWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardCategory: <T = CardCategory | null>(
+    args: { where: CardCategoryWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardItem: <T = CardItem | null>(
+    args: { where: CardItemWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardSubitem: <T = CardSubitem | null>(
+    args: { where: CardSubitemWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  organizationsConnection: <T = OrganizationConnection>(
+    args: {
+      where?: OrganizationWhereInput;
+      orderBy?: OrganizationOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  restaurantsConnection: <T = RestaurantConnection>(
+    args: {
+      where?: RestaurantWhereInput;
+      orderBy?: RestaurantOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  employmentsConnection: <T = EmploymentConnection>(
+    args: {
+      where?: EmploymentWhereInput;
+      orderBy?: EmploymentOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  usersConnection: <T = UserConnection>(
+    args: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardsConnection: <T = CardConnection>(
+    args: {
+      where?: CardWhereInput;
+      orderBy?: CardOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardCategoriesConnection: <T = CardCategoryConnection>(
+    args: {
+      where?: CardCategoryWhereInput;
+      orderBy?: CardCategoryOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardItemsConnection: <T = CardItemConnection>(
+    args: {
+      where?: CardItemWhereInput;
+      orderBy?: CardItemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  cardSubitemsConnection: <T = CardSubitemConnection>(
+    args: {
+      where?: CardSubitemWhereInput;
+      orderBy?: CardSubitemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  node: <T = Node | null>(
+    args: { id: ID_Output },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+}
+
+export interface Mutation {
+  createOrganization: <T = Organization>(
+    args: { data: OrganizationCreateInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  createRestaurant: <T = Restaurant>(
+    args: { data: RestaurantCreateInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  createEmployment: <T = Employment>(
+    args: { data: EmploymentCreateInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  createUser: <T = User>(
+    args: { data: UserCreateInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  createCard: <T = Card>(
+    args: { data: CardCreateInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  createCardCategory: <T = CardCategory>(
+    args: { data: CardCategoryCreateInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  createCardItem: <T = CardItem>(
+    args: { data: CardItemCreateInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  createCardSubitem: <T = CardSubitem>(
+    args: { data: CardSubitemCreateInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateOrganization: <T = Organization | null>(
+    args: {
+      data: OrganizationUpdateInput;
+      where: OrganizationWhereUniqueInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateRestaurant: <T = Restaurant | null>(
+    args: { data: RestaurantUpdateInput; where: RestaurantWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateEmployment: <T = Employment | null>(
+    args: { data: EmploymentUpdateInput; where: EmploymentWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateUser: <T = User | null>(
+    args: { data: UserUpdateInput; where: UserWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateCard: <T = Card | null>(
+    args: { data: CardUpdateInput; where: CardWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateCardCategory: <T = CardCategory | null>(
+    args: {
+      data: CardCategoryUpdateInput;
+      where: CardCategoryWhereUniqueInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateCardItem: <T = CardItem | null>(
+    args: { data: CardItemUpdateInput; where: CardItemWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateCardSubitem: <T = CardSubitem | null>(
+    args: { data: CardSubitemUpdateInput; where: CardSubitemWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteOrganization: <T = Organization | null>(
+    args: { where: OrganizationWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteRestaurant: <T = Restaurant | null>(
+    args: { where: RestaurantWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteEmployment: <T = Employment | null>(
+    args: { where: EmploymentWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteUser: <T = User | null>(
+    args: { where: UserWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteCard: <T = Card | null>(
+    args: { where: CardWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteCardCategory: <T = CardCategory | null>(
+    args: { where: CardCategoryWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteCardItem: <T = CardItem | null>(
+    args: { where: CardItemWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteCardSubitem: <T = CardSubitem | null>(
+    args: { where: CardSubitemWhereUniqueInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  upsertOrganization: <T = Organization>(
+    args: {
+      where: OrganizationWhereUniqueInput;
+      create: OrganizationCreateInput;
+      update: OrganizationUpdateInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  upsertRestaurant: <T = Restaurant>(
+    args: {
+      where: RestaurantWhereUniqueInput;
+      create: RestaurantCreateInput;
+      update: RestaurantUpdateInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  upsertEmployment: <T = Employment>(
+    args: {
+      where: EmploymentWhereUniqueInput;
+      create: EmploymentCreateInput;
+      update: EmploymentUpdateInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  upsertUser: <T = User>(
+    args: {
+      where: UserWhereUniqueInput;
+      create: UserCreateInput;
+      update: UserUpdateInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  upsertCard: <T = Card>(
+    args: {
+      where: CardWhereUniqueInput;
+      create: CardCreateInput;
+      update: CardUpdateInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  upsertCardCategory: <T = CardCategory>(
+    args: {
+      where: CardCategoryWhereUniqueInput;
+      create: CardCategoryCreateInput;
+      update: CardCategoryUpdateInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  upsertCardItem: <T = CardItem>(
+    args: {
+      where: CardItemWhereUniqueInput;
+      create: CardItemCreateInput;
+      update: CardItemUpdateInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  upsertCardSubitem: <T = CardSubitem>(
+    args: {
+      where: CardSubitemWhereUniqueInput;
+      create: CardSubitemCreateInput;
+      update: CardSubitemUpdateInput;
+    },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateManyOrganizations: <T = BatchPayload>(
+    args: { data: OrganizationUpdateInput; where?: OrganizationWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateManyRestaurants: <T = BatchPayload>(
+    args: { data: RestaurantUpdateInput; where?: RestaurantWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateManyEmployments: <T = BatchPayload>(
+    args: { data: EmploymentUpdateInput; where?: EmploymentWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateManyUsers: <T = BatchPayload>(
+    args: { data: UserUpdateInput; where?: UserWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateManyCards: <T = BatchPayload>(
+    args: { data: CardUpdateInput; where?: CardWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateManyCardCategories: <T = BatchPayload>(
+    args: { data: CardCategoryUpdateInput; where?: CardCategoryWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateManyCardItems: <T = BatchPayload>(
+    args: { data: CardItemUpdateInput; where?: CardItemWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  updateManyCardSubitems: <T = BatchPayload>(
+    args: { data: CardSubitemUpdateInput; where?: CardSubitemWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteManyOrganizations: <T = BatchPayload>(
+    args: { where?: OrganizationWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteManyRestaurants: <T = BatchPayload>(
+    args: { where?: RestaurantWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteManyEmployments: <T = BatchPayload>(
+    args: { where?: EmploymentWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteManyUsers: <T = BatchPayload>(
+    args: { where?: UserWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteManyCards: <T = BatchPayload>(
+    args: { where?: CardWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteManyCardCategories: <T = BatchPayload>(
+    args: { where?: CardCategoryWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteManyCardItems: <T = BatchPayload>(
+    args: { where?: CardItemWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+  deleteManyCardSubitems: <T = BatchPayload>(
+    args: { where?: CardSubitemWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<T>;
+}
+
+export interface Subscription {
+  organization: <T = OrganizationSubscriptionPayload | null>(
+    args: { where?: OrganizationSubscriptionWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<AsyncIterator<T>>;
+  restaurant: <T = RestaurantSubscriptionPayload | null>(
+    args: { where?: RestaurantSubscriptionWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<AsyncIterator<T>>;
+  employment: <T = EmploymentSubscriptionPayload | null>(
+    args: { where?: EmploymentSubscriptionWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<AsyncIterator<T>>;
+  user: <T = UserSubscriptionPayload | null>(
+    args: { where?: UserSubscriptionWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<AsyncIterator<T>>;
+  card: <T = CardSubscriptionPayload | null>(
+    args: { where?: CardSubscriptionWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<AsyncIterator<T>>;
+  cardCategory: <T = CardCategorySubscriptionPayload | null>(
+    args: { where?: CardCategorySubscriptionWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<AsyncIterator<T>>;
+  cardItem: <T = CardItemSubscriptionPayload | null>(
+    args: { where?: CardItemSubscriptionWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<AsyncIterator<T>>;
+  cardSubitem: <T = CardSubitemSubscriptionPayload | null>(
+    args: { where?: CardSubitemSubscriptionWhereInput },
+    info?: GraphQLResolveInfo | string,
+    options?: Options
+  ) => Promise<AsyncIterator<T>>;
+}
+
+export interface Exists {
+  Organization: (where?: OrganizationWhereInput) => Promise<boolean>;
+  Restaurant: (where?: RestaurantWhereInput) => Promise<boolean>;
+  Employment: (where?: EmploymentWhereInput) => Promise<boolean>;
+  User: (where?: UserWhereInput) => Promise<boolean>;
+  Card: (where?: CardWhereInput) => Promise<boolean>;
+  CardCategory: (where?: CardCategoryWhereInput) => Promise<boolean>;
+  CardItem: (where?: CardItemWhereInput) => Promise<boolean>;
+  CardSubitem: (where?: CardSubitemWhereInput) => Promise<boolean>;
+}
+
+export interface Prisma {
+  query: Query;
+  mutation: Mutation;
+  subscription: Subscription;
+  exists: Exists;
+  request: <T = any>(
+    query: string,
+    variables?: { [key: string]: any }
+  ) => Promise<T>;
+  delegate(
+    operation: 'query' | 'mutation',
+    fieldName: string,
+    args: {
+      [key: string]: any;
+    },
+    infoOrQuery?: GraphQLResolveInfo | string,
+    options?: Options
+  ): Promise<any>;
+  delegateSubscription(
+    fieldName: string,
+    args?: {
+      [key: string]: any;
+    },
+    infoOrQuery?: GraphQLResolveInfo | string,
+    options?: Options
+  ): Promise<AsyncIterator<any>>;
+  getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers;
+}
+
+export interface BindingConstructor<T> {
+  new (options: BasePrismaOptions): T;
+}
+/**
+ * Type Defs
+ */
+
+const typeDefs = `type AggregateCard {
   count: Int!
 }
 
@@ -35,9 +663,7 @@ type AggregateUser {
 }
 
 type BatchPayload {
-  """
-  The number of nodes that have been affected by the Batch operation.
-  """
+  """The number of nodes that have been affected by the Batch operation."""
   count: Long!
 }
 
@@ -57,17 +683,12 @@ type CardCategory implements Node {
   items(where: CardItemWhereInput, orderBy: CardItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardItem!]
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type CardCategoryConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
-  """
-  A list of edges.
-  """
+
+  """A list of edges."""
   edges: [CardCategoryEdge]!
   aggregate: AggregateCardCategory!
 }
@@ -84,17 +705,12 @@ input CardCategoryCreateManyInput {
   connect: [CardCategoryWhereUniqueInput!]
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type CardCategoryEdge {
-  """
-  The item at the end of the edge.
-  """
+  """The item at the end of the edge."""
   node: CardCategory!
-  """
-  A cursor for use in pagination.
-  """
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -128,30 +744,30 @@ type CardCategorySubscriptionPayload {
 }
 
 input CardCategorySubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [CardCategorySubscriptionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [CardCategorySubscriptionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [CardCategorySubscriptionWhereInput!]
+
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
+
   """
   The subscription event gets only dispatched when one of the updated fields names is included in this list
   """
   updatedFields_contains: String
+
   """
   The subscription event gets only dispatched when all of the field names included in this list have been updated
   """
   updatedFields_contains_every: [String!]
+
   """
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
@@ -194,205 +810,155 @@ input CardCategoryUpsertWithWhereUniqueNestedInput {
 }
 
 input CardCategoryWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [CardCategoryWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [CardCategoryWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [CardCategoryWhereInput!]
   id: ID
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   id_not: ID
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   id_lte: ID
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   id_gte: ID
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   id_contains: ID
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   name_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   name_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   name_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   name_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   name_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   name_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   name_not_ends_with: String
   ordering: Int
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   ordering_not: Int
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   ordering_in: [Int!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   ordering_not_in: [Int!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   ordering_lt: Int
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   ordering_lte: Int
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   ordering_gt: Int
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   ordering_gte: Int
   description: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   description_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   description_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   description_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   description_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   description_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   description_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   description_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   description_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   description_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   description_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   description_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   description_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   description_not_ends_with: String
   items_every: CardItemWhereInput
   items_some: CardItemWhereInput
@@ -403,17 +969,12 @@ input CardCategoryWhereUniqueInput {
   id: ID
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type CardConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
-  """
-  A list of edges.
-  """
+
+  """A list of edges."""
   edges: [CardEdge]!
   aggregate: AggregateCard!
 }
@@ -447,17 +1008,12 @@ input CardCreateWithoutRestaurantInput {
   categories: CardCategoryCreateManyInput
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type CardEdge {
-  """
-  The item at the end of the edge.
-  """
+  """The item at the end of the edge."""
   node: Card!
-  """
-  A cursor for use in pagination.
-  """
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -470,17 +1026,12 @@ type CardItem implements Node {
   subitems(where: CardSubitemWhereInput, orderBy: CardSubitemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardSubitem!]
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type CardItemConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
-  """
-  A list of edges.
-  """
+
+  """A list of edges."""
   edges: [CardItemEdge]!
   aggregate: AggregateCardItem!
 }
@@ -498,17 +1049,12 @@ input CardItemCreateManyInput {
   connect: [CardItemWhereUniqueInput!]
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type CardItemEdge {
-  """
-  The item at the end of the edge.
-  """
+  """The item at the end of the edge."""
   node: CardItem!
-  """
-  A cursor for use in pagination.
-  """
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -545,30 +1091,30 @@ type CardItemSubscriptionPayload {
 }
 
 input CardItemSubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [CardItemSubscriptionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [CardItemSubscriptionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [CardItemSubscriptionWhereInput!]
+
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
+
   """
   The subscription event gets only dispatched when one of the updated fields names is included in this list
   """
   updatedFields_contains: String
+
   """
   The subscription event gets only dispatched when all of the field names included in this list have been updated
   """
   updatedFields_contains_every: [String!]
+
   """
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
@@ -613,234 +1159,177 @@ input CardItemUpsertWithWhereUniqueNestedInput {
 }
 
 input CardItemWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [CardItemWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [CardItemWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [CardItemWhereInput!]
   id: ID
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   id_not: ID
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   id_lte: ID
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   id_gte: ID
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   id_contains: ID
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   name_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   name_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   name_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   name_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   name_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   name_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   name_not_ends_with: String
   description: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   description_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   description_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   description_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   description_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   description_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   description_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   description_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   description_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   description_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   description_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   description_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   description_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   description_not_ends_with: String
   ordering: Int
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   ordering_not: Int
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   ordering_in: [Int!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   ordering_not_in: [Int!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   ordering_lt: Int
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   ordering_lte: Int
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   ordering_gt: Int
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   ordering_gte: Int
   price: Float
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   price_not: Float
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   price_in: [Float!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   price_not_in: [Float!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   price_lt: Float
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   price_lte: Float
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   price_gt: Float
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   price_gte: Float
   subitems_every: CardSubitemWhereInput
   subitems_some: CardSubitemWhereInput
@@ -875,17 +1364,12 @@ type CardSubitem implements Node {
   price: Float!
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type CardSubitemConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
-  """
-  A list of edges.
-  """
+
+  """A list of edges."""
   edges: [CardSubitemEdge]!
   aggregate: AggregateCardSubitem!
 }
@@ -902,17 +1386,12 @@ input CardSubitemCreateManyInput {
   connect: [CardSubitemWhereUniqueInput!]
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type CardSubitemEdge {
-  """
-  The item at the end of the edge.
-  """
+  """The item at the end of the edge."""
   node: CardSubitem!
-  """
-  A cursor for use in pagination.
-  """
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -949,30 +1428,30 @@ type CardSubitemSubscriptionPayload {
 }
 
 input CardSubitemSubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [CardSubitemSubscriptionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [CardSubitemSubscriptionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [CardSubitemSubscriptionWhereInput!]
+
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
+
   """
   The subscription event gets only dispatched when one of the updated fields names is included in this list
   """
   updatedFields_contains: String
+
   """
   The subscription event gets only dispatched when all of the field names included in this list have been updated
   """
   updatedFields_contains_every: [String!]
+
   """
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
@@ -1020,194 +1499,147 @@ input CardSubitemUpsertWithWhereUniqueNestedInput {
 }
 
 input CardSubitemWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [CardSubitemWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [CardSubitemWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [CardSubitemWhereInput!]
   id: ID
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   id_not: ID
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   id_lte: ID
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   id_gte: ID
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   id_contains: ID
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   type: CardSubitemTypes
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   type_not: CardSubitemTypes
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   type_in: [CardSubitemTypes!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   type_not_in: [CardSubitemTypes!]
   name: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   name_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   name_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   name_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   name_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   name_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   name_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   name_not_ends_with: String
   ordering: Int
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   ordering_not: Int
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   ordering_in: [Int!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   ordering_not_in: [Int!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   ordering_lt: Int
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   ordering_lte: Int
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   ordering_gt: Int
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   ordering_gte: Int
   price: Float
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   price_not: Float
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   price_in: [Float!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   price_not_in: [Float!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   price_lt: Float
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   price_lte: Float
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   price_gt: Float
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   price_gte: Float
 }
 
@@ -1223,30 +1655,30 @@ type CardSubscriptionPayload {
 }
 
 input CardSubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [CardSubscriptionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [CardSubscriptionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [CardSubscriptionWhereInput!]
+
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
+
   """
   The subscription event gets only dispatched when one of the updated fields names is included in this list
   """
   updatedFields_contains: String
+
   """
   The subscription event gets only dispatched when all of the field names included in this list have been updated
   """
   updatedFields_contains_every: [String!]
+
   """
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
@@ -1308,123 +1740,93 @@ input CardUpsertWithWhereUniqueWithoutRestaurantInput {
 }
 
 input CardWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [CardWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [CardWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [CardWhereInput!]
   id: ID
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   id_not: ID
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   id_lte: ID
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   id_gte: ID
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   id_contains: ID
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   name_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   name_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   name_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   name_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   name_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   name_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   name_not_ends_with: String
   restaurant: RestaurantWhereInput
   activeRestaurant: RestaurantWhereInput
@@ -1446,17 +1848,12 @@ type Employment implements Node {
   permission: RestaurantPermission!
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type EmploymentConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
-  """
-  A list of edges.
-  """
+
+  """A list of edges."""
   edges: [EmploymentEdge]!
   aggregate: AggregateEmployment!
 }
@@ -1487,17 +1884,12 @@ input EmploymentCreateWithoutUserInput {
   restaurant: RestaurantCreateOneWithoutEmploymentsInput!
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type EmploymentEdge {
-  """
-  The item at the end of the edge.
-  """
+  """The item at the end of the edge."""
   node: Employment!
-  """
-  A cursor for use in pagination.
-  """
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -1525,30 +1917,30 @@ type EmploymentSubscriptionPayload {
 }
 
 input EmploymentSubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [EmploymentSubscriptionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [EmploymentSubscriptionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [EmploymentSubscriptionWhereInput!]
+
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
+
   """
   The subscription event gets only dispatched when one of the updated fields names is included in this list
   """
   updatedFields_contains: String
+
   """
   The subscription event gets only dispatched when all of the field names included in this list have been updated
   """
   updatedFields_contains_every: [String!]
+
   """
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
@@ -1613,83 +2005,63 @@ input EmploymentUpsertWithWhereUniqueWithoutUserInput {
 }
 
 input EmploymentWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [EmploymentWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [EmploymentWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [EmploymentWhereInput!]
   id: ID
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   id_not: ID
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   id_lte: ID
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   id_gte: ID
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   id_contains: ID
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   permission: RestaurantPermission
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   permission_not: RestaurantPermission
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   permission_in: [RestaurantPermission!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   permission_not_in: [RestaurantPermission!]
   user: UserWhereInput
   restaurant: RestaurantWhereInput
@@ -1700,10 +2072,61 @@ input EmploymentWhereUniqueInput {
 }
 
 """
-The 'Long' scalar type represents non-fractional signed whole numeric values.
+The \`Long\` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
 """
 scalar Long
+
+type Mutation {
+  createOrganization(data: OrganizationCreateInput!): Organization!
+  createRestaurant(data: RestaurantCreateInput!): Restaurant!
+  createEmployment(data: EmploymentCreateInput!): Employment!
+  createUser(data: UserCreateInput!): User!
+  createCard(data: CardCreateInput!): Card!
+  createCardCategory(data: CardCategoryCreateInput!): CardCategory!
+  createCardItem(data: CardItemCreateInput!): CardItem!
+  createCardSubitem(data: CardSubitemCreateInput!): CardSubitem!
+  updateOrganization(data: OrganizationUpdateInput!, where: OrganizationWhereUniqueInput!): Organization
+  updateRestaurant(data: RestaurantUpdateInput!, where: RestaurantWhereUniqueInput!): Restaurant
+  updateEmployment(data: EmploymentUpdateInput!, where: EmploymentWhereUniqueInput!): Employment
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateCard(data: CardUpdateInput!, where: CardWhereUniqueInput!): Card
+  updateCardCategory(data: CardCategoryUpdateInput!, where: CardCategoryWhereUniqueInput!): CardCategory
+  updateCardItem(data: CardItemUpdateInput!, where: CardItemWhereUniqueInput!): CardItem
+  updateCardSubitem(data: CardSubitemUpdateInput!, where: CardSubitemWhereUniqueInput!): CardSubitem
+  deleteOrganization(where: OrganizationWhereUniqueInput!): Organization
+  deleteRestaurant(where: RestaurantWhereUniqueInput!): Restaurant
+  deleteEmployment(where: EmploymentWhereUniqueInput!): Employment
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteCard(where: CardWhereUniqueInput!): Card
+  deleteCardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
+  deleteCardItem(where: CardItemWhereUniqueInput!): CardItem
+  deleteCardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
+  upsertOrganization(where: OrganizationWhereUniqueInput!, create: OrganizationCreateInput!, update: OrganizationUpdateInput!): Organization!
+  upsertRestaurant(where: RestaurantWhereUniqueInput!, create: RestaurantCreateInput!, update: RestaurantUpdateInput!): Restaurant!
+  upsertEmployment(where: EmploymentWhereUniqueInput!, create: EmploymentCreateInput!, update: EmploymentUpdateInput!): Employment!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertCard(where: CardWhereUniqueInput!, create: CardCreateInput!, update: CardUpdateInput!): Card!
+  upsertCardCategory(where: CardCategoryWhereUniqueInput!, create: CardCategoryCreateInput!, update: CardCategoryUpdateInput!): CardCategory!
+  upsertCardItem(where: CardItemWhereUniqueInput!, create: CardItemCreateInput!, update: CardItemUpdateInput!): CardItem!
+  upsertCardSubitem(where: CardSubitemWhereUniqueInput!, create: CardSubitemCreateInput!, update: CardSubitemUpdateInput!): CardSubitem!
+  updateManyOrganizations(data: OrganizationUpdateInput!, where: OrganizationWhereInput): BatchPayload!
+  updateManyRestaurants(data: RestaurantUpdateInput!, where: RestaurantWhereInput): BatchPayload!
+  updateManyEmployments(data: EmploymentUpdateInput!, where: EmploymentWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyCards(data: CardUpdateInput!, where: CardWhereInput): BatchPayload!
+  updateManyCardCategories(data: CardCategoryUpdateInput!, where: CardCategoryWhereInput): BatchPayload!
+  updateManyCardItems(data: CardItemUpdateInput!, where: CardItemWhereInput): BatchPayload!
+  updateManyCardSubitems(data: CardSubitemUpdateInput!, where: CardSubitemWhereInput): BatchPayload!
+  deleteManyOrganizations(where: OrganizationWhereInput): BatchPayload!
+  deleteManyRestaurants(where: RestaurantWhereInput): BatchPayload!
+  deleteManyEmployments(where: EmploymentWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyCards(where: CardWhereInput): BatchPayload!
+  deleteManyCardCategories(where: CardCategoryWhereInput): BatchPayload!
+  deleteManyCardItems(where: CardItemWhereInput): BatchPayload!
+  deleteManyCardSubitems(where: CardSubitemWhereInput): BatchPayload!
+}
 
 enum MutationType {
   CREATED
@@ -1711,13 +2134,9 @@ enum MutationType {
   DELETED
 }
 
-"""
-An object with an ID
-"""
+"""An object with an ID"""
 interface Node {
-  """
-  The id of the object.
-  """
+  """The id of the object."""
   id: ID!
 }
 
@@ -1730,17 +2149,12 @@ type Organization implements Node {
   restaurants(where: RestaurantWhereInput, orderBy: RestaurantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Restaurant!]
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type OrganizationConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
-  """
-  A list of edges.
-  """
+
+  """A list of edges."""
   edges: [OrganizationEdge]!
   aggregate: AggregateOrganization!
 }
@@ -1765,17 +2179,12 @@ input OrganizationCreateWithoutRestaurantsInput {
   imageUrl: String
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type OrganizationEdge {
-  """
-  The item at the end of the edge.
-  """
+  """The item at the end of the edge."""
   node: Organization!
-  """
-  A cursor for use in pagination.
-  """
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -1812,30 +2221,30 @@ type OrganizationSubscriptionPayload {
 }
 
 input OrganizationSubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [OrganizationSubscriptionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [OrganizationSubscriptionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [OrganizationSubscriptionWhereInput!]
+
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
+
   """
   The subscription event gets only dispatched when one of the updated fields names is included in this list
   """
   updatedFields_contains: String
+
   """
   The subscription event gets only dispatched when all of the field names included in this list have been updated
   """
   updatedFields_contains_every: [String!]
+
   """
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
@@ -1873,234 +2282,177 @@ input OrganizationUpsertWithoutRestaurantsInput {
 }
 
 input OrganizationWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [OrganizationWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [OrganizationWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [OrganizationWhereInput!]
   id: ID
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   id_not: ID
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   id_lte: ID
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   id_gte: ID
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   id_contains: ID
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   name_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   name_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   name_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   name_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   name_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   name_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   name_not_ends_with: String
   slug: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   slug_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   slug_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   slug_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   slug_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   slug_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   slug_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   slug_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   slug_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   slug_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   slug_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   slug_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   slug_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   slug_not_ends_with: String
   visible: Boolean
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   visible_not: Boolean
   imageUrl: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   imageUrl_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   imageUrl_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   imageUrl_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   imageUrl_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   imageUrl_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   imageUrl_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   imageUrl_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   imageUrl_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   imageUrl_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   imageUrl_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   imageUrl_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   imageUrl_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   imageUrl_not_ends_with: String
   restaurants_every: RestaurantWhereInput
   restaurants_some: RestaurantWhereInput
@@ -2112,26 +2464,52 @@ input OrganizationWhereUniqueInput {
   slug: String
 }
 
-"""
-Information about pagination in a connection.
-"""
+"""Information about pagination in a connection."""
 type PageInfo {
-  """
-  When paginating forwards, are there more items?
-  """
+  """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
-  """
-  When paginating backwards, are there more items?
-  """
+
+  """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
-  """
-  When paginating backwards, the cursor to continue.
-  """
+
+  """When paginating backwards, the cursor to continue."""
   startCursor: String
-  """
-  When paginating forwards, the cursor to continue.
-  """
+
+  """When paginating forwards, the cursor to continue."""
   endCursor: String
+}
+
+type Query {
+  organizations(where: OrganizationWhereInput, orderBy: OrganizationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Organization]!
+  restaurants(where: RestaurantWhereInput, orderBy: RestaurantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Restaurant]!
+  employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card]!
+  cardCategories(where: CardCategoryWhereInput, orderBy: CardCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardCategory]!
+  cardItems(where: CardItemWhereInput, orderBy: CardItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardItem]!
+  cardSubitems(where: CardSubitemWhereInput, orderBy: CardSubitemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardSubitem]!
+  organization(where: OrganizationWhereUniqueInput!): Organization
+  restaurant(where: RestaurantWhereUniqueInput!): Restaurant
+  employment(where: EmploymentWhereUniqueInput!): Employment
+  user(where: UserWhereUniqueInput!): User
+  card(where: CardWhereUniqueInput!): Card
+  cardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
+  cardItem(where: CardItemWhereUniqueInput!): CardItem
+  cardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
+  organizationsConnection(where: OrganizationWhereInput, orderBy: OrganizationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganizationConnection!
+  restaurantsConnection(where: RestaurantWhereInput, orderBy: RestaurantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RestaurantConnection!
+  employmentsConnection(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmploymentConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  cardsConnection(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardConnection!
+  cardCategoriesConnection(where: CardCategoryWhereInput, orderBy: CardCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardCategoryConnection!
+  cardItemsConnection(where: CardItemWhereInput, orderBy: CardItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardItemConnection!
+  cardSubitemsConnection(where: CardSubitemWhereInput, orderBy: CardSubitemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardSubitemConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
 }
 
 type Restaurant implements Node {
@@ -2146,17 +2524,12 @@ type Restaurant implements Node {
   cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card!]
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type RestaurantConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
-  """
-  A list of edges.
-  """
+
+  """A list of edges."""
   edges: [RestaurantEdge]!
   aggregate: AggregateRestaurant!
 }
@@ -2232,17 +2605,12 @@ input RestaurantCreateWithoutOrganizationInput {
   cards: CardCreateManyWithoutRestaurantInput
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type RestaurantEdge {
-  """
-  The item at the end of the edge.
-  """
+  """The item at the end of the edge."""
   node: Restaurant!
-  """
-  A cursor for use in pagination.
-  """
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -2285,30 +2653,30 @@ type RestaurantSubscriptionPayload {
 }
 
 input RestaurantSubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [RestaurantSubscriptionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [RestaurantSubscriptionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [RestaurantSubscriptionWhereInput!]
+
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
+
   """
   The subscription event gets only dispatched when one of the updated fields names is included in this list
   """
   updatedFields_contains: String
+
   """
   The subscription event gets only dispatched when all of the field names included in this list have been updated
   """
   updatedFields_contains_every: [String!]
+
   """
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
@@ -2428,234 +2796,177 @@ input RestaurantUpsertWithWhereUniqueWithoutOrganizationInput {
 }
 
 input RestaurantWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [RestaurantWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [RestaurantWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [RestaurantWhereInput!]
   id: ID
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   id_not: ID
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   id_lte: ID
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   id_gte: ID
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   id_contains: ID
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   name_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   name_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   name_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   name_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   name_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   name_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   name_not_ends_with: String
   slug: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   slug_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   slug_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   slug_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   slug_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   slug_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   slug_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   slug_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   slug_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   slug_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   slug_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   slug_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   slug_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   slug_not_ends_with: String
   visible: Boolean
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   visible_not: Boolean
   imageUrl: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   imageUrl_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   imageUrl_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   imageUrl_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   imageUrl_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   imageUrl_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   imageUrl_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   imageUrl_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   imageUrl_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   imageUrl_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   imageUrl_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   imageUrl_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   imageUrl_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   imageUrl_not_ends_with: String
   organization: OrganizationWhereInput
   employments_every: EmploymentWhereInput
@@ -2670,6 +2981,17 @@ input RestaurantWhereInput {
 input RestaurantWhereUniqueInput {
   id: ID
   slug: String
+}
+
+type Subscription {
+  organization(where: OrganizationSubscriptionWhereInput): OrganizationSubscriptionPayload
+  restaurant(where: RestaurantSubscriptionWhereInput): RestaurantSubscriptionPayload
+  employment(where: EmploymentSubscriptionWhereInput): EmploymentSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  card(where: CardSubscriptionWhereInput): CardSubscriptionPayload
+  cardCategory(where: CardCategorySubscriptionWhereInput): CardCategorySubscriptionPayload
+  cardItem(where: CardItemSubscriptionWhereInput): CardItemSubscriptionPayload
+  cardSubitem(where: CardSubitemSubscriptionWhereInput): CardSubitemSubscriptionPayload
 }
 
 type User implements Node {
@@ -2690,17 +3012,12 @@ type User implements Node {
   employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment!]
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type UserConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
-  """
-  A list of edges.
-  """
+
+  """A list of edges."""
   edges: [UserEdge]!
   aggregate: AggregateUser!
 }
@@ -2743,17 +3060,12 @@ input UserCreateWithoutEmploymentsInput {
   isSuper: Boolean
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type UserEdge {
-  """
-  The item at the end of the edge.
-  """
+  """The item at the end of the edge."""
   node: User!
-  """
-  A cursor for use in pagination.
-  """
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -2817,30 +3129,30 @@ type UserSubscriptionPayload {
 }
 
 input UserSubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [UserSubscriptionWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [UserSubscriptionWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [UserSubscriptionWhereInput!]
+
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
+
   """
   The subscription event gets only dispatched when one of the updated fields names is included in this list
   """
   updatedFields_contains: String
+
   """
   The subscription event gets only dispatched when all of the field names included in this list have been updated
   """
   updatedFields_contains_every: [String!]
+
   """
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
@@ -2895,519 +3207,393 @@ input UserUpsertWithoutEmploymentsInput {
 }
 
 input UserWhereInput {
-  """
-  Logical AND on all given filters.
-  """
+  """Logical AND on all given filters."""
   AND: [UserWhereInput!]
-  """
-  Logical OR on all given filters.
-  """
+
+  """Logical OR on all given filters."""
   OR: [UserWhereInput!]
-  """
-  Logical NOT on all given filters combined by AND.
-  """
+
+  """Logical NOT on all given filters combined by AND."""
   NOT: [UserWhereInput!]
   id: ID
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   id_not: ID
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   id_in: [ID!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   id_lt: ID
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   id_lte: ID
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   id_gt: ID
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   id_gte: ID
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   id_contains: ID
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   id_not_contains: ID
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   id_starts_with: ID
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   id_ends_with: ID
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   email: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   email_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   email_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   email_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   email_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   email_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   email_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   email_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   email_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   email_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   email_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   email_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   email_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   email_not_ends_with: String
   password: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   password_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   password_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   password_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   password_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   password_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   password_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   password_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   password_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   password_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   password_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   password_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   password_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   password_not_ends_with: String
   name: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   name_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   name_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   name_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   name_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   name_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   name_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   name_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   name_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   name_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   name_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   name_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   name_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   name_not_ends_with: String
   inviteToken: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   inviteToken_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   inviteToken_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   inviteToken_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   inviteToken_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   inviteToken_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   inviteToken_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   inviteToken_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   inviteToken_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   inviteToken_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   inviteToken_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   inviteToken_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   inviteToken_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   inviteToken_not_ends_with: String
   inviteAccepted: Boolean
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   inviteAccepted_not: Boolean
   emailConfirmed: Boolean
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   emailConfirmed_not: Boolean
   emailConfirmToken: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   emailConfirmToken_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   emailConfirmToken_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   emailConfirmToken_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   emailConfirmToken_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   emailConfirmToken_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   emailConfirmToken_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   emailConfirmToken_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   emailConfirmToken_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   emailConfirmToken_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   emailConfirmToken_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   emailConfirmToken_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   emailConfirmToken_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   emailConfirmToken_not_ends_with: String
   resetToken: String
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   resetToken_not: String
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   resetToken_in: [String!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   resetToken_not_in: [String!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   resetToken_lt: String
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   resetToken_lte: String
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   resetToken_gt: String
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   resetToken_gte: String
-  """
-  All values containing the given string.
-  """
+
+  """All values containing the given string."""
   resetToken_contains: String
-  """
-  All values not containing the given string.
-  """
+
+  """All values not containing the given string."""
   resetToken_not_contains: String
-  """
-  All values starting with the given string.
-  """
+
+  """All values starting with the given string."""
   resetToken_starts_with: String
-  """
-  All values not starting with the given string.
-  """
+
+  """All values not starting with the given string."""
   resetToken_not_starts_with: String
-  """
-  All values ending with the given string.
-  """
+
+  """All values ending with the given string."""
   resetToken_ends_with: String
-  """
-  All values not ending with the given string.
-  """
+
+  """All values not ending with the given string."""
   resetToken_not_ends_with: String
   resetExpires: DateTime
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   resetExpires_not: DateTime
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   resetExpires_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   resetExpires_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   resetExpires_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   resetExpires_lte: DateTime
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   resetExpires_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   resetExpires_gte: DateTime
   deletedAt: DateTime
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   deletedAt_not: DateTime
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   deletedAt_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   deletedAt_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   deletedAt_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   deletedAt_lte: DateTime
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   deletedAt_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   deletedAt_gte: DateTime
   lastLogin: DateTime
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   lastLogin_not: DateTime
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   lastLogin_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   lastLogin_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   lastLogin_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   lastLogin_lte: DateTime
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   lastLogin_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   lastLogin_gte: DateTime
   joinedAt: DateTime
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   joinedAt_not: DateTime
-  """
-  All values that are contained in given list.
-  """
+
+  """All values that are contained in given list."""
   joinedAt_in: [DateTime!]
-  """
-  All values that are not contained in given list.
-  """
+
+  """All values that are not contained in given list."""
   joinedAt_not_in: [DateTime!]
-  """
-  All values less than the given value.
-  """
+
+  """All values less than the given value."""
   joinedAt_lt: DateTime
-  """
-  All values less than or equal the given value.
-  """
+
+  """All values less than or equal the given value."""
   joinedAt_lte: DateTime
-  """
-  All values greater than the given value.
-  """
+
+  """All values greater than the given value."""
   joinedAt_gt: DateTime
-  """
-  All values greater than or equal the given value.
-  """
+
+  """All values greater than or equal the given value."""
   joinedAt_gte: DateTime
   isSuper: Boolean
-  """
-  All values that are not equal to given value.
-  """
+
+  """All values that are not equal to given value."""
   isSuper_not: Boolean
   employments_every: EmploymentWhereInput
   employments_some: EmploymentWhereInput
@@ -3418,103 +3604,15 @@ input UserWhereUniqueInput {
   id: ID
   email: String
 }
-
-type Mutation {
-  createOrganization(data: OrganizationCreateInput!): Organization!
-  createRestaurant(data: RestaurantCreateInput!): Restaurant!
-  createEmployment(data: EmploymentCreateInput!): Employment!
-  createUser(data: UserCreateInput!): User!
-  createCard(data: CardCreateInput!): Card!
-  createCardCategory(data: CardCategoryCreateInput!): CardCategory!
-  createCardItem(data: CardItemCreateInput!): CardItem!
-  createCardSubitem(data: CardSubitemCreateInput!): CardSubitem!
-  updateOrganization(data: OrganizationUpdateInput!, where: OrganizationWhereUniqueInput!): Organization
-  updateRestaurant(data: RestaurantUpdateInput!, where: RestaurantWhereUniqueInput!): Restaurant
-  updateEmployment(data: EmploymentUpdateInput!, where: EmploymentWhereUniqueInput!): Employment
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateCard(data: CardUpdateInput!, where: CardWhereUniqueInput!): Card
-  updateCardCategory(data: CardCategoryUpdateInput!, where: CardCategoryWhereUniqueInput!): CardCategory
-  updateCardItem(data: CardItemUpdateInput!, where: CardItemWhereUniqueInput!): CardItem
-  updateCardSubitem(data: CardSubitemUpdateInput!, where: CardSubitemWhereUniqueInput!): CardSubitem
-  deleteOrganization(where: OrganizationWhereUniqueInput!): Organization
-  deleteRestaurant(where: RestaurantWhereUniqueInput!): Restaurant
-  deleteEmployment(where: EmploymentWhereUniqueInput!): Employment
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteCard(where: CardWhereUniqueInput!): Card
-  deleteCardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
-  deleteCardItem(where: CardItemWhereUniqueInput!): CardItem
-  deleteCardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
-  upsertOrganization(where: OrganizationWhereUniqueInput!, create: OrganizationCreateInput!, update: OrganizationUpdateInput!): Organization!
-  upsertRestaurant(where: RestaurantWhereUniqueInput!, create: RestaurantCreateInput!, update: RestaurantUpdateInput!): Restaurant!
-  upsertEmployment(where: EmploymentWhereUniqueInput!, create: EmploymentCreateInput!, update: EmploymentUpdateInput!): Employment!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertCard(where: CardWhereUniqueInput!, create: CardCreateInput!, update: CardUpdateInput!): Card!
-  upsertCardCategory(where: CardCategoryWhereUniqueInput!, create: CardCategoryCreateInput!, update: CardCategoryUpdateInput!): CardCategory!
-  upsertCardItem(where: CardItemWhereUniqueInput!, create: CardItemCreateInput!, update: CardItemUpdateInput!): CardItem!
-  upsertCardSubitem(where: CardSubitemWhereUniqueInput!, create: CardSubitemCreateInput!, update: CardSubitemUpdateInput!): CardSubitem!
-  updateManyOrganizations(data: OrganizationUpdateInput!, where: OrganizationWhereInput): BatchPayload!
-  updateManyRestaurants(data: RestaurantUpdateInput!, where: RestaurantWhereInput): BatchPayload!
-  updateManyEmployments(data: EmploymentUpdateInput!, where: EmploymentWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManyCards(data: CardUpdateInput!, where: CardWhereInput): BatchPayload!
-  updateManyCardCategories(data: CardCategoryUpdateInput!, where: CardCategoryWhereInput): BatchPayload!
-  updateManyCardItems(data: CardItemUpdateInput!, where: CardItemWhereInput): BatchPayload!
-  updateManyCardSubitems(data: CardSubitemUpdateInput!, where: CardSubitemWhereInput): BatchPayload!
-  deleteManyOrganizations(where: OrganizationWhereInput): BatchPayload!
-  deleteManyRestaurants(where: RestaurantWhereInput): BatchPayload!
-  deleteManyEmployments(where: EmploymentWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyCards(where: CardWhereInput): BatchPayload!
-  deleteManyCardCategories(where: CardCategoryWhereInput): BatchPayload!
-  deleteManyCardItems(where: CardItemWhereInput): BatchPayload!
-  deleteManyCardSubitems(where: CardSubitemWhereInput): BatchPayload!
-}
-
-type Query {
-  organizations(where: OrganizationWhereInput, orderBy: OrganizationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Organization]!
-  restaurants(where: RestaurantWhereInput, orderBy: RestaurantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Restaurant]!
-  employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card]!
-  cardCategories(where: CardCategoryWhereInput, orderBy: CardCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardCategory]!
-  cardItems(where: CardItemWhereInput, orderBy: CardItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardItem]!
-  cardSubitems(where: CardSubitemWhereInput, orderBy: CardSubitemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardSubitem]!
-  organization(where: OrganizationWhereUniqueInput!): Organization
-  restaurant(where: RestaurantWhereUniqueInput!): Restaurant
-  employment(where: EmploymentWhereUniqueInput!): Employment
-  user(where: UserWhereUniqueInput!): User
-  card(where: CardWhereUniqueInput!): Card
-  cardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
-  cardItem(where: CardItemWhereUniqueInput!): CardItem
-  cardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
-  organizationsConnection(where: OrganizationWhereInput, orderBy: OrganizationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganizationConnection!
-  restaurantsConnection(where: RestaurantWhereInput, orderBy: RestaurantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RestaurantConnection!
-  employmentsConnection(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmploymentConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  cardsConnection(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardConnection!
-  cardCategoriesConnection(where: CardCategoryWhereInput, orderBy: CardCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardCategoryConnection!
-  cardItemsConnection(where: CardItemWhereInput, orderBy: CardItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardItemConnection!
-  cardSubitemsConnection(where: CardSubitemWhereInput, orderBy: CardSubitemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardSubitemConnection!
-  """
-  Fetches an object given its ID
-  """
-  node("""
-  The ID of an object
-  """
-  id: ID!): Node
-}
-
-type Subscription {
-  organization(where: OrganizationSubscriptionWhereInput): OrganizationSubscriptionPayload
-  restaurant(where: RestaurantSubscriptionWhereInput): RestaurantSubscriptionPayload
-  employment(where: EmploymentSubscriptionWhereInput): EmploymentSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  card(where: CardSubscriptionWhereInput): CardSubscriptionPayload
-  cardCategory(where: CardCategorySubscriptionWhereInput): CardCategorySubscriptionPayload
-  cardItem(where: CardItemSubscriptionWhereInput): CardItemSubscriptionPayload
-  cardSubitem(where: CardSubitemSubscriptionWhereInput): CardSubitemSubscriptionPayload
-}
 `;
+
+export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({
+  typeDefs,
+});
+
+/**
+ * Types
+ */
 
 export type CardItemOrderByInput =
   | 'id_ASC'
@@ -5391,7 +5489,7 @@ export interface RestaurantEdge {
 }
 
 /*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point).
 */
 export type Float = number;
 
@@ -5407,12 +5505,12 @@ The `Boolean` scalar type represents `true` or `false`.
 export type Boolean = boolean;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
 
 /*
-The 'Long' scalar type represents non-fractional signed whole numeric values.
+The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
 */
 export type Long = string;
@@ -5422,734 +5520,4 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 */
 export type String = string;
 
-export type DateTime = string;
-
-export interface Schema {
-  query: Query;
-  mutation: Mutation;
-  subscription: Subscription;
-}
-
-export type Query = {
-  organizations: (
-    args: {
-      where?: OrganizationWhereInput;
-      orderBy?: OrganizationOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Organization[]>;
-  restaurants: (
-    args: {
-      where?: RestaurantWhereInput;
-      orderBy?: RestaurantOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Restaurant[]>;
-  employments: (
-    args: {
-      where?: EmploymentWhereInput;
-      orderBy?: EmploymentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Employment[]>;
-  users: (
-    args: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<User[]>;
-  cards: (
-    args: {
-      where?: CardWhereInput;
-      orderBy?: CardOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Card[]>;
-  cardCategories: (
-    args: {
-      where?: CardCategoryWhereInput;
-      orderBy?: CardCategoryOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardCategory[]>;
-  cardItems: (
-    args: {
-      where?: CardItemWhereInput;
-      orderBy?: CardItemOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardItem[]>;
-  cardSubitems: (
-    args: {
-      where?: CardSubitemWhereInput;
-      orderBy?: CardSubitemOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardSubitem[]>;
-  organization: (
-    args: { where: OrganizationWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Organization | null>;
-  restaurant: (
-    args: { where: RestaurantWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Restaurant | null>;
-  employment: (
-    args: { where: EmploymentWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Employment | null>;
-  user: (
-    args: { where: UserWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<User | null>;
-  card: (
-    args: { where: CardWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Card | null>;
-  cardCategory: (
-    args: { where: CardCategoryWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardCategory | null>;
-  cardItem: (
-    args: { where: CardItemWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardItem | null>;
-  cardSubitem: (
-    args: { where: CardSubitemWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardSubitem | null>;
-  organizationsConnection: (
-    args: {
-      where?: OrganizationWhereInput;
-      orderBy?: OrganizationOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<OrganizationConnection>;
-  restaurantsConnection: (
-    args: {
-      where?: RestaurantWhereInput;
-      orderBy?: RestaurantOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<RestaurantConnection>;
-  employmentsConnection: (
-    args: {
-      where?: EmploymentWhereInput;
-      orderBy?: EmploymentOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<EmploymentConnection>;
-  usersConnection: (
-    args: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<UserConnection>;
-  cardsConnection: (
-    args: {
-      where?: CardWhereInput;
-      orderBy?: CardOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardConnection>;
-  cardCategoriesConnection: (
-    args: {
-      where?: CardCategoryWhereInput;
-      orderBy?: CardCategoryOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardCategoryConnection>;
-  cardItemsConnection: (
-    args: {
-      where?: CardItemWhereInput;
-      orderBy?: CardItemOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardItemConnection>;
-  cardSubitemsConnection: (
-    args: {
-      where?: CardSubitemWhereInput;
-      orderBy?: CardSubitemOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardSubitemConnection>;
-  node: (
-    args: { id: ID_Output },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Node | null>;
-};
-
-export type Mutation = {
-  createOrganization: (
-    args: { data: OrganizationCreateInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Organization>;
-  createRestaurant: (
-    args: { data: RestaurantCreateInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Restaurant>;
-  createEmployment: (
-    args: { data: EmploymentCreateInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Employment>;
-  createUser: (
-    args: { data: UserCreateInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<User>;
-  createCard: (
-    args: { data: CardCreateInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Card>;
-  createCardCategory: (
-    args: { data: CardCategoryCreateInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardCategory>;
-  createCardItem: (
-    args: { data: CardItemCreateInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardItem>;
-  createCardSubitem: (
-    args: { data: CardSubitemCreateInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardSubitem>;
-  updateOrganization: (
-    args: {
-      data: OrganizationUpdateInput;
-      where: OrganizationWhereUniqueInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Organization | null>;
-  updateRestaurant: (
-    args: { data: RestaurantUpdateInput; where: RestaurantWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Restaurant | null>;
-  updateEmployment: (
-    args: { data: EmploymentUpdateInput; where: EmploymentWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Employment | null>;
-  updateUser: (
-    args: { data: UserUpdateInput; where: UserWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<User | null>;
-  updateCard: (
-    args: { data: CardUpdateInput; where: CardWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Card | null>;
-  updateCardCategory: (
-    args: {
-      data: CardCategoryUpdateInput;
-      where: CardCategoryWhereUniqueInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardCategory | null>;
-  updateCardItem: (
-    args: { data: CardItemUpdateInput; where: CardItemWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardItem | null>;
-  updateCardSubitem: (
-    args: { data: CardSubitemUpdateInput; where: CardSubitemWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardSubitem | null>;
-  deleteOrganization: (
-    args: { where: OrganizationWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Organization | null>;
-  deleteRestaurant: (
-    args: { where: RestaurantWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Restaurant | null>;
-  deleteEmployment: (
-    args: { where: EmploymentWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Employment | null>;
-  deleteUser: (
-    args: { where: UserWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<User | null>;
-  deleteCard: (
-    args: { where: CardWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Card | null>;
-  deleteCardCategory: (
-    args: { where: CardCategoryWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardCategory | null>;
-  deleteCardItem: (
-    args: { where: CardItemWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardItem | null>;
-  deleteCardSubitem: (
-    args: { where: CardSubitemWhereUniqueInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardSubitem | null>;
-  upsertOrganization: (
-    args: {
-      where: OrganizationWhereUniqueInput;
-      create: OrganizationCreateInput;
-      update: OrganizationUpdateInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Organization>;
-  upsertRestaurant: (
-    args: {
-      where: RestaurantWhereUniqueInput;
-      create: RestaurantCreateInput;
-      update: RestaurantUpdateInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Restaurant>;
-  upsertEmployment: (
-    args: {
-      where: EmploymentWhereUniqueInput;
-      create: EmploymentCreateInput;
-      update: EmploymentUpdateInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Employment>;
-  upsertUser: (
-    args: {
-      where: UserWhereUniqueInput;
-      create: UserCreateInput;
-      update: UserUpdateInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<User>;
-  upsertCard: (
-    args: {
-      where: CardWhereUniqueInput;
-      create: CardCreateInput;
-      update: CardUpdateInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<Card>;
-  upsertCardCategory: (
-    args: {
-      where: CardCategoryWhereUniqueInput;
-      create: CardCategoryCreateInput;
-      update: CardCategoryUpdateInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardCategory>;
-  upsertCardItem: (
-    args: {
-      where: CardItemWhereUniqueInput;
-      create: CardItemCreateInput;
-      update: CardItemUpdateInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardItem>;
-  upsertCardSubitem: (
-    args: {
-      where: CardSubitemWhereUniqueInput;
-      create: CardSubitemCreateInput;
-      update: CardSubitemUpdateInput;
-    },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<CardSubitem>;
-  updateManyOrganizations: (
-    args: { data: OrganizationUpdateInput; where?: OrganizationWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  updateManyRestaurants: (
-    args: { data: RestaurantUpdateInput; where?: RestaurantWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  updateManyEmployments: (
-    args: { data: EmploymentUpdateInput; where?: EmploymentWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  updateManyUsers: (
-    args: { data: UserUpdateInput; where?: UserWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  updateManyCards: (
-    args: { data: CardUpdateInput; where?: CardWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  updateManyCardCategories: (
-    args: { data: CardCategoryUpdateInput; where?: CardCategoryWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  updateManyCardItems: (
-    args: { data: CardItemUpdateInput; where?: CardItemWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  updateManyCardSubitems: (
-    args: { data: CardSubitemUpdateInput; where?: CardSubitemWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  deleteManyOrganizations: (
-    args: { where?: OrganizationWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  deleteManyRestaurants: (
-    args: { where?: RestaurantWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  deleteManyEmployments: (
-    args: { where?: EmploymentWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  deleteManyUsers: (
-    args: { where?: UserWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  deleteManyCards: (
-    args: { where?: CardWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  deleteManyCardCategories: (
-    args: { where?: CardCategoryWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  deleteManyCardItems: (
-    args: { where?: CardItemWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-  deleteManyCardSubitems: (
-    args: { where?: CardSubitemWhereInput },
-    info?: GraphQLResolveInfo | string
-  ) => Promise<BatchPayload>;
-};
-
-export type Subscription = {
-  organization: (
-    args: { where?: OrganizationSubscriptionWhereInput },
-    infoOrQuery?: GraphQLResolveInfo | string
-  ) => Promise<AsyncIterator<OrganizationSubscriptionPayload>>;
-  restaurant: (
-    args: { where?: RestaurantSubscriptionWhereInput },
-    infoOrQuery?: GraphQLResolveInfo | string
-  ) => Promise<AsyncIterator<RestaurantSubscriptionPayload>>;
-  employment: (
-    args: { where?: EmploymentSubscriptionWhereInput },
-    infoOrQuery?: GraphQLResolveInfo | string
-  ) => Promise<AsyncIterator<EmploymentSubscriptionPayload>>;
-  user: (
-    args: { where?: UserSubscriptionWhereInput },
-    infoOrQuery?: GraphQLResolveInfo | string
-  ) => Promise<AsyncIterator<UserSubscriptionPayload>>;
-  card: (
-    args: { where?: CardSubscriptionWhereInput },
-    infoOrQuery?: GraphQLResolveInfo | string
-  ) => Promise<AsyncIterator<CardSubscriptionPayload>>;
-  cardCategory: (
-    args: { where?: CardCategorySubscriptionWhereInput },
-    infoOrQuery?: GraphQLResolveInfo | string
-  ) => Promise<AsyncIterator<CardCategorySubscriptionPayload>>;
-  cardItem: (
-    args: { where?: CardItemSubscriptionWhereInput },
-    infoOrQuery?: GraphQLResolveInfo | string
-  ) => Promise<AsyncIterator<CardItemSubscriptionPayload>>;
-  cardSubitem: (
-    args: { where?: CardSubitemSubscriptionWhereInput },
-    infoOrQuery?: GraphQLResolveInfo | string
-  ) => Promise<AsyncIterator<CardSubitemSubscriptionPayload>>;
-};
-
-export class Prisma extends BasePrisma {
-  constructor({
-    endpoint,
-    secret,
-    fragmentReplacements,
-    debug,
-  }: BasePrismaOptions) {
-    super({ typeDefs, endpoint, secret, fragmentReplacements, debug });
-  }
-
-  exists = {
-    Organization: (where: OrganizationWhereInput): Promise<boolean> =>
-      super.existsDelegate('query', 'organizations', { where }, {}, '{ id }'),
-    Restaurant: (where: RestaurantWhereInput): Promise<boolean> =>
-      super.existsDelegate('query', 'restaurants', { where }, {}, '{ id }'),
-    Employment: (where: EmploymentWhereInput): Promise<boolean> =>
-      super.existsDelegate('query', 'employments', { where }, {}, '{ id }'),
-    User: (where: UserWhereInput): Promise<boolean> =>
-      super.existsDelegate('query', 'users', { where }, {}, '{ id }'),
-    Card: (where: CardWhereInput): Promise<boolean> =>
-      super.existsDelegate('query', 'cards', { where }, {}, '{ id }'),
-    CardCategory: (where: CardCategoryWhereInput): Promise<boolean> =>
-      super.existsDelegate('query', 'cardCategories', { where }, {}, '{ id }'),
-    CardItem: (where: CardItemWhereInput): Promise<boolean> =>
-      super.existsDelegate('query', 'cardItems', { where }, {}, '{ id }'),
-    CardSubitem: (where: CardSubitemWhereInput): Promise<boolean> =>
-      super.existsDelegate('query', 'cardSubitems', { where }, {}, '{ id }'),
-  };
-
-  query: Query = {
-    organizations: (args, info): Promise<Organization[]> =>
-      super.delegate('query', 'organizations', args, {}, info),
-    restaurants: (args, info): Promise<Restaurant[]> =>
-      super.delegate('query', 'restaurants', args, {}, info),
-    employments: (args, info): Promise<Employment[]> =>
-      super.delegate('query', 'employments', args, {}, info),
-    users: (args, info): Promise<User[]> =>
-      super.delegate('query', 'users', args, {}, info),
-    cards: (args, info): Promise<Card[]> =>
-      super.delegate('query', 'cards', args, {}, info),
-    cardCategories: (args, info): Promise<CardCategory[]> =>
-      super.delegate('query', 'cardCategories', args, {}, info),
-    cardItems: (args, info): Promise<CardItem[]> =>
-      super.delegate('query', 'cardItems', args, {}, info),
-    cardSubitems: (args, info): Promise<CardSubitem[]> =>
-      super.delegate('query', 'cardSubitems', args, {}, info),
-    organization: (args, info): Promise<Organization | null> =>
-      super.delegate('query', 'organization', args, {}, info),
-    restaurant: (args, info): Promise<Restaurant | null> =>
-      super.delegate('query', 'restaurant', args, {}, info),
-    employment: (args, info): Promise<Employment | null> =>
-      super.delegate('query', 'employment', args, {}, info),
-    user: (args, info): Promise<User | null> =>
-      super.delegate('query', 'user', args, {}, info),
-    card: (args, info): Promise<Card | null> =>
-      super.delegate('query', 'card', args, {}, info),
-    cardCategory: (args, info): Promise<CardCategory | null> =>
-      super.delegate('query', 'cardCategory', args, {}, info),
-    cardItem: (args, info): Promise<CardItem | null> =>
-      super.delegate('query', 'cardItem', args, {}, info),
-    cardSubitem: (args, info): Promise<CardSubitem | null> =>
-      super.delegate('query', 'cardSubitem', args, {}, info),
-    organizationsConnection: (args, info): Promise<OrganizationConnection> =>
-      super.delegate('query', 'organizationsConnection', args, {}, info),
-    restaurantsConnection: (args, info): Promise<RestaurantConnection> =>
-      super.delegate('query', 'restaurantsConnection', args, {}, info),
-    employmentsConnection: (args, info): Promise<EmploymentConnection> =>
-      super.delegate('query', 'employmentsConnection', args, {}, info),
-    usersConnection: (args, info): Promise<UserConnection> =>
-      super.delegate('query', 'usersConnection', args, {}, info),
-    cardsConnection: (args, info): Promise<CardConnection> =>
-      super.delegate('query', 'cardsConnection', args, {}, info),
-    cardCategoriesConnection: (args, info): Promise<CardCategoryConnection> =>
-      super.delegate('query', 'cardCategoriesConnection', args, {}, info),
-    cardItemsConnection: (args, info): Promise<CardItemConnection> =>
-      super.delegate('query', 'cardItemsConnection', args, {}, info),
-    cardSubitemsConnection: (args, info): Promise<CardSubitemConnection> =>
-      super.delegate('query', 'cardSubitemsConnection', args, {}, info),
-    node: (args, info): Promise<Node | null> =>
-      super.delegate('query', 'node', args, {}, info),
-  };
-
-  mutation: Mutation = {
-    createOrganization: (args, info): Promise<Organization> =>
-      super.delegate('mutation', 'createOrganization', args, {}, info),
-    createRestaurant: (args, info): Promise<Restaurant> =>
-      super.delegate('mutation', 'createRestaurant', args, {}, info),
-    createEmployment: (args, info): Promise<Employment> =>
-      super.delegate('mutation', 'createEmployment', args, {}, info),
-    createUser: (args, info): Promise<User> =>
-      super.delegate('mutation', 'createUser', args, {}, info),
-    createCard: (args, info): Promise<Card> =>
-      super.delegate('mutation', 'createCard', args, {}, info),
-    createCardCategory: (args, info): Promise<CardCategory> =>
-      super.delegate('mutation', 'createCardCategory', args, {}, info),
-    createCardItem: (args, info): Promise<CardItem> =>
-      super.delegate('mutation', 'createCardItem', args, {}, info),
-    createCardSubitem: (args, info): Promise<CardSubitem> =>
-      super.delegate('mutation', 'createCardSubitem', args, {}, info),
-    updateOrganization: (args, info): Promise<Organization | null> =>
-      super.delegate('mutation', 'updateOrganization', args, {}, info),
-    updateRestaurant: (args, info): Promise<Restaurant | null> =>
-      super.delegate('mutation', 'updateRestaurant', args, {}, info),
-    updateEmployment: (args, info): Promise<Employment | null> =>
-      super.delegate('mutation', 'updateEmployment', args, {}, info),
-    updateUser: (args, info): Promise<User | null> =>
-      super.delegate('mutation', 'updateUser', args, {}, info),
-    updateCard: (args, info): Promise<Card | null> =>
-      super.delegate('mutation', 'updateCard', args, {}, info),
-    updateCardCategory: (args, info): Promise<CardCategory | null> =>
-      super.delegate('mutation', 'updateCardCategory', args, {}, info),
-    updateCardItem: (args, info): Promise<CardItem | null> =>
-      super.delegate('mutation', 'updateCardItem', args, {}, info),
-    updateCardSubitem: (args, info): Promise<CardSubitem | null> =>
-      super.delegate('mutation', 'updateCardSubitem', args, {}, info),
-    deleteOrganization: (args, info): Promise<Organization | null> =>
-      super.delegate('mutation', 'deleteOrganization', args, {}, info),
-    deleteRestaurant: (args, info): Promise<Restaurant | null> =>
-      super.delegate('mutation', 'deleteRestaurant', args, {}, info),
-    deleteEmployment: (args, info): Promise<Employment | null> =>
-      super.delegate('mutation', 'deleteEmployment', args, {}, info),
-    deleteUser: (args, info): Promise<User | null> =>
-      super.delegate('mutation', 'deleteUser', args, {}, info),
-    deleteCard: (args, info): Promise<Card | null> =>
-      super.delegate('mutation', 'deleteCard', args, {}, info),
-    deleteCardCategory: (args, info): Promise<CardCategory | null> =>
-      super.delegate('mutation', 'deleteCardCategory', args, {}, info),
-    deleteCardItem: (args, info): Promise<CardItem | null> =>
-      super.delegate('mutation', 'deleteCardItem', args, {}, info),
-    deleteCardSubitem: (args, info): Promise<CardSubitem | null> =>
-      super.delegate('mutation', 'deleteCardSubitem', args, {}, info),
-    upsertOrganization: (args, info): Promise<Organization> =>
-      super.delegate('mutation', 'upsertOrganization', args, {}, info),
-    upsertRestaurant: (args, info): Promise<Restaurant> =>
-      super.delegate('mutation', 'upsertRestaurant', args, {}, info),
-    upsertEmployment: (args, info): Promise<Employment> =>
-      super.delegate('mutation', 'upsertEmployment', args, {}, info),
-    upsertUser: (args, info): Promise<User> =>
-      super.delegate('mutation', 'upsertUser', args, {}, info),
-    upsertCard: (args, info): Promise<Card> =>
-      super.delegate('mutation', 'upsertCard', args, {}, info),
-    upsertCardCategory: (args, info): Promise<CardCategory> =>
-      super.delegate('mutation', 'upsertCardCategory', args, {}, info),
-    upsertCardItem: (args, info): Promise<CardItem> =>
-      super.delegate('mutation', 'upsertCardItem', args, {}, info),
-    upsertCardSubitem: (args, info): Promise<CardSubitem> =>
-      super.delegate('mutation', 'upsertCardSubitem', args, {}, info),
-    updateManyOrganizations: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'updateManyOrganizations', args, {}, info),
-    updateManyRestaurants: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'updateManyRestaurants', args, {}, info),
-    updateManyEmployments: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'updateManyEmployments', args, {}, info),
-    updateManyUsers: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'updateManyUsers', args, {}, info),
-    updateManyCards: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'updateManyCards', args, {}, info),
-    updateManyCardCategories: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'updateManyCardCategories', args, {}, info),
-    updateManyCardItems: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'updateManyCardItems', args, {}, info),
-    updateManyCardSubitems: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'updateManyCardSubitems', args, {}, info),
-    deleteManyOrganizations: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'deleteManyOrganizations', args, {}, info),
-    deleteManyRestaurants: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'deleteManyRestaurants', args, {}, info),
-    deleteManyEmployments: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'deleteManyEmployments', args, {}, info),
-    deleteManyUsers: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'deleteManyUsers', args, {}, info),
-    deleteManyCards: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'deleteManyCards', args, {}, info),
-    deleteManyCardCategories: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'deleteManyCardCategories', args, {}, info),
-    deleteManyCardItems: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'deleteManyCardItems', args, {}, info),
-    deleteManyCardSubitems: (args, info): Promise<BatchPayload> =>
-      super.delegate('mutation', 'deleteManyCardSubitems', args, {}, info),
-  };
-
-  subscription: Subscription = {
-    organization: (
-      args,
-      infoOrQuery
-    ): Promise<AsyncIterator<OrganizationSubscriptionPayload>> =>
-      super.delegateSubscription('organization', args, {}, infoOrQuery),
-    restaurant: (
-      args,
-      infoOrQuery
-    ): Promise<AsyncIterator<RestaurantSubscriptionPayload>> =>
-      super.delegateSubscription('restaurant', args, {}, infoOrQuery),
-    employment: (
-      args,
-      infoOrQuery
-    ): Promise<AsyncIterator<EmploymentSubscriptionPayload>> =>
-      super.delegateSubscription('employment', args, {}, infoOrQuery),
-    user: (
-      args,
-      infoOrQuery
-    ): Promise<AsyncIterator<UserSubscriptionPayload>> =>
-      super.delegateSubscription('user', args, {}, infoOrQuery),
-    card: (
-      args,
-      infoOrQuery
-    ): Promise<AsyncIterator<CardSubscriptionPayload>> =>
-      super.delegateSubscription('card', args, {}, infoOrQuery),
-    cardCategory: (
-      args,
-      infoOrQuery
-    ): Promise<AsyncIterator<CardCategorySubscriptionPayload>> =>
-      super.delegateSubscription('cardCategory', args, {}, infoOrQuery),
-    cardItem: (
-      args,
-      infoOrQuery
-    ): Promise<AsyncIterator<CardItemSubscriptionPayload>> =>
-      super.delegateSubscription('cardItem', args, {}, infoOrQuery),
-    cardSubitem: (
-      args,
-      infoOrQuery
-    ): Promise<AsyncIterator<CardSubitemSubscriptionPayload>> =>
-      super.delegateSubscription('cardSubitem', args, {}, infoOrQuery),
-  };
-}
+export type DateTime = Date | string;
