@@ -15,7 +15,7 @@ type Query {
 
 type Mutation {
   inviteUser(data: InviteUserInput): UserIdPayload!
-  singleUpload(file: Upload!): UploadPayload!
+  imageUpload(file: Upload!): UploadPayload!
 }
 
 input InviteUserInput {

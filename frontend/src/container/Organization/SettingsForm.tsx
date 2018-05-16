@@ -10,10 +10,12 @@ import {
 import { FormikConfig } from 'formik';
 import Yup from 'yup';
 import { ImageUpload } from '../ImageUpload';
+import { AddNotification } from '../../Props';
 
 interface Props {
   onSubmit: FormikConfig<any>['onSubmit'];
   initialValues: object;
+  addNotification: AddNotification;
 }
 
 const Validations = Yup.object().shape({
@@ -62,6 +64,7 @@ export class OrganizationSettingsForm extends Component<Props, {}> {
                 name="imageUrl"
                 value={values.imageUrl}
                 onChange={handleChange}
+                addNotification={this.props.addNotification}
               />
             </FormField>
             <ActionBar>

@@ -73,6 +73,7 @@ export class OrganizationSettings extends React.Component<ScreenProps, {}> {
                             this.handleSubmit(values, mutate, id)
                           }
                           initialValues={parseQueryToForm(data.organization)}
+                          addNotification={this.props.addNotification}
                         />
                       )}
                     </Mutation>

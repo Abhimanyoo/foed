@@ -36,7 +36,7 @@ export const GridItemTitle = styled('span')`
 `;
 
 export const GridItemImage = styled('img')`
-  max-width: 100%;
+  width: 100%;
 `;
 
 export const GridItem = ({ children, ...props }: LinkProps) => (

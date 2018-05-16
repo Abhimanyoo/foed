@@ -3,14 +3,17 @@ import gql from 'graphql-tag';
 import Dropzone from '../component/Dropzone';
 import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
+import { Loader } from '@volst/ui-components';
+import { AddNotification } from '../Props';
 
 const StyledImg = styled.img`
   max-width: 100%;
+  display: block;
 `;
 
 const IMAGE_UPLOAD = gql`
   mutation($file: Upload!) {
-    singleUpload(file: $file) {
+    imageUpload(file: $file) {
       url
     }
   }
@@ -21,6 +24,7 @@ interface Props {
   value?: string;
   label?: string;
   onChange: (name: string, value: string) => void;
+  addNotification: AddNotification;
 }
 
 // TODO: add loading state
@@ -29,11 +33,28 @@ export class ImageUpload extends React.Component<Props, {}> {
     label: 'Upload image',
   };
 
+  state = {
+    isLoading: false,
+  };
+
   handleDrop = async (files, mutate) => {
     if (files.length === 1) {
       const file = files[0];
-      const { data } = await mutate({ variables: { file } });
-      this.props.onChange(this.props.name, data.singleUpload.url);
+      this.setState({ isLoading: true });
+      try {
+        const { data } = await mutate({ variables: { file } });
+        this.props.onChange(this.props.name, data.imageUpload.url);
+      } catch (err) {
+        if (err.graphQLErrors) {
+          this.props.addNotification({
+            key: 'requestError',
+            message: 'Uploading image failed',
+          });
+        } else {
+          throw err;
+        }
+      }
+      this.setState({ isLoading: false });
     }
   };
   render() {
@@ -46,7 +67,13 @@ export class ImageUpload extends React.Component<Props, {}> {
             multiple={false}
             accept="image/*"
           >
-            {value ? <StyledImg src={value} /> : label}
+            {this.state.isLoading ? (
+              <Loader show />
+            ) : value ? (
+              <StyledImg src={value} />
+            ) : (
+              label
+            )}
           </Dropzone>
         )}
       </Mutation>
