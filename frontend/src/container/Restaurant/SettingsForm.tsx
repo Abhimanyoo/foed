@@ -9,10 +9,13 @@ import {
 } from '@volst/ui-components';
 import { FormikConfig } from 'formik';
 import Yup from 'yup';
+import { AddNotification } from '../../Props';
+import { ImageUpload } from '../ImageUpload';
 
 interface Props {
   onSubmit: FormikConfig<any>['onSubmit'];
   initialValues: object;
+  addNotification: AddNotification;
 }
 
 const Validations = Yup.object().shape({
@@ -50,6 +53,19 @@ export class RestaurantSettingsForm extends Component<Props, {}> {
                 label="Visible in menu app"
                 value={values.visible || false}
                 onChange={handleChange}
+              />
+            </FormField>
+            <FormField
+              label="Image"
+              helpText="Photo should be 225x225 pixels minimum"
+              error={realErrors.imageUrl}
+              required
+            >
+              <ImageUpload
+                name="imageUrl"
+                value={values.imageUrl}
+                onChange={handleChange}
+                addNotification={this.props.addNotification}
               />
             </FormField>
             <ActionBar>

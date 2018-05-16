@@ -24,6 +24,7 @@ type Restaurant {
   name: String!
   slug: String! @unique
   visible: Boolean @default(value: "false")
+  imageUrl: String
   employments: [Employment!]!
     @relation(name: "RestaurantEmployment", onDelete: CASCADE)
   activeCard: Card @relation(name: "RestaurantActiveCard", onDelete: CASCADE)

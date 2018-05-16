@@ -2140,6 +2140,7 @@ type Restaurant implements Node {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
   employments(where: EmploymentWhereInput, orderBy: EmploymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employment!]
   activeCard(where: CardWhereInput): Card
   cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card!]
@@ -2164,6 +2165,7 @@ input RestaurantCreateInput {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
   organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
@@ -2194,6 +2196,7 @@ input RestaurantCreateWithoutActiveCardInput {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
   organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
@@ -2203,6 +2206,7 @@ input RestaurantCreateWithoutCardsInput {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
   organization: OrganizationCreateOneWithoutRestaurantsInput
   employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
@@ -2212,6 +2216,7 @@ input RestaurantCreateWithoutEmploymentsInput {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
   organization: OrganizationCreateOneWithoutRestaurantsInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
@@ -2221,6 +2226,7 @@ input RestaurantCreateWithoutOrganizationInput {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
   employments: EmploymentCreateManyWithoutRestaurantInput
   activeCard: CardCreateOneWithoutActiveRestaurantInput
   cards: CardCreateManyWithoutRestaurantInput
@@ -2249,6 +2255,8 @@ enum RestaurantOrderByInput {
   slug_DESC
   visible_ASC
   visible_DESC
+  imageUrl_ASC
+  imageUrl_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2266,6 +2274,7 @@ type RestaurantPreviousValues {
   name: String!
   slug: String!
   visible: Boolean
+  imageUrl: String
 }
 
 type RestaurantSubscriptionPayload {
@@ -2311,6 +2320,7 @@ input RestaurantUpdateInput {
   name: String
   slug: String
   visible: Boolean
+  imageUrl: String
   organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
@@ -2355,6 +2365,7 @@ input RestaurantUpdateWithoutActiveCardDataInput {
   name: String
   slug: String
   visible: Boolean
+  imageUrl: String
   organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
@@ -2364,6 +2375,7 @@ input RestaurantUpdateWithoutCardsDataInput {
   name: String
   slug: String
   visible: Boolean
+  imageUrl: String
   organization: OrganizationUpdateOneWithoutRestaurantsInput
   employments: EmploymentUpdateManyWithoutRestaurantInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
@@ -2373,6 +2385,7 @@ input RestaurantUpdateWithoutEmploymentsDataInput {
   name: String
   slug: String
   visible: Boolean
+  imageUrl: String
   organization: OrganizationUpdateOneWithoutRestaurantsInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
@@ -2382,6 +2395,7 @@ input RestaurantUpdateWithoutOrganizationDataInput {
   name: String
   slug: String
   visible: Boolean
+  imageUrl: String
   employments: EmploymentUpdateManyWithoutRestaurantInput
   activeCard: CardUpdateOneWithoutActiveRestaurantInput
   cards: CardUpdateManyWithoutRestaurantInput
@@ -2590,6 +2604,59 @@ input RestaurantWhereInput {
   All values that are not equal to given value.
   """
   visible_not: Boolean
+  imageUrl: String
+  """
+  All values that are not equal to given value.
+  """
+  imageUrl_not: String
+  """
+  All values that are contained in given list.
+  """
+  imageUrl_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  imageUrl_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  imageUrl_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  imageUrl_lte: String
+  """
+  All values greater than the given value.
+  """
+  imageUrl_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  imageUrl_gte: String
+  """
+  All values containing the given string.
+  """
+  imageUrl_contains: String
+  """
+  All values not containing the given string.
+  """
+  imageUrl_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  imageUrl_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  imageUrl_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  imageUrl_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  imageUrl_not_ends_with: String
   organization: OrganizationWhereInput
   employments_every: EmploymentWhereInput
   employments_some: EmploymentWhereInput
@@ -3492,6 +3559,8 @@ export type RestaurantOrderByInput =
   | 'slug_DESC'
   | 'visible_ASC'
   | 'visible_DESC'
+  | 'imageUrl_ASC'
+  | 'imageUrl_DESC'
   | 'updatedAt_ASC'
   | 'updatedAt_DESC'
   | 'createdAt_ASC'
@@ -3589,6 +3658,7 @@ export interface RestaurantCreateInput {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
   organization?: OrganizationCreateOneWithoutRestaurantsInput;
   employments?: EmploymentCreateManyWithoutRestaurantInput;
   activeCard?: CardCreateOneWithoutActiveRestaurantInput;
@@ -3666,6 +3736,7 @@ export interface RestaurantCreateWithoutOrganizationInput {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
   employments?: EmploymentCreateManyWithoutRestaurantInput;
   activeCard?: CardCreateOneWithoutActiveRestaurantInput;
   cards?: CardCreateManyWithoutRestaurantInput;
@@ -3811,6 +3882,7 @@ export interface RestaurantCreateWithoutCardsInput {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
   organization?: OrganizationCreateOneWithoutRestaurantsInput;
   employments?: EmploymentCreateManyWithoutRestaurantInput;
   activeCard?: CardCreateOneWithoutActiveRestaurantInput;
@@ -3937,6 +4009,7 @@ export interface RestaurantUpdateWithoutEmploymentsDataInput {
   name?: String;
   slug?: String;
   visible?: Boolean;
+  imageUrl?: String;
   organization?: OrganizationUpdateOneWithoutRestaurantsInput;
   activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
   cards?: CardUpdateManyWithoutRestaurantInput;
@@ -3969,6 +4042,7 @@ export interface RestaurantCreateWithoutActiveCardInput {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
   organization?: OrganizationCreateOneWithoutRestaurantsInput;
   employments?: EmploymentCreateManyWithoutRestaurantInput;
   cards?: CardCreateManyWithoutRestaurantInput;
@@ -4026,6 +4100,7 @@ export interface RestaurantCreateWithoutEmploymentsInput {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
   organization?: OrganizationCreateOneWithoutRestaurantsInput;
   activeCard?: CardCreateOneWithoutActiveRestaurantInput;
   cards?: CardCreateManyWithoutRestaurantInput;
@@ -4495,6 +4570,20 @@ export interface RestaurantWhereInput {
   slug_not_ends_with?: String;
   visible?: Boolean;
   visible_not?: Boolean;
+  imageUrl?: String;
+  imageUrl_not?: String;
+  imageUrl_in?: String[] | String;
+  imageUrl_not_in?: String[] | String;
+  imageUrl_lt?: String;
+  imageUrl_lte?: String;
+  imageUrl_gt?: String;
+  imageUrl_gte?: String;
+  imageUrl_contains?: String;
+  imageUrl_not_contains?: String;
+  imageUrl_starts_with?: String;
+  imageUrl_not_starts_with?: String;
+  imageUrl_ends_with?: String;
+  imageUrl_not_ends_with?: String;
   organization?: OrganizationWhereInput;
   employments_every?: EmploymentWhereInput;
   employments_some?: EmploymentWhereInput;
@@ -4509,6 +4598,7 @@ export interface RestaurantUpdateWithoutOrganizationDataInput {
   name?: String;
   slug?: String;
   visible?: Boolean;
+  imageUrl?: String;
   employments?: EmploymentUpdateManyWithoutRestaurantInput;
   activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
   cards?: CardUpdateManyWithoutRestaurantInput;
@@ -4569,6 +4659,7 @@ export interface RestaurantUpdateInput {
   name?: String;
   slug?: String;
   visible?: Boolean;
+  imageUrl?: String;
   organization?: OrganizationUpdateOneWithoutRestaurantsInput;
   employments?: EmploymentUpdateManyWithoutRestaurantInput;
   activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
@@ -4595,6 +4686,7 @@ export interface RestaurantUpdateWithoutActiveCardDataInput {
   name?: String;
   slug?: String;
   visible?: Boolean;
+  imageUrl?: String;
   organization?: OrganizationUpdateOneWithoutRestaurantsInput;
   employments?: EmploymentUpdateManyWithoutRestaurantInput;
   cards?: CardUpdateManyWithoutRestaurantInput;
@@ -4731,6 +4823,7 @@ export interface RestaurantUpdateWithoutCardsDataInput {
   name?: String;
   slug?: String;
   visible?: Boolean;
+  imageUrl?: String;
   organization?: OrganizationUpdateOneWithoutRestaurantsInput;
   employments?: EmploymentUpdateManyWithoutRestaurantInput;
   activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
@@ -5092,6 +5185,7 @@ export interface RestaurantPreviousValues {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
 }
 
 /*
@@ -5245,6 +5339,7 @@ export interface Restaurant extends Node {
   name: String;
   slug: String;
   visible?: Boolean;
+  imageUrl?: String;
   employments?: Employment[];
   activeCard?: Card;
   cards?: Card[];

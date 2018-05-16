@@ -28,6 +28,7 @@ const RESTAURANT = gql`
       id
       name
       visible
+      imageUrl
     }
   }
 `;
@@ -72,6 +73,7 @@ export class RestaurantSettings extends React.Component<ScreenProps, {}> {
                             this.handleSubmit(values, mutate, id)
                           }
                           initialValues={parseQueryToForm(data.restaurant)}
+                          addNotification={this.props.addNotification}
                         />
                       )}
                     </Mutation>

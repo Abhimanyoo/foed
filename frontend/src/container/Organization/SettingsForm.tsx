@@ -59,7 +59,12 @@ export class OrganizationSettingsForm extends Component<Props, {}> {
                 onChange={handleChange}
               />
             </FormField>
-            <FormField label="Image" error={realErrors.imageUrl} required>
+            <FormField
+              label="Image"
+              helpText="Photo should be 225x225 pixels minimum"
+              error={realErrors.imageUrl}
+              required
+            >
               <ImageUpload
                 name="imageUrl"
                 value={values.imageUrl}

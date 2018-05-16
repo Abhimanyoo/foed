@@ -17,6 +17,7 @@ const ORGANIZATION_DETAILS = gql`
         id
         name
         slug
+        imageUrl
       }
     }
   }
