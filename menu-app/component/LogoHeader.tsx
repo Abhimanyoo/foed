@@ -10,6 +10,6 @@ export const Subheading = styled('h2')`
 
 export const LogoHeader = styled('div')`
   width: 100%;
-  background: #545454;
+  background: #282f39;
   padding: 0.1px;
 `;

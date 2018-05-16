@@ -26,12 +26,27 @@ const linkStyles = css`
     float: left;
     padding-top: 100%;
   }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.5)
+    );
+  }
 `;
 
 export const GridItemTitle = styled('span')`
   position: absolute;
+  z-index: 2;
   bottom: 10px;
   left: 15px;
+  text-shadow: 0 1px 0 black;
 `;
 
 export const GridItemImage = styled('img')`

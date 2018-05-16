@@ -3,7 +3,7 @@ import R from '../routes';
 import { LinkProps } from '@volst/next-routes';
 
 export const ScrollMenu = styled('div')`
-  background: #44977a;
+  background: #6c7a88;
   white-space: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
