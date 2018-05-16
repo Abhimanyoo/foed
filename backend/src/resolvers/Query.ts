@@ -16,6 +16,7 @@ export const Query = {
   card: forwardTo({}),
   cards: forwardTo({}),
   cardsConnection: forwardTo({}),
+  cardCategory: forwardTo({ unauthorized: true }),
   async generateRestaurantSlug(
     parent: any,
     { name }: { name: string },

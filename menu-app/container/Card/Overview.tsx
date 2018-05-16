@@ -1,11 +1,29 @@
 import { ScrollMenu, ScrollMenuItem } from '../../component/ScrollMenu';
 import { Header } from '../../component/Header';
+import { Query } from '../../component/Query';
+import gql from 'graphql-tag';
+import { CardListItem } from './ListItem';
 
 interface Props {
   restaurant: any;
+  categoryId: string;
 }
 
-export const CardOverview = ({ restaurant }: Props) => {
+const CARD_ITEM_OVERVIEW = gql`
+  query getCardCategory($id: ID!) {
+    cardCategory(where: { id: $id }) {
+      id
+      items {
+        id
+        name
+        price
+        description
+      }
+    }
+  }
+`;
+
+export const CardOverview = ({ restaurant, categoryId }: Props) => {
   return (
     <div>
       <Header
@@ -22,7 +40,13 @@ export const CardOverview = ({ restaurant }: Props) => {
           </ScrollMenuItem>
         ))}
       </ScrollMenu>
-      TODO.
+      <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
+        {result =>
+          result.data.cardCategory.items.map(item => (
+            <CardListItem key={item.id} item={item} />
+          ))
+        }
+      </Query>
     </div>
   );
 };

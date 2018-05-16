@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 
 interface Props {
   slug: string;
+  categoryId: string;
 }
 
 const RESTAURANT_DETAILS = gql`
@@ -13,6 +14,7 @@ const RESTAURANT_DETAILS = gql`
     restaurant(where: { slug: $slug }) {
       id
       name
+      slug
       organization {
         slug
       }
@@ -28,8 +30,8 @@ const RESTAURANT_DETAILS = gql`
 `;
 
 export default class CardOverviewPage extends React.Component<Props, {}> {
-  static getInitialProps({ query: { slug } }) {
-    return { slug };
+  static getInitialProps({ query: { slug, categoryId } }) {
+    return { slug, categoryId };
   }
 
   render() {
@@ -37,7 +39,14 @@ export default class CardOverviewPage extends React.Component<Props, {}> {
     return (
       <Page>
         <Query query={RESTAURANT_DETAILS} variables={{ slug }}>
-          {result => <CardOverview restaurant={result.data.restaurant} />}
+          {result => {
+            const restaurant = result.data.restaurant;
+            const categoryId =
+              this.props.categoryId || restaurant.activeCard.categories[0].id;
+            return (
+              <CardOverview restaurant={restaurant} categoryId={categoryId} />
+            );
+          }}
         </Query>
       </Page>
     );
