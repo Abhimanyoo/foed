@@ -1,7 +1,7 @@
 import { OrganizationListItem } from './ListItem';
 import { Grid } from '../../component/Grid';
 import { Logo } from '../../component/Logo';
-import { Subheading } from '../../component/Subheading';
+import { LogoHeader, Subheading } from '../../component/LogoHeader';
 
 interface Props {
   organizations: any[];
@@ -9,8 +9,10 @@ interface Props {
 
 export const OrganizationOverview = (props: Props) => (
   <div>
-    <Logo />
-    <Subheading>Select your venue</Subheading>
+    <LogoHeader>
+      <Logo />
+      <Subheading>Select your venue</Subheading>
+    </LogoHeader>
     <Grid>
       {props.organizations.map(org => (
         <OrganizationListItem key={org.slug} organization={org} />

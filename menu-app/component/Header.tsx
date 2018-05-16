@@ -11,6 +11,7 @@ const headerStyles = css`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  background: #545454;
 `;
 
 const HeaderTitle = styled('h1')`

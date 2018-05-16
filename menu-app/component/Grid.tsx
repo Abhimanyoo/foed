@@ -12,7 +12,6 @@ const linkStyles = css`
   display: flex;
   width: 50%;
   color: #fff;
-  background: rgba(0, 0, 0, 0.5);
   position: relative;
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
