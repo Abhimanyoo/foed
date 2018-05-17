@@ -10,16 +10,44 @@ export const ScrollMenu = styled('div')`
   -ms-overflow-style: -ms-autohiding-scrollbar;
 `;
 
-const linkStyles = css`
+interface StyledLinkProps {
+  active?: boolean;
+}
+
+const StyledLink = styled<StyledLinkProps, 'a'>('a')`
   color: #fff;
   padding: 12px 16px 13px;
   display: inline-block;
   vertical-align: middle;
   text-decoration: none;
+  position: relative;
+
+  ${props => (props.active ? activeLinkStyles : '')};
 `;
 
-export const ScrollMenuItem = ({ children, ...props }: LinkProps) => (
-  <R.Link {...props}>
-    <a className={linkStyles}>{children}</a>
+const activeLinkStyles = css`
+  color: #a3fedf;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    background: #a3fedf;
+    border: solid #a3fedf;
+    border-width: 0 3px 3px 0;
+    transform: rotate(-135deg);
+  }
+`;
+
+export const ScrollMenuItem = ({
+  children,
+  active,
+  ...props
+}: LinkProps & StyledLinkProps) => (
+  <R.Link {...props} passHref>
+    <StyledLink active={active}>{children}</StyledLink>
   </R.Link>
 );

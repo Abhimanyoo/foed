@@ -1,8 +1,8 @@
-import { ScrollMenu, ScrollMenuItem } from '../../component/ScrollMenu';
 import { Header } from '../../component/Header';
 import { Query } from '../../component/Query';
 import gql from 'graphql-tag';
 import { CardListItem } from './ListItem';
+import { CardCategoryMenu } from './CategoryMenu';
 
 interface Props {
   restaurant: any;
@@ -30,16 +30,7 @@ export const CardOverview = ({ restaurant, categoryId }: Props) => {
         title={restaurant.name}
         backUrl={`/organization/${restaurant.organization.slug}`}
       />
-      <ScrollMenu>
-        {restaurant.activeCard.categories.map(category => (
-          <ScrollMenuItem
-            key={category.id}
-            route={`/restaurant/${restaurant.slug}/${category.id}`}
-          >
-            {category.name}
-          </ScrollMenuItem>
-        ))}
-      </ScrollMenu>
+      <CardCategoryMenu restaurant={restaurant} categoryId={categoryId} />
       <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
         {result =>
           result.data.cardCategory.items.map(item => (
