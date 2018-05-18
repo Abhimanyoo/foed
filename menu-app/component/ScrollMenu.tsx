@@ -6,6 +6,7 @@ export const ScrollMenu = styled('div')`
   background: #6c7a88;
   white-space: nowrap;
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 `;

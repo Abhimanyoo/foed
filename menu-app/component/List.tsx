@@ -28,6 +28,10 @@ export const ListItemInfo = styled('div')`
 
 export const ListItemInfoDescription = styled('div')`
   font-size: 14px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const ListItemPrice = styled('div')`
