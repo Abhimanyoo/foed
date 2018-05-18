@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "PORT=3001 ts-node -P tsconfig.server.json server.ts",
-    "now-start": "NODE_ENV=production node build/server.js",
+    "now-start": "PORT=3002 NODE_ENV=production node build/server.js",
     "build": "tsc -P tsconfig.server.json && next build",
     "now-build": "echo"
   },
