@@ -92,3 +92,17 @@ type CardSubitem {
   ordering: Int!
   price: Float!
 }
+
+type Order {
+  id: ID! @unique
+  items: [OrderItem!]! @relation(name: "OrderToOrderItem", onDelete: CASCADE)
+  tip: Float!
+  subtotal: Float!
+  completedAt: DateTime
+}
+
+type OrderItem {
+  id: ID! @unique
+  cardItem: CardItem!
+  subitems: [CardSubitem!]!
+}

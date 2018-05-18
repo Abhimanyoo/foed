@@ -1,5 +1,5 @@
 # source: http://localhost:4466/foed/dev
-# timestamp: Wed May 16 2018 16:03:34 GMT+0200 (CEST)
+# timestamp: Fri May 18 2018 14:29:40 GMT+0200 (CEST)
 
 type AggregateCard {
   count: Int!
@@ -18,6 +18,14 @@ type AggregateCardSubitem {
 }
 
 type AggregateEmployment {
+  count: Int!
+}
+
+type AggregateOrder {
+  count: Int!
+}
+
+type AggregateOrderItem {
   count: Int!
 }
 
@@ -580,6 +588,11 @@ input CardItemCreateManyInput {
   connect: [CardItemWhereUniqueInput!]
 }
 
+input CardItemCreateOneInput {
+  create: CardItemCreateInput
+  connect: CardItemWhereUniqueInput
+}
+
 """
 An edge in a connection.
 """
@@ -690,9 +703,22 @@ input CardItemUpdateManyInput {
   upsert: [CardItemUpsertWithWhereUniqueNestedInput!]
 }
 
+input CardItemUpdateOneInput {
+  create: CardItemCreateInput
+  connect: CardItemWhereUniqueInput
+  delete: Boolean
+  update: CardItemUpdateDataInput
+  upsert: CardItemUpsertNestedInput
+}
+
 input CardItemUpdateWithWhereUniqueNestedInput {
   where: CardItemWhereUniqueInput!
   data: CardItemUpdateDataInput!
+}
+
+input CardItemUpsertNestedInput {
+  update: CardItemUpdateDataInput!
+  create: CardItemCreateInput!
 }
 
 input CardItemUpsertWithWhereUniqueNestedInput {
@@ -1971,6 +1997,8 @@ type Mutation {
   createCardCategory(data: CardCategoryCreateInput!): CardCategory!
   createCardItem(data: CardItemCreateInput!): CardItem!
   createCardSubitem(data: CardSubitemCreateInput!): CardSubitem!
+  createOrder(data: OrderCreateInput!): Order!
+  createOrderItem(data: OrderItemCreateInput!): OrderItem!
   updateOrganization(
     data: OrganizationUpdateInput!
     where: OrganizationWhereUniqueInput!
@@ -1997,6 +2025,11 @@ type Mutation {
     data: CardSubitemUpdateInput!
     where: CardSubitemWhereUniqueInput!
   ): CardSubitem
+  updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
+  updateOrderItem(
+    data: OrderItemUpdateInput!
+    where: OrderItemWhereUniqueInput!
+  ): OrderItem
   deleteOrganization(where: OrganizationWhereUniqueInput!): Organization
   deleteRestaurant(where: RestaurantWhereUniqueInput!): Restaurant
   deleteEmployment(where: EmploymentWhereUniqueInput!): Employment
@@ -2005,6 +2038,8 @@ type Mutation {
   deleteCardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
   deleteCardItem(where: CardItemWhereUniqueInput!): CardItem
   deleteCardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
+  deleteOrder(where: OrderWhereUniqueInput!): Order
+  deleteOrderItem(where: OrderItemWhereUniqueInput!): OrderItem
   upsertOrganization(
     where: OrganizationWhereUniqueInput!
     create: OrganizationCreateInput!
@@ -2045,6 +2080,16 @@ type Mutation {
     create: CardSubitemCreateInput!
     update: CardSubitemUpdateInput!
   ): CardSubitem!
+  upsertOrder(
+    where: OrderWhereUniqueInput!
+    create: OrderCreateInput!
+    update: OrderUpdateInput!
+  ): Order!
+  upsertOrderItem(
+    where: OrderItemWhereUniqueInput!
+    create: OrderItemCreateInput!
+    update: OrderItemUpdateInput!
+  ): OrderItem!
   updateManyOrganizations(
     data: OrganizationUpdateInput!
     where: OrganizationWhereInput
@@ -2071,6 +2116,14 @@ type Mutation {
     data: CardSubitemUpdateInput!
     where: CardSubitemWhereInput
   ): BatchPayload!
+  updateManyOrders(
+    data: OrderUpdateInput!
+    where: OrderWhereInput
+  ): BatchPayload!
+  updateManyOrderItems(
+    data: OrderItemUpdateInput!
+    where: OrderItemWhereInput
+  ): BatchPayload!
   deleteManyOrganizations(where: OrganizationWhereInput): BatchPayload!
   deleteManyRestaurants(where: RestaurantWhereInput): BatchPayload!
   deleteManyEmployments(where: EmploymentWhereInput): BatchPayload!
@@ -2079,6 +2132,8 @@ type Mutation {
   deleteManyCardCategories(where: CardCategoryWhereInput): BatchPayload!
   deleteManyCardItems(where: CardItemWhereInput): BatchPayload!
   deleteManyCardSubitems(where: CardSubitemWhereInput): BatchPayload!
+  deleteManyOrders(where: OrderWhereInput): BatchPayload!
+  deleteManyOrderItems(where: OrderItemWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -2095,6 +2150,566 @@ interface Node {
   The id of the object.
   """
   id: ID!
+}
+
+type Order implements Node {
+  id: ID!
+  items(
+    where: OrderItemWhereInput
+    orderBy: OrderItemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [OrderItem!]
+  tip: Float!
+  subtotal: Float!
+  completedAt: DateTime
+}
+
+"""
+A connection to a list of items.
+"""
+type OrderConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [OrderEdge]!
+  aggregate: AggregateOrder!
+}
+
+input OrderCreateInput {
+  tip: Float!
+  subtotal: Float!
+  completedAt: DateTime
+  items: OrderItemCreateManyInput
+}
+
+"""
+An edge in a connection.
+"""
+type OrderEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Order!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+type OrderItem implements Node {
+  id: ID!
+  cardItem(where: CardItemWhereInput): CardItem!
+  subitems(
+    where: CardSubitemWhereInput
+    orderBy: CardSubitemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CardSubitem!]
+}
+
+"""
+A connection to a list of items.
+"""
+type OrderItemConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [OrderItemEdge]!
+  aggregate: AggregateOrderItem!
+}
+
+input OrderItemCreateInput {
+  cardItem: CardItemCreateOneInput!
+  subitems: CardSubitemCreateManyInput
+}
+
+input OrderItemCreateManyInput {
+  create: [OrderItemCreateInput!]
+  connect: [OrderItemWhereUniqueInput!]
+}
+
+"""
+An edge in a connection.
+"""
+type OrderItemEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: OrderItem!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum OrderItemOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type OrderItemPreviousValues {
+  id: ID!
+}
+
+type OrderItemSubscriptionPayload {
+  mutation: MutationType!
+  node: OrderItem
+  updatedFields: [String!]
+  previousValues: OrderItemPreviousValues
+}
+
+input OrderItemSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [OrderItemSubscriptionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [OrderItemSubscriptionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [OrderItemSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: OrderItemWhereInput
+}
+
+input OrderItemUpdateDataInput {
+  cardItem: CardItemUpdateOneInput
+  subitems: CardSubitemUpdateManyInput
+}
+
+input OrderItemUpdateInput {
+  cardItem: CardItemUpdateOneInput
+  subitems: CardSubitemUpdateManyInput
+}
+
+input OrderItemUpdateManyInput {
+  create: [OrderItemCreateInput!]
+  connect: [OrderItemWhereUniqueInput!]
+  disconnect: [OrderItemWhereUniqueInput!]
+  delete: [OrderItemWhereUniqueInput!]
+  update: [OrderItemUpdateWithWhereUniqueNestedInput!]
+  upsert: [OrderItemUpsertWithWhereUniqueNestedInput!]
+}
+
+input OrderItemUpdateWithWhereUniqueNestedInput {
+  where: OrderItemWhereUniqueInput!
+  data: OrderItemUpdateDataInput!
+}
+
+input OrderItemUpsertWithWhereUniqueNestedInput {
+  where: OrderItemWhereUniqueInput!
+  update: OrderItemUpdateDataInput!
+  create: OrderItemCreateInput!
+}
+
+input OrderItemWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [OrderItemWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [OrderItemWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [OrderItemWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  cardItem: CardItemWhereInput
+  subitems_every: CardSubitemWhereInput
+  subitems_some: CardSubitemWhereInput
+  subitems_none: CardSubitemWhereInput
+}
+
+input OrderItemWhereUniqueInput {
+  id: ID
+}
+
+enum OrderOrderByInput {
+  id_ASC
+  id_DESC
+  tip_ASC
+  tip_DESC
+  subtotal_ASC
+  subtotal_DESC
+  completedAt_ASC
+  completedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type OrderPreviousValues {
+  id: ID!
+  tip: Float!
+  subtotal: Float!
+  completedAt: DateTime
+}
+
+type OrderSubscriptionPayload {
+  mutation: MutationType!
+  node: Order
+  updatedFields: [String!]
+  previousValues: OrderPreviousValues
+}
+
+input OrderSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [OrderSubscriptionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [OrderSubscriptionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [OrderSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: OrderWhereInput
+}
+
+input OrderUpdateInput {
+  tip: Float
+  subtotal: Float
+  completedAt: DateTime
+  items: OrderItemUpdateManyInput
+}
+
+input OrderWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [OrderWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [OrderWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [OrderWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  tip: Float
+
+  """
+  All values that are not equal to given value.
+  """
+  tip_not: Float
+
+  """
+  All values that are contained in given list.
+  """
+  tip_in: [Float!]
+
+  """
+  All values that are not contained in given list.
+  """
+  tip_not_in: [Float!]
+
+  """
+  All values less than the given value.
+  """
+  tip_lt: Float
+
+  """
+  All values less than or equal the given value.
+  """
+  tip_lte: Float
+
+  """
+  All values greater than the given value.
+  """
+  tip_gt: Float
+
+  """
+  All values greater than or equal the given value.
+  """
+  tip_gte: Float
+  subtotal: Float
+
+  """
+  All values that are not equal to given value.
+  """
+  subtotal_not: Float
+
+  """
+  All values that are contained in given list.
+  """
+  subtotal_in: [Float!]
+
+  """
+  All values that are not contained in given list.
+  """
+  subtotal_not_in: [Float!]
+
+  """
+  All values less than the given value.
+  """
+  subtotal_lt: Float
+
+  """
+  All values less than or equal the given value.
+  """
+  subtotal_lte: Float
+
+  """
+  All values greater than the given value.
+  """
+  subtotal_gt: Float
+
+  """
+  All values greater than or equal the given value.
+  """
+  subtotal_gte: Float
+  completedAt: DateTime
+
+  """
+  All values that are not equal to given value.
+  """
+  completedAt_not: DateTime
+
+  """
+  All values that are contained in given list.
+  """
+  completedAt_in: [DateTime!]
+
+  """
+  All values that are not contained in given list.
+  """
+  completedAt_not_in: [DateTime!]
+
+  """
+  All values less than the given value.
+  """
+  completedAt_lt: DateTime
+
+  """
+  All values less than or equal the given value.
+  """
+  completedAt_lte: DateTime
+
+  """
+  All values greater than the given value.
+  """
+  completedAt_gt: DateTime
+
+  """
+  All values greater than or equal the given value.
+  """
+  completedAt_gte: DateTime
+  items_every: OrderItemWhereInput
+  items_some: OrderItemWhereInput
+  items_none: OrderItemWhereInput
+}
+
+input OrderWhereUniqueInput {
+  id: ID
 }
 
 type Organization implements Node {
@@ -2657,6 +3272,24 @@ type Query {
     first: Int
     last: Int
   ): [CardSubitem]!
+  orders(
+    where: OrderWhereInput
+    orderBy: OrderOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Order]!
+  orderItems(
+    where: OrderItemWhereInput
+    orderBy: OrderItemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [OrderItem]!
   organization(where: OrganizationWhereUniqueInput!): Organization
   restaurant(where: RestaurantWhereUniqueInput!): Restaurant
   employment(where: EmploymentWhereUniqueInput!): Employment
@@ -2665,6 +3298,8 @@ type Query {
   cardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
   cardItem(where: CardItemWhereUniqueInput!): CardItem
   cardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
+  order(where: OrderWhereUniqueInput!): Order
+  orderItem(where: OrderItemWhereUniqueInput!): OrderItem
   organizationsConnection(
     where: OrganizationWhereInput
     orderBy: OrganizationOrderByInput
@@ -2737,6 +3372,24 @@ type Query {
     first: Int
     last: Int
   ): CardSubitemConnection!
+  ordersConnection(
+    where: OrderWhereInput
+    orderBy: OrderOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): OrderConnection!
+  orderItemsConnection(
+    where: OrderItemWhereInput
+    orderBy: OrderItemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): OrderItemConnection!
 
   """
   Fetches an object given its ID
@@ -3385,6 +4038,10 @@ type Subscription {
   cardSubitem(
     where: CardSubitemSubscriptionWhereInput
   ): CardSubitemSubscriptionPayload
+  order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
+  orderItem(
+    where: OrderItemSubscriptionWhereInput
+  ): OrderItemSubscriptionPayload
 }
 
 type User implements Node {
