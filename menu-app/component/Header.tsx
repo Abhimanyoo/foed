@@ -9,8 +9,9 @@ interface Props {
 const headerStyles = css`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
+  height: 45px;
   background: #282f39;
   position: sticky;
   top: 0;
@@ -22,12 +23,15 @@ const HeaderTitle = styled('h1')`
   margin: 0;
   font-size: 20px;
   font-weight: normal;
+  display: flex;
+  align-items: center;
 `;
 
 const linkStyles = css`
   color: #fff;
-  display: inline-block;
-  padding: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
   text-decoration: none;
   font-size: 16px;
 `;
