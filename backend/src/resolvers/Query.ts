@@ -1,30 +1,28 @@
-import { getUserId, forwardTo } from '@volst/prisma-auth';
+import { forwardTo } from 'prisma-binding';
 import { Context, generateSlug } from '../utils';
 
 export const Query = {
-  user: forwardTo({}),
-  users: forwardTo({}),
-  usersConnection: forwardTo({}),
-  restaurant: forwardTo({ unauthorized: true }),
-  restaurants: forwardTo({ unauthorized: true }),
-  restaurantsConnection: forwardTo({ unauthorized: true }),
-  organization: forwardTo({ unauthorized: true }),
-  organizations: forwardTo({ unauthorized: true }),
-  organizationsConnection: forwardTo({ unauthorized: true }),
-  employments: forwardTo({}),
-  employmentsConnection: forwardTo({}),
-  card: forwardTo({}),
-  cards: forwardTo({}),
-  cardsConnection: forwardTo({}),
-  cardCategory: forwardTo({ unauthorized: true }),
+  user: forwardTo('db'),
+  users: forwardTo('db'),
+  usersConnection: forwardTo('db'),
+  restaurant: forwardTo('db'),
+  restaurants: forwardTo('db'),
+  restaurantsConnection: forwardTo('db'),
+  organization: forwardTo('db'),
+  organizations: forwardTo('db'),
+  organizationsConnection: forwardTo('db'),
+  employments: forwardTo('db'),
+  employmentsConnection: forwardTo('db'),
+  card: forwardTo('db'),
+  cards: forwardTo('db'),
+  cardsConnection: forwardTo('db'),
+  cardCategory: forwardTo('db'),
   async generateRestaurantSlug(
     parent: any,
     { name }: { name: string },
     ctx: Context,
     info: any
   ) {
-    getUserId(ctx);
-
     return await generateSlug(name, slug =>
       ctx.db.query.restaurant({ where: { slug } })
     );
@@ -35,8 +33,6 @@ export const Query = {
     ctx: Context,
     info: any
   ) {
-    getUserId(ctx);
-
     return await generateSlug(name, slug =>
       ctx.db.query.organization({ where: { slug } })
     );

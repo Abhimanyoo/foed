@@ -1,21 +1,20 @@
-import { forwardTo, getUserId } from '@volst/prisma-auth';
+import { forwardTo } from 'prisma-binding';
 import { upload } from 'now-storage';
 import * as streamToArray from 'stream-to-array';
 import * as sharp from 'sharp';
 
 export const Mutation = {
-  createRestaurant: forwardTo({}),
-  updateRestaurant: forwardTo({}),
-  deleteRestaurant: forwardTo({}),
-  createOrganization: forwardTo({}),
-  updateOrganization: forwardTo({}),
-  deleteOrganization: forwardTo({}),
-  deleteEmployment: forwardTo({}),
-  createCard: forwardTo({}),
-  updateCard: forwardTo({}),
-  deleteCard: forwardTo({}),
+  createRestaurant: forwardTo('db'),
+  updateRestaurant: forwardTo('db'),
+  deleteRestaurant: forwardTo('db'),
+  createOrganization: forwardTo('db'),
+  updateOrganization: forwardTo('db'),
+  deleteOrganization: forwardTo('db'),
+  deleteEmployment: forwardTo('db'),
+  createCard: forwardTo('db'),
+  updateCard: forwardTo('db'),
+  deleteCard: forwardTo('db'),
   imageUpload: async (obj, { file }, ctx) => {
-    getUserId(ctx);
     const { filename, stream } = await file;
     const buffers = await streamToArray(stream);
     const originalContent = Buffer.concat(buffers);

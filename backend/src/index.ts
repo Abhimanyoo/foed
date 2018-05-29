@@ -3,6 +3,7 @@ import { Prisma } from 'prisma-binding';
 import * as resolvers from './resolvers';
 import { email } from './mailer';
 import { prismaAuthConfig } from '@volst/prisma-auth';
+import { permissions } from './permissions';
 
 const authOptions = {
   mailer: email,
@@ -31,6 +32,7 @@ const server = new GraphQLServer({
   resolverValidationOptions: {
     requireResolversForResolveType: false,
   },
+  middlewares: [permissions],
   context: req => ({
     ...req,
     db: new Prisma({
