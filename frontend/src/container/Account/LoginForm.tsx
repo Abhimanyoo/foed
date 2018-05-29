@@ -3,7 +3,7 @@ import { Form } from '../../component/Form';
 import { LoginTextInput } from '../../component/Login';
 import { Button, FormField } from '@volst/ui-components';
 import { FormikConfig } from 'formik';
-import Yup from 'yup';
+import * as Yup from 'yup';
 
 interface Props {
   onSubmit: FormikConfig<any>['onSubmit'];

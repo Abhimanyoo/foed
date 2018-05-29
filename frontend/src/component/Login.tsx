@@ -1,16 +1,16 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled from 'react-emotion';
 import backgroundImg from '../image/bg-login.jpg';
 import { TextInput } from '@volst/ui-components';
 
-export const LoginBackground = styled.div`
+export const LoginBackground = styled('div')`
   background: url(${backgroundImg}) no-repeat;
   width: 100%;
   height: 100vh;
   background-size: cover;
 `;
 
-export const LoginContainer = styled.div`
+export const LoginContainer = styled('div')`
   width: 260px;
   margin: 0 20px 0 250px;
   text-align: center;
@@ -20,7 +20,7 @@ export const LoginContainer = styled.div`
   }
 `;
 
-const StyledLogo = styled.h1`
+const StyledLogo = styled('h1')`
   color: #fff;
   margin: 60px 0;
 `;

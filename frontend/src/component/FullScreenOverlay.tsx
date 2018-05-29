@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'react-emotion';
 
-export const FullScreenOverlay = styled.div`
+export const FullScreenOverlay = styled('div')`
   width: 100%;
   height: 100%;
   display: flex;

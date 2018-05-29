@@ -76,7 +76,11 @@ export class RestaurantCardOverviewItem extends React.Component<
           </Link>
           <Mutation mutation={PROMOTE_CARD}>
             {mutate => (
-              <Tooltip message="Promote to active menu" direction="bottomLeft">
+              <Tooltip
+                message="Promote to active menu"
+                direction="bottomLeft"
+                theme={{} as any}
+              >
                 <Button
                   ghost
                   tone={Tone.Success}

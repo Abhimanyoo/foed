@@ -1,7 +1,7 @@
 import { Heading as UIHeading } from '@volst/ui-components';
-import styled from 'styled-components';
+import styled from 'react-emotion';
 
-export const DetailedTopMenu = styled.div`
+export const DetailedTopMenu = styled('div')`
   padding: 0px 20px 0 20px;
 `;
 

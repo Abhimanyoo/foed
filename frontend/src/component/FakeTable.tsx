@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'react-emotion';
 
-export const Table = styled.div`
+export const Table = styled('div')`
   width: 100%;
 
   &:last-child tr:last-child {
@@ -8,7 +8,7 @@ export const Table = styled.div`
   }
 `;
 
-export const TableRow = styled.div`
+export const TableRow = styled('div')`
   width: 100%;
   display: flex;
   align-items: center;
@@ -22,11 +22,10 @@ interface TableDataProps {
   header?: boolean;
 }
 
-export const TableData = styled.div`
+export const TableData = styled<TableDataProps, 'div'>('div')`
   flex: ${props => (props.size != null ? props.size : 1)};
   padding: 8px 4px;
   font-size: 14px;
-  text-align: ${(props: TableDataProps) =>
-    props.alignRight ? 'right' : 'left'};
+  text-align: ${props => (props.alignRight ? 'right' : 'left')};
   font-weight: ${props => (props.header ? 'bold' : 'normal')};
 `;

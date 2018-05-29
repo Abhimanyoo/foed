@@ -2,11 +2,11 @@ import * as React from 'react';
 import gql from 'graphql-tag';
 import Dropzone from '../component/Dropzone';
 import { Mutation } from 'react-apollo';
-import styled from 'styled-components';
+import styled from 'react-emotion';
 import { Loader } from '@volst/ui-components';
 import { AddNotification } from '../Props';
 
-const StyledImg = styled.img`
+const StyledImg = styled('img')`
   max-width: 100%;
   display: block;
 `;

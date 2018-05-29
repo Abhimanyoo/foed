@@ -22,6 +22,7 @@ export class ModalCardCategoryEdit extends React.Component<Props, {}> {
             <Button onClick={this.props.onClose}>Close</Button>
           </React.Fragment>
         }
+        theme={{} as any}
       >
         <RestaurantCardCategoryEditForm
           form={this.props.form}

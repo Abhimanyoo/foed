@@ -13,7 +13,7 @@ import {
 import { Table, TableRow, TableData } from '../../../component/FakeTable';
 // import { DragHandle } from '../../../component/DragHandle';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import { injectGlobal } from 'styled-components';
+import { injectGlobal } from 'react-emotion';
 
 // Ugly hack necessary because this component is shown in a modal, so the sortable div is rendered below it.
 //tslint:disable-next-line
