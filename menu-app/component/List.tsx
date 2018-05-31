@@ -41,3 +41,12 @@ export const ListItemPrice = styled('div')`
   flex-direction: column;
   justify-content: center;
 `;
+
+export const ListItemButton = styled('button')`
+  color: #fff;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0 20px;
+  font-size: 20px;
+`;

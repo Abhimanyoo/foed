@@ -1,0 +1,16 @@
+import styled from 'react-emotion';
+
+interface ButtonProps {
+  tone?: 'secondary';
+}
+
+export const Button = styled<ButtonProps, 'button'>('button')`
+  width: 100%;
+  background: ${props => (props.tone === 'secondary' ? '#979797' : '#44977a')};
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 8px 8px 8px 0;
+`;
