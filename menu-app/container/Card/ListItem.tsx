@@ -14,15 +14,16 @@ import { Store } from 'Store';
 interface Props {
   item: any;
   store: Store;
+  selected: boolean;
   onAdd: (item: any) => void;
 }
 
 @observer
 export class CardListItem extends React.Component<Props, {}> {
   render() {
-    const { item, store, onAdd } = this.props;
+    const { selected, item, store, onAdd } = this.props;
     return (
-      <ListItem>
+      <ListItem selected={selected}>
         <ListItemOrderCount>
           {store.order.getAmountOfItemsPerCardItem(item.id)}
         </ListItemOrderCount>

@@ -1,10 +1,15 @@
 import styled from 'react-emotion';
 
-export const ListItem = styled('div')`
+interface ListItemProps {
+  selected?: boolean;
+}
+
+export const ListItem = styled<ListItemProps, 'div'>('div')`
   width: 100%;
   display: flex;
   padding: 10px 0;
   height: 80px;
+  background: ${props => (props.selected ? '#255042!important' : '')};
 
   &:nth-child(even) {
     background: #22262b;

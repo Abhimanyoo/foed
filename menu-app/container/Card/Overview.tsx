@@ -3,12 +3,11 @@ import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import { Header } from '../../component/Header';
 import { Query } from '../../component/Query';
-import { Button } from '../../component/Button';
-import { FloatingButtons } from '../../component/FloatingButtons';
 import gql from 'graphql-tag';
 import { CardListItem } from './ListItem';
 import { CardCategoryMenu } from './CategoryMenu';
 import { Store } from 'Store';
+import { CardToolbar } from './Toolbar';
 
 interface Props {
   restaurant: any;
@@ -41,9 +40,13 @@ export class CardOverview extends React.Component<Props, {}> {
     };
   };
 
-  handleFinish = () => {
+  handleAddFinish = () => {
     this.props.store.order.addItem(this.selectedItem);
     this.selectedItem = null;
+  };
+
+  handleFinish = () => {
+    // DO SOMETHING!
   };
 
   handleCancel = () => {
@@ -68,18 +71,20 @@ export class CardOverview extends React.Component<Props, {}> {
                 item={item}
                 store={store}
                 onAdd={this.handleAddItem}
+                selected={
+                  this.selectedItem && this.selectedItem.cardItem.id === item.id
+                }
               />
             ))
           }
         </Query>
-        {!!this.selectedItem && (
-          <FloatingButtons>
-            <Button onClick={this.handleCancel} tone="secondary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleFinish}>Add item</Button>
-          </FloatingButtons>
-        )}
+        <CardToolbar
+          onCancel={this.handleCancel}
+          onAdd={this.handleAddFinish}
+          onFinish={this.handleFinish}
+          selectedItem={this.selectedItem}
+          store={store}
+        />
       </div>
     );
   }

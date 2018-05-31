@@ -5,11 +5,8 @@ let store: Store | null = null;
 class Order {
   @observable items = [];
 
-  addItem(cardItem) {
-    this.items.push({
-      cardItem,
-      subitems: [],
-    });
+  addItem(item) {
+    this.items.push(item);
   }
 
   getAmountOfItemsPerCardItem(cardItemId) {
