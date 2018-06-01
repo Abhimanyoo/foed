@@ -24,6 +24,9 @@ const CARD_ITEM_OVERVIEW = gql`
         name
         price
         description
+        subitems {
+          id
+        }
       }
     }
   }
@@ -36,7 +39,7 @@ export class CardOverview extends React.Component<Props, {}> {
   handleAddItem = cardItem => {
     this.selectedItem = {
       cardItem,
-      subItems: [],
+      subitems: [],
     };
   };
 

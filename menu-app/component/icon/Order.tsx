@@ -12,11 +12,11 @@ export const IconOrder = ({ text }: { text: number }) => (
     />
     <text
       fill="#FFF"
-      fill-rule="evenodd"
-      font-size="14"
-      x="21"
+      fillRule="evenodd"
+      fontSize="14"
+      x="22"
       y="20"
-      text-anchor="middle"
+      textAnchor="middle"
     >
       {text}
     </text>

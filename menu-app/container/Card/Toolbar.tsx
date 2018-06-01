@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button } from '../../component/Button';
 import { FloatingButtons } from '../../component/FloatingButtons';
 import { observer } from 'mobx-react';
+import R from '../../routes';
 
 interface Props {
   selectedItem: any;
@@ -28,7 +29,9 @@ export class CardToolbar extends React.Component<Props, {}> {
     if (store.order.items.length > 0) {
       return (
         <FloatingButtons>
-          <Button onClick={this.props.onFinish}>Finish order</Button>
+          <R.Link route="/order">
+            <Button onClick={this.props.onFinish}>Finish order</Button>
+          </R.Link>
         </FloatingButtons>
       );
     }

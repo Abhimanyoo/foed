@@ -6,9 +6,13 @@ import { IconOrder } from './icon/Order';
 import { IconArrowBack } from './icon/ArrowBack';
 
 interface Props {
-  backUrl: string;
+  backUrl?: string;
   title: string;
   store?: Store;
+}
+
+function handleBack() {
+  R.Router.back();
 }
 
 const headerStyles = css`
@@ -39,19 +43,26 @@ const linkStyles = css`
   padding: 0 12px;
   text-decoration: none;
   font-size: 16px;
+  background: transparent;
+  border: none;
 `;
 
 export const Header = observer(({ backUrl, title, store }: Props) => {
   return (
     <div className={headerStyles}>
-      <R.Link route={backUrl}>
-        <a className={linkStyles}>
+      {backUrl ? (
+        <R.Link route={backUrl}>
+          <a className={linkStyles}>
+            <IconArrowBack />
+          </a>
+        </R.Link>
+      ) : (
+        <button className={linkStyles} onClick={handleBack}>
           <IconArrowBack />
-        </a>
-      </R.Link>
+        </button>
+      )}
       <HeaderTitle>{title}</HeaderTitle>
-
-      <R.Link route={backUrl}>
+      <R.Link route="/order">
         <a className={linkStyles}>
           {store ? <IconOrder text={store.order.items.length} /> : null}
         </a>
