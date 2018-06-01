@@ -10,6 +10,7 @@ import {
 } from '../../component/List';
 import { floatToDecimal } from '../../helpers';
 import { Store } from 'Store';
+import { IconAddCircle } from '../../component/icon/AddCircle';
 
 interface Props {
   item: any;
@@ -33,7 +34,7 @@ export class CardListItem extends React.Component<Props, {}> {
         </ListItemInfo>
         <ListItemPrice>€{floatToDecimal(item.price)}</ListItemPrice>
         <ListItemButton type="button" onClick={() => onAdd(item)}>
-          +
+          <IconAddCircle />
         </ListItemButton>
       </ListItem>
     );
