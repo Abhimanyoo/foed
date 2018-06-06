@@ -31,7 +31,7 @@ export class OrderPricing extends React.Component<Props, {}> {
           <ReceiptPriceItemAmount />
         </ReceiptPriceItem>
         <ReceiptPriceLine />
-        <ReceiptPriceItem>
+        <ReceiptPriceItem bold>
           <ReceiptPriceItemName>Total</ReceiptPriceItemName>
           <ReceiptPriceItemAmount>
             €{floatToDecimal(store.order.totalPrice)}

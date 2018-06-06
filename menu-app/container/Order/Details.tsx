@@ -4,6 +4,7 @@ import { Header } from '../../component/Header';
 import { OrderListItem } from './ListItem';
 import { Store } from 'Store';
 import { ReceiptBackground } from '../../component/ReceiptBackground';
+import { ReceiptEmpty } from '../../component/ReceiptList';
 import { OrderPricing } from './Pricing';
 
 interface Props {
@@ -28,6 +29,9 @@ export class OrderDetails extends React.Component<Props, {}> {
       <div>
         <Header title="Your order" store={store} />
         <ReceiptBackground>
+          {!store.order.groupedItems.length && (
+            <ReceiptEmpty>You do not have any items right now!</ReceiptEmpty>
+          )}
           {store.order.groupedItems.map(groupedItem => (
             <OrderListItem
               item={groupedItem.item}
