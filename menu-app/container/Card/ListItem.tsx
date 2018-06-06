@@ -15,18 +15,19 @@ import { IconAddCircle } from '../../component/icon/AddCircle';
 interface Props {
   item: any;
   store: Store;
-  selected: boolean;
+  selected: number;
+  disabled: boolean;
   onAdd: (item: any) => void;
 }
 
 @observer
 export class CardListItem extends React.Component<Props, {}> {
   render() {
-    const { selected, item, store, onAdd } = this.props;
+    const { selected, disabled, item, store, onAdd } = this.props;
     return (
-      <ListItem selected={selected}>
+      <ListItem selected={selected > 0} disabled={disabled}>
         <ListItemOrderCount>
-          {store.order.getAmountOfItemsPerCardItem(item.id)}
+          {store.order.getAmountOfItemsPerCardItem(item.id) + selected}
         </ListItemOrderCount>
         <ListItemInfo>
           {item.name}

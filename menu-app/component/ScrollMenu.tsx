@@ -11,6 +11,7 @@ export const ScrollMenu = styled('div')`
   -ms-overflow-style: -ms-autohiding-scrollbar;
   position: sticky;
   top: 45px;
+  z-index: 1;
 `;
 
 interface StyledLinkProps {

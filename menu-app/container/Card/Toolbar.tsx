@@ -5,24 +5,26 @@ import { observer } from 'mobx-react';
 import R from '../../routes';
 
 interface Props {
-  selectedItem: any;
+  selectedItems: any[];
   store: any;
   onCancel: () => void;
   onAdd: () => void;
-  onFinish: () => void;
 }
 
 @observer
 export class CardToolbar extends React.Component<Props, {}> {
   render() {
-    const { store, selectedItem } = this.props;
-    if (selectedItem) {
+    const { store, selectedItems } = this.props;
+    const count = selectedItems.length;
+    if (count > 0) {
       return (
         <FloatingButtons>
           <Button onClick={this.props.onCancel} tone="secondary">
             Cancel
           </Button>
-          <Button onClick={this.props.onAdd}>Add item</Button>
+          <Button onClick={this.props.onAdd}>
+            {count === 1 ? 'Add item' : `Add ${count} items`}
+          </Button>
         </FloatingButtons>
       );
     }
@@ -30,7 +32,7 @@ export class CardToolbar extends React.Component<Props, {}> {
       return (
         <FloatingButtons>
           <R.Link route="/order">
-            <Button onClick={this.props.onFinish}>Finish order</Button>
+            <Button>Finish order</Button>
           </R.Link>
         </FloatingButtons>
       );

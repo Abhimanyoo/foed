@@ -2,6 +2,7 @@ import styled from 'react-emotion';
 
 interface ListItemProps {
   selected?: boolean;
+  disabled?: boolean;
 }
 
 export const ListItem = styled<ListItemProps, 'div'>('div')`
@@ -10,6 +11,7 @@ export const ListItem = styled<ListItemProps, 'div'>('div')`
   padding: 10px 0;
   height: 80px;
   background: ${props => (props.selected ? '#255042!important' : '')};
+  ${props => props.disabled && `opacity: 0.4; pointer-events: none;`};
 
   &:nth-child(even) {
     background: #22262b;

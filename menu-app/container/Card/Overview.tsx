@@ -34,30 +34,28 @@ const CARD_ITEM_OVERVIEW = gql`
 
 @observer
 export class CardOverview extends React.Component<Props, {}> {
-  @observable selectedItem = null;
+  @observable selectedItems: any[] = [];
 
   handleAddItem = cardItem => {
-    this.selectedItem = {
+    this.selectedItems.push({
       cardItem,
       subitems: [],
-    };
+    });
   };
 
   handleAddFinish = () => {
-    this.props.store.order.addItem(this.selectedItem);
-    this.selectedItem = null;
+    const order = this.props.store.order;
+    this.selectedItems.forEach(item => order.addItem(item));
+    this.clearItems();
   };
 
-  handleFinish = () => {
-    // DO SOMETHING!
-  };
-
-  handleCancel = () => {
-    this.selectedItem = null;
+  clearItems = () => {
+    this.selectedItems = [];
   };
 
   render() {
     const { restaurant, categoryId, store } = this.props;
+    const selectedItems = this.selectedItems.slice();
     return (
       <div>
         <Header
@@ -68,24 +66,27 @@ export class CardOverview extends React.Component<Props, {}> {
         <CardCategoryMenu restaurant={restaurant} categoryId={categoryId} />
         <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
           {result =>
-            result.data.cardCategory.items.map(item => (
-              <CardListItem
-                key={item.id}
-                item={item}
-                store={store}
-                onAdd={this.handleAddItem}
-                selected={
-                  this.selectedItem && this.selectedItem.cardItem.id === item.id
-                }
-              />
-            ))
+            result.data.cardCategory.items.map(cardItem => {
+              const selected = selectedItems.filter(sItem => {
+                return sItem.cardItem.id === cardItem.id;
+              }).length;
+              return (
+                <CardListItem
+                  key={cardItem.id}
+                  item={cardItem}
+                  store={store}
+                  onAdd={this.handleAddItem}
+                  selected={selected}
+                  disabled={!selected && selectedItems.length > 0}
+                />
+              );
+            })
           }
         </Query>
         <CardToolbar
-          onCancel={this.handleCancel}
+          onCancel={this.clearItems}
           onAdd={this.handleAddFinish}
-          onFinish={this.handleFinish}
-          selectedItem={this.selectedItem}
+          selectedItems={this.selectedItems}
           store={store}
         />
       </div>
