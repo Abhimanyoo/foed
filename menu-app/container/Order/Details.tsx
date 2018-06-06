@@ -4,6 +4,7 @@ import { Header } from '../../component/Header';
 import { OrderListItem } from './ListItem';
 import { Store } from 'Store';
 import { ReceiptBackground } from '../../component/ReceiptBackground';
+import { OrderPricing } from './Pricing';
 
 interface Props {
   store: Store;
@@ -36,6 +37,7 @@ export class OrderDetails extends React.Component<Props, {}> {
               onRemove={this.handleRemove}
             />
           ))}
+          <OrderPricing store={store} />
         </ReceiptBackground>
       </div>
     );

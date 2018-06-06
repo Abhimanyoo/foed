@@ -12,4 +12,9 @@ export const Button = styled<ButtonProps, 'button'>('button')`
   border-radius: 5px;
   font-size: 16px;
   margin: 8px 8px 8px 0;
+  outline: 0;
+
+  &:active {
+    opacity: 0.8;
+  }
 `;

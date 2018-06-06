@@ -21,6 +21,17 @@ class Order {
   }
 
   @computed
+  get totalPrice(): number {
+    return this.items.reduce((itemPrice, item) => {
+      const subitemsPrice = item.subitems.reduce(
+        (subitemPrice, subitem) => subitem.price + subitemPrice,
+        0
+      );
+      return item.cardItem.price + subitemsPrice + itemPrice;
+    }, 0);
+  }
+
+  @computed
   get groupedItems() {
     const groupedItems: any[] = [];
     this.items.forEach(item => {

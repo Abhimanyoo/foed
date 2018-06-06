@@ -53,4 +53,9 @@ export const ReceiptListItemButton = styled('button')`
   margin: 0;
   padding: 0 20px;
   font-size: 20px;
+  outline: 0;
+
+  &:active {
+    opacity: 0.8;
+  }
 `;
