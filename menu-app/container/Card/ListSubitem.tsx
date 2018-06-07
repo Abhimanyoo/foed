@@ -9,12 +9,12 @@ import {
 import { floatToDecimal } from '../../helpers';
 import { Store } from 'Store';
 import IconCheck from '../../component/icon/Check';
-
-export type ToggleSubItemFn = (item: any, subitem: any) => void;
+import { CardItem, CardSubitem } from '../../types';
+export type ToggleSubItemFn = (item: CardItem, subitem: CardSubitem) => void;
 
 interface Props {
-  item: any;
-  subitem: any;
+  item: CardItem;
+  subitem: CardSubitem;
   store: Store;
   onToggle: ToggleSubItemFn;
 }

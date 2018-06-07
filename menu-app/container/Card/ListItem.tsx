@@ -12,13 +12,14 @@ import { CardListSubitem, ToggleSubItemFn } from './ListSubitem';
 import { floatToDecimal } from '../../helpers';
 import { Store } from 'Store';
 import { IconAddCircle } from '../../component/icon/AddCircle';
+import { CardItem } from '../../types';
 
 interface Props {
-  item: any;
+  item: CardItem;
   store: Store;
   selected: boolean;
   disabled: boolean;
-  onAdd: (item: any) => void;
+  onAdd: (item: CardItem) => void;
   onToggleSubitem: ToggleSubItemFn;
 }
 

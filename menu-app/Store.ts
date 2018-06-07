@@ -1,22 +1,23 @@
 import { computed, observable } from 'mobx';
+import { Item, GroupedItem, CardItem, CardSubitem } from './types';
 
 let store: Store | null = null;
 
 class Order {
-  @observable items = [];
+  @observable items: Item[] = [];
 
-  addItem(item) {
+  addItem(item: Item) {
     this.items.push(item);
   }
 
-  removeItem(item) {
+  removeItem(item: Item) {
     const index = this.items.indexOf(item);
     if (index >= 0) {
       this.items.splice(index, 1);
     }
   }
 
-  hasSelectedSubitem(cardItem, subitem) {
+  hasSelectedSubitem(cardItem: CardItem, subitem: CardSubitem) {
     const item = this.items.find(
       item => item.preselect && item.cardItem.id === cardItem.id
     );
@@ -26,7 +27,7 @@ class Order {
     return false;
   }
 
-  toggleSubitem(cardItem, subitem) {
+  toggleSubitem(cardItem: CardItem, subitem: CardSubitem) {
     // TODO: this does not work when there are two of the same items that are preselected
     const item = this.items.find(
       item => item.preselect && item.cardItem.id === cardItem.id
@@ -61,15 +62,15 @@ class Order {
     });
   }
 
-  _getByCardItem(cardItemId) {
+  _getByCardItem(cardItemId: string) {
     return this.items.filter(item => item.cardItem.id === cardItemId);
   }
 
-  getAmountOfItemsPerCardItem(cardItemId) {
+  getAmountOfItemsPerCardItem(cardItemId: string) {
     return this._getByCardItem(cardItemId).length;
   }
 
-  isCardItemPreselected(cardItemId) {
+  isCardItemPreselected(cardItemId: string) {
     return this._getByCardItem(cardItemId).some(item => item.preselect);
   }
 
@@ -78,7 +79,7 @@ class Order {
   }
 
   @computed
-  get totalPrice(): number {
+  get totalPrice() {
     return this.items.reduce((itemPrice, item) => {
       const subitemsPrice = item.subitems.reduce(
         (subitemPrice, subitem) => subitem.price + subitemPrice,
@@ -90,7 +91,7 @@ class Order {
 
   @computed
   get groupedItems() {
-    const groupedItems: any[] = [];
+    const groupedItems: GroupedItem[] = [];
     this.items.forEach(item => {
       const groupedItem = groupedItems.find(
         gItem => gItem.item.cardItem.id === item.cardItem.id

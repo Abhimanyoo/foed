@@ -3,10 +3,11 @@ import { Button } from '../../component/Button';
 import { FloatingButtons } from '../../component/FloatingButtons';
 import { observer } from 'mobx-react';
 import R from '../../routes';
+import { Store } from '../../Store';
 
 interface Props {
   preselectedAmount: number;
-  store: any;
+  store: Store;
   onCancel: () => void;
   onAdd: () => void;
 }

@@ -13,13 +13,14 @@ import { floatToDecimal } from '../../helpers';
 import { Store } from 'Store';
 import { IconAddCircle } from '../../component/icon/AddCircle';
 import { IconRemoveCircle } from '../../component/icon/RemoveCircle';
+import { Item } from '../../types';
 
 interface Props {
-  item: any;
+  item: Item;
   amount: number;
   store: Store;
-  onAdd: (item: any) => void;
-  onRemove: (item: any) => void;
+  onAdd: (item: Item) => void;
+  onRemove: (item: Item) => void;
 }
 
 @observer
