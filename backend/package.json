@@ -26,7 +26,7 @@
     "email-templates": "^3.3.3",
     "graphql": "^0.13.2",
     "graphql-shield": "^2.0.6",
-    "graphql-yoga": "1.14.6",
+    "graphql-yoga": "1.14.7",
     "nodemailer": "^4.4.2",
     "nodemailer-mailgun-transport": "^1.4.0",
     "now-storage": "^1.2.0",
