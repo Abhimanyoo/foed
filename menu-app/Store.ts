@@ -16,8 +16,65 @@ class Order {
     }
   }
 
+  hasSelectedSubitem(cardItem, subitem) {
+    const item = this.items.find(
+      item => item.preselect && item.cardItem.id === cardItem.id
+    );
+    if (item) {
+      return item.subitems.some(sItem => sItem.id === subitem.id);
+    }
+    return false;
+  }
+
+  toggleSubitem(cardItem, subitem) {
+    // TODO: this does not work when there are two of the same items that are preselected
+    const item = this.items.find(
+      item => item.preselect && item.cardItem.id === cardItem.id
+    );
+    if (item) {
+      const index = item.subitems.findIndex(sItem => sItem.id === subitem.id);
+      if (index >= 0) {
+        item.subitems.splice(index, 1);
+      } else {
+        // Only one subitem of the type variant can be selected at the time
+        if (subitem.type === 'VARIANT') {
+          item.subitems.forEach((sItem, i) => {
+            if (sItem.type === 'VARIANT') {
+              item.subitems.splice(i, 1);
+            }
+          });
+        }
+        item.subitems.push(subitem);
+      }
+    }
+  }
+
+  pinPreselected() {
+    return this.items.forEach(item => (item.preselect = false));
+  }
+
+  clearPreselected() {
+    return this.items.forEach(item => {
+      if (item.preselect) {
+        this.removeItem(item);
+      }
+    });
+  }
+
+  _getByCardItem(cardItemId) {
+    return this.items.filter(item => item.cardItem.id === cardItemId);
+  }
+
   getAmountOfItemsPerCardItem(cardItemId) {
-    return this.items.filter(item => item.cardItem.id === cardItemId).length;
+    return this._getByCardItem(cardItemId).length;
+  }
+
+  isCardItemPreselected(cardItemId) {
+    return this._getByCardItem(cardItemId).some(item => item.preselect);
+  }
+
+  getAmountOfPreselections() {
+    return this.items.filter(item => item.preselect).length;
   }
 
   @computed

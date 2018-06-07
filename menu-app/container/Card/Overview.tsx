@@ -1,6 +1,5 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 import { Header } from '../../component/Header';
 import { Query } from '../../component/Query';
 import gql from 'graphql-tag';
@@ -26,6 +25,9 @@ const CARD_ITEM_OVERVIEW = gql`
         description
         subitems {
           id
+          name
+          type
+          price
         }
       }
     }
@@ -34,28 +36,33 @@ const CARD_ITEM_OVERVIEW = gql`
 
 @observer
 export class CardOverview extends React.Component<Props, {}> {
-  @observable selectedItems: any[] = [];
-
   handleAddItem = cardItem => {
-    this.selectedItems.push({
+    const { store } = this.props;
+    store.order.addItem({
       cardItem,
       subitems: [],
+      preselect: true,
     });
   };
 
   handleAddFinish = () => {
-    const order = this.props.store.order;
-    this.selectedItems.forEach(item => order.addItem(item));
-    this.clearItems();
+    const { store } = this.props;
+    store.order.pinPreselected();
   };
 
   clearItems = () => {
-    this.selectedItems = [];
+    const { store } = this.props;
+    store.order.clearPreselected();
+  };
+
+  handleToggleSubItem = (cardItem, subitem) => {
+    const { store } = this.props;
+    store.order.toggleSubitem(cardItem, subitem);
   };
 
   render() {
     const { restaurant, categoryId, store } = this.props;
-    const selectedItems = this.selectedItems.slice();
+    const amountOfPreselections = store.order.getAmountOfPreselections();
     return (
       <div>
         <Header
@@ -67,17 +74,18 @@ export class CardOverview extends React.Component<Props, {}> {
         <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
           {result =>
             result.data.cardCategory.items.map(cardItem => {
-              const selected = selectedItems.filter(sItem => {
-                return sItem.cardItem.id === cardItem.id;
-              }).length;
+              const itemIsPreselected = store.order.isCardItemPreselected(
+                cardItem.id
+              );
               return (
                 <CardListItem
                   key={cardItem.id}
                   item={cardItem}
                   store={store}
                   onAdd={this.handleAddItem}
-                  selected={selected}
-                  disabled={!selected && selectedItems.length > 0}
+                  onToggleSubitem={this.handleToggleSubItem}
+                  selected={itemIsPreselected}
+                  disabled={!itemIsPreselected && amountOfPreselections > 0}
                 />
               );
             })
@@ -86,7 +94,7 @@ export class CardOverview extends React.Component<Props, {}> {
         <CardToolbar
           onCancel={this.clearItems}
           onAdd={this.handleAddFinish}
-          selectedItems={this.selectedItems}
+          preselectedAmount={amountOfPreselections}
           store={store}
         />
       </div>

@@ -62,3 +62,40 @@ export const ListItemButton = styled('button')`
     opacity: 0.8;
   }
 `;
+
+export const ListSubitem = styled('div')`
+  width: 100%;
+  font-size: 15px;
+  display: flex;
+  padding: 10px 0;
+  height: 40px;
+  background: #3a7064;
+  user-select: none;
+
+  &:nth-child(even) {
+    background: #4e7e73;
+  }
+`;
+
+export const ListSubitemCheck = styled('div')`
+  width: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 10px;
+`;
+
+export const ListSubitemInfo = styled('div')`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const ListSubitemPrice = styled('div')`
+  width: 50px;
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;

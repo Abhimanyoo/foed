@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import R from '../../routes';
 
 interface Props {
-  selectedItems: any[];
+  preselectedAmount: number;
   store: any;
   onCancel: () => void;
   onAdd: () => void;
@@ -14,16 +14,17 @@ interface Props {
 @observer
 export class CardToolbar extends React.Component<Props, {}> {
   render() {
-    const { store, selectedItems } = this.props;
-    const count = selectedItems.length;
-    if (count > 0) {
+    const { store, preselectedAmount } = this.props;
+    if (preselectedAmount > 0) {
       return (
         <FloatingButtons>
           <Button onClick={this.props.onCancel} tone="secondary">
             Cancel
           </Button>
           <Button onClick={this.props.onAdd}>
-            {count === 1 ? 'Add item' : `Add ${count} items`}
+            {preselectedAmount === 1
+              ? 'Add item'
+              : `Add ${preselectedAmount} items`}
           </Button>
         </FloatingButtons>
       );
