@@ -30,7 +30,7 @@
     "apollo-link-context": "^1.0.1",
     "apollo-link-error": "^1.0.1",
     "apollo-upload-client": "^8.0.0",
-    "emotion": "^9.1.3",
+    "emotion": "9.1.3",
     "formik": "^1.0.0-beta.1",
     "graphql": "^0.13.1",
     "graphql-tag": "^2.5.0",
@@ -51,7 +51,7 @@
     "react-sortable-hoc": "^0.8.1",
     "react-test-renderer": "^16.1.0",
     "serve": "^8.1.1",
-    "yup": "^0.25.1"
+    "yup": "^0.24.1"
   },
   "resolutions": {
     "apollo-codegen/graphql-config": "2.0.1"
