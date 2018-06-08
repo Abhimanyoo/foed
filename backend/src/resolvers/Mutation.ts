@@ -2,6 +2,12 @@ import { forwardTo } from 'prisma-binding';
 import { upload } from 'now-storage';
 import * as streamToArray from 'stream-to-array';
 import * as sharp from 'sharp';
+import { Context } from '../utils';
+
+interface PlaceOrderInput {
+  items: { cardItem: string; subitems: string[] }[];
+  tip: number;
+}
 
 export const Mutation = {
   createRestaurant: forwardTo('db'),
@@ -42,5 +48,51 @@ export const Mutation = {
       }
     );
     return { url: `https://${url}` };
+  },
+  async placeOrder(
+    parent: any,
+    { data }: { data: PlaceOrderInput },
+    ctx: Context,
+    info: any
+  ) {
+    // TODO: this can probably be improved for performance; first fetch all required data and then loop through data.items.
+    const order = {
+      items: { create: [] as any[] },
+      subtotal: 0,
+      tip: data.tip,
+    };
+
+    for (const itemInput of data.items) {
+      const cardItem = await ctx.db.query.cardItem({
+        where: { id: itemInput.cardItem },
+      });
+      if (!cardItem) {
+        throw new Error(`Cannot find card item ${itemInput.cardItem}`);
+      }
+      const cardSubItems = await ctx.db.query.cardSubitems({
+        where: { id_in: itemInput.subitems },
+      });
+
+      const subItemConnects: any[] = [];
+      for (const cardSubitem of cardSubItems) {
+        order.subtotal += cardSubitem.price;
+
+        subItemConnects.push({ id: cardSubitem.id });
+      }
+
+      order.subtotal += cardItem.price;
+
+      order.items.create.push({
+        cardItem: { connect: { id: cardItem.id } },
+        subitems: { connect: subItemConnects },
+      });
+    }
+
+    const actualOrder = await ctx.db.mutation.createOrder({ data: order });
+
+    return {
+      id: actualOrder.id,
+      price: order.tip + order.subtotal,
+    };
   },
 };

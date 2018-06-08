@@ -16,6 +16,7 @@ type Query {
 type Mutation {
   inviteUser(data: InviteUserInput): UserIdPayload!
   imageUpload(file: Upload!): UploadPayload!
+  placeOrder(data: PlaceOrderInput): PlaceOrderPayload!
 }
 
 input InviteUserInput {
@@ -51,4 +52,19 @@ type GenerateSlugPayload {
 
 type UploadPayload {
   url: String!
+}
+
+input PlaceOrderInput {
+  items: [PlaceOrderItems!]!
+  tip: Float!
+}
+
+input PlaceOrderItems {
+  cardItem: ID!
+  subitems: [ID!]!
+}
+
+type PlaceOrderPayload {
+  id: ID!
+  price: Float!
 }
