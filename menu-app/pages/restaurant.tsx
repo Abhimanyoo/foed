@@ -18,6 +18,7 @@ const RESTAURANT_DETAILS = gql`
       name
       slug
       organization {
+        name
         slug
       }
       activeCard {

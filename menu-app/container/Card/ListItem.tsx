@@ -27,12 +27,11 @@ interface Props {
 export class CardListItem extends React.Component<Props, {}> {
   render() {
     const { selected, disabled, item, store, onAdd } = this.props;
+    const count = store.order.getAmountOfItemsPerCardItem(item.id);
     return (
       <React.Fragment>
         <ListItem selected={selected} disabled={disabled}>
-          <ListItemOrderCount>
-            {store.order.getAmountOfItemsPerCardItem(item.id)}
-          </ListItemOrderCount>
+          <ListItemOrderCount>{count || ''}</ListItemOrderCount>
           <ListItemInfo>
             {item.name}
             <ListItemInfoDescription>

@@ -13,10 +13,6 @@ export const ReceiptListItem = styled('div')`
   justify-content: center;
   padding: 10px 0;
   min-height: 80px;
-
-  &:nth-child(even) {
-    background: #3a6259;
-  }
 `;
 
 export const ReceiptListItemOrderCount = styled('div')`
@@ -35,13 +31,15 @@ export const ReceiptListItemInfo = styled('div')`
 export const ReceiptListItemDescription = styled('div')`
   font-size: 14px;
   overflow: hidden;
-  color: #a3fedf;
+  color: #efffe9;
   font-style: italic;
   margin: 5px 20px 0 40px;
 `;
 
 export const ReceiptListItemTitle = styled('div')`
   flex: 1;
+  color: #efffe9;
+  font-weight: bold;
 `;
 
 export const ReceiptListItemPrice = styled('div')`

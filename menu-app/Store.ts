@@ -55,11 +55,7 @@ class Order {
   }
 
   clearPreselected() {
-    return this.items.forEach(item => {
-      if (item.preselect) {
-        this.removeItem(item);
-      }
-    });
+    this.items = this.items.filter(item => !item.preselect);
   }
 
   _getByCardItem(cardItemId: string) {

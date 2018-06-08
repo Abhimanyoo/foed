@@ -2,56 +2,31 @@ import styled, { css } from 'react-emotion';
 import R from '../routes';
 import { LinkProps } from '@volst/next-routes';
 
-export const Grid = styled('div')`
-  display: flex;
-  flex-wrap: wrap;
-`;
+export const Grid = styled('div')``;
 
 // Can't use `styled('a')` since Next.js' `<Link>` component doesn't recognize the <a> in that case.
 const linkStyles = css`
   display: flex;
-  width: 50%;
-  color: #fff;
+  width: 100%;
+  color: #efffea;
+  font-weight: bold;
+  text-decoration: none;
   position: relative;
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
-
-  @media (min-width: 600px) {
-    width: 25%;
-  }
-
-  /* Hack to make height the same as width */
-  &:before {
-    content: '';
-    float: left;
-    padding-top: 100%;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 50%;
-    bottom: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0.5)
-    );
-  }
+  padding: 0 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
 `;
 
 export const GridItemTitle = styled('span')`
-  position: absolute;
-  z-index: 2;
-  bottom: 10px;
-  left: 15px;
-  text-shadow: 0 1px 0 black;
+  margin: 15px 0 0 15px;
 `;
 
 export const GridItemImage = styled('img')`
-  width: 100%;
-  height: 100%;
+  width: 125px;
+  height: 125px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px 0 rgba(12, 70, 81, 0.36);
+  background: rgba(255, 255, 255, 0.3);
 `;
 
 export const GridItem = ({ children, ...props }: LinkProps) => (

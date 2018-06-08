@@ -25,9 +25,9 @@ export class CardListSubitem extends React.Component<Props, {}> {
     const { item, subitem, store, onToggle } = this.props;
     const selected = store.order.hasSelectedSubitem(item, subitem);
     return (
-      <ListSubitem onClick={() => onToggle(item, subitem)}>
+      <ListSubitem onClick={() => onToggle(item, subitem)} selected={selected}>
         <ListSubitemCheck>
-          <IconCheck fill={selected ? '#a3fedf' : '#779d95'} />
+          <IconCheck fill={selected ? '#ecfee9' : 'rgba(255, 255, 255, 0.2)'} />
         </ListSubitemCheck>
         <ListSubitemInfo>{subitem.name}</ListSubitemInfo>
         <ListSubitemPrice>€{floatToDecimal(subitem.price)}</ListSubitemPrice>

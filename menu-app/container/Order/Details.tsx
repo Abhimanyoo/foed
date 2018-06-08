@@ -27,7 +27,7 @@ export class OrderDetails extends React.Component<Props, {}> {
     const { store } = this.props;
     return (
       <div>
-        <Header title="Your order" store={store} />
+        <Header store={store} />
         <ReceiptBackground>
           {!store.order.groupedItems.length && (
             <ReceiptEmpty>You do not have any items right now!</ReceiptEmpty>

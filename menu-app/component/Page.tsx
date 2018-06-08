@@ -19,8 +19,7 @@ injectGlobal`
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
     color: #fff;
     margin: 0;
-    background: #101010;
-    background-size: cover;
+    background: linear-gradient(135deg, rgba(122,185,197,1) 0%,rgba(62,147,164,1) 100%);
     background-attachment: fixed;
     height: 100%;
     -webkit-font-smoothing: antialiased;

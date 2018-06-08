@@ -1,8 +1,10 @@
 import styled from 'react-emotion';
 
+const bgColor = '#6dadb9';
+
 export const ReceiptBackground = styled('div')`
   width: 100%;
-  background: #255042;
+  background: rgba(255, 255, 255, 0.2);
   margin: 20px 0;
   padding: 20px 0;
   position: relative;
@@ -19,15 +21,15 @@ export const ReceiptBackground = styled('div')`
     background: linear-gradient(
         45deg,
         transparent 33.333%,
-        #255042 33.333%,
-        #255042 66.667%,
+        ${bgColor} 33.333%,
+        ${bgColor} 66.667%,
         transparent 66.667%
       ),
       linear-gradient(
         -45deg,
         transparent 33.333%,
-        #255042 33.333%,
-        #255042 66.667%,
+        ${bgColor} 33.333%,
+        ${bgColor} 66.667%,
         transparent 66.667%
       );
 
@@ -46,17 +48,17 @@ export const ReceiptBackground = styled('div')`
     right: 0;
     background: linear-gradient(
         45deg,
-        #255042 33.333%,
+        ${bgColor} 33.333%,
         transparent 33.333%,
         transparent 66.667%,
-        #255042 66.667%
+        ${bgColor} 66.667%
       ),
       linear-gradient(
         -45deg,
-        #255042 33.333%,
+        ${bgColor} 33.333%,
         transparent 33.333%,
         transparent 66.667%,
-        #255042 66.667%
+        ${bgColor} 66.667%
       );
 
     background-size: 8px 20px; /* toothSize doubleHeight */

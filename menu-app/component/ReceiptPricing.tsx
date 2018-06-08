@@ -25,6 +25,6 @@ export const ReceiptPriceItemAmount = styled('div')`
 export const ReceiptPriceLine = styled('div')`
   width: 100%;
   height: 1px;
-  background: #9fb6b1;
+  background: #fff;
   margin: 10px 0;
 `;

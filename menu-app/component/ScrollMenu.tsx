@@ -3,7 +3,7 @@ import R from '../routes';
 import { LinkProps } from '@volst/next-routes';
 
 export const ScrollMenu = styled('div')`
-  background: #6c7a88;
+  background: #fff;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
@@ -19,8 +19,8 @@ interface StyledLinkProps {
 }
 
 const StyledLink = styled<StyledLinkProps, 'a'>('a')`
-  color: #fff;
-  padding: 12px 16px 13px;
+  color: #5fa4b1;
+  padding: 12px 0 13px 20px;
   display: inline-block;
   vertical-align: middle;
   text-decoration: none;
@@ -30,7 +30,7 @@ const StyledLink = styled<StyledLinkProps, 'a'>('a')`
 `;
 
 const activeLinkStyles = css`
-  color: #a3fedf;
+  font-style: italic;
   &:after {
     content: '';
     position: absolute;
@@ -39,8 +39,8 @@ const activeLinkStyles = css`
     width: 10px;
     height: 10px;
     margin-left: -5px;
-    background: #a3fedf;
-    border: solid #a3fedf;
+    background: #71b3c0;
+    border: solid #71b3c0;
     border-width: 0 3px 3px 0;
     transform: rotate(-135deg);
   }

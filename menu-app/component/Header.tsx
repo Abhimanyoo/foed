@@ -1,5 +1,5 @@
 import R from '../routes';
-import styled, { css } from 'react-emotion';
+import { css } from 'react-emotion';
 import { observer } from 'mobx-react';
 import { Store } from 'Store';
 import { IconOrder } from './icon/Order';
@@ -7,7 +7,7 @@ import { IconArrowBack } from './icon/ArrowBack';
 
 interface Props {
   backUrl?: string;
-  title: string;
+  backTitle?: string;
   store?: Store;
 }
 
@@ -21,23 +21,14 @@ const headerStyles = css`
   align-items: stretch;
   width: 100%;
   height: 45px;
-  background: #282f39;
+  background: #fff;
   position: sticky;
   top: 0;
   z-index: 500;
 `;
 
-const HeaderTitle = styled('h1')`
-  color: #fff;
-  margin: 0;
-  font-size: 20px;
-  font-weight: normal;
-  display: flex;
-  align-items: center;
-`;
-
 const linkStyles = css`
-  color: #fff;
+  color: #4493a4;
   display: flex;
   align-items: center;
   padding: 0 12px;
@@ -47,24 +38,27 @@ const linkStyles = css`
   border: none;
 `;
 
-export const Header = observer(({ backUrl, title, store }: Props) => {
+export const Header = observer(({ backUrl, backTitle, store }: Props) => {
   return (
     <div className={headerStyles}>
       {backUrl ? (
         <R.Link route={backUrl}>
           <a className={linkStyles}>
-            <IconArrowBack />
+            <IconArrowBack fill="#4493a4" />
+            {backTitle}
           </a>
         </R.Link>
       ) : (
         <button className={linkStyles} onClick={handleBack}>
-          <IconArrowBack />
+          <IconArrowBack fill="#4493a4" />
+          {backTitle}
         </button>
       )}
-      <HeaderTitle>{title}</HeaderTitle>
       <R.Link route="/order">
         <a className={linkStyles}>
-          {store ? <IconOrder text={store.order.items.length} /> : null}
+          {store ? (
+            <IconOrder text={store.order.items.length} fill="#4493a4" />
+          ) : null}
         </a>
       </R.Link>
     </div>

@@ -10,12 +10,7 @@ export const ListItem = styled<ListItemProps, 'div'>('div')`
   display: flex;
   padding: 10px 0;
   height: 80px;
-  background: ${props => (props.selected ? '#255042!important' : '')};
   ${props => props.disabled && `opacity: 0.4; pointer-events: none;`};
-
-  &:nth-child(even) {
-    background: #22262b;
-  }
 `;
 
 export const ListItemOrderCount = styled('div')`
@@ -24,6 +19,8 @@ export const ListItemOrderCount = styled('div')`
   flex-direction: column;
   justify-content: center;
   margin: 0 10px;
+  color: #efffe9;
+  font-weight: bold;
 `;
 
 export const ListItemInfo = styled('div')`
@@ -31,6 +28,8 @@ export const ListItemInfo = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #edfde8;
+  font-weight: bold;
 `;
 
 export const ListItemInfoDescription = styled('div')`
@@ -39,6 +38,8 @@ export const ListItemInfoDescription = styled('div')`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  color: #fff;
+  font-weight: normal;
 `;
 
 export const ListItemPrice = styled('div')`
@@ -63,17 +64,17 @@ export const ListItemButton = styled('button')`
   }
 `;
 
-export const ListSubitem = styled('div')`
+export const ListSubitem = styled<{ selected?: boolean }, 'div'>('div')`
   width: 100%;
   font-size: 15px;
   display: flex;
   padding: 10px 0;
   height: 40px;
-  background: #3a7064;
   user-select: none;
+  color: ${props => props.selected && `#efffe9`};
 
   &:nth-child(even) {
-    background: #4e7e73;
+    background: rgba(255, 255, 255, 0.1);
   }
 `;
 
