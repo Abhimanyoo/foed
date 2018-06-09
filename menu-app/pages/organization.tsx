@@ -1,5 +1,4 @@
 import React from 'react';
-import { Page } from '../component/Page';
 import { Query } from '../component/Query';
 import { RestaurantOverview } from '../container/Restaurant/Overview';
 import gql from 'graphql-tag';
@@ -33,16 +32,14 @@ export default class RestaurantOverviewPage extends React.Component<Props, {}> {
   render() {
     const { slug, store } = this.props;
     return (
-      <Page>
-        <Query query={ORGANIZATION_DETAILS} variables={{ slug }}>
-          {result => (
-            <RestaurantOverview
-              organization={result.data.organization}
-              store={store}
-            />
-          )}
-        </Query>
-      </Page>
+      <Query query={ORGANIZATION_DETAILS} variables={{ slug }}>
+        {result => (
+          <RestaurantOverview
+            organization={result.data.organization}
+            store={store}
+          />
+        )}
+      </Query>
     );
   }
 }

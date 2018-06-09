@@ -1,5 +1,4 @@
 import React from 'react';
-import { Page } from '../component/Page';
 import { Query } from '../component/Query';
 import { CardOverview } from '../container/Card/Overview';
 import gql from 'graphql-tag';
@@ -48,22 +47,20 @@ export default class CardOverviewPage extends React.Component<Props, {}> {
   render() {
     const { slug, store } = this.props;
     return (
-      <Page>
-        <Query query={RESTAURANT_DETAILS} variables={{ slug }}>
-          {result => {
-            const restaurant = result.data.restaurant;
-            const categoryId =
-              this.props.categoryId || restaurant.activeCard.categories[0].id;
-            return (
-              <CardOverview
-                restaurant={restaurant}
-                categoryId={categoryId}
-                store={store}
-              />
-            );
-          }}
-        </Query>
-      </Page>
+      <Query query={RESTAURANT_DETAILS} variables={{ slug }}>
+        {result => {
+          const restaurant = result.data.restaurant;
+          const categoryId =
+            this.props.categoryId || restaurant.activeCard.categories[0].id;
+          return (
+            <CardOverview
+              restaurant={restaurant}
+              categoryId={categoryId}
+              store={store}
+            />
+          );
+        }}
+      </Query>
     );
   }
 }

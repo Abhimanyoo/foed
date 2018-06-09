@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { hydrate, injectGlobal } from 'react-emotion';
 
 // Adds server generated styles to emotion cache.
@@ -37,7 +36,3 @@ injectGlobal`
     }
   }
 `;
-
-export const Page = ({ children }) => {
-  return <Fragment>{children}</Fragment>;
-};

@@ -4,6 +4,7 @@ import { ApolloProvider } from 'react-apollo';
 import { withApollo } from '../withApollo';
 import { initStore, Store } from '../Store';
 import { WithApolloProps } from 'next-with-apollo';
+import '../styles';
 
 interface Props extends WithApolloProps<any> {
   Component: any;
