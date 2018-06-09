@@ -14,11 +14,12 @@ export const ListItem = styled<ListItemProps, 'div'>('div')`
 `;
 
 export const ListItemOrderCount = styled('div')`
-  width: 20px;
+  width: 40px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 10px;
+  margin-right: 10px;
   color: #efffe9;
   font-weight: bold;
 `;
@@ -83,11 +84,12 @@ export const ListSubitem = styled<{ selected?: boolean }, 'div'>('div')`
 `;
 
 export const ListSubitemCheck = styled('div')`
-  width: 20px;
+  width: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 10px;
+  align-items: center;
+  margin-right: 10px;
 `;
 
 export const ListSubitemInfo = styled('div')`

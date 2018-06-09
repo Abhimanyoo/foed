@@ -38,7 +38,7 @@ const activeLinkStyles = css`
     bottom: -5px;
     width: 10px;
     height: 10px;
-    margin-left: -5px;
+    margin-left: 5px;
     background: #71b3c0;
     border: solid #71b3c0;
     border-width: 0 3px 3px 0;

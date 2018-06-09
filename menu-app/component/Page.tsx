@@ -24,7 +24,17 @@ injectGlobal`
     height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    padding: 0.1px;
+
+    &.order-page:after {
+      content: '';
+      position: fixed;
+      width: 40px;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background: rgba(62,147,164,0.59);
+      z-index: -1;
+    }
   }
 `;
 

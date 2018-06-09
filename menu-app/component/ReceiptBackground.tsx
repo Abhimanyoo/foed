@@ -5,7 +5,7 @@ const backgroundStyles = css`
 `;
 
 const counterStyles = css`
-  width: 30px;
+  width: 40px;
   background: #3e93a4;
   position: absolute;
   top: 0;
@@ -34,7 +34,7 @@ const contentStyles = css`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 30px;
+  left: 40px;
   right: 0;
   z-index: -1;
   background: rgba(255, 255, 255, 0.14);

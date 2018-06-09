@@ -37,6 +37,14 @@ export default class CardOverviewPage extends React.Component<Props, {}> {
     return { slug, categoryId };
   }
 
+  componentDidMount() {
+    document.body.classList.add('order-page');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('order-page');
+  }
+
   render() {
     const { slug, store } = this.props;
     return (

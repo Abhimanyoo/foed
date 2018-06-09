@@ -16,11 +16,12 @@ export const ReceiptListItem = styled('div')`
 `;
 
 export const ReceiptListItemOrderCount = styled('div')`
-  width: 20px;
+  width: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 10px;
+  text-align: center;
+  margin-right: 10px;
 `;
 
 export const ReceiptListItemInfo = styled('div')`
