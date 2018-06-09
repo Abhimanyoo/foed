@@ -5,7 +5,7 @@
   "theme_color": "#40987a",
   "description": "Order food from your phone.",
   "display": "standalone",
-  "start_url": ".",
+  "start_url": "/",
   "icons": [
     {
       "src": "/static/android-chrome-192x192.png",
