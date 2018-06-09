@@ -6,8 +6,12 @@ let store: Store | null = null;
 class Order {
   @observable items: Item[] = [];
 
-  addItem(item: Item) {
-    this.items.push(item);
+  addItem(cardItem: CardItem) {
+    this.items.push({
+      cardItem,
+      subitems: [],
+      preselect: true,
+    });
   }
 
   removeItem(item: Item) {

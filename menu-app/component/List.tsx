@@ -62,6 +62,10 @@ export const ListItemButton = styled('button')`
   &:active {
     opacity: 0.8;
   }
+
+  &:disabled {
+    opacity: 0.4;
+  }
 `;
 
 export const ListSubitem = styled<{ selected?: boolean }, 'div'>('div')`

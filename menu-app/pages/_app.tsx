@@ -14,8 +14,8 @@ class MyApp extends App {
   props: Props;
   store: Store;
 
-  constructor(props: Props) {
-    super(props);
+  constructor() {
+    super();
     this.store = initStore();
   }
 

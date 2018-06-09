@@ -39,11 +39,7 @@ const CARD_ITEM_OVERVIEW = gql`
 export class CardOverview extends React.Component<Props, {}> {
   handleAddItem = cardItem => {
     const { store } = this.props;
-    store.order.addItem({
-      cardItem,
-      subitems: [],
-      preselect: true,
-    });
+    store.order.addItem(cardItem);
   };
 
   handleAddFinish = () => {
