@@ -41,7 +41,14 @@ export default class CardOverviewPage extends React.Component<Props, {}> {
   }
 
   componentWillUnmount() {
+    this.props.store.order.clearPreselected();
     document.body.classList.remove('order-page');
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.categoryId !== this.props.categoryId) {
+      this.props.store.order.clearPreselected();
+    }
   }
 
   render() {
