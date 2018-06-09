@@ -5,6 +5,7 @@ import { OrderListItem } from './ListItem';
 import { Store } from 'Store';
 import { ReceiptBackground } from '../../component/ReceiptBackground';
 import { ReceiptEmpty } from '../../component/ReceiptList';
+import { Subheading } from '../../component/LogoHeader';
 import { OrderPricing } from './Pricing';
 
 interface Props {
@@ -13,21 +14,12 @@ interface Props {
 
 @observer
 export class OrderDetails extends React.Component<Props, {}> {
-  handleAdd = item => {
-    const { store } = this.props;
-    store.order.addItem(item);
-  };
-
-  handleRemove = item => {
-    const { store } = this.props;
-    store.order.removeItem(item);
-  };
-
   render() {
     const { store } = this.props;
     return (
       <div>
         <Header store={store} />
+        <Subheading>Your order</Subheading>
         <ReceiptBackground>
           {!store.order.groupedItems.length && (
             <ReceiptEmpty>You do not have any items right now!</ReceiptEmpty>
@@ -37,8 +29,8 @@ export class OrderDetails extends React.Component<Props, {}> {
               item={groupedItem.item}
               amount={groupedItem.amount}
               store={store}
-              onAdd={this.handleAdd}
-              onRemove={this.handleRemove}
+              onAdd={item => store.order.cloneItem(item)}
+              onRemove={item => store.order.removeItem(item)}
             />
           ))}
           <OrderPricing store={store} />

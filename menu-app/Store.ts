@@ -14,6 +14,14 @@ class Order {
     });
   }
 
+  cloneItem(item: Item) {
+    this.items.push({
+      cardItem: item.cardItem,
+      subitems: item.subitems.slice(),
+      preselect: true,
+    });
+  }
+
   removeItem(item: Item) {
     const index = this.items.indexOf(item);
     if (index >= 0) {
