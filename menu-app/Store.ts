@@ -18,7 +18,7 @@ class Order {
     this.items.push({
       cardItem: item.cardItem,
       subitems: item.subitems.slice(),
-      preselect: true,
+      preselect: false,
     });
   }
 
