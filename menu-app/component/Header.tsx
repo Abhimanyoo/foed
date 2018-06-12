@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { Store } from 'Store';
 import { IconOrder } from './icon/Order';
 import { IconArrowBack } from './icon/ArrowBack';
+import { Fragment } from 'react';
 
 interface Props {
   backUrl?: string;
@@ -17,6 +18,7 @@ function handleBack() {
 }
 
 export const Subheading = styled('h2')`
+  background: #67abb8;
   font-weight: normal;
   color: #efffea;
   padding: 20px 20px;
@@ -24,11 +26,8 @@ export const Subheading = styled('h2')`
   font-size: 18px;
 `;
 
-const Container = styled('div')`
-  background: #67abb8;
-`;
-
 const headerStyles = css`
+  background: #67abb8;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
@@ -55,7 +54,7 @@ export const Header = observer(
   ({ backUrl, backTitle, subTitle, store }: Props) => {
     const disabledOrder = store.order.items.length;
     return (
-      <Container>
+      <Fragment>
         <div className={headerStyles}>
           {backUrl ? (
             <R.Link route={backUrl}>
@@ -79,7 +78,7 @@ export const Header = observer(
           </R.Link>
         </div>
         {subTitle && <Subheading>{subTitle}</Subheading>}
-      </Container>
+      </Fragment>
     );
   }
 );
