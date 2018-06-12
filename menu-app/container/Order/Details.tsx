@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import { Header } from '../../component/Header';
 import { Store, PaymentStatus } from '../../Store';
 import { ReceiptEmpty } from '../../component/ReceiptList';
-import { Subheading } from '../../component/LogoHeader';
 import { FloatingButtons } from '../../component/FloatingButtons';
 import { Button } from '../../component/Button';
 import R from '../../routes';
@@ -21,8 +20,7 @@ export class OrderDetails extends React.Component<Props, {}> {
     const hasItems = store.order.groupedItems.length > 0;
     return (
       <div>
-        <Header store={store} />
-        <Subheading>Your order</Subheading>
+        <Header store={store} subTitle="Your order" />
         {store.order.paymentStatus !== PaymentStatus.None && (
           <OrderPaymentNotification status={store.order.paymentStatus} />
         )}

@@ -7,7 +7,6 @@ import { CardListItem } from './ListItem';
 import { CardCategoryMenu } from './CategoryMenu';
 import { Store } from 'Store';
 import { CardToolbar } from './Toolbar';
-import { Subheading } from '../../component/LogoHeader';
 
 interface Props {
   restaurant: any;
@@ -65,9 +64,9 @@ export class CardOverview extends React.Component<Props, {}> {
         <Header
           backTitle={restaurant.organization.name}
           backUrl={`/organization/${restaurant.organization.slug}`}
+          subTitle={restaurant.name}
           store={store}
         />
-        <Subheading secondary>{restaurant.name}</Subheading>
         <CardCategoryMenu restaurant={restaurant} categoryId={categoryId} />
         <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
           {result =>

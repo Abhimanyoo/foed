@@ -1,7 +1,7 @@
 import { OrganizationListItem } from './ListItem';
 import { Grid, GRID_ITEM_HEIGHT } from '../../component/Grid';
 import { Logo } from '../../component/Logo';
-import { Subheading } from '../../component/LogoHeader';
+import { Subheading } from '../../component/Header';
 import VirtualList from 'react-virtual-list';
 
 interface Props {

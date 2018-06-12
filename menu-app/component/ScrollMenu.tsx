@@ -30,7 +30,7 @@ const StyledLink = styled<StyledLinkProps, 'a'>('a')`
 `;
 
 const activeLinkStyles = css`
-  font-style: italic;
+  color: #c46b2f;
   &:after {
     content: '';
     position: absolute;

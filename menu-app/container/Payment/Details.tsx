@@ -2,7 +2,6 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Header } from '../../component/Header';
 import { Store } from 'Store';
-import { Subheading } from '../../component/LogoHeader';
 import { PaymentButton } from './Button';
 
 interface Props {
@@ -15,8 +14,7 @@ export class PaymentDetails extends React.Component<Props, {}> {
     const { store } = this.props;
     return (
       <div>
-        <Header store={store} />
-        <Subheading>Select a payment method</Subheading>
+        <Header store={store} subTitle="Select a payment method" />
         <PaymentButton store={store} />
       </div>
     );
