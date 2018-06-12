@@ -10,21 +10,22 @@ import {
   ReceiptListItemTitle,
 } from '../../component/ReceiptList';
 import { floatToDecimal } from '../../helpers';
-import { Store } from 'Store';
 import { IconAddCircle } from '../../component/icon/AddCircle';
 import { IconRemoveCircle } from '../../component/icon/RemoveCircle';
 import { Item } from '../../types';
 
+export type OnAddFn = (item: Item) => void;
+export type OnRemoveFn = (item: Item) => void;
+
 interface Props {
   item: Item;
   amount: number;
-  store: Store;
-  onAdd: (item: Item) => void;
-  onRemove: (item: Item) => void;
+  onAdd: OnAddFn;
+  onRemove: OnRemoveFn;
 }
 
 @observer
-export class OrderListItem extends React.Component<Props, {}> {
+export class OrderReceiptListItem extends React.Component<Props, {}> {
   render() {
     const { item, amount, onRemove, onAdd } = this.props;
     return (

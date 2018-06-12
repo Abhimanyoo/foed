@@ -34,7 +34,7 @@ export const ReceiptListItemDescription = styled('div')`
   overflow: hidden;
   color: #efffe9;
   font-style: italic;
-  margin: 5px 20px 0 40px;
+  margin: 5px 20px 0 50px;
 `;
 
 export const ReceiptListItemTitle = styled('div')`

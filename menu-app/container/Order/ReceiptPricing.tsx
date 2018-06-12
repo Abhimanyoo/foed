@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { observer } from 'mobx-react';
-import { Store } from 'Store';
+import { Order } from 'Store';
 import {
   ReceiptPriceItem,
   ReceiptPriceItemName,
@@ -10,20 +10,20 @@ import {
 import { floatToDecimal } from '../../helpers';
 
 interface Props {
-  store: Store;
+  order: Order;
 }
 
 @observer
-export class OrderPricing extends React.Component<Props, {}> {
+export class OrderReceiptPricing extends React.Component<Props, {}> {
   render() {
-    const { store } = this.props;
+    const { order } = this.props;
     return (
-      <div>
+      <Fragment>
         <ReceiptPriceLine />
         <ReceiptPriceItem>
           <ReceiptPriceItemName>Subtotal</ReceiptPriceItemName>
           <ReceiptPriceItemAmount>
-            €{floatToDecimal(store.order.totalPrice)}
+            €{floatToDecimal(order.totalPrice)}
           </ReceiptPriceItemAmount>
         </ReceiptPriceItem>
         <ReceiptPriceItem>
@@ -34,10 +34,10 @@ export class OrderPricing extends React.Component<Props, {}> {
         <ReceiptPriceItem bold>
           <ReceiptPriceItemName>Total</ReceiptPriceItemName>
           <ReceiptPriceItemAmount>
-            €{floatToDecimal(store.order.totalPrice)}
+            €{floatToDecimal(order.totalPrice)}
           </ReceiptPriceItemAmount>
         </ReceiptPriceItem>
-      </div>
+      </Fragment>
     );
   }
 }

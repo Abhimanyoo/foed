@@ -2,9 +2,16 @@ import { computed, observable } from 'mobx';
 import { Item, GroupedItem, CardItem, CardSubitem } from './types';
 
 let store: Store | null = null;
+export enum PaymentStatus {
+  None,
+  Error,
+  Success,
+}
 
-class Order {
+export class Order {
   @observable items: Item[] = [];
+  @observable tip = 0;
+  @observable paymentStatus: PaymentStatus = PaymentStatus.None;
 
   addItem(cardItem: CardItem) {
     this.items.push({

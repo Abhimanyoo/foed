@@ -39,6 +39,7 @@ const linkStyles = css`
 `;
 
 export const Header = observer(({ backUrl, backTitle, store }: Props) => {
+  const disabledOrder = store.order.items.length;
   return (
     <div className={headerStyles}>
       {backUrl ? (
@@ -54,7 +55,7 @@ export const Header = observer(({ backUrl, backTitle, store }: Props) => {
           {backTitle}
         </button>
       )}
-      <R.Link route="/order">
+      <R.Link route="/order" prefetch={!disabledOrder}>
         <a className={linkStyles}>
           {store ? (
             <IconOrder text={store.order.items.length} fill="#4493a4" />
