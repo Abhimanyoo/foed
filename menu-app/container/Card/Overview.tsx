@@ -37,8 +37,8 @@ const CARD_ITEM_OVERVIEW = gql`
 @observer
 export class CardOverview extends React.Component<Props, {}> {
   handleAddItem = cardItem => {
-    const { store } = this.props;
-    store.order.addItem(cardItem);
+    const { store, restaurant } = this.props;
+    store.order.addItem(cardItem, restaurant.organization.id);
   };
 
   handleAddFinish = () => {

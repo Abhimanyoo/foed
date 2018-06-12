@@ -17,6 +17,7 @@ export interface Item {
   preselect?: boolean;
   cardItem: CardItem;
   subitems: CardSubitem[];
+  organizationId: string;
 }
 
 export interface GroupedItem {

@@ -17,6 +17,7 @@ const RESTAURANT_DETAILS = gql`
       name
       slug
       organization {
+        id
         name
         slug
       }
