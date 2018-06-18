@@ -62,9 +62,9 @@ input PlaceOrderInput {
 input PlaceOrderItems {
   cardItem: ID!
   subitems: [ID!]!
+  restaurant: ID!
 }
 
 type PlaceOrderPayload {
   id: ID!
-  price: Float!
 }

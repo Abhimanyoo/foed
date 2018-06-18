@@ -18,6 +18,7 @@ export interface Item {
   cardItem: CardItem;
   subitems: CardSubitem[];
   organizationId: string;
+  restaurantId: string;
 }
 
 export interface GroupedItem {

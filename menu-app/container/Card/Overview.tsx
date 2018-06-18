@@ -41,7 +41,7 @@ export class CardOverview extends React.Component<Props, {}> {
 
   handleAddItem = cardItem => {
     const { store, restaurant } = this.props;
-    store.order.addItem(cardItem, restaurant.organization.id);
+    store.order.addItem(cardItem, restaurant.id, restaurant.organization.id);
   };
 
   handleAddFinish = () => {

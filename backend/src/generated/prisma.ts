@@ -2322,10 +2322,9 @@ interface Node {
 
 type Order implements Node {
   id: ID!
+  number: Int
   items(where: OrderItemWhereInput, orderBy: OrderItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderItem!]
   tip: Float!
-  subtotal: Float!
-  completedAt: DateTime
 }
 
 """A connection to a list of items."""
@@ -2339,9 +2338,8 @@ type OrderConnection {
 }
 
 input OrderCreateInput {
+  number: Int
   tip: Float!
-  subtotal: Float!
-  completedAt: DateTime
   items: OrderItemCreateManyInput
 }
 
@@ -2358,6 +2356,9 @@ type OrderItem implements Node {
   id: ID!
   cardItem(where: CardItemWhereInput): CardItem!
   subitems(where: CardSubitemWhereInput, orderBy: CardSubitemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardSubitem!]
+  restaurant(where: RestaurantWhereInput): Restaurant!
+  subtotal: Float!
+  completedAt: DateTime
 }
 
 """A connection to a list of items."""
@@ -2371,8 +2372,11 @@ type OrderItemConnection {
 }
 
 input OrderItemCreateInput {
+  subtotal: Float!
+  completedAt: DateTime
   cardItem: CardItemCreateOneInput!
   subitems: CardSubitemCreateManyInput
+  restaurant: RestaurantCreateOneInput!
 }
 
 input OrderItemCreateManyInput {
@@ -2392,6 +2396,10 @@ type OrderItemEdge {
 enum OrderItemOrderByInput {
   id_ASC
   id_DESC
+  subtotal_ASC
+  subtotal_DESC
+  completedAt_ASC
+  completedAt_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2400,6 +2408,8 @@ enum OrderItemOrderByInput {
 
 type OrderItemPreviousValues {
   id: ID!
+  subtotal: Float!
+  completedAt: DateTime
 }
 
 type OrderItemSubscriptionPayload {
@@ -2442,13 +2452,19 @@ input OrderItemSubscriptionWhereInput {
 }
 
 input OrderItemUpdateDataInput {
+  subtotal: Float
+  completedAt: DateTime
   cardItem: CardItemUpdateOneInput
   subitems: CardSubitemUpdateManyInput
+  restaurant: RestaurantUpdateOneInput
 }
 
 input OrderItemUpdateInput {
+  subtotal: Float
+  completedAt: DateTime
   cardItem: CardItemUpdateOneInput
   subitems: CardSubitemUpdateManyInput
+  restaurant: RestaurantUpdateOneInput
 }
 
 input OrderItemUpdateManyInput {
@@ -2520,10 +2536,55 @@ input OrderItemWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  subtotal: Float
+
+  """All values that are not equal to given value."""
+  subtotal_not: Float
+
+  """All values that are contained in given list."""
+  subtotal_in: [Float!]
+
+  """All values that are not contained in given list."""
+  subtotal_not_in: [Float!]
+
+  """All values less than the given value."""
+  subtotal_lt: Float
+
+  """All values less than or equal the given value."""
+  subtotal_lte: Float
+
+  """All values greater than the given value."""
+  subtotal_gt: Float
+
+  """All values greater than or equal the given value."""
+  subtotal_gte: Float
+  completedAt: DateTime
+
+  """All values that are not equal to given value."""
+  completedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  completedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  completedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  completedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  completedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  completedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  completedAt_gte: DateTime
   cardItem: CardItemWhereInput
   subitems_every: CardSubitemWhereInput
   subitems_some: CardSubitemWhereInput
   subitems_none: CardSubitemWhereInput
+  restaurant: RestaurantWhereInput
 }
 
 input OrderItemWhereUniqueInput {
@@ -2533,12 +2594,10 @@ input OrderItemWhereUniqueInput {
 enum OrderOrderByInput {
   id_ASC
   id_DESC
+  number_ASC
+  number_DESC
   tip_ASC
   tip_DESC
-  subtotal_ASC
-  subtotal_DESC
-  completedAt_ASC
-  completedAt_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2547,9 +2606,8 @@ enum OrderOrderByInput {
 
 type OrderPreviousValues {
   id: ID!
+  number: Int
   tip: Float!
-  subtotal: Float!
-  completedAt: DateTime
 }
 
 type OrderSubscriptionPayload {
@@ -2592,9 +2650,8 @@ input OrderSubscriptionWhereInput {
 }
 
 input OrderUpdateInput {
+  number: Int
   tip: Float
-  subtotal: Float
-  completedAt: DateTime
   items: OrderItemUpdateManyInput
 }
 
@@ -2647,6 +2704,28 @@ input OrderWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  number: Int
+
+  """All values that are not equal to given value."""
+  number_not: Int
+
+  """All values that are contained in given list."""
+  number_in: [Int!]
+
+  """All values that are not contained in given list."""
+  number_not_in: [Int!]
+
+  """All values less than the given value."""
+  number_lt: Int
+
+  """All values less than or equal the given value."""
+  number_lte: Int
+
+  """All values greater than the given value."""
+  number_gt: Int
+
+  """All values greater than or equal the given value."""
+  number_gte: Int
   tip: Float
 
   """All values that are not equal to given value."""
@@ -2669,50 +2748,6 @@ input OrderWhereInput {
 
   """All values greater than or equal the given value."""
   tip_gte: Float
-  subtotal: Float
-
-  """All values that are not equal to given value."""
-  subtotal_not: Float
-
-  """All values that are contained in given list."""
-  subtotal_in: [Float!]
-
-  """All values that are not contained in given list."""
-  subtotal_not_in: [Float!]
-
-  """All values less than the given value."""
-  subtotal_lt: Float
-
-  """All values less than or equal the given value."""
-  subtotal_lte: Float
-
-  """All values greater than the given value."""
-  subtotal_gt: Float
-
-  """All values greater than or equal the given value."""
-  subtotal_gte: Float
-  completedAt: DateTime
-
-  """All values that are not equal to given value."""
-  completedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  completedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  completedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  completedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  completedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  completedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  completedAt_gte: DateTime
   items_every: OrderItemWhereInput
   items_some: OrderItemWhereInput
   items_none: OrderItemWhereInput
@@ -3138,6 +3173,11 @@ input RestaurantCreateManyWithoutOrganizationInput {
   connect: [RestaurantWhereUniqueInput!]
 }
 
+input RestaurantCreateOneInput {
+  create: RestaurantCreateInput
+  connect: RestaurantWhereUniqueInput
+}
+
 input RestaurantCreateOneWithoutActiveCardInput {
   create: RestaurantCreateWithoutActiveCardInput
   connect: RestaurantWhereUniqueInput
@@ -3272,6 +3312,17 @@ input RestaurantSubscriptionWhereInput {
   node: RestaurantWhereInput
 }
 
+input RestaurantUpdateDataInput {
+  name: String
+  slug: String
+  visible: Boolean
+  imageUrl: String
+  organization: OrganizationUpdateOneWithoutRestaurantsInput
+  employments: EmploymentUpdateManyWithoutRestaurantInput
+  activeCard: CardUpdateOneWithoutActiveRestaurantInput
+  cards: CardUpdateManyWithoutRestaurantInput
+}
+
 input RestaurantUpdateInput {
   name: String
   slug: String
@@ -3290,6 +3341,14 @@ input RestaurantUpdateManyWithoutOrganizationInput {
   delete: [RestaurantWhereUniqueInput!]
   update: [RestaurantUpdateWithWhereUniqueWithoutOrganizationInput!]
   upsert: [RestaurantUpsertWithWhereUniqueWithoutOrganizationInput!]
+}
+
+input RestaurantUpdateOneInput {
+  create: RestaurantCreateInput
+  connect: RestaurantWhereUniqueInput
+  delete: Boolean
+  update: RestaurantUpdateDataInput
+  upsert: RestaurantUpsertNestedInput
 }
 
 input RestaurantUpdateOneWithoutActiveCardInput {
@@ -3360,6 +3419,11 @@ input RestaurantUpdateWithoutOrganizationDataInput {
 input RestaurantUpdateWithWhereUniqueWithoutOrganizationInput {
   where: RestaurantWhereUniqueInput!
   data: RestaurantUpdateWithoutOrganizationDataInput!
+}
+
+input RestaurantUpsertNestedInput {
+  update: RestaurantUpdateDataInput!
+  create: RestaurantCreateInput!
 }
 
 input RestaurantUpsertWithoutActiveCardInput {
@@ -4241,6 +4305,10 @@ export type CardItemOrderByInput =
 export type OrderItemOrderByInput =
   | 'id_ASC'
   | 'id_DESC'
+  | 'subtotal_ASC'
+  | 'subtotal_DESC'
+  | 'completedAt_ASC'
+  | 'completedAt_DESC'
   | 'updatedAt_ASC'
   | 'updatedAt_DESC'
   | 'createdAt_ASC'
@@ -4305,12 +4373,10 @@ export type CardCategoryOrderByInput =
 export type OrderOrderByInput =
   | 'id_ASC'
   | 'id_DESC'
+  | 'number_ASC'
+  | 'number_DESC'
   | 'tip_ASC'
   | 'tip_DESC'
-  | 'subtotal_ASC'
-  | 'subtotal_DESC'
-  | 'completedAt_ASC'
-  | 'completedAt_DESC'
   | 'updatedAt_ASC'
   | 'updatedAt_DESC'
   | 'createdAt_ASC'
@@ -4364,9 +4430,21 @@ export type UserOrderByInput =
   | 'createdAt_ASC'
   | 'createdAt_DESC';
 
-export interface RestaurantCreateOneWithoutEmploymentsInput {
-  create?: RestaurantCreateWithoutEmploymentsInput;
-  connect?: RestaurantWhereUniqueInput;
+export interface UserCreateInput {
+  email: String;
+  password: String;
+  name: String;
+  inviteToken?: String;
+  inviteAccepted?: Boolean;
+  emailConfirmed?: Boolean;
+  emailConfirmToken?: String;
+  resetToken?: String;
+  resetExpires?: DateTime;
+  deletedAt?: DateTime;
+  lastLogin?: DateTime;
+  joinedAt: DateTime;
+  isSuper?: Boolean;
+  employments?: EmploymentCreateManyWithoutUserInput;
 }
 
 export interface OrganizationWhereInput {
@@ -4436,9 +4514,9 @@ export interface OrganizationWhereInput {
   restaurants_none?: RestaurantWhereInput;
 }
 
-export interface OrderItemCreateManyInput {
-  create?: OrderItemCreateInput[] | OrderItemCreateInput;
-  connect?: OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput;
+export interface CardItemCreateOneInput {
+  create?: CardItemCreateInput;
+  connect?: CardItemWhereUniqueInput;
 }
 
 export interface CardSubitemWhereInput {
@@ -4495,31 +4573,6 @@ export interface CardSubitemWhereInput {
   price_gte?: Float;
 }
 
-export interface OrganizationCreateInput {
-  name: String;
-  slug: String;
-  visible?: Boolean;
-  imageUrl?: String;
-  restaurants?: RestaurantCreateManyWithoutOrganizationInput;
-}
-
-export interface CardSubitemUpdateWithWhereUniqueNestedInput {
-  where: CardSubitemWhereUniqueInput;
-  data: CardSubitemUpdateDataInput;
-}
-
-export interface RestaurantCreateManyWithoutOrganizationInput {
-  create?:
-    | RestaurantCreateWithoutOrganizationInput[]
-    | RestaurantCreateWithoutOrganizationInput;
-  connect?: RestaurantWhereUniqueInput[] | RestaurantWhereUniqueInput;
-}
-
-export interface OrderItemCreateInput {
-  cardItem: CardItemCreateOneInput;
-  subitems?: CardSubitemCreateManyInput;
-}
-
 export interface RestaurantCreateWithoutOrganizationInput {
   name: String;
   slug: String;
@@ -4528,6 +4581,29 @@ export interface RestaurantCreateWithoutOrganizationInput {
   employments?: EmploymentCreateManyWithoutRestaurantInput;
   activeCard?: CardCreateOneWithoutActiveRestaurantInput;
   cards?: CardCreateManyWithoutRestaurantInput;
+}
+
+export interface CardItemUpsertWithWhereUniqueNestedInput {
+  where: CardItemWhereUniqueInput;
+  update: CardItemUpdateDataInput;
+  create: CardItemCreateInput;
+}
+
+export interface EmploymentCreateManyWithoutRestaurantInput {
+  create?:
+    | EmploymentCreateWithoutRestaurantInput[]
+    | EmploymentCreateWithoutRestaurantInput;
+  connect?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
+}
+
+export interface RestaurantCreateOneInput {
+  create?: RestaurantCreateInput;
+  connect?: RestaurantWhereUniqueInput;
+}
+
+export interface EmploymentCreateWithoutRestaurantInput {
+  permission: RestaurantPermission;
+  user: UserCreateOneWithoutEmploymentsInput;
 }
 
 export interface OrderItemSubscriptionWhereInput {
@@ -4541,11 +4617,9 @@ export interface OrderItemSubscriptionWhereInput {
   node?: OrderItemWhereInput;
 }
 
-export interface EmploymentCreateManyWithoutRestaurantInput {
-  create?:
-    | EmploymentCreateWithoutRestaurantInput[]
-    | EmploymentCreateWithoutRestaurantInput;
-  connect?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
+export interface UserCreateOneWithoutEmploymentsInput {
+  create?: UserCreateWithoutEmploymentsInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface CardSubitemSubscriptionWhereInput {
@@ -4559,9 +4633,20 @@ export interface CardSubitemSubscriptionWhereInput {
   node?: CardSubitemWhereInput;
 }
 
-export interface EmploymentCreateWithoutRestaurantInput {
-  permission: RestaurantPermission;
-  user: UserCreateOneWithoutEmploymentsInput;
+export interface UserCreateWithoutEmploymentsInput {
+  email: String;
+  password: String;
+  name: String;
+  inviteToken?: String;
+  inviteAccepted?: Boolean;
+  emailConfirmed?: Boolean;
+  emailConfirmToken?: String;
+  resetToken?: String;
+  resetExpires?: DateTime;
+  deletedAt?: DateTime;
+  lastLogin?: DateTime;
+  joinedAt: DateTime;
+  isSuper?: Boolean;
 }
 
 export interface CardCategorySubscriptionWhereInput {
@@ -4581,9 +4666,9 @@ export interface CardCategorySubscriptionWhereInput {
   node?: CardCategoryWhereInput;
 }
 
-export interface UserCreateOneWithoutEmploymentsInput {
-  create?: UserCreateWithoutEmploymentsInput;
-  connect?: UserWhereUniqueInput;
+export interface CardCreateOneWithoutActiveRestaurantInput {
+  create?: CardCreateWithoutActiveRestaurantInput;
+  connect?: CardWhereUniqueInput;
 }
 
 export interface CardSubscriptionWhereInput {
@@ -4597,20 +4682,10 @@ export interface CardSubscriptionWhereInput {
   node?: CardWhereInput;
 }
 
-export interface UserCreateWithoutEmploymentsInput {
-  email: String;
-  password: String;
+export interface CardCreateWithoutActiveRestaurantInput {
   name: String;
-  inviteToken?: String;
-  inviteAccepted?: Boolean;
-  emailConfirmed?: Boolean;
-  emailConfirmToken?: String;
-  resetToken?: String;
-  resetExpires?: DateTime;
-  deletedAt?: DateTime;
-  lastLogin?: DateTime;
-  joinedAt: DateTime;
-  isSuper?: Boolean;
+  restaurant: RestaurantCreateOneWithoutCardsInput;
+  categories?: CardCategoryCreateManyInput;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -4624,9 +4699,9 @@ export interface UserSubscriptionWhereInput {
   node?: UserWhereInput;
 }
 
-export interface CardCreateOneWithoutActiveRestaurantInput {
-  create?: CardCreateWithoutActiveRestaurantInput;
-  connect?: CardWhereUniqueInput;
+export interface RestaurantCreateOneWithoutCardsInput {
+  create?: RestaurantCreateWithoutCardsInput;
+  connect?: RestaurantWhereUniqueInput;
 }
 
 export interface RestaurantSubscriptionWhereInput {
@@ -4640,10 +4715,14 @@ export interface RestaurantSubscriptionWhereInput {
   node?: RestaurantWhereInput;
 }
 
-export interface CardCreateWithoutActiveRestaurantInput {
+export interface RestaurantCreateWithoutCardsInput {
   name: String;
-  restaurant: RestaurantCreateOneWithoutCardsInput;
-  categories?: CardCategoryCreateManyInput;
+  slug: String;
+  visible?: Boolean;
+  imageUrl?: String;
+  organization?: OrganizationCreateOneWithoutRestaurantsInput;
+  employments?: EmploymentCreateManyWithoutRestaurantInput;
+  activeCard?: CardCreateOneWithoutActiveRestaurantInput;
 }
 
 export interface EmploymentWhereInput {
@@ -4672,9 +4751,9 @@ export interface EmploymentWhereInput {
   restaurant?: RestaurantWhereInput;
 }
 
-export interface RestaurantCreateOneWithoutCardsInput {
-  create?: RestaurantCreateWithoutCardsInput;
-  connect?: RestaurantWhereUniqueInput;
+export interface OrganizationCreateOneWithoutRestaurantsInput {
+  create?: OrganizationCreateWithoutRestaurantsInput;
+  connect?: OrganizationWhereUniqueInput;
 }
 
 export interface OrderItemWhereInput {
@@ -4695,20 +4774,34 @@ export interface OrderItemWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
+  subtotal?: Float;
+  subtotal_not?: Float;
+  subtotal_in?: Float[] | Float;
+  subtotal_not_in?: Float[] | Float;
+  subtotal_lt?: Float;
+  subtotal_lte?: Float;
+  subtotal_gt?: Float;
+  subtotal_gte?: Float;
+  completedAt?: DateTime;
+  completedAt_not?: DateTime;
+  completedAt_in?: DateTime[] | DateTime;
+  completedAt_not_in?: DateTime[] | DateTime;
+  completedAt_lt?: DateTime;
+  completedAt_lte?: DateTime;
+  completedAt_gt?: DateTime;
+  completedAt_gte?: DateTime;
   cardItem?: CardItemWhereInput;
   subitems_every?: CardSubitemWhereInput;
   subitems_some?: CardSubitemWhereInput;
   subitems_none?: CardSubitemWhereInput;
+  restaurant?: RestaurantWhereInput;
 }
 
-export interface RestaurantCreateWithoutCardsInput {
+export interface OrganizationCreateWithoutRestaurantsInput {
   name: String;
   slug: String;
   visible?: Boolean;
   imageUrl?: String;
-  organization?: OrganizationCreateOneWithoutRestaurantsInput;
-  employments?: EmploymentCreateManyWithoutRestaurantInput;
-  activeCard?: CardCreateOneWithoutActiveRestaurantInput;
 }
 
 export interface OrganizationSubscriptionWhereInput {
@@ -4728,37 +4821,15 @@ export interface OrganizationSubscriptionWhereInput {
   node?: OrganizationWhereInput;
 }
 
-export interface OrganizationCreateOneWithoutRestaurantsInput {
-  create?: OrganizationCreateWithoutRestaurantsInput;
-  connect?: OrganizationWhereUniqueInput;
+export interface CardCategoryCreateManyInput {
+  create?: CardCategoryCreateInput[] | CardCategoryCreateInput;
+  connect?: CardCategoryWhereUniqueInput[] | CardCategoryWhereUniqueInput;
 }
 
 export interface OrderItemUpsertWithWhereUniqueNestedInput {
   where: OrderItemWhereUniqueInput;
   update: OrderItemUpdateDataInput;
   create: OrderItemCreateInput;
-}
-
-export interface OrganizationCreateWithoutRestaurantsInput {
-  name: String;
-  slug: String;
-  visible?: Boolean;
-  imageUrl?: String;
-}
-
-export interface RestaurantWhereUniqueInput {
-  id?: ID_Input;
-  slug?: String;
-}
-
-export interface CardCategoryCreateManyInput {
-  create?: CardCategoryCreateInput[] | CardCategoryCreateInput;
-  connect?: CardCategoryWhereUniqueInput[] | CardCategoryWhereUniqueInput;
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input;
-  email?: String;
 }
 
 export interface CardCategoryCreateInput {
@@ -4768,8 +4839,9 @@ export interface CardCategoryCreateInput {
   items?: CardItemCreateManyInput;
 }
 
-export interface CardCategoryWhereUniqueInput {
+export interface RestaurantWhereUniqueInput {
   id?: ID_Input;
+  slug?: String;
 }
 
 export interface CardItemCreateManyInput {
@@ -4777,8 +4849,9 @@ export interface CardItemCreateManyInput {
   connect?: CardItemWhereUniqueInput[] | CardItemWhereUniqueInput;
 }
 
-export interface CardSubitemWhereUniqueInput {
+export interface UserWhereUniqueInput {
   id?: ID_Input;
+  email?: String;
 }
 
 export interface CardItemCreateInput {
@@ -4789,7 +4862,7 @@ export interface CardItemCreateInput {
   subitems?: CardSubitemCreateManyInput;
 }
 
-export interface OrderItemWhereUniqueInput {
+export interface CardCategoryWhereUniqueInput {
   id?: ID_Input;
 }
 
@@ -4798,12 +4871,8 @@ export interface CardSubitemCreateManyInput {
   connect?: CardSubitemWhereUniqueInput[] | CardSubitemWhereUniqueInput;
 }
 
-export interface CardItemUpdateOneInput {
-  create?: CardItemCreateInput;
-  connect?: CardItemWhereUniqueInput;
-  delete?: Boolean;
-  update?: CardItemUpdateDataInput;
-  upsert?: CardItemUpsertNestedInput;
+export interface CardSubitemWhereUniqueInput {
+  id?: ID_Input;
 }
 
 export interface CardSubitemCreateInput {
@@ -4813,9 +4882,8 @@ export interface CardSubitemCreateInput {
   price: Float;
 }
 
-export interface OrderItemUpdateWithWhereUniqueNestedInput {
-  where: OrderItemWhereUniqueInput;
-  data: OrderItemUpdateDataInput;
+export interface OrderItemWhereUniqueInput {
+  id?: ID_Input;
 }
 
 export interface CardCreateManyWithoutRestaurantInput {
@@ -4825,11 +4893,15 @@ export interface CardCreateManyWithoutRestaurantInput {
   connect?: CardWhereUniqueInput[] | CardWhereUniqueInput;
 }
 
-export interface OrderUpdateInput {
-  tip?: Float;
-  subtotal?: Float;
-  completedAt?: DateTime;
-  items?: OrderItemUpdateManyInput;
+export interface RestaurantUpdateDataInput {
+  name?: String;
+  slug?: String;
+  visible?: Boolean;
+  imageUrl?: String;
+  organization?: OrganizationUpdateOneWithoutRestaurantsInput;
+  employments?: EmploymentUpdateManyWithoutRestaurantInput;
+  activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
+  cards?: CardUpdateManyWithoutRestaurantInput;
 }
 
 export interface CardCreateWithoutRestaurantInput {
@@ -4838,12 +4910,9 @@ export interface CardCreateWithoutRestaurantInput {
   categories?: CardCategoryCreateManyInput;
 }
 
-export interface CardItemUpdateInput {
-  name?: String;
-  description?: String;
-  ordering?: Int;
-  price?: Float;
-  subitems?: CardSubitemUpdateManyInput;
+export interface CardItemUpsertNestedInput {
+  update: CardItemUpdateDataInput;
+  create: CardItemCreateInput;
 }
 
 export interface RestaurantCreateOneWithoutActiveCardInput {
@@ -4851,11 +4920,12 @@ export interface RestaurantCreateOneWithoutActiveCardInput {
   connect?: RestaurantWhereUniqueInput;
 }
 
-export interface CardUpdateInput {
-  name?: String;
-  restaurant?: RestaurantUpdateOneWithoutCardsInput;
-  activeRestaurant?: RestaurantUpdateOneWithoutActiveCardInput;
-  categories?: CardCategoryUpdateManyInput;
+export interface OrderItemUpdateDataInput {
+  subtotal?: Float;
+  completedAt?: DateTime;
+  cardItem?: CardItemUpdateOneInput;
+  subitems?: CardSubitemUpdateManyInput;
+  restaurant?: RestaurantUpdateOneInput;
 }
 
 export interface RestaurantCreateWithoutActiveCardInput {
@@ -4868,9 +4938,17 @@ export interface RestaurantCreateWithoutActiveCardInput {
   cards?: CardCreateManyWithoutRestaurantInput;
 }
 
-export interface EmploymentUpdateWithoutUserDataInput {
-  permission?: RestaurantPermission;
-  restaurant?: RestaurantUpdateOneWithoutEmploymentsInput;
+export interface OrderItemUpdateManyInput {
+  create?: OrderItemCreateInput[] | OrderItemCreateInput;
+  connect?: OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput;
+  disconnect?: OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput;
+  delete?: OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput;
+  update?:
+    | OrderItemUpdateWithWhereUniqueNestedInput[]
+    | OrderItemUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | OrderItemUpsertWithWhereUniqueNestedInput[]
+    | OrderItemUpsertWithWhereUniqueNestedInput;
 }
 
 export interface RestaurantCreateInput {
@@ -4884,19 +4962,11 @@ export interface RestaurantCreateInput {
   cards?: CardCreateManyWithoutRestaurantInput;
 }
 
-export interface EmploymentUpdateManyWithoutUserInput {
-  create?:
-    | EmploymentCreateWithoutUserInput[]
-    | EmploymentCreateWithoutUserInput;
-  connect?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
-  disconnect?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
-  delete?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
-  update?:
-    | EmploymentUpdateWithWhereUniqueWithoutUserInput[]
-    | EmploymentUpdateWithWhereUniqueWithoutUserInput;
-  upsert?:
-    | EmploymentUpsertWithWhereUniqueWithoutUserInput[]
-    | EmploymentUpsertWithWhereUniqueWithoutUserInput;
+export interface CardSubitemUpdateInput {
+  type?: CardSubitemTypes;
+  name?: String;
+  ordering?: Int;
+  price?: Float;
 }
 
 export interface EmploymentCreateInput {
@@ -4905,23 +4975,22 @@ export interface EmploymentCreateInput {
   restaurant: RestaurantCreateOneWithoutEmploymentsInput;
 }
 
-export interface RestaurantUpsertWithoutEmploymentsInput {
-  update: RestaurantUpdateWithoutEmploymentsDataInput;
-  create: RestaurantCreateWithoutEmploymentsInput;
+export interface CardCategoryUpdateInput {
+  name?: String;
+  ordering?: Int;
+  description?: String;
+  items?: CardItemUpdateManyInput;
 }
 
-export interface CardSubitemUpsertWithWhereUniqueNestedInput {
-  where: CardSubitemWhereUniqueInput;
-  update: CardSubitemUpdateDataInput;
-  create: CardSubitemCreateInput;
-}
-
-export interface RestaurantUpdateOneWithoutEmploymentsInput {
+export interface RestaurantCreateOneWithoutEmploymentsInput {
   create?: RestaurantCreateWithoutEmploymentsInput;
   connect?: RestaurantWhereUniqueInput;
-  delete?: Boolean;
-  update?: RestaurantUpdateWithoutEmploymentsDataInput;
-  upsert?: RestaurantUpsertWithoutEmploymentsInput;
+}
+
+export interface EmploymentUpsertWithWhereUniqueWithoutUserInput {
+  where: EmploymentWhereUniqueInput;
+  update: EmploymentUpdateWithoutUserDataInput;
+  create: EmploymentCreateWithoutUserInput;
 }
 
 export interface RestaurantCreateWithoutEmploymentsInput {
@@ -4934,21 +5003,20 @@ export interface RestaurantCreateWithoutEmploymentsInput {
   cards?: CardCreateManyWithoutRestaurantInput;
 }
 
-export interface RestaurantUpdateInput {
-  name?: String;
-  slug?: String;
-  visible?: Boolean;
-  imageUrl?: String;
-  organization?: OrganizationUpdateOneWithoutRestaurantsInput;
-  employments?: EmploymentUpdateManyWithoutRestaurantInput;
-  activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
-  cards?: CardUpdateManyWithoutRestaurantInput;
+export interface EmploymentUpdateWithWhereUniqueWithoutUserInput {
+  where: EmploymentWhereUniqueInput;
+  data: EmploymentUpdateWithoutUserDataInput;
 }
 
-export interface UserCreateInput {
-  email: String;
-  password: String;
-  name: String;
+export interface CardUpsertWithoutActiveRestaurantInput {
+  update: CardUpdateWithoutActiveRestaurantDataInput;
+  create: CardCreateWithoutActiveRestaurantInput;
+}
+
+export interface UserUpdateInput {
+  email?: String;
+  password?: String;
+  name?: String;
   inviteToken?: String;
   inviteAccepted?: Boolean;
   emailConfirmed?: Boolean;
@@ -4957,15 +5025,9 @@ export interface UserCreateInput {
   resetExpires?: DateTime;
   deletedAt?: DateTime;
   lastLogin?: DateTime;
-  joinedAt: DateTime;
+  joinedAt?: DateTime;
   isSuper?: Boolean;
-  employments?: EmploymentCreateManyWithoutUserInput;
-}
-
-export interface CardUpsertWithWhereUniqueWithoutRestaurantInput {
-  where: CardWhereUniqueInput;
-  update: CardUpdateWithoutRestaurantDataInput;
-  create: CardCreateWithoutRestaurantInput;
+  employments?: EmploymentUpdateManyWithoutUserInput;
 }
 
 export interface EmploymentCreateManyWithoutUserInput {
@@ -4975,13 +5037,13 @@ export interface EmploymentCreateManyWithoutUserInput {
   connect?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
 }
 
-export interface RestaurantUpdateWithoutActiveCardDataInput {
+export interface RestaurantUpdateWithoutEmploymentsDataInput {
   name?: String;
   slug?: String;
   visible?: Boolean;
   imageUrl?: String;
   organization?: OrganizationUpdateOneWithoutRestaurantsInput;
-  employments?: EmploymentUpdateManyWithoutRestaurantInput;
+  activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
   cards?: CardUpdateManyWithoutRestaurantInput;
 }
 
@@ -4990,10 +5052,10 @@ export interface EmploymentCreateWithoutUserInput {
   restaurant: RestaurantCreateOneWithoutEmploymentsInput;
 }
 
-export interface CardUpdateWithoutRestaurantDataInput {
-  name?: String;
-  activeRestaurant?: RestaurantUpdateOneWithoutActiveCardInput;
-  categories?: CardCategoryUpdateManyInput;
+export interface EmploymentUpdateInput {
+  permission?: RestaurantPermission;
+  user?: UserUpdateOneWithoutEmploymentsInput;
+  restaurant?: RestaurantUpdateOneWithoutEmploymentsInput;
 }
 
 export interface CardCreateInput {
@@ -5003,26 +5065,48 @@ export interface CardCreateInput {
   categories?: CardCategoryCreateManyInput;
 }
 
-export interface CardUpdateManyWithoutRestaurantInput {
-  create?:
-    | CardCreateWithoutRestaurantInput[]
-    | CardCreateWithoutRestaurantInput;
-  connect?: CardWhereUniqueInput[] | CardWhereUniqueInput;
-  disconnect?: CardWhereUniqueInput[] | CardWhereUniqueInput;
-  delete?: CardWhereUniqueInput[] | CardWhereUniqueInput;
-  update?:
-    | CardUpdateWithWhereUniqueWithoutRestaurantInput[]
-    | CardUpdateWithWhereUniqueWithoutRestaurantInput;
-  upsert?:
-    | CardUpsertWithWhereUniqueWithoutRestaurantInput[]
-    | CardUpsertWithWhereUniqueWithoutRestaurantInput;
+export interface RestaurantUpsertWithWhereUniqueWithoutOrganizationInput {
+  where: RestaurantWhereUniqueInput;
+  update: RestaurantUpdateWithoutOrganizationDataInput;
+  create: RestaurantCreateWithoutOrganizationInput;
 }
 
 export interface OrderCreateInput {
+  number?: Int;
   tip: Float;
+  items?: OrderItemCreateManyInput;
+}
+
+export interface RestaurantUpsertWithoutActiveCardInput {
+  update: RestaurantUpdateWithoutActiveCardDataInput;
+  create: RestaurantCreateWithoutActiveCardInput;
+}
+
+export interface OrderItemCreateManyInput {
+  create?: OrderItemCreateInput[] | OrderItemCreateInput;
+  connect?: OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput;
+}
+
+export interface RestaurantUpdateOneWithoutActiveCardInput {
+  create?: RestaurantCreateWithoutActiveCardInput;
+  connect?: RestaurantWhereUniqueInput;
+  disconnect?: Boolean;
+  delete?: Boolean;
+  update?: RestaurantUpdateWithoutActiveCardDataInput;
+  upsert?: RestaurantUpsertWithoutActiveCardInput;
+}
+
+export interface OrderItemCreateInput {
   subtotal: Float;
   completedAt?: DateTime;
-  items?: OrderItemCreateManyInput;
+  cardItem: CardItemCreateOneInput;
+  subitems?: CardSubitemCreateManyInput;
+  restaurant: RestaurantCreateOneInput;
+}
+
+export interface CardUpdateWithWhereUniqueWithoutRestaurantInput {
+  where: CardWhereUniqueInput;
+  data: CardUpdateWithoutRestaurantDataInput;
 }
 
 export interface CardCategoryUpsertWithWhereUniqueNestedInput {
@@ -5031,11 +5115,12 @@ export interface CardCategoryUpsertWithWhereUniqueNestedInput {
   create: CardCategoryCreateInput;
 }
 
-export interface CardSubitemUpdateDataInput {
-  type?: CardSubitemTypes;
-  name?: String;
-  ordering?: Int;
-  price?: Float;
+export interface OrganizationCreateInput {
+  name: String;
+  slug: String;
+  visible?: Boolean;
+  imageUrl?: String;
+  restaurants?: RestaurantCreateManyWithoutOrganizationInput;
 }
 
 export interface CardItemWhereInput {
@@ -5116,6 +5201,14 @@ export interface CardItemSubscriptionWhereInput {
   node?: CardItemWhereInput;
 }
 
+export interface OrganizationUpdateInput {
+  name?: String;
+  slug?: String;
+  visible?: Boolean;
+  imageUrl?: String;
+  restaurants?: RestaurantUpdateManyWithoutOrganizationInput;
+}
+
 export interface CardWhereInput {
   AND?: CardWhereInput[] | CardWhereInput;
   OR?: CardWhereInput[] | CardWhereInput;
@@ -5155,9 +5248,19 @@ export interface CardWhereInput {
   categories_none?: CardCategoryWhereInput;
 }
 
-export interface CardItemCreateOneInput {
-  create?: CardItemCreateInput;
-  connect?: CardItemWhereUniqueInput;
+export interface RestaurantUpdateManyWithoutOrganizationInput {
+  create?:
+    | RestaurantCreateWithoutOrganizationInput[]
+    | RestaurantCreateWithoutOrganizationInput;
+  connect?: RestaurantWhereUniqueInput[] | RestaurantWhereUniqueInput;
+  disconnect?: RestaurantWhereUniqueInput[] | RestaurantWhereUniqueInput;
+  delete?: RestaurantWhereUniqueInput[] | RestaurantWhereUniqueInput;
+  update?:
+    | RestaurantUpdateWithWhereUniqueWithoutOrganizationInput[]
+    | RestaurantUpdateWithWhereUniqueWithoutOrganizationInput;
+  upsert?:
+    | RestaurantUpsertWithWhereUniqueWithoutOrganizationInput[]
+    | RestaurantUpsertWithWhereUniqueWithoutOrganizationInput;
 }
 
 export interface UserWhereInput {
@@ -5305,12 +5408,9 @@ export interface UserWhereInput {
   employments_none?: EmploymentWhereInput;
 }
 
-export interface OrganizationUpdateInput {
-  name?: String;
-  slug?: String;
-  visible?: Boolean;
-  imageUrl?: String;
-  restaurants?: RestaurantUpdateManyWithoutOrganizationInput;
+export interface RestaurantUpdateWithWhereUniqueWithoutOrganizationInput {
+  where: RestaurantWhereUniqueInput;
+  data: RestaurantUpdateWithoutOrganizationDataInput;
 }
 
 export interface RestaurantWhereInput {
@@ -5385,35 +5485,6 @@ export interface RestaurantWhereInput {
   cards_none?: CardWhereInput;
 }
 
-export interface RestaurantUpdateManyWithoutOrganizationInput {
-  create?:
-    | RestaurantCreateWithoutOrganizationInput[]
-    | RestaurantCreateWithoutOrganizationInput;
-  connect?: RestaurantWhereUniqueInput[] | RestaurantWhereUniqueInput;
-  disconnect?: RestaurantWhereUniqueInput[] | RestaurantWhereUniqueInput;
-  delete?: RestaurantWhereUniqueInput[] | RestaurantWhereUniqueInput;
-  update?:
-    | RestaurantUpdateWithWhereUniqueWithoutOrganizationInput[]
-    | RestaurantUpdateWithWhereUniqueWithoutOrganizationInput;
-  upsert?:
-    | RestaurantUpsertWithWhereUniqueWithoutOrganizationInput[]
-    | RestaurantUpsertWithWhereUniqueWithoutOrganizationInput;
-}
-
-export interface OrganizationWhereUniqueInput {
-  id?: ID_Input;
-  slug?: String;
-}
-
-export interface RestaurantUpdateWithWhereUniqueWithoutOrganizationInput {
-  where: RestaurantWhereUniqueInput;
-  data: RestaurantUpdateWithoutOrganizationDataInput;
-}
-
-export interface CardWhereUniqueInput {
-  id?: ID_Input;
-}
-
 export interface RestaurantUpdateWithoutOrganizationDataInput {
   name?: String;
   slug?: String;
@@ -5424,8 +5495,9 @@ export interface RestaurantUpdateWithoutOrganizationDataInput {
   cards?: CardUpdateManyWithoutRestaurantInput;
 }
 
-export interface OrderWhereUniqueInput {
+export interface OrganizationWhereUniqueInput {
   id?: ID_Input;
+  slug?: String;
 }
 
 export interface EmploymentUpdateManyWithoutRestaurantInput {
@@ -5443,9 +5515,8 @@ export interface EmploymentUpdateManyWithoutRestaurantInput {
     | EmploymentUpsertWithWhereUniqueWithoutRestaurantInput;
 }
 
-export interface OrderItemUpdateDataInput {
-  cardItem?: CardItemUpdateOneInput;
-  subitems?: CardSubitemUpdateManyInput;
+export interface CardWhereUniqueInput {
+  id?: ID_Input;
 }
 
 export interface EmploymentUpdateWithWhereUniqueWithoutRestaurantInput {
@@ -5453,11 +5524,8 @@ export interface EmploymentUpdateWithWhereUniqueWithoutRestaurantInput {
   data: EmploymentUpdateWithoutRestaurantDataInput;
 }
 
-export interface CardSubitemUpdateInput {
-  type?: CardSubitemTypes;
-  name?: String;
-  ordering?: Int;
-  price?: Float;
+export interface OrderWhereUniqueInput {
+  id?: ID_Input;
 }
 
 export interface EmploymentUpdateWithoutRestaurantDataInput {
@@ -5465,10 +5533,12 @@ export interface EmploymentUpdateWithoutRestaurantDataInput {
   user?: UserUpdateOneWithoutEmploymentsInput;
 }
 
-export interface EmploymentUpsertWithWhereUniqueWithoutUserInput {
-  where: EmploymentWhereUniqueInput;
-  update: EmploymentUpdateWithoutUserDataInput;
-  create: EmploymentCreateWithoutUserInput;
+export interface RestaurantUpdateOneInput {
+  create?: RestaurantCreateInput;
+  connect?: RestaurantWhereUniqueInput;
+  delete?: Boolean;
+  update?: RestaurantUpdateDataInput;
+  upsert?: RestaurantUpsertNestedInput;
 }
 
 export interface UserUpdateOneWithoutEmploymentsInput {
@@ -5479,21 +5549,9 @@ export interface UserUpdateOneWithoutEmploymentsInput {
   upsert?: UserUpsertWithoutEmploymentsInput;
 }
 
-export interface UserUpdateInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  inviteToken?: String;
-  inviteAccepted?: Boolean;
-  emailConfirmed?: Boolean;
-  emailConfirmToken?: String;
-  resetToken?: String;
-  resetExpires?: DateTime;
-  deletedAt?: DateTime;
-  lastLogin?: DateTime;
-  joinedAt?: DateTime;
-  isSuper?: Boolean;
-  employments?: EmploymentUpdateManyWithoutUserInput;
+export interface OrderItemUpdateWithWhereUniqueNestedInput {
+  where: OrderItemWhereUniqueInput;
+  data: OrderItemUpdateDataInput;
 }
 
 export interface UserUpdateWithoutEmploymentsDataInput {
@@ -5512,10 +5570,12 @@ export interface UserUpdateWithoutEmploymentsDataInput {
   isSuper?: Boolean;
 }
 
-export interface EmploymentUpdateInput {
-  permission?: RestaurantPermission;
-  user?: UserUpdateOneWithoutEmploymentsInput;
-  restaurant?: RestaurantUpdateOneWithoutEmploymentsInput;
+export interface CardItemUpdateInput {
+  name?: String;
+  description?: String;
+  ordering?: Int;
+  price?: Float;
+  subitems?: CardSubitemUpdateManyInput;
 }
 
 export interface UserUpsertWithoutEmploymentsInput {
@@ -5523,9 +5583,9 @@ export interface UserUpsertWithoutEmploymentsInput {
   create: UserCreateWithoutEmploymentsInput;
 }
 
-export interface RestaurantUpsertWithoutActiveCardInput {
-  update: RestaurantUpdateWithoutActiveCardDataInput;
-  create: RestaurantCreateWithoutActiveCardInput;
+export interface EmploymentUpdateWithoutUserDataInput {
+  permission?: RestaurantPermission;
+  restaurant?: RestaurantUpdateOneWithoutEmploymentsInput;
 }
 
 export interface EmploymentUpsertWithWhereUniqueWithoutRestaurantInput {
@@ -5534,9 +5594,9 @@ export interface EmploymentUpsertWithWhereUniqueWithoutRestaurantInput {
   create: EmploymentCreateWithoutRestaurantInput;
 }
 
-export interface CardUpdateWithWhereUniqueWithoutRestaurantInput {
-  where: CardWhereUniqueInput;
-  data: CardUpdateWithoutRestaurantDataInput;
+export interface RestaurantUpsertWithoutEmploymentsInput {
+  update: RestaurantUpdateWithoutEmploymentsDataInput;
+  create: RestaurantCreateWithoutEmploymentsInput;
 }
 
 export interface CardUpdateOneWithoutActiveRestaurantInput {
@@ -5548,16 +5608,191 @@ export interface CardUpdateOneWithoutActiveRestaurantInput {
   upsert?: CardUpsertWithoutActiveRestaurantInput;
 }
 
-export interface CardItemUpsertWithWhereUniqueNestedInput {
-  where: CardItemWhereUniqueInput;
-  update: CardItemUpdateDataInput;
-  create: CardItemCreateInput;
+export interface RestaurantUpdateInput {
+  name?: String;
+  slug?: String;
+  visible?: Boolean;
+  imageUrl?: String;
+  organization?: OrganizationUpdateOneWithoutRestaurantsInput;
+  employments?: EmploymentUpdateManyWithoutRestaurantInput;
+  activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
+  cards?: CardUpdateManyWithoutRestaurantInput;
 }
 
 export interface CardUpdateWithoutActiveRestaurantDataInput {
   name?: String;
   restaurant?: RestaurantUpdateOneWithoutCardsInput;
   categories?: CardCategoryUpdateManyInput;
+}
+
+export interface RestaurantUpdateWithoutActiveCardDataInput {
+  name?: String;
+  slug?: String;
+  visible?: Boolean;
+  imageUrl?: String;
+  organization?: OrganizationUpdateOneWithoutRestaurantsInput;
+  employments?: EmploymentUpdateManyWithoutRestaurantInput;
+  cards?: CardUpdateManyWithoutRestaurantInput;
+}
+
+export interface RestaurantUpdateOneWithoutCardsInput {
+  create?: RestaurantCreateWithoutCardsInput;
+  connect?: RestaurantWhereUniqueInput;
+  delete?: Boolean;
+  update?: RestaurantUpdateWithoutCardsDataInput;
+  upsert?: RestaurantUpsertWithoutCardsInput;
+}
+
+export interface CardUpdateManyWithoutRestaurantInput {
+  create?:
+    | CardCreateWithoutRestaurantInput[]
+    | CardCreateWithoutRestaurantInput;
+  connect?: CardWhereUniqueInput[] | CardWhereUniqueInput;
+  disconnect?: CardWhereUniqueInput[] | CardWhereUniqueInput;
+  delete?: CardWhereUniqueInput[] | CardWhereUniqueInput;
+  update?:
+    | CardUpdateWithWhereUniqueWithoutRestaurantInput[]
+    | CardUpdateWithWhereUniqueWithoutRestaurantInput;
+  upsert?:
+    | CardUpsertWithWhereUniqueWithoutRestaurantInput[]
+    | CardUpsertWithWhereUniqueWithoutRestaurantInput;
+}
+
+export interface RestaurantUpdateWithoutCardsDataInput {
+  name?: String;
+  slug?: String;
+  visible?: Boolean;
+  imageUrl?: String;
+  organization?: OrganizationUpdateOneWithoutRestaurantsInput;
+  employments?: EmploymentUpdateManyWithoutRestaurantInput;
+  activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
+}
+
+export interface OrderSubscriptionWhereInput {
+  AND?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
+  OR?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
+  NOT?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: OrderWhereInput;
+}
+
+export interface OrganizationUpdateOneWithoutRestaurantsInput {
+  create?: OrganizationCreateWithoutRestaurantsInput;
+  connect?: OrganizationWhereUniqueInput;
+  disconnect?: Boolean;
+  delete?: Boolean;
+  update?: OrganizationUpdateWithoutRestaurantsDataInput;
+  upsert?: OrganizationUpsertWithoutRestaurantsInput;
+}
+
+export interface EmploymentSubscriptionWhereInput {
+  AND?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
+  OR?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
+  NOT?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: EmploymentWhereInput;
+}
+
+export interface OrganizationUpdateWithoutRestaurantsDataInput {
+  name?: String;
+  slug?: String;
+  visible?: Boolean;
+  imageUrl?: String;
+}
+
+export interface OrderItemUpdateInput {
+  subtotal?: Float;
+  completedAt?: DateTime;
+  cardItem?: CardItemUpdateOneInput;
+  subitems?: CardSubitemUpdateManyInput;
+  restaurant?: RestaurantUpdateOneInput;
+}
+
+export interface OrganizationUpsertWithoutRestaurantsInput {
+  update: OrganizationUpdateWithoutRestaurantsDataInput;
+  create: OrganizationCreateWithoutRestaurantsInput;
+}
+
+export interface CardItemWhereUniqueInput {
+  id?: ID_Input;
+}
+
+export interface RestaurantUpsertWithoutCardsInput {
+  update: RestaurantUpdateWithoutCardsDataInput;
+  create: RestaurantCreateWithoutCardsInput;
+}
+
+export interface CardItemUpdateOneInput {
+  create?: CardItemCreateInput;
+  connect?: CardItemWhereUniqueInput;
+  delete?: Boolean;
+  update?: CardItemUpdateDataInput;
+  upsert?: CardItemUpsertNestedInput;
+}
+
+export interface CardCategoryUpdateManyInput {
+  create?: CardCategoryCreateInput[] | CardCategoryCreateInput;
+  connect?: CardCategoryWhereUniqueInput[] | CardCategoryWhereUniqueInput;
+  disconnect?: CardCategoryWhereUniqueInput[] | CardCategoryWhereUniqueInput;
+  delete?: CardCategoryWhereUniqueInput[] | CardCategoryWhereUniqueInput;
+  update?:
+    | CardCategoryUpdateWithWhereUniqueNestedInput[]
+    | CardCategoryUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | CardCategoryUpsertWithWhereUniqueNestedInput[]
+    | CardCategoryUpsertWithWhereUniqueNestedInput;
+}
+
+export interface CardUpdateInput {
+  name?: String;
+  restaurant?: RestaurantUpdateOneWithoutCardsInput;
+  activeRestaurant?: RestaurantUpdateOneWithoutActiveCardInput;
+  categories?: CardCategoryUpdateManyInput;
+}
+
+export interface CardCategoryUpdateWithWhereUniqueNestedInput {
+  where: CardCategoryWhereUniqueInput;
+  data: CardCategoryUpdateDataInput;
+}
+
+export interface RestaurantUpdateOneWithoutEmploymentsInput {
+  create?: RestaurantCreateWithoutEmploymentsInput;
+  connect?: RestaurantWhereUniqueInput;
+  delete?: Boolean;
+  update?: RestaurantUpdateWithoutEmploymentsDataInput;
+  upsert?: RestaurantUpsertWithoutEmploymentsInput;
+}
+
+export interface CardCategoryUpdateDataInput {
+  name?: String;
+  ordering?: Int;
+  description?: String;
+  items?: CardItemUpdateManyInput;
+}
+
+export interface CardUpdateWithoutRestaurantDataInput {
+  name?: String;
+  activeRestaurant?: RestaurantUpdateOneWithoutActiveCardInput;
+  categories?: CardCategoryUpdateManyInput;
+}
+
+export interface CardItemUpdateManyInput {
+  create?: CardItemCreateInput[] | CardItemCreateInput;
+  connect?: CardItemWhereUniqueInput[] | CardItemWhereUniqueInput;
+  disconnect?: CardItemWhereUniqueInput[] | CardItemWhereUniqueInput;
+  delete?: CardItemWhereUniqueInput[] | CardItemWhereUniqueInput;
+  update?:
+    | CardItemUpdateWithWhereUniqueNestedInput[]
+    | CardItemUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | CardItemUpsertWithWhereUniqueNestedInput[]
+    | CardItemUpsertWithWhereUniqueNestedInput;
 }
 
 export interface CardCategoryWhereInput {
@@ -5619,12 +5854,78 @@ export interface CardCategoryWhereInput {
   items_none?: CardItemWhereInput;
 }
 
-export interface RestaurantUpdateOneWithoutCardsInput {
-  create?: RestaurantCreateWithoutCardsInput;
-  connect?: RestaurantWhereUniqueInput;
-  delete?: Boolean;
-  update?: RestaurantUpdateWithoutCardsDataInput;
-  upsert?: RestaurantUpsertWithoutCardsInput;
+export interface CardItemUpdateWithWhereUniqueNestedInput {
+  where: CardItemWhereUniqueInput;
+  data: CardItemUpdateDataInput;
+}
+
+export interface EmploymentWhereUniqueInput {
+  id?: ID_Input;
+}
+
+export interface CardItemUpdateDataInput {
+  name?: String;
+  description?: String;
+  ordering?: Int;
+  price?: Float;
+  subitems?: CardSubitemUpdateManyInput;
+}
+
+export interface OrderUpdateInput {
+  number?: Int;
+  tip?: Float;
+  items?: OrderItemUpdateManyInput;
+}
+
+export interface CardSubitemUpsertWithWhereUniqueNestedInput {
+  where: CardSubitemWhereUniqueInput;
+  update: CardSubitemUpdateDataInput;
+  create: CardSubitemCreateInput;
+}
+
+export interface CardSubitemUpdateDataInput {
+  type?: CardSubitemTypes;
+  name?: String;
+  ordering?: Int;
+  price?: Float;
+}
+
+export interface CardSubitemUpdateWithWhereUniqueNestedInput {
+  where: CardSubitemWhereUniqueInput;
+  data: CardSubitemUpdateDataInput;
+}
+
+export interface CardSubitemUpdateManyInput {
+  create?: CardSubitemCreateInput[] | CardSubitemCreateInput;
+  connect?: CardSubitemWhereUniqueInput[] | CardSubitemWhereUniqueInput;
+  disconnect?: CardSubitemWhereUniqueInput[] | CardSubitemWhereUniqueInput;
+  delete?: CardSubitemWhereUniqueInput[] | CardSubitemWhereUniqueInput;
+  update?:
+    | CardSubitemUpdateWithWhereUniqueNestedInput[]
+    | CardSubitemUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | CardSubitemUpsertWithWhereUniqueNestedInput[]
+    | CardSubitemUpsertWithWhereUniqueNestedInput;
+}
+
+export interface EmploymentUpdateManyWithoutUserInput {
+  create?:
+    | EmploymentCreateWithoutUserInput[]
+    | EmploymentCreateWithoutUserInput;
+  connect?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
+  disconnect?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
+  delete?: EmploymentWhereUniqueInput[] | EmploymentWhereUniqueInput;
+  update?:
+    | EmploymentUpdateWithWhereUniqueWithoutUserInput[]
+    | EmploymentUpdateWithWhereUniqueWithoutUserInput;
+  upsert?:
+    | EmploymentUpsertWithWhereUniqueWithoutUserInput[]
+    | EmploymentUpsertWithWhereUniqueWithoutUserInput;
+}
+
+export interface RestaurantUpsertNestedInput {
+  update: RestaurantUpdateDataInput;
+  create: RestaurantCreateInput;
 }
 
 export interface OrderWhereInput {
@@ -5645,6 +5946,14 @@ export interface OrderWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
+  number?: Int;
+  number_not?: Int;
+  number_in?: Int[] | Int;
+  number_not_in?: Int[] | Int;
+  number_lt?: Int;
+  number_lte?: Int;
+  number_gt?: Int;
+  number_gte?: Int;
   tip?: Float;
   tip_not?: Float;
   tip_in?: Float[] | Float;
@@ -5653,220 +5962,22 @@ export interface OrderWhereInput {
   tip_lte?: Float;
   tip_gt?: Float;
   tip_gte?: Float;
-  subtotal?: Float;
-  subtotal_not?: Float;
-  subtotal_in?: Float[] | Float;
-  subtotal_not_in?: Float[] | Float;
-  subtotal_lt?: Float;
-  subtotal_lte?: Float;
-  subtotal_gt?: Float;
-  subtotal_gte?: Float;
-  completedAt?: DateTime;
-  completedAt_not?: DateTime;
-  completedAt_in?: DateTime[] | DateTime;
-  completedAt_not_in?: DateTime[] | DateTime;
-  completedAt_lt?: DateTime;
-  completedAt_lte?: DateTime;
-  completedAt_gt?: DateTime;
-  completedAt_gte?: DateTime;
   items_every?: OrderItemWhereInput;
   items_some?: OrderItemWhereInput;
   items_none?: OrderItemWhereInput;
 }
 
-export interface RestaurantUpdateWithoutCardsDataInput {
-  name?: String;
-  slug?: String;
-  visible?: Boolean;
-  imageUrl?: String;
-  organization?: OrganizationUpdateOneWithoutRestaurantsInput;
-  employments?: EmploymentUpdateManyWithoutRestaurantInput;
-  activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
+export interface RestaurantCreateManyWithoutOrganizationInput {
+  create?:
+    | RestaurantCreateWithoutOrganizationInput[]
+    | RestaurantCreateWithoutOrganizationInput;
+  connect?: RestaurantWhereUniqueInput[] | RestaurantWhereUniqueInput;
 }
 
-export interface EmploymentWhereUniqueInput {
-  id?: ID_Input;
-}
-
-export interface OrganizationUpdateOneWithoutRestaurantsInput {
-  create?: OrganizationCreateWithoutRestaurantsInput;
-  connect?: OrganizationWhereUniqueInput;
-  disconnect?: Boolean;
-  delete?: Boolean;
-  update?: OrganizationUpdateWithoutRestaurantsDataInput;
-  upsert?: OrganizationUpsertWithoutRestaurantsInput;
-}
-
-export interface CardItemUpsertNestedInput {
-  update: CardItemUpdateDataInput;
-  create: CardItemCreateInput;
-}
-
-export interface OrganizationUpdateWithoutRestaurantsDataInput {
-  name?: String;
-  slug?: String;
-  visible?: Boolean;
-  imageUrl?: String;
-}
-
-export interface CardCategoryUpdateInput {
-  name?: String;
-  ordering?: Int;
-  description?: String;
-  items?: CardItemUpdateManyInput;
-}
-
-export interface OrganizationUpsertWithoutRestaurantsInput {
-  update: OrganizationUpdateWithoutRestaurantsDataInput;
-  create: OrganizationCreateWithoutRestaurantsInput;
-}
-
-export interface RestaurantUpdateWithoutEmploymentsDataInput {
-  name?: String;
-  slug?: String;
-  visible?: Boolean;
-  imageUrl?: String;
-  organization?: OrganizationUpdateOneWithoutRestaurantsInput;
-  activeCard?: CardUpdateOneWithoutActiveRestaurantInput;
-  cards?: CardUpdateManyWithoutRestaurantInput;
-}
-
-export interface RestaurantUpsertWithoutCardsInput {
-  update: RestaurantUpdateWithoutCardsDataInput;
-  create: RestaurantCreateWithoutCardsInput;
-}
-
-export interface RestaurantUpdateOneWithoutActiveCardInput {
-  create?: RestaurantCreateWithoutActiveCardInput;
-  connect?: RestaurantWhereUniqueInput;
-  disconnect?: Boolean;
-  delete?: Boolean;
-  update?: RestaurantUpdateWithoutActiveCardDataInput;
-  upsert?: RestaurantUpsertWithoutActiveCardInput;
-}
-
-export interface CardCategoryUpdateManyInput {
-  create?: CardCategoryCreateInput[] | CardCategoryCreateInput;
-  connect?: CardCategoryWhereUniqueInput[] | CardCategoryWhereUniqueInput;
-  disconnect?: CardCategoryWhereUniqueInput[] | CardCategoryWhereUniqueInput;
-  delete?: CardCategoryWhereUniqueInput[] | CardCategoryWhereUniqueInput;
-  update?:
-    | CardCategoryUpdateWithWhereUniqueNestedInput[]
-    | CardCategoryUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | CardCategoryUpsertWithWhereUniqueNestedInput[]
-    | CardCategoryUpsertWithWhereUniqueNestedInput;
-}
-
-export interface OrderSubscriptionWhereInput {
-  AND?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
-  OR?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
-  NOT?: OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput;
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: OrderWhereInput;
-}
-
-export interface CardCategoryUpdateWithWhereUniqueNestedInput {
-  where: CardCategoryWhereUniqueInput;
-  data: CardCategoryUpdateDataInput;
-}
-
-export interface OrderItemUpdateInput {
-  cardItem?: CardItemUpdateOneInput;
-  subitems?: CardSubitemUpdateManyInput;
-}
-
-export interface CardCategoryUpdateDataInput {
-  name?: String;
-  ordering?: Int;
-  description?: String;
-  items?: CardItemUpdateManyInput;
-}
-
-export interface OrderItemUpdateManyInput {
-  create?: OrderItemCreateInput[] | OrderItemCreateInput;
-  connect?: OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput;
-  disconnect?: OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput;
-  delete?: OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput;
-  update?:
-    | OrderItemUpdateWithWhereUniqueNestedInput[]
-    | OrderItemUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | OrderItemUpsertWithWhereUniqueNestedInput[]
-    | OrderItemUpsertWithWhereUniqueNestedInput;
-}
-
-export interface CardSubitemUpdateManyInput {
-  create?: CardSubitemCreateInput[] | CardSubitemCreateInput;
-  connect?: CardSubitemWhereUniqueInput[] | CardSubitemWhereUniqueInput;
-  disconnect?: CardSubitemWhereUniqueInput[] | CardSubitemWhereUniqueInput;
-  delete?: CardSubitemWhereUniqueInput[] | CardSubitemWhereUniqueInput;
-  update?:
-    | CardSubitemUpdateWithWhereUniqueNestedInput[]
-    | CardSubitemUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | CardSubitemUpsertWithWhereUniqueNestedInput[]
-    | CardSubitemUpsertWithWhereUniqueNestedInput;
-}
-
-export interface CardItemUpdateDataInput {
-  name?: String;
-  description?: String;
-  ordering?: Int;
-  price?: Float;
-  subitems?: CardSubitemUpdateManyInput;
-}
-
-export interface CardItemUpdateWithWhereUniqueNestedInput {
-  where: CardItemWhereUniqueInput;
-  data: CardItemUpdateDataInput;
-}
-
-export interface CardItemUpdateManyInput {
-  create?: CardItemCreateInput[] | CardItemCreateInput;
-  connect?: CardItemWhereUniqueInput[] | CardItemWhereUniqueInput;
-  disconnect?: CardItemWhereUniqueInput[] | CardItemWhereUniqueInput;
-  delete?: CardItemWhereUniqueInput[] | CardItemWhereUniqueInput;
-  update?:
-    | CardItemUpdateWithWhereUniqueNestedInput[]
-    | CardItemUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | CardItemUpsertWithWhereUniqueNestedInput[]
-    | CardItemUpsertWithWhereUniqueNestedInput;
-}
-
-export interface EmploymentUpdateWithWhereUniqueWithoutUserInput {
-  where: EmploymentWhereUniqueInput;
-  data: EmploymentUpdateWithoutUserDataInput;
-}
-
-export interface CardItemWhereUniqueInput {
-  id?: ID_Input;
-}
-
-export interface EmploymentSubscriptionWhereInput {
-  AND?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
-  OR?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
-  NOT?: EmploymentSubscriptionWhereInput[] | EmploymentSubscriptionWhereInput;
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: EmploymentWhereInput;
-}
-
-export interface CardUpsertWithoutActiveRestaurantInput {
-  update: CardUpdateWithoutActiveRestaurantDataInput;
-  create: CardCreateWithoutActiveRestaurantInput;
-}
-
-export interface RestaurantUpsertWithWhereUniqueWithoutOrganizationInput {
-  where: RestaurantWhereUniqueInput;
-  update: RestaurantUpdateWithoutOrganizationDataInput;
-  create: RestaurantCreateWithoutOrganizationInput;
+export interface CardUpsertWithWhereUniqueWithoutRestaurantInput {
+  where: CardWhereUniqueInput;
+  update: CardUpdateWithoutRestaurantDataInput;
+  create: CardCreateWithoutRestaurantInput;
 }
 
 /*
@@ -5879,6 +5990,8 @@ export interface Node {
 
 export interface OrderItemPreviousValues {
   id: ID_Output;
+  subtotal: Float;
+  completedAt?: DateTime;
 }
 
 /*
@@ -5923,6 +6036,9 @@ export interface OrderItem extends Node {
   id: ID_Output;
   cardItem: CardItem;
   subitems?: CardSubitem[];
+  restaurant: Restaurant;
+  subtotal: Float;
+  completedAt?: DateTime;
 }
 
 /*
@@ -5982,10 +6098,9 @@ export interface CardSubitemEdge {
 
 export interface Order extends Node {
   id: ID_Output;
+  number?: Int;
   items?: OrderItem[];
   tip: Float;
-  subtotal: Float;
-  completedAt?: DateTime;
 }
 
 export interface AggregateCardItem {
@@ -5994,9 +6109,8 @@ export interface AggregateCardItem {
 
 export interface OrderPreviousValues {
   id: ID_Output;
+  number?: Int;
   tip: Float;
-  subtotal: Float;
-  completedAt?: DateTime;
 }
 
 /*

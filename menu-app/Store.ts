@@ -13,7 +13,7 @@ export class Order {
   @observable tip = 0;
   @observable paymentStatus: PaymentStatus = PaymentStatus.None;
 
-  addItem(cardItem: CardItem, organizationId: string) {
+  addItem(cardItem: CardItem, restaurantId: string, organizationId: string) {
     // Reset items if items from another organization are added since those can never be mixed
     if (
       this.items.length > 0 &&
@@ -26,6 +26,7 @@ export class Order {
       subitems: [],
       preselect: true,
       organizationId,
+      restaurantId,
     });
   }
 
@@ -35,6 +36,7 @@ export class Order {
       subitems: item.subitems.slice(),
       preselect: false,
       organizationId: item.organizationId,
+      restaurantId: item.restaurantId,
     });
   }
 

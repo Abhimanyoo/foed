@@ -30,6 +30,7 @@ export class PaymentButton extends React.Component<Props, {}> {
             items: store.order.items.map(item => ({
               cardItem: item.cardItem.id,
               subitems: item.subitems.map(subitem => subitem.id),
+              restaurant: item.restaurantId,
             })),
             tip: store.order.tip,
           },

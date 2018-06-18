@@ -5,7 +5,7 @@ import * as sharp from 'sharp';
 import { Context } from '../utils';
 
 interface PlaceOrderInput {
-  items: { cardItem: string; subitems: string[] }[];
+  items: { cardItem: string; subitems: string[]; restaurant: string }[];
   tip: number;
 }
 
@@ -58,7 +58,6 @@ export const Mutation = {
     // TODO: this can probably be improved for performance; first fetch all required data and then loop through data.items.
     const order = {
       items: { create: [] as any[] },
-      subtotal: 0,
       tip: data.tip,
     };
 
@@ -73,18 +72,20 @@ export const Mutation = {
         where: { id_in: itemInput.subitems },
       });
 
+      let subtotal = cardItem.price;
+
       const subItemConnects: any[] = [];
       for (const cardSubitem of cardSubItems) {
-        order.subtotal += cardSubitem.price;
+        subtotal += cardSubitem.price;
 
         subItemConnects.push({ id: cardSubitem.id });
       }
 
-      order.subtotal += cardItem.price;
-
       order.items.create.push({
+        subtotal,
         cardItem: { connect: { id: cardItem.id } },
         subitems: { connect: subItemConnects },
+        restaurant: { connect: { id: itemInput.restaurant } },
       });
     }
 
@@ -92,7 +93,6 @@ export const Mutation = {
 
     return {
       id: actualOrder.id,
-      price: order.tip + order.subtotal,
     };
   },
 };

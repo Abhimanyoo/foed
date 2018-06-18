@@ -1,5 +1,5 @@
 # source: http://localhost:4466/foed/dev
-# timestamp: Fri May 18 2018 14:29:40 GMT+0200 (CEST)
+# timestamp: Mon Jun 18 2018 16:19:18 GMT+0200 (CEST)
 
 type AggregateCard {
   count: Int!
@@ -2154,6 +2154,7 @@ interface Node {
 
 type Order implements Node {
   id: ID!
+  number: Int
   items(
     where: OrderItemWhereInput
     orderBy: OrderItemOrderByInput
@@ -2164,8 +2165,6 @@ type Order implements Node {
     last: Int
   ): [OrderItem!]
   tip: Float!
-  subtotal: Float!
-  completedAt: DateTime
 }
 
 """
@@ -2185,9 +2184,8 @@ type OrderConnection {
 }
 
 input OrderCreateInput {
+  number: Int
   tip: Float!
-  subtotal: Float!
-  completedAt: DateTime
   items: OrderItemCreateManyInput
 }
 
@@ -2218,6 +2216,9 @@ type OrderItem implements Node {
     first: Int
     last: Int
   ): [CardSubitem!]
+  restaurant(where: RestaurantWhereInput): Restaurant!
+  subtotal: Float!
+  completedAt: DateTime
 }
 
 """
@@ -2237,8 +2238,11 @@ type OrderItemConnection {
 }
 
 input OrderItemCreateInput {
+  subtotal: Float!
+  completedAt: DateTime
   cardItem: CardItemCreateOneInput!
   subitems: CardSubitemCreateManyInput
+  restaurant: RestaurantCreateOneInput!
 }
 
 input OrderItemCreateManyInput {
@@ -2264,6 +2268,10 @@ type OrderItemEdge {
 enum OrderItemOrderByInput {
   id_ASC
   id_DESC
+  subtotal_ASC
+  subtotal_DESC
+  completedAt_ASC
+  completedAt_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2272,6 +2280,8 @@ enum OrderItemOrderByInput {
 
 type OrderItemPreviousValues {
   id: ID!
+  subtotal: Float!
+  completedAt: DateTime
 }
 
 type OrderItemSubscriptionPayload {
@@ -2320,13 +2330,19 @@ input OrderItemSubscriptionWhereInput {
 }
 
 input OrderItemUpdateDataInput {
+  subtotal: Float
+  completedAt: DateTime
   cardItem: CardItemUpdateOneInput
   subitems: CardSubitemUpdateManyInput
+  restaurant: RestaurantUpdateOneInput
 }
 
 input OrderItemUpdateInput {
+  subtotal: Float
+  completedAt: DateTime
   cardItem: CardItemUpdateOneInput
   subitems: CardSubitemUpdateManyInput
+  restaurant: RestaurantUpdateOneInput
 }
 
 input OrderItemUpdateManyInput {
@@ -2430,10 +2446,83 @@ input OrderItemWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
+  subtotal: Float
+
+  """
+  All values that are not equal to given value.
+  """
+  subtotal_not: Float
+
+  """
+  All values that are contained in given list.
+  """
+  subtotal_in: [Float!]
+
+  """
+  All values that are not contained in given list.
+  """
+  subtotal_not_in: [Float!]
+
+  """
+  All values less than the given value.
+  """
+  subtotal_lt: Float
+
+  """
+  All values less than or equal the given value.
+  """
+  subtotal_lte: Float
+
+  """
+  All values greater than the given value.
+  """
+  subtotal_gt: Float
+
+  """
+  All values greater than or equal the given value.
+  """
+  subtotal_gte: Float
+  completedAt: DateTime
+
+  """
+  All values that are not equal to given value.
+  """
+  completedAt_not: DateTime
+
+  """
+  All values that are contained in given list.
+  """
+  completedAt_in: [DateTime!]
+
+  """
+  All values that are not contained in given list.
+  """
+  completedAt_not_in: [DateTime!]
+
+  """
+  All values less than the given value.
+  """
+  completedAt_lt: DateTime
+
+  """
+  All values less than or equal the given value.
+  """
+  completedAt_lte: DateTime
+
+  """
+  All values greater than the given value.
+  """
+  completedAt_gt: DateTime
+
+  """
+  All values greater than or equal the given value.
+  """
+  completedAt_gte: DateTime
   cardItem: CardItemWhereInput
   subitems_every: CardSubitemWhereInput
   subitems_some: CardSubitemWhereInput
   subitems_none: CardSubitemWhereInput
+  restaurant: RestaurantWhereInput
 }
 
 input OrderItemWhereUniqueInput {
@@ -2443,12 +2532,10 @@ input OrderItemWhereUniqueInput {
 enum OrderOrderByInput {
   id_ASC
   id_DESC
+  number_ASC
+  number_DESC
   tip_ASC
   tip_DESC
-  subtotal_ASC
-  subtotal_DESC
-  completedAt_ASC
-  completedAt_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2457,9 +2544,8 @@ enum OrderOrderByInput {
 
 type OrderPreviousValues {
   id: ID!
+  number: Int
   tip: Float!
-  subtotal: Float!
-  completedAt: DateTime
 }
 
 type OrderSubscriptionPayload {
@@ -2508,9 +2594,8 @@ input OrderSubscriptionWhereInput {
 }
 
 input OrderUpdateInput {
+  number: Int
   tip: Float
-  subtotal: Float
-  completedAt: DateTime
   items: OrderItemUpdateManyInput
 }
 
@@ -2595,6 +2680,42 @@ input OrderWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
+  number: Int
+
+  """
+  All values that are not equal to given value.
+  """
+  number_not: Int
+
+  """
+  All values that are contained in given list.
+  """
+  number_in: [Int!]
+
+  """
+  All values that are not contained in given list.
+  """
+  number_not_in: [Int!]
+
+  """
+  All values less than the given value.
+  """
+  number_lt: Int
+
+  """
+  All values less than or equal the given value.
+  """
+  number_lte: Int
+
+  """
+  All values greater than the given value.
+  """
+  number_gt: Int
+
+  """
+  All values greater than or equal the given value.
+  """
+  number_gte: Int
   tip: Float
 
   """
@@ -2631,78 +2752,6 @@ input OrderWhereInput {
   All values greater than or equal the given value.
   """
   tip_gte: Float
-  subtotal: Float
-
-  """
-  All values that are not equal to given value.
-  """
-  subtotal_not: Float
-
-  """
-  All values that are contained in given list.
-  """
-  subtotal_in: [Float!]
-
-  """
-  All values that are not contained in given list.
-  """
-  subtotal_not_in: [Float!]
-
-  """
-  All values less than the given value.
-  """
-  subtotal_lt: Float
-
-  """
-  All values less than or equal the given value.
-  """
-  subtotal_lte: Float
-
-  """
-  All values greater than the given value.
-  """
-  subtotal_gt: Float
-
-  """
-  All values greater than or equal the given value.
-  """
-  subtotal_gte: Float
-  completedAt: DateTime
-
-  """
-  All values that are not equal to given value.
-  """
-  completedAt_not: DateTime
-
-  """
-  All values that are contained in given list.
-  """
-  completedAt_in: [DateTime!]
-
-  """
-  All values that are not contained in given list.
-  """
-  completedAt_not_in: [DateTime!]
-
-  """
-  All values less than the given value.
-  """
-  completedAt_lt: DateTime
-
-  """
-  All values less than or equal the given value.
-  """
-  completedAt_lte: DateTime
-
-  """
-  All values greater than the given value.
-  """
-  completedAt_gt: DateTime
-
-  """
-  All values greater than or equal the given value.
-  """
-  completedAt_gte: DateTime
   items_every: OrderItemWhereInput
   items_some: OrderItemWhereInput
   items_none: OrderItemWhereInput
@@ -3462,6 +3511,11 @@ input RestaurantCreateManyWithoutOrganizationInput {
   connect: [RestaurantWhereUniqueInput!]
 }
 
+input RestaurantCreateOneInput {
+  create: RestaurantCreateInput
+  connect: RestaurantWhereUniqueInput
+}
+
 input RestaurantCreateOneWithoutActiveCardInput {
   create: RestaurantCreateWithoutActiveCardInput
   connect: RestaurantWhereUniqueInput
@@ -3608,6 +3662,17 @@ input RestaurantSubscriptionWhereInput {
   node: RestaurantWhereInput
 }
 
+input RestaurantUpdateDataInput {
+  name: String
+  slug: String
+  visible: Boolean
+  imageUrl: String
+  organization: OrganizationUpdateOneWithoutRestaurantsInput
+  employments: EmploymentUpdateManyWithoutRestaurantInput
+  activeCard: CardUpdateOneWithoutActiveRestaurantInput
+  cards: CardUpdateManyWithoutRestaurantInput
+}
+
 input RestaurantUpdateInput {
   name: String
   slug: String
@@ -3626,6 +3691,14 @@ input RestaurantUpdateManyWithoutOrganizationInput {
   delete: [RestaurantWhereUniqueInput!]
   update: [RestaurantUpdateWithWhereUniqueWithoutOrganizationInput!]
   upsert: [RestaurantUpsertWithWhereUniqueWithoutOrganizationInput!]
+}
+
+input RestaurantUpdateOneInput {
+  create: RestaurantCreateInput
+  connect: RestaurantWhereUniqueInput
+  delete: Boolean
+  update: RestaurantUpdateDataInput
+  upsert: RestaurantUpsertNestedInput
 }
 
 input RestaurantUpdateOneWithoutActiveCardInput {
@@ -3696,6 +3769,11 @@ input RestaurantUpdateWithoutOrganizationDataInput {
 input RestaurantUpdateWithWhereUniqueWithoutOrganizationInput {
   where: RestaurantWhereUniqueInput!
   data: RestaurantUpdateWithoutOrganizationDataInput!
+}
+
+input RestaurantUpsertNestedInput {
+  update: RestaurantUpdateDataInput!
+  create: RestaurantCreateInput!
 }
 
 input RestaurantUpsertWithoutActiveCardInput {
