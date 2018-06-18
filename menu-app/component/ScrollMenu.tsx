@@ -19,7 +19,7 @@ interface StyledLinkProps {
 }
 
 const StyledLink = styled<StyledLinkProps, 'a'>('a')`
-  color: #5fa4b1;
+  color: #3e93a4;
   padding: 12px 0 13px 20px;
   display: inline-block;
   vertical-align: middle;
@@ -39,8 +39,8 @@ const activeLinkStyles = css`
     width: 10px;
     height: 10px;
     margin-left: 5px;
-    background: #71b3c0;
-    border: solid #71b3c0;
+    background: #3e93a4;
+    border: solid #3e93a4;
     border-width: 0 3px 3px 0;
     transform: rotate(-135deg);
   }
