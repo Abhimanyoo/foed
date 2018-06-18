@@ -41,7 +41,10 @@ export class CardListItem extends React.Component<Props, {}> {
             <ListItemPrice>€{floatToDecimal(item.price)}</ListItemPrice>
             <ListItemButton
               type="button"
-              onClick={() => onAdd(item)}
+              onClick={e => {
+                e.stopPropagation();
+                onAdd(item);
+              }}
               disabled={selected && item.subitems.length > 0}
             >
               <IconAddCircle />
