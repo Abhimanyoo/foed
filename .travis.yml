@@ -9,10 +9,9 @@ node_js:
 cache:
   yarn: true
   directories:
+    - node_modules
     - frontend/build
-    - frontend/node_modules
     - backend/build
-    - backend/node_modules
     - menu-app/build
     - menu-app/.next
 
@@ -24,20 +23,20 @@ jobs:
     - stage: build
       script:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(backend/|\.travis.yml)' || exit 0
-        - cd backend
         - yarn --frozen-lockfile
+        - cd backend
         - yarn build
     - stage: build
       script:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(frontend/|\.travis.yml)' || exit 0
-        - cd frontend
         - yarn --frozen-lockfile
+        - cd frontend
         - yarn build
     - stage: build
       script:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(menu-app/|\.travis.yml)' || exit 0
-        - cd menu-app
         - yarn --frozen-lockfile
+        - cd menu-app
         - yarn build
     - stage: test
       script:

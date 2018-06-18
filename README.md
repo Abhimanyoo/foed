@@ -20,10 +20,11 @@ Our app intends to fix that by allowing you to order from your phone, without in
 Copy `.env.example` to `.env` in the repository root;
 
 ```bash
+yarn
 cd backend/database
 docker-compose up -d
 cd ..
-yarn && yarn start
+yarn start
 ```
 
 Keep this running while developing.
@@ -31,16 +32,24 @@ Keep this running while developing.
 In a second tab:
 
 ```bash
-cd backend/
+cd backend
 yarn deploy
 ```
 
 And to get the frontend running:
 
 ```bash
-cd frontend/
-yarn && yarn start
+cd frontend
+yarn start
 ```
+
+And to get the menu app running:
+
+```bash
+cd menu-app
+yarn start
+```
+
 
 ## Adding a user
 
