@@ -8,8 +8,10 @@ interface ListItemProps {
 export const ListItem = styled<ListItemProps, 'div'>('div')`
   width: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 10px 0;
-  height: 80px;
+  min-height: 80px;
   ${props => props.disabled && `opacity: 0.4; pointer-events: none;`};
 `;
 
@@ -24,23 +26,38 @@ export const ListItemOrderCount = styled('div')`
   font-weight: bold;
 `;
 
-export const ListItemInfo = styled('div')`
+export const ListItemTitle = styled('div')`
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #edfde8;
+  color: #efffe9;
   font-weight: bold;
 `;
 
-export const ListItemInfoDescription = styled('div')`
+export const ListItemInfo = styled('div')`
+  display: flex;
+  align-items: center;
+  cursor: default;
+  user-select: none;
+`;
+
+interface ListItemInfoDescriptionProps {
+  opened?: boolean;
+}
+
+export const ListItemInfoDescription = styled<
+  ListItemInfoDescriptionProps,
+  'div'
+>('div')`
   font-size: 14px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   color: #fff;
-  font-weight: normal;
+  margin: 5px 20px 0 50px;
+  overflow: hidden;
+  cursor: default;
+  user-select: none;
+  ${props =>
+    !props.opened &&
+    `
+  white-space: nowrap;
+  text-overflow: ellipsis;`};
 `;
 
 export const ListItemPrice = styled('div')`

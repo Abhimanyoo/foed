@@ -34,6 +34,7 @@
     "react-mobx": "^0.0.3",
     "react-virtual-list": "^2.3.0",
     "ts-node": "^6.0.3",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "typescript-styled-plugin": "^0.6.3"
   }
 }

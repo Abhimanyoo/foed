@@ -7,6 +7,7 @@ import {
   ListItemInfoDescription,
   ListItemPrice,
   ListItemButton,
+  ListItemTitle,
 } from '../../component/List';
 import { CardListSubitem, ToggleSubItemFn } from './ListSubitem';
 import { floatToDecimal } from '../../helpers';
@@ -19,8 +20,10 @@ interface Props {
   store: Store;
   selected: boolean;
   disabled: boolean;
+  opened: boolean;
   onAdd: (item: CardItem) => void;
   onToggleSubitem: ToggleSubItemFn;
+  onToggleOpen: (id: string) => void;
 }
 
 @observer
@@ -28,24 +31,28 @@ export class CardListItem extends React.Component<Props, {}> {
   render() {
     const { selected, disabled, item, store, onAdd } = this.props;
     const count = store.order.getAmountOfItemsPerCardItem(item.id);
+    const openToggle = () => this.props.onToggleOpen(item.id);
     return (
       <React.Fragment>
         <ListItem selected={selected} disabled={disabled}>
-          <ListItemOrderCount>{count || ''}</ListItemOrderCount>
-          <ListItemInfo>
-            {item.name}
-            <ListItemInfoDescription>
-              {item.description}
-            </ListItemInfoDescription>
+          <ListItemInfo onClick={openToggle}>
+            <ListItemOrderCount>{count || ''}</ListItemOrderCount>
+            <ListItemTitle>{item.name}</ListItemTitle>
+            <ListItemPrice>€{floatToDecimal(item.price)}</ListItemPrice>
+            <ListItemButton
+              type="button"
+              onClick={() => onAdd(item)}
+              disabled={selected && item.subitems.length > 0}
+            >
+              <IconAddCircle />
+            </ListItemButton>
           </ListItemInfo>
-          <ListItemPrice>€{floatToDecimal(item.price)}</ListItemPrice>
-          <ListItemButton
-            type="button"
-            onClick={() => onAdd(item)}
-            disabled={selected && item.subitems.length > 0}
+          <ListItemInfoDescription
+            opened={this.props.opened}
+            onClick={openToggle}
           >
-            <IconAddCircle />
-          </ListItemButton>
+            {item.description}
+          </ListItemInfoDescription>
         </ListItem>
         {selected &&
           item.subitems.map(subitem => (

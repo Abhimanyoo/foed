@@ -18,6 +18,11 @@
     "lib": [
       "dom",
       "es2016"
+    ],
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
     ]
   }
 }

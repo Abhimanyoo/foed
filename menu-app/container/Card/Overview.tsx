@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, Observer } from 'mobx-react';
 import { Header } from '../../component/Header';
 import { Query } from '../../component/Query';
 import gql from 'graphql-tag';
@@ -7,6 +7,7 @@ import { CardListItem } from './ListItem';
 import { CardCategoryMenu } from './CategoryMenu';
 import { Store } from 'Store';
 import { CardToolbar } from './Toolbar';
+import { observable } from 'mobx';
 
 interface Props {
   restaurant: any;
@@ -36,6 +37,8 @@ const CARD_ITEM_OVERVIEW = gql`
 
 @observer
 export class CardOverview extends React.Component<Props, {}> {
+  @observable openItem = '';
+
   handleAddItem = cardItem => {
     const { store, restaurant } = this.props;
     store.order.addItem(cardItem, restaurant.organization.id);
@@ -54,6 +57,10 @@ export class CardOverview extends React.Component<Props, {}> {
   handleToggleSubItem = (cardItem, subitem) => {
     const { store } = this.props;
     store.order.toggleSubitem(cardItem, subitem);
+  };
+
+  handleToggleOpen = (id: string) => {
+    this.openItem = this.openItem === id ? '' : id;
   };
 
   render() {
@@ -75,15 +82,21 @@ export class CardOverview extends React.Component<Props, {}> {
                 cardItem.id
               );
               return (
-                <CardListItem
-                  key={cardItem.id}
-                  item={cardItem}
-                  store={store}
-                  onAdd={this.handleAddItem}
-                  onToggleSubitem={this.handleToggleSubItem}
-                  selected={itemIsPreselected}
-                  disabled={!itemIsPreselected && amountOfPreselections > 0}
-                />
+                <Observer>
+                  {() => (
+                    <CardListItem
+                      key={cardItem.id}
+                      item={cardItem}
+                      store={store}
+                      onAdd={this.handleAddItem}
+                      onToggleSubitem={this.handleToggleSubItem}
+                      selected={itemIsPreselected}
+                      opened={this.openItem === cardItem.id}
+                      onToggleOpen={this.handleToggleOpen}
+                      disabled={!itemIsPreselected && amountOfPreselections > 0}
+                    />
+                  )}
+                </Observer>
               );
             })
           }
