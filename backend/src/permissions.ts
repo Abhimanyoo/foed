@@ -1,5 +1,5 @@
 import { rule, shield } from 'graphql-shield';
-import { isAuthResolver } from '@volst/prisma-auth';
+import { isAuthResolver } from 'graphql-authentication';
 
 const isAuth = rule()(isAuthResolver);
 

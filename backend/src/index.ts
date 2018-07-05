@@ -2,10 +2,12 @@ import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from 'prisma-binding';
 import * as resolvers from './resolvers';
 import { email } from './mailer';
-import { prismaAuthConfig } from '@volst/prisma-auth';
+import { graphqlAuthenticationConfig } from 'graphql-authentication';
+import { GraphqlAuthenticationPrismaAdapter } from 'graphql-authentication-prisma';
 import { permissions } from './permissions';
 
 const authOptions = {
+  adapter: new GraphqlAuthenticationPrismaAdapter(),
   mailer: email,
   mailAppUrl: process.env.BACKEND_MAIL_APP_URL,
   secret: process.env.BACKEND_APP_SECRET || '',
@@ -41,7 +43,7 @@ const server = new GraphQLServer({
       secret: process.env.BACKEND_PRISMA_SECRET,
       debug: true,
     }),
-    prismaAuth: prismaAuthConfig(authOptions),
+    graphqlAuthentication: graphqlAuthenticationConfig(authOptions),
   }),
 });
 

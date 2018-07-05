@@ -1,11 +1,11 @@
 import * as speakingurl from 'speakingurl';
 import { Prisma } from './generated/prisma';
-import { IPrismaAuthConfig } from '@volst/prisma-auth/dist/src/Config';
+import { IGraphqlAuthenticationConfig } from 'graphql-authentication/dist/Config';
 
 export interface Context {
   db: Prisma;
   request: any;
-  prismaAuth: IPrismaAuthConfig;
+  graphqlAuthentication: IGraphqlAuthenticationConfig;
 }
 
 export async function generateSlug(
