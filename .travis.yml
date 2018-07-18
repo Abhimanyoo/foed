@@ -52,8 +52,7 @@ jobs:
       script:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(backend/|\.travis.yml)' || exit 0
         - cd backend
-        - "mkdir -p ~/.prisma && echo \"cloudSessionKey: ${PRISMA_CLOUD_SESSION_KEY}\" > ~/.prisma/config.yml"
-        - yarn prisma login
+        - yarn prisma login --key=${PRISMA_CLOUD_SESSION_KEY}
         - yarn prisma deploy --force
         - dotenv-filter --prefix=BACKEND_ > .env.now
         - now --dotenv=.env.now -t ${NOW_TOKEN} -T volst
