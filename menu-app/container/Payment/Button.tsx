@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 import { FloatingButtons } from '../../component/FloatingButtons';
 import { Button } from '../../component/Button';
 import { Mutation } from 'react-apollo';
@@ -21,8 +22,11 @@ interface Props {
 
 @observer
 export class PaymentButton extends React.Component<Props, {}> {
+  @observable isSubmitting = false;
+
   handlePay = async mutate => {
     const { store } = this.props;
+    this.isSubmitting = true;
     try {
       await mutate({
         variables: {
@@ -41,6 +45,7 @@ export class PaymentButton extends React.Component<Props, {}> {
       console.error('Error with payment', err);
       store.order.paymentStatus = PaymentStatus.Error;
     }
+    this.isSubmitting = false;
     R.Router.replaceRoute('/order');
   };
 
@@ -49,7 +54,12 @@ export class PaymentButton extends React.Component<Props, {}> {
       <Mutation mutation={PLACE_ORDER}>
         {mutate => (
           <FloatingButtons>
-            <Button onClick={() => this.handlePay(mutate)}>Pay</Button>
+            <Button
+              onClick={() => this.handlePay(mutate)}
+              disabled={this.isSubmitting}
+            >
+              Pay
+            </Button>
           </FloatingButtons>
         )}
       </Mutation>
