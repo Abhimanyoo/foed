@@ -43,7 +43,7 @@ export default class MyDocument extends Document {
             href="/static/favicon-16x16.png"
           />
           <link rel="shortcut icon" href="/static/favicon.ico" />
-          <meta name="theme-color" content="#40987a" />
+          <meta name="theme-color" content="#eba04f" />
           <style dangerouslySetInnerHTML={{ __html: this.props.css }} />
         </Head>
         <body>
