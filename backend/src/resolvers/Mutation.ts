@@ -56,7 +56,18 @@ export const Mutation = {
     info: any
   ) {
     // TODO: this can probably be improved for performance; first fetch all required data and then loop through data.items.
+    const lastOrders = await ctx.db.query.orders({
+      orderBy: 'number_DESC',
+      first: 1,
+    });
+
+    let lastOrderNumber = 1;
+    if (lastOrders.length > 0 && lastOrders[0].number) {
+      lastOrderNumber = lastOrders[0].number! + 1;
+    }
+
     const order = {
+      number: lastOrderNumber,
       items: { create: [] as any[] },
       tip: data.tip,
     };
@@ -89,10 +100,6 @@ export const Mutation = {
       });
     }
 
-    const actualOrder = await ctx.db.mutation.createOrder({ data: order });
-
-    return {
-      id: actualOrder.id,
-    };
+    return await ctx.db.mutation.createOrder({ data: order });
   },
 };

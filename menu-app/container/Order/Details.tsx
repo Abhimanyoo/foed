@@ -7,31 +7,38 @@ import { FloatingButtons } from '../../component/FloatingButtons';
 import { Button } from '../../component/Button';
 import R from '../../routes';
 import { OrderReceipt } from './Receipt';
+import { OrderOldReceipt } from './OldReceipt';
 import { OrderPaymentNotification } from './PaymentNotification';
 
 interface Props {
   store: Store;
+  status: PaymentStatus;
 }
 
 @observer
 export class OrderDetails extends React.Component<Props, {}> {
   render() {
-    const { store } = this.props;
+    const { store, status } = this.props;
     const hasItems = store.order.groupedItems.length > 0;
+    const hasPreviousOrders = store.previousOrders.length > 0;
     return (
       <div>
         <Header store={store} subTitle="Your order" />
-        {store.order.paymentStatus !== PaymentStatus.None && (
-          <OrderPaymentNotification status={store.order.paymentStatus} />
+        {status && <OrderPaymentNotification status={status} />}
+        {!hasItems &&
+          !hasPreviousOrders && (
+            <ReceiptEmpty>
+              You have not added anything to your basket yet!
+            </ReceiptEmpty>
+          )}
+        {hasItems && (
+          <OrderReceipt
+            order={store.order}
+            onAdd={item => store.order.cloneItem(item)}
+            onRemove={item => store.order.removeItem(item)}
+          />
         )}
-        {!hasItems && (
-          <ReceiptEmpty>You do not have any items right now!</ReceiptEmpty>
-        )}
-        <OrderReceipt
-          order={store.order}
-          onAdd={item => store.order.cloneItem(item)}
-          onRemove={item => store.order.removeItem(item)}
-        />
+        {store.previousOrders.map(order => <OrderOldReceipt order={order} />)}
         {hasItems && (
           <FloatingButtons>
             <R.Link route="/payment" prefetch>

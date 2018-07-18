@@ -11,6 +11,7 @@ export enum PaymentStatus {
 export class Order {
   @observable items: Item[] = [];
   @observable tip = 0;
+  @observable number: number | null = null;
   @observable paymentStatus: PaymentStatus = PaymentStatus.None;
 
   addItem(cardItem: CardItem, restaurantId: string, organizationId: string) {
@@ -137,6 +138,18 @@ export class Order {
 
 export class Store {
   @observable order = new Order();
+  @observable previousOrders: Order[] = [];
+
+  setPaymentAttempt(data?: { id: string; number: number }) {
+    if (data) {
+      this.order.paymentStatus = PaymentStatus.Success;
+      this.order.number = data.number;
+      this.previousOrders.unshift(this.order);
+      this.order = new Order();
+    } else {
+      this.order.paymentStatus = PaymentStatus.Error;
+    }
+  }
 }
 
 export function initStore() {

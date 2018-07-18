@@ -67,4 +67,5 @@ input PlaceOrderItems {
 
 type PlaceOrderPayload {
   id: ID!
+  number: Int!
 }

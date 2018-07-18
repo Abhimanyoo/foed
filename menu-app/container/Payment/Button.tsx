@@ -12,6 +12,7 @@ const PLACE_ORDER = gql`
   mutation placeOrder($data: PlaceOrderInput!) {
     placeOrder(data: $data) {
       id
+      number
     }
   }
 `;
@@ -28,7 +29,7 @@ export class PaymentButton extends React.Component<Props, {}> {
     const { store } = this.props;
     this.isSubmitting = true;
     try {
-      await mutate({
+      const { data } = await mutate({
         variables: {
           data: {
             items: store.order.items.map(item => ({
@@ -40,13 +41,14 @@ export class PaymentButton extends React.Component<Props, {}> {
           },
         },
       });
-      store.order.paymentStatus = PaymentStatus.Success;
+      store.setPaymentAttempt(data.placeOrder);
+      R.Router.replaceRoute(`/order?status=${PaymentStatus.Success}`);
     } catch (err) {
       console.error('Error with payment', err);
-      store.order.paymentStatus = PaymentStatus.Error;
+      store.setPaymentAttempt();
+      R.Router.replaceRoute(`/order?status=${PaymentStatus.Error}`);
     }
     this.isSubmitting = false;
-    R.Router.replaceRoute('/order');
   };
 
   render() {
