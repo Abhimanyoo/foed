@@ -5,7 +5,8 @@
     "module": "commonjs",
     "rootDir": "src",
     "outDir": "build",
-    "lib": ["esnext"],
+    // TODO: the "dom" lib is completely wrong here, but unfortunately `yarn build` crashes without this due to our use of yarn workspaces... sigh
+    "lib": ["esnext", "dom"],
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
