@@ -5,6 +5,7 @@ import { email } from './mailer';
 import { graphqlAuthenticationConfig } from 'graphql-authentication';
 import { GraphqlAuthenticationPrismaAdapter } from 'graphql-authentication-prisma';
 import { permissions } from './permissions';
+import { typeDefs } from './schema';
 
 const authOptions = {
   adapter: new GraphqlAuthenticationPrismaAdapter(),
@@ -29,7 +30,7 @@ const authOptions = {
 };
 
 const server = new GraphQLServer({
-  typeDefs: 'src/schema.graphql',
+  typeDefs: typeDefs(),
   resolvers,
   resolverValidationOptions: {
     requireResolversForResolveType: false,
