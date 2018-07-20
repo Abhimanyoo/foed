@@ -6,18 +6,17 @@ import { initStore, Store } from '../Store';
 import { WithApolloProps } from 'next-with-apollo';
 import '../styles';
 
-interface Props extends WithApolloProps<any> {
-  Component: any;
-  pageProps: object;
-}
-
-class MyApp extends App {
-  props: Props;
+class MyApp extends App<WithApolloProps<any>> {
   store: Store;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.store = initStore();
+  }
+
+  componentDidMount() {
+    // This is called only client-side, which is what we want
+    this.store.initStorageSync();
   }
 
   public render() {

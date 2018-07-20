@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx';
+import { computed, observable, autorun } from 'mobx';
 import {
   Item,
   GroupedItem,
@@ -7,6 +7,7 @@ import {
   GroupedItemByRestaurant,
 } from './types';
 
+const STORAGE_KEY = 'store-data';
 let store: Store | null = null;
 export enum PaymentStatus {
   None,
@@ -182,6 +183,27 @@ export class Store {
     } else {
       this.order.paymentStatus = PaymentStatus.Error;
     }
+  }
+
+  initStorageSync() {
+    const oldPayload = localStorage.getItem(STORAGE_KEY);
+    if (oldPayload) {
+      // This implementation probably won't hold up for very long...
+      const parsed = JSON.parse(oldPayload);
+      Object.assign(this.order, parsed.data.order);
+      Object.assign(this.previousOrders, parsed.data.previousOrders);
+    }
+
+    autorun(() => {
+      const payload = {
+        createdAt: new Date(),
+        data: {
+          order: this.order,
+          previousOrders: this.previousOrders,
+        },
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    });
   }
 }
 
