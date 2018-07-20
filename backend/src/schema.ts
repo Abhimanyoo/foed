@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import { printSchema } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
 
-const compiledSchemaPath = path.resolve('src/schema-compiled.graphql');
+const compiledSchemaPath = path.resolve('build/schema-compiled.graphql');
 
 function generateSchema() {
   const typeDefs = importSchema(path.resolve('src/schema.graphql'));
