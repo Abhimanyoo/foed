@@ -20,11 +20,18 @@ interface StyledLinkProps {
 
 const StyledLink = styled<StyledLinkProps, 'a'>('a')`
   color: #3e93a4;
-  padding: 12px 0 13px 20px;
+  padding: 12px 10px 13px 10px;
   display: inline-block;
   vertical-align: middle;
   text-decoration: none;
   position: relative;
+
+  &:first-child {
+    padding-left: 20px;
+    &:after {
+      margin-left: 0;
+    }
+  }
 
   ${props => (props.active ? activeLinkStyles : '')};
 `;
@@ -38,7 +45,7 @@ const activeLinkStyles = css`
     bottom: -5px;
     width: 10px;
     height: 10px;
-    margin-left: 5px;
+    margin-left: -5px;
     background: #3e93a4;
     border: solid #3e93a4;
     border-width: 0 3px 3px 0;
