@@ -17,6 +17,57 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: cd backend && yarn build
+      - run: cd backend && yarn test
       - run: cd frontend && yarn build
+      - run: cd frontend && yarn test
       - run: cd menu-app && yarn build
+      - run: cd menu-app && yarn test
+      - save_cache:
+          paths:
+            - frontend/build
+            - backend/build
+            - menu-app/build
+            - menu-app/.next
+          key: v1-build-{{ .Revision }}
+  deploy:
+    docker:
+      - image: circleci/node:8.11
+    working_directory: ~/repo
 
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - restore_cache:
+          keys:
+          - v1-build-{{ .Revision }}
+      - run: yarn install
+      - run: |
+          cd backend
+          yarn prisma login --key=${PRISMA_CLOUD_SESSION_KEY}
+          yarn prisma deploy --force
+          dotenv-filter --prefix=BACKEND_ > .env.now
+          now --dotenv=.env.now -t ${NOW_TOKEN} -T volst
+          now alias -t ${NOW_TOKEN} -T volst
+      - run: |
+          cd frontend
+          now -t ${NOW_TOKEN} -T volst
+          now alias -t ${NOW_TOKEN} -T volst
+      - run: |
+          cd menu-app
+          now -t ${NOW_TOKEN} -T volst
+          now alias -t ${NOW_TOKEN} -T volst
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
