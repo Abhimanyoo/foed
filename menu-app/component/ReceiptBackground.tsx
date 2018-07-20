@@ -2,6 +2,7 @@ import { css } from 'react-emotion';
 
 const backgroundStyles = css`
   position: relative;
+  margin: 8px 0;
 `;
 
 const counterStyles = css`

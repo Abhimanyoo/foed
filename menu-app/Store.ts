@@ -1,5 +1,11 @@
 import { computed, observable } from 'mobx';
-import { Item, GroupedItem, CardItem, CardSubitem } from './types';
+import {
+  Item,
+  GroupedItem,
+  CardItem,
+  CardSubitem,
+  GroupedItemByRestaurant,
+} from './types';
 
 let store: Store | null = null;
 export enum PaymentStatus {
@@ -14,7 +20,11 @@ export class Order {
   @observable number: number | null = null;
   @observable paymentStatus: PaymentStatus = PaymentStatus.None;
 
-  addItem(cardItem: CardItem, restaurantId: string, organizationId: string) {
+  addItem(
+    cardItem: CardItem,
+    restaurant: { id: string; name: string },
+    organizationId: string
+  ) {
     // Reset items if items from another organization are added since those can never be mixed
     if (
       this.items.length > 0 &&
@@ -27,7 +37,7 @@ export class Order {
       subitems: [],
       preselect: true,
       organizationId,
-      restaurantId,
+      restaurant,
     });
   }
 
@@ -37,7 +47,7 @@ export class Order {
       subitems: item.subitems.slice(),
       preselect: false,
       organizationId: item.organizationId,
-      restaurantId: item.restaurantId,
+      restaurant: item.restaurant,
     });
   }
 
@@ -133,6 +143,29 @@ export class Order {
       }
     });
     return groupedItems;
+  }
+
+  @computed
+  get groupedItemsByRestaurant() {
+    // TODO: this is shitcode, perhaps I should just use a small package that does the grouping
+    const restaurantItems: GroupedItemByRestaurant[] = [];
+
+    this.groupedItems.forEach(groupedItem => {
+      const restaurantItem = restaurantItems.find(
+        restaurantItem =>
+          restaurantItem.restaurant.id === groupedItem.item.restaurant.id
+      );
+      if (restaurantItem) {
+        restaurantItem.items.push(groupedItem);
+      } else {
+        restaurantItems.push({
+          restaurant: groupedItem.item.restaurant,
+          items: [groupedItem],
+        });
+      }
+    });
+
+    return restaurantItems;
   }
 }
 

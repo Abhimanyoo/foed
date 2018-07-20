@@ -64,3 +64,10 @@ export const ReceiptListItemButton = styled('button')`
     opacity: 0.8;
   }
 `;
+
+export const ReceiptRestaurantTitle = styled('div')`
+  font-style: italic;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 10px 0 0 40px;
+  padding: 10px;
+`;

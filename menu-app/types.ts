@@ -18,10 +18,20 @@ export interface Item {
   cardItem: CardItem;
   subitems: CardSubitem[];
   organizationId: string;
-  restaurantId: string;
+  restaurant: BasicRestaurant;
+}
+
+export interface BasicRestaurant {
+  id: string;
+  name: string;
 }
 
 export interface GroupedItem {
   item: Item;
   amount: number;
+}
+
+export interface GroupedItemByRestaurant {
+  restaurant: BasicRestaurant;
+  items: GroupedItem[];
 }
