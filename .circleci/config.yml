@@ -42,23 +42,22 @@ jobs:
       - restore_cache:
           keys:
           - v1-build-{{ .Revision }}
-      - run: npm install -g now dotenv-filter-cli
       - run: yarn install
       - run: |
           cd backend
           node_modules/.bin/prisma login --key=${PRISMA_CLOUD_SESSION_KEY}
           node_modules/.bin/prisma deploy --force
-          dotenv-filter --prefix=BACKEND_ > .env.now
-          now --dotenv=.env.now -t ${NOW_TOKEN} -T volst
-          now alias -t ${NOW_TOKEN} -T volst
+          npx dotenv-filter --prefix=BACKEND_ > .env.now
+          npx now --dotenv=.env.now -t ${NOW_TOKEN} -T volst
+          npx now alias -t ${NOW_TOKEN} -T volst
       - run: |
           cd frontend
-          now -t ${NOW_TOKEN} -T volst
-          now alias -t ${NOW_TOKEN} -T volst
+          npx now -t ${NOW_TOKEN} -T volst
+          npx now alias -t ${NOW_TOKEN} -T volst
       - run: |
           cd menu-app
-          now -t ${NOW_TOKEN} -T volst
-          now alias -t ${NOW_TOKEN} -T volst
+          npx now -t ${NOW_TOKEN} -T volst
+          npx now alias -t ${NOW_TOKEN} -T volst
 
 workflows:
   version: 2
