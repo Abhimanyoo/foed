@@ -42,7 +42,7 @@ jobs:
       - restore_cache:
           keys:
           - v1-build-{{ .Revision }}
-      - run: yarn global add now dotenv-filter-cli
+      - run: npm install -g now dotenv-filter-cli
       - run: yarn install
       - run: |
           cd backend
