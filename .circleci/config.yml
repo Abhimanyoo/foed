@@ -47,7 +47,7 @@ jobs:
           cd backend
           node_modules/.bin/prisma login --key=${PRISMA_CLOUD_SESSION_KEY}
           node_modules/.bin/prisma deploy --force
-          npx dotenv-filter --prefix=BACKEND_ > .env.now
+          npx dotenv-filter-cli --prefix=BACKEND_ > .env.now
           npx now --dotenv=.env.now -t ${NOW_TOKEN} -T volst
           npx now alias -t ${NOW_TOKEN} -T volst
       - run: |
