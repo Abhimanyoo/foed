@@ -3,6 +3,7 @@
   "workspaces": [
     "frontend",
     "backend",
-    "menu-app"
+    "menu-app",
+    "restaurant"
   ]
 }
