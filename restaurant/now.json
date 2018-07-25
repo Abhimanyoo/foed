@@ -1,0 +1,16 @@
+{
+  "name": "foed-restaurant",
+  "type": "npm",
+  "alias": ["restaurant.foed.app"],
+  "files": [".next", "static", "build", "package.json"],
+  "public": false,
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "scale": {
+    "bru1": {
+      "min": 1,
+      "max": 1
+    }
+  }
+}

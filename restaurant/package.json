@@ -1,0 +1,40 @@
+{
+  "name": "foed-restaurant-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "PORT=3002 ts-node -P tsconfig.server.json server.ts",
+    "now-start": "PORT=3002 NODE_ENV=production node build/server.js",
+    "build": "tsc -P tsconfig.server.json && next build",
+    "now-build": "echo"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.49",
+    "@types/next": "^6.0.4",
+    "@types/node": "10.5.3",
+    "@volst/next-routes": "^1.4.1",
+    "@zeit/next-typescript": "^1.0.0",
+    "apollo-boost": "^0.1.6",
+    "apollo-client": "^2.3.1",
+    "babel-plugin-inline-dotenv": "^1.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "emotion": "9.1.3",
+    "emotion-server": "^9.1.3",
+    "graphql": "^0.13.2",
+    "mobx": "^4.3.0",
+    "mobx-react": "^5.1.2",
+    "next": "^6.0.0",
+    "next-with-apollo": "^3.0.2",
+    "react": "^16.3.2",
+    "react-apollo": "^2.1.4",
+    "react-dom": "^16.3.2",
+    "react-emotion": "9.1.3",
+    "react-mobx": "^0.0.3",
+    "react-virtual-list": "^2.3.0",
+    "ts-node": "^7.0.0",
+    "typescript": "^2.8.3",
+    "typescript-styled-plugin": "^0.10.0"
+  }
+}

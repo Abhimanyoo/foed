@@ -1,0 +1,21 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "build/",
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "baseUrl": ".",
+    // TODO: the "dom" lib is completely wrong here, but unfortunately `yarn build` crashes without this due to our use of yarn workspaces... sigh
+    "lib": [
+      "esnext",
+      "dom"
+    ]
+  },
+  "include": [
+    "server.ts"
+  ]
+}

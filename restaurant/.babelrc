@@ -1,0 +1,13 @@
+{
+  "presets": [
+    "next/babel",
+    "@zeit/next-typescript/babel"
+  ],
+  "plugins": [
+    ["inline-dotenv", {
+      "path": "../.env"
+    }],
+    "babel-plugin-transform-decorators-legacy",
+    "babel-plugin-transform-class-properties"
+  ]
+}
