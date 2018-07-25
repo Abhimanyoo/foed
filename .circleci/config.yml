@@ -21,12 +21,15 @@ jobs:
       - run: cd frontend && yarn build
       - run: cd frontend && yarn test
       - run: cd menu-app && yarn build
+      - run: cd restaurant && yarn build
       - save_cache:
           paths:
             - frontend/build
             - backend/build
             - menu-app/build
             - menu-app/.next
+            - restaurant/build
+            - restaurant/.next
           key: v1-build-{{ .Revision }}
   deploy:
     docker:
@@ -56,6 +59,10 @@ jobs:
           npx now alias -t ${NOW_TOKEN} -T volst
       - run: |
           cd menu-app
+          npx now -t ${NOW_TOKEN} -T volst
+          npx now alias -t ${NOW_TOKEN} -T volst
+      - run: |
+          cd restaurant
           npx now -t ${NOW_TOKEN} -T volst
           npx now alias -t ${NOW_TOKEN} -T volst
 
