@@ -191,7 +191,11 @@ export class Store {
       // This implementation probably won't hold up for very long...
       const parsed = JSON.parse(oldPayload);
       Object.assign(this.order, parsed.data.order);
-      Object.assign(this.previousOrders, parsed.data.previousOrders);
+      this.previousOrders = parsed.data.previousOrders.map(rawOrder => {
+        const order = new Order();
+        Object.assign(order, rawOrder);
+        return order;
+      });
     }
 
     autorun(() => {
