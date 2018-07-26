@@ -102,4 +102,19 @@ export const Mutation = {
 
     return await ctx.db.mutation.createOrder({ data: order });
   },
+  async completeOrderItem(
+    parent: any,
+    { ids, complete }: { ids: string[]; complete: boolean },
+    ctx: Context,
+    info: any
+  ) {
+    await ctx.db.mutation.updateManyOrderItems(
+      {
+        where: { id_in: ids },
+        data: { completedAt: complete ? new Date() : (null as any) },
+      },
+      info
+    );
+    return { ok: true };
+  },
 };

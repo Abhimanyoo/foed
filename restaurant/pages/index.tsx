@@ -42,7 +42,9 @@ export default class Index extends React.Component {
           // If there is only one employment, just redirect immediately to that restaurant instead of showing a useless list with one item
           const employments = data.currentUser.employments;
           if (employments.length === 1) {
-            R.Router.replaceRoute(`/restaurant/${employments[0].id}`);
+            R.Router.replaceRoute(
+              `/restaurant/${employments[0].restaurant.id}`
+            );
           }
         }}
       >

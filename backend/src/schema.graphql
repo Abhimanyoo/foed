@@ -18,6 +18,7 @@ type Mutation {
   inviteUser(data: InviteUserInput): UserIdPayload!
   imageUpload(file: Upload!): UploadPayload!
   placeOrder(data: PlaceOrderInput): PlaceOrderPayload!
+  completeOrderItem(ids: [ID!]!, complete: Boolean!): CompleteOrderPayload!
 }
 
 input InviteUserInput {
@@ -69,4 +70,8 @@ input PlaceOrderItems {
 type PlaceOrderPayload {
   id: ID!
   number: Int!
+}
+
+type CompleteOrderPayload {
+  ok: Boolean!
 }
