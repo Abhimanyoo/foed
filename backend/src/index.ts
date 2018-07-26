@@ -1,11 +1,12 @@
-import { GraphQLServer } from 'graphql-yoga';
+import { ApolloServer } from 'apollo-server';
 import { Prisma } from 'prisma-binding';
 import * as resolvers from './resolvers';
 import { email } from './mailer';
 import { graphqlAuthenticationConfig } from 'graphql-authentication';
 import { GraphqlAuthenticationPrismaAdapter } from 'graphql-authentication-prisma';
+import { applyMiddleware } from 'graphql-middleware';
 import { permissions } from './permissions';
-import { typeDefs } from './schema';
+import { getSchema } from './schema';
 
 const authOptions = {
   adapter: new GraphqlAuthenticationPrismaAdapter(),
@@ -29,23 +30,25 @@ const authOptions = {
   },
 };
 
-const server = new GraphQLServer({
-  typeDefs: typeDefs(),
-  resolvers,
-  resolverValidationOptions: {
-    requireResolversForResolveType: false,
-  },
-  middlewares: [permissions],
+const debug = process.env.NODE_ENV !== 'production';
+
+const schema = applyMiddleware(getSchema(resolvers), permissions);
+
+const server = new ApolloServer({
+  schema,
+  introspection: true,
+  playground: true,
+  debug,
   context: req => ({
     ...req,
     db: new Prisma({
       typeDefs: 'src/generated/prisma.graphql',
       endpoint: process.env.BACKEND_PRISMA_ENDPOINT,
       secret: process.env.BACKEND_PRISMA_SECRET,
-      debug: true,
+      debug,
     }),
     graphqlAuthentication: graphqlAuthenticationConfig(authOptions),
   }),
 });
 
-server.start(() => console.log('Server is running on http://localhost:4000'));
+server.listen().then(({ url }) => console.log(`Server is running on ${url}`));
