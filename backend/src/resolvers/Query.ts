@@ -37,4 +37,24 @@ export const Query = {
       ctx.db.query.organization({ where: { slug } })
     );
   },
+  async unfinishedRestaurantOrders(
+    parent: any,
+    { restaurantId }: { restaurantId: string },
+    ctx: Context,
+    info: any
+  ) {
+    return ctx.db.query.orders(
+      {
+        where: {
+          items_some: {
+            restaurant: { id: restaurantId },
+            // TODO: this is nasty, Prisma's typescript bindings disallow us from using `null`, however it does work.
+            // Need to file a PR to fix this one day...
+            completedAt: null as any,
+          },
+        },
+      },
+      info
+    );
+  },
 };

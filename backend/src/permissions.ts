@@ -15,6 +15,7 @@ export const permissions = shield({
     cardsConnection: isAuth,
     generateRestaurantSlug: isAuth,
     generateOrganizationSlug: isAuth,
+    unfinishedRestaurantOrders: isAuth,
   },
   Mutation: {
     createRestaurant: isAuth,
