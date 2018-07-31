@@ -46,7 +46,10 @@ export default class Restaurant extends React.Component<Props> {
     return (
       <Query query={ORDERS} fetchPolicy="cache-and-network" variables={{ id }}>
         {result => (
-          <OrderOverview orders={result.data.unfinishedRestaurantOrders} />
+          <OrderOverview
+            orders={result.data.unfinishedRestaurantOrders}
+            refetch={result.refetch}
+          />
         )}
       </Query>
     );

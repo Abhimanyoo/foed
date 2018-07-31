@@ -6,13 +6,14 @@ export const ReceiptEmpty = styled('div')`
   padding: 20px;
 `;
 
-export const ReceiptListItem = styled('div')`
+export const ReceiptListItem = styled<{ completed?: boolean }, 'div'>('div')`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 10px 0;
   min-height: 80px;
+  opacity: ${props => props.completed && 0.5};
 `;
 
 export const ReceiptListItemOrderCount = styled('div')`

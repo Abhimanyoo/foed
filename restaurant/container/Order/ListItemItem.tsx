@@ -13,6 +13,7 @@ import gql from 'graphql-tag';
 
 interface Props {
   item: any;
+  refetch: () => void;
 }
 
 const COMPLETE_ORDER_ITEM = gql`
@@ -33,13 +34,14 @@ export class OrderListItemItem extends React.Component<Props, {}> {
         complete: true,
       },
     });
+    this.props.refetch();
     // TODO: Show some kind of feedback when this went wrong
   };
 
   render() {
     const { item } = this.props;
     return (
-      <ReceiptListItem>
+      <ReceiptListItem completed={!!item.completedAt}>
         <ReceiptListItemInfo>
           <ReceiptListItemOrderCount>1</ReceiptListItemOrderCount>
           <ReceiptListItemTitle>{item.cardItem.name}</ReceiptListItemTitle>
