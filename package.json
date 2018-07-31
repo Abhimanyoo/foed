@@ -1,9 +1,9 @@
 {
   "private": true,
   "workspaces": [
-    "frontend",
-    "backend",
-    "menu-app",
+    "admin",
+    "api",
+    "menu",
     "restaurant"
   ]
 }

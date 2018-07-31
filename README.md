@@ -21,7 +21,7 @@ Copy `.env.example` to `.env` in the repository root;
 
 ```bash
 yarn
-cd backend/database
+cd api/database
 docker-compose up -d
 cd ..
 yarn start
@@ -29,31 +29,26 @@ yarn start
 
 Keep this running while developing.
 
-In a second tab:
+In a second tab (only once):
 
 ```bash
-cd backend
+cd api
 yarn deploy
 ```
 
-And to get the frontend running:
+Now the API is running, you can start one of the frontend apps.
+
+Go to the `admin`, `menu` or `restaurant` folder and run for example:
 
 ```bash
-cd frontend
-yarn start
-```
-
-And to get the menu app running:
-
-```bash
-cd menu-app
+cd admin
 yarn start
 ```
 
 
 ## Adding a user
 
-The backend automatically seeds data. You can now login on the webapp with the user `info@volst.nl` and `testtest2` as password.
+The API automatically seeds data. You can now login on the webapp with the user `info@volst.nl` and `testtest2` as password.
 
 ## Playing with the API
 

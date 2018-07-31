@@ -16,18 +16,18 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: cd backend && yarn build
-      - run: cd backend && yarn test
-      - run: cd frontend && yarn build
-      - run: cd frontend && yarn test
-      - run: cd menu-app && yarn build
+      - run: cd api && yarn build
+      - run: cd api && yarn test
+      - run: cd admin && yarn build
+      - run: cd admin && yarn test
+      - run: cd menu && yarn build
       - run: cd restaurant && yarn build
       - save_cache:
           paths:
-            - frontend/build
-            - backend/build
-            - menu-app/build
-            - menu-app/.next
+            - admin/build
+            - api/build
+            - menu/build
+            - menu/.next
             - restaurant/build
             - restaurant/.next
           key: v1-build-{{ .Revision }}
@@ -47,18 +47,18 @@ jobs:
           - v1-build-{{ .Revision }}
       - run: yarn install
       - run: |
-          cd backend
+          cd api
           node_modules/.bin/prisma login --key=${PRISMA_CLOUD_SESSION_KEY}
           node_modules/.bin/prisma deploy --force
           npx dotenv-filter-cli --prefix=BACKEND_ > .env.now
           npx now --dotenv=.env.now -t ${NOW_TOKEN} -T volst
           npx now alias -t ${NOW_TOKEN} -T volst
       - run: |
-          cd frontend
+          cd admin
           npx now -t ${NOW_TOKEN} -T volst
           npx now alias -t ${NOW_TOKEN} -T volst
       - run: |
-          cd menu-app
+          cd menu
           npx now -t ${NOW_TOKEN} -T volst
           npx now alias -t ${NOW_TOKEN} -T volst
       - run: |
