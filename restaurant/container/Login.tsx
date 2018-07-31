@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import cookie from 'cookie';
 import redirect from '../lib/redirect';
 import { Button } from '../component/Button';
+import { ApolloClient } from 'apollo-boost';
 
 const SIGN_IN = gql`
   mutation login($email: String!, $password: String!) {
@@ -12,7 +13,7 @@ const SIGN_IN = gql`
   }
 `;
 
-const _LoginBox = ({ client }) => {
+const _LoginBox = ({ client }: { client?: ApolloClient<any> }) => {
   let email, password;
 
   return (
