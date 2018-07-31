@@ -1,12 +1,12 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
-import { ApolloClient } from 'apollo-boost';
 import { withApollo } from '../lib/withApollo';
+import { WithApolloProps } from 'next-with-apollo';
 import '../styles';
 
-class MyApp extends App<{ apollo: ApolloClient<any> }> {
-  public render() {
+class MyApp extends App<WithApolloProps<any>> {
+  render() {
     const { Component, pageProps, apollo } = this.props;
 
     return (
