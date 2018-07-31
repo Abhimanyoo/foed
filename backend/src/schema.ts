@@ -6,9 +6,17 @@ import { makeExecutableSchema, IResolvers } from 'graphql-tools';
 
 const compiledSchemaPath = path.resolve('build/schema-compiled.graphql');
 
+const schemaOptions = {
+  resolverValidationOptions: { requireResolversForResolveType: false },
+};
+
 function generateSchema(resolvers: IResolvers = {}) {
   const typeDefs = importSchema(path.resolve('src/schema.graphql'));
-  return makeExecutableSchema({ typeDefs, resolvers });
+  return makeExecutableSchema({
+    typeDefs,
+    resolvers,
+    ...schemaOptions,
+  });
 }
 
 export function getSchema(resolvers: IResolvers = {}) {
@@ -18,7 +26,7 @@ export function getSchema(resolvers: IResolvers = {}) {
   // Do note: I don't know yet if this is a good idea...
   if (process.env.NODE_ENV === 'production') {
     const typeDefs = fs.readFileSync(compiledSchemaPath, 'utf8');
-    return makeExecutableSchema({ typeDefs, resolvers });
+    return makeExecutableSchema({ typeDefs, resolvers, ...schemaOptions });
   }
   return generateSchema(resolvers);
 }
