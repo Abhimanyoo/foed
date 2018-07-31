@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Button } from '../../component/Button';
-import { FloatingButtons } from '../../component/FloatingButtons';
+import { Button } from 'component/Button';
+import { FloatingButtons } from 'component/FloatingButtons';
 import { observer } from 'mobx-react';
-import R from '../../routes';
-import { Store } from '../../Store';
+import R from 'routes';
+import { Store } from 'Store';
 
 interface Props {
   preselectedAmount: number;

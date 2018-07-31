@@ -8,12 +8,12 @@ import {
   ListItemPrice,
   ListItemButton,
   ListItemTitle,
-} from '../../component/List';
+} from 'component/List';
 import { CardListSubitem, ToggleSubItemFn } from './ListSubitem';
-import { floatToDecimal } from '../../helpers';
+import { floatToDecimal } from 'helpers';
 import { Store } from 'Store';
-import { IconAddCircle } from '../../component/icon/AddCircle';
-import { CardItem } from '../../types';
+import { IconAddCircle } from 'component/icon/AddCircle';
+import { CardItem } from 'types';
 
 interface Props {
   item: CardItem;

@@ -8,11 +8,11 @@ import {
   ReceiptListItemButton,
   ReceiptListItemDescription,
   ReceiptListItemTitle,
-} from '../../component/ReceiptList';
-import { floatToDecimal } from '../../helpers';
-import { IconAddCircle } from '../../component/icon/AddCircle';
-import { IconRemoveCircle } from '../../component/icon/RemoveCircle';
-import { Item } from '../../types';
+} from 'component/ReceiptList';
+import { floatToDecimal } from 'helpers';
+import { IconAddCircle } from 'component/icon/AddCircle';
+import { IconRemoveCircle } from 'component/icon/RemoveCircle';
+import { Item } from 'types';
 
 export type OnAddFn = (item: Item) => void;
 export type OnRemoveFn = (item: Item) => void;

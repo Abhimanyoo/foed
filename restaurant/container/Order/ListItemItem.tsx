@@ -7,8 +7,8 @@ import {
   ReceiptListItemButton,
   ReceiptListItemDescription,
   ReceiptListItemTitle,
-} from '../../component/ReceiptList';
-import IconCheck from '../../component/icon/Check';
+} from 'component/ReceiptList';
+import IconCheck from 'component/icon/Check';
 import gql from 'graphql-tag';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { RestaurantListItem } from './ListItem';
-import { Grid, GRID_ITEM_HEIGHT } from '../../component/Grid';
-import { Header } from '../../component/Header';
+import { Grid, GRID_ITEM_HEIGHT } from 'component/Grid';
+import { Header } from 'component/Header';
 import { Store } from 'Store';
 import VirtualList from 'react-virtual-list';
 

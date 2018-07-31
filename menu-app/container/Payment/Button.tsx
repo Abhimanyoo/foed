@@ -1,12 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
-import { FloatingButtons } from '../../component/FloatingButtons';
-import { Button } from '../../component/Button';
+import { FloatingButtons } from 'component/FloatingButtons';
+import { Button } from 'component/Button';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Store, PaymentStatus } from '../../Store';
-import R from '../../routes';
+import { Store, PaymentStatus } from 'Store';
+import R from 'routes';
 
 const PLACE_ORDER = gql`
   mutation placeOrder($data: PlaceOrderInput!) {

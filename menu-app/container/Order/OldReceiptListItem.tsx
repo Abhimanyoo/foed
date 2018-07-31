@@ -7,9 +7,9 @@ import {
   ReceiptListItemPrice,
   ReceiptListItemDescription,
   ReceiptListItemTitle,
-} from '../../component/ReceiptList';
-import { floatToDecimal } from '../../helpers';
-import { Item } from '../../types';
+} from 'component/ReceiptList';
+import { floatToDecimal } from 'helpers';
+import { Item } from 'types';
 
 interface Props {
   item: Item;

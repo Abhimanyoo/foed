@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GridItem, GridItemTitle, GridItemImage } from '../../component/Grid';
+import { GridItem, GridItemTitle, GridItemImage } from 'component/Grid';
 
 interface Props {
   restaurant: any;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { PaymentStatus } from '../../Store';
+import { PaymentStatus } from 'Store';
 import styled from 'react-emotion';
 
 const Wrapper = styled('div')`

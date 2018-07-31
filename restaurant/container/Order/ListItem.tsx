@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Subheading } from '../../component/Header';
-import { ReceiptBackground } from '../../component/ReceiptBackground';
+import { Subheading } from 'component/Header';
+import { ReceiptBackground } from 'component/ReceiptBackground';
 import { OrderListItemItem } from './ListItemItem';
 
 interface Props {

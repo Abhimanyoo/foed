@@ -1,6 +1,6 @@
 import { Query } from '../component/Query';
 import gql from 'graphql-tag';
-import { OrganizationOverview } from '../container/Organization/Overview';
+import { OrganizationOverview } from 'container/Organization/Overview';
 
 const ALL_ORGANIZATIONS = gql`
   query allOrganizationNames {

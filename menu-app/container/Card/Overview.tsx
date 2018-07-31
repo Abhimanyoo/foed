@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer, Observer } from 'mobx-react';
-import { Header } from '../../component/Header';
-import { Query } from '../../component/Query';
+import { Header } from 'component/Header';
+import { Query } from 'component/Query';
 import gql from 'graphql-tag';
 import { CardListItem } from './ListItem';
 import { CardCategoryMenu } from './CategoryMenu';

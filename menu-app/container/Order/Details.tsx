@@ -1,11 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Header } from '../../component/Header';
-import { Store, PaymentStatus } from '../../Store';
-import { ReceiptEmpty } from '../../component/ReceiptList';
-import { FloatingButtons } from '../../component/FloatingButtons';
-import { Button } from '../../component/Button';
-import R from '../../routes';
+import { Header } from 'component/Header';
+import { Store, PaymentStatus } from 'Store';
+import { ReceiptEmpty } from 'component/ReceiptList';
+import { FloatingButtons } from 'component/FloatingButtons';
+import { Button } from 'component/Button';
+import R from 'routes';
 import { OrderReceipt } from './Receipt';
 import { OrderOldReceipt } from './OldReceipt';
 import { OrderPaymentNotification } from './PaymentNotification';

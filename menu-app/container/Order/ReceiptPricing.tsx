@@ -6,8 +6,8 @@ import {
   ReceiptPriceItemName,
   ReceiptPriceItemAmount,
   ReceiptPriceLine,
-} from '../../component/ReceiptPricing';
-import { floatToDecimal } from '../../helpers';
+} from 'component/ReceiptPricing';
+import { floatToDecimal } from 'helpers';
 
 interface Props {
   order: Order;

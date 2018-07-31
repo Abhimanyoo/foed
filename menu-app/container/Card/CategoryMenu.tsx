@@ -1,4 +1,4 @@
-import { ScrollMenu, ScrollMenuItem } from '../../component/ScrollMenu';
+import { ScrollMenu, ScrollMenuItem } from 'component/ScrollMenu';
 
 interface Props {
   restaurant: any;

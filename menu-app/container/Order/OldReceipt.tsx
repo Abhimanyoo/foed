@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import { observer } from 'mobx-react';
 import { OrderOldReceiptListItem } from './OldReceiptListItem';
 import { Order } from 'Store';
-import { ReceiptBackground } from '../../component/ReceiptBackground';
+import { ReceiptBackground } from 'component/ReceiptBackground';
 import { OrderReceiptPricing } from './ReceiptPricing';
-import { Subheading } from '../../component/Header';
+import { Subheading } from 'component/Header';
 
 interface Props {
   order: Order;

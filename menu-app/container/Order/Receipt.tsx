@@ -2,8 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { OrderReceiptListItem, OnAddFn, OnRemoveFn } from './ReceiptListItem';
 import { Order } from 'Store';
-import { ReceiptBackground } from '../../component/ReceiptBackground';
-import { ReceiptRestaurantTitle } from '../../component/ReceiptList';
+import { ReceiptBackground } from 'component/ReceiptBackground';
+import { ReceiptRestaurantTitle } from 'component/ReceiptList';
 import { OrderReceiptPricing } from './ReceiptPricing';
 
 interface Props {

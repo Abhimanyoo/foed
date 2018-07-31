@@ -1,7 +1,7 @@
 import { RestaurantListItem } from './ListItem';
-import { Grid, GRID_ITEM_HEIGHT } from '../../component/Grid';
+import { Grid, GRID_ITEM_HEIGHT } from 'component/Grid';
 import VirtualList from 'react-virtual-list';
-import { Subheading } from '../../component/Header';
+import { Subheading } from 'component/Header';
 
 interface Props {
   employments: any;

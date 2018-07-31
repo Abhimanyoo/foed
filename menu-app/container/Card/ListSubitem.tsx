@@ -5,11 +5,11 @@ import {
   ListSubitemCheck,
   ListSubitemInfo,
   ListSubitemPrice,
-} from '../../component/List';
-import { floatToDecimal } from '../../helpers';
+} from 'component/List';
+import { floatToDecimal } from 'helpers';
 import { Store } from 'Store';
-import IconCheck from '../../component/icon/Check';
-import { CardItem, CardSubitem } from '../../types';
+import IconCheck from 'component/icon/Check';
+import { CardItem, CardSubitem } from 'types';
 export type ToggleSubItemFn = (item: CardItem, subitem: CardSubitem) => void;
 
 interface Props {
