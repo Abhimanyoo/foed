@@ -14,7 +14,8 @@ export class Query extends React.Component<Props, {}> {
           if (result.error) {
             return <FullCenter>Something went wrong.</FullCenter>;
           }
-          if (result.loading) {
+          // Only show loading thingy if there are no previous records yet
+          if (result.loading && Object.keys(result.data).length === 0) {
             return (
               <FullCenter>
                 <Loader show delay />
