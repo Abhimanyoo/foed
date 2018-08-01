@@ -15,7 +15,8 @@ interface Props {
 const COMPLETE_ORDER_ITEM = gql`
   mutation changeOrderStatus($id: ID!, $status: OrderStatus!) {
     changeOrderStatus(id: $id, status: $status) {
-      ok
+      id
+      status
     }
   }
 `;
@@ -34,14 +35,14 @@ export class OrderListItem extends React.Component<Props, {}> {
   };
 
   render() {
-    const { order, refetch } = this.props;
+    const { order } = this.props;
     return (
       <div>
         <Subheading>#{order.number}</Subheading>
         <ReceiptBackground>
-          {order.status !== 'COMPLETED' &&
+          {order.status === 'IN_PROGRESS' &&
             order.items.map(item => (
-              <OrderListItemItem key={item.id} item={item} refetch={refetch} />
+              <OrderListItemItem key={item.id} item={item} />
             ))}
           <Mutation mutation={COMPLETE_ORDER_ITEM}>
             {mutate => (

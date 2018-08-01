@@ -116,7 +116,7 @@ export const Mutation = {
       },
       info
     );
-    return { ok: true };
+    return ctx.db.query.orderItems({ where: { id_in: ids } });
   },
   async changeOrderStatus(
     parent: any,
@@ -124,13 +124,12 @@ export const Mutation = {
     ctx: Context,
     info: any
   ) {
-    await ctx.db.mutation.updateOrder(
+    return await ctx.db.mutation.updateOrder(
       {
         where: { id },
         data: { status },
       },
       info
     );
-    return { ok: true };
   },
 };

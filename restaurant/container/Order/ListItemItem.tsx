@@ -13,13 +13,13 @@ import gql from 'graphql-tag';
 
 interface Props {
   item: any;
-  refetch: () => void;
 }
 
 const COMPLETE_ORDER_ITEM = gql`
   mutation completeOrderItem($ids: [ID!]!, $complete: Boolean!) {
     completeOrderItem(ids: $ids, complete: $complete) {
-      ok
+      id
+      completedAt
     }
   }
 `;
@@ -31,10 +31,9 @@ export class OrderListItemItem extends React.Component<Props, {}> {
     await mutate({
       variables: {
         ids: [item.id],
-        complete: true,
+        complete: !item.completedAt,
       },
     });
-    this.props.refetch();
     // TODO: Show some kind of feedback when this went wrong
   };
 
