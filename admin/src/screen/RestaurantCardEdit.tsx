@@ -86,6 +86,7 @@ export class RestaurantCardEdit extends React.Component<ScreenProps, {}> {
         dismissAfter: 4000,
         message: 'Saved successfully',
       });
+      actions.setSubmitting(false);
       return null;
     } catch (err) {
       actions.setSubmitting(false);
