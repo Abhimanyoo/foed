@@ -38,6 +38,12 @@ export class CreateFormCategoryAdd extends React.Component<
               onChange={(name, value) =>
                 this.setState({ input: { ...this.state.input, name: value } })
               }
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  e.preventDefault();
+                  this.handleAdd();
+                }
+              }}
             />
           </FormField>
         </Col>

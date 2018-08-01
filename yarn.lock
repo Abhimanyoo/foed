@@ -1146,9 +1146,9 @@
   dependencies:
     tslint-react "^3.5.1"
 
-"@volst/ui-components@^0.16.0":
-  version "0.16.4"
-  resolved "https://registry.yarnpkg.com/@volst/ui-components/-/ui-components-0.16.4.tgz#fae35cd61c001a9e0bee460e9d308f8500380444"
+"@volst/ui-components@^0.16.5":
+  version "0.16.5"
+  resolved "https://registry.yarnpkg.com/@volst/ui-components/-/ui-components-0.16.5.tgz#2dc7040c8e835d5a1b4eb959814a67289dca6adf"
   dependencies:
     "@types/i18next" "^8.4.3"
     "@types/lodash" "^4.14.100"

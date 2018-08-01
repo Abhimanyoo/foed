@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@volst/graphql-form-helpers": "^0.2.2",
-    "@volst/ui-components": "^0.16.0",
+    "@volst/ui-components": "^0.16.5",
     "apollo-cache-inmemory": "^1.1.5",
     "apollo-client": "^2.2.0",
     "apollo-link": "^1.0.0",

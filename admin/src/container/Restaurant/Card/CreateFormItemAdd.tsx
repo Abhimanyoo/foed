@@ -35,6 +35,12 @@ export class CreateFormItemAdd extends React.Component<Props, { input: any }> {
               onChange={(name, value) =>
                 this.setState({ input: { ...this.state.input, name: value } })
               }
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  e.preventDefault();
+                  this.handleAdd();
+                }
+              }}
             />
           </FormField>
         </Col>
