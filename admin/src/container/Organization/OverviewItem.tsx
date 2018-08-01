@@ -49,6 +49,7 @@ export class OrganizationOverviewItem extends React.Component<ItemProps, {}> {
           </InlineText>
         </TableData>
         <TableData>0</TableData>
+        <TableData>{model.visible ? 'Visible' : 'Hidden'}</TableData>
         <TableData alignRight>
           <Link to={`/organization/${model.id}/settings`} ghost>
             <IconEdit />

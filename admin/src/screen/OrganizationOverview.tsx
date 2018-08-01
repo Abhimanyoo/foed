@@ -34,6 +34,7 @@ const ALL_ORGANIZATIONS = gql`
     ) {
       id
       name
+      visible
     }
     organizationsConnection(where: $where) {
       aggregate {
@@ -64,12 +65,13 @@ export class OrganizationOverview extends React.Component<ScreenProps, {}> {
                   </Col>
                   <Col>
                     <Link to="/organization/add">
-                      <IconAddCircle />Add organization
+                      <IconAddCircle />
+                      Add organization
                     </Link>
                   </Col>
                 </Row>
                 <OverviewTable
-                  headings={['Name', 'Employees']}
+                  headings={['Name', 'Employees', 'Visibility']}
                   item={props => <OrganizationOverviewItem {...props} />}
                   data={data}
                   refetch={refetch}

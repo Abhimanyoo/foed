@@ -25,6 +25,7 @@ const ALL_RESTAURANTS = gql`
     restaurants(first: $first, skip: $skip, orderBy: name_ASC, where: $where) {
       id
       name
+      visible
       organization {
         name
       }
@@ -58,12 +59,13 @@ export class RestaurantOverview extends React.Component<ScreenProps, {}> {
                   </Col>
                   <Col>
                     <Link to="/restaurant/add">
-                      <IconAddCircle />Add restaurant
+                      <IconAddCircle />
+                      Add restaurant
                     </Link>
                   </Col>
                 </Row>
                 <OverviewTable
-                  headings={['Name', 'Employees', 'Organization']}
+                  headings={['Name', 'Employees', 'Organization', 'Visibility']}
                   item={props => <RestaurantOverviewItem {...props} />}
                   data={data}
                   refetch={refetch}

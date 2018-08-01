@@ -56,6 +56,7 @@ export class RestaurantOverviewItem extends React.Component<ItemProps, {}> {
             <InlineText italic>None</InlineText>
           )}
         </TableData>
+        <TableData>{model.visible ? 'Visible' : 'Hidden'}</TableData>
         <TableData alignRight>
           <Link to={`/restaurant/${model.id}/settings`} ghost>
             <IconEdit />
