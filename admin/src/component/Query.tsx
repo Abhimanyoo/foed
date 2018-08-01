@@ -11,6 +11,9 @@ export class Query extends React.Component<Props, {}> {
     return (
       <AQuery {...props}>
         {result => {
+          if (result.error) {
+            return <FullCenter>Something went wrong.</FullCenter>;
+          }
           if (result.loading) {
             return (
               <FullCenter>
