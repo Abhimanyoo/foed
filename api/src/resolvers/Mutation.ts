@@ -3,6 +3,7 @@ import { upload } from 'now-storage';
 import * as streamToArray from 'stream-to-array';
 import * as sharp from 'sharp';
 import { Context } from '../utils';
+import { OrderStatus } from '../generated/prisma';
 
 interface PlaceOrderInput {
   items: { cardItem: string; subitems: string[]; restaurant: string }[];
@@ -112,6 +113,21 @@ export const Mutation = {
       {
         where: { id_in: ids },
         data: { completedAt: complete ? new Date() : (null as any) },
+      },
+      info
+    );
+    return { ok: true };
+  },
+  async changeOrderStatus(
+    parent: any,
+    { id, status }: { id: string; status: OrderStatus },
+    ctx: Context,
+    info: any
+  ) {
+    await ctx.db.mutation.updateOrder(
+      {
+        where: { id },
+        data: { status },
       },
       info
     );

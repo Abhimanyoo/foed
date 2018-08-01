@@ -1,5 +1,5 @@
 # source: http://localhost:4466/foed/dev
-# timestamp: Mon Jun 18 2018 16:19:18 GMT+0200 (CEST)
+# timestamp: Wed Aug 01 2018 14:50:18 GMT+0200 (CEST)
 
 type AggregateCard {
   count: Int!
@@ -476,6 +476,9 @@ input CardCategoryWhereInput {
   items_every: CardItemWhereInput
   items_some: CardItemWhereInput
   items_none: CardItemWhereInput
+  _MagicalBackRelation_CardToCardCategory_every: CardWhereInput
+  _MagicalBackRelation_CardToCardCategory_some: CardWhereInput
+  _MagicalBackRelation_CardToCardCategory_none: CardWhereInput
 }
 
 input CardCategoryWhereUniqueInput {
@@ -1015,6 +1018,12 @@ input CardItemWhereInput {
   subitems_every: CardSubitemWhereInput
   subitems_some: CardSubitemWhereInput
   subitems_none: CardSubitemWhereInput
+  _MagicalBackRelation_CardCategoryToCardItem_every: CardCategoryWhereInput
+  _MagicalBackRelation_CardCategoryToCardItem_some: CardCategoryWhereInput
+  _MagicalBackRelation_CardCategoryToCardItem_none: CardCategoryWhereInput
+  _MagicalBackRelation_CardItemToOrderItem_every: OrderItemWhereInput
+  _MagicalBackRelation_CardItemToOrderItem_some: OrderItemWhereInput
+  _MagicalBackRelation_CardItemToOrderItem_none: OrderItemWhereInput
 }
 
 input CardItemWhereUniqueInput {
@@ -1432,6 +1441,12 @@ input CardSubitemWhereInput {
   All values greater than or equal the given value.
   """
   price_gte: Float
+  _MagicalBackRelation_CardSubitemToOrderItem_every: OrderItemWhereInput
+  _MagicalBackRelation_CardSubitemToOrderItem_some: OrderItemWhereInput
+  _MagicalBackRelation_CardSubitemToOrderItem_none: OrderItemWhereInput
+  _MagicalBackRelation_CardItemSubitems_every: CardItemWhereInput
+  _MagicalBackRelation_CardItemSubitems_some: CardItemWhereInput
+  _MagicalBackRelation_CardItemSubitems_none: CardItemWhereInput
 }
 
 input CardSubitemWhereUniqueInput {
@@ -1990,66 +2005,61 @@ scalar Long
 
 type Mutation {
   createOrganization(data: OrganizationCreateInput!): Organization!
-  createRestaurant(data: RestaurantCreateInput!): Restaurant!
   createEmployment(data: EmploymentCreateInput!): Employment!
   createUser(data: UserCreateInput!): User!
   createCard(data: CardCreateInput!): Card!
-  createCardCategory(data: CardCategoryCreateInput!): CardCategory!
-  createCardItem(data: CardItemCreateInput!): CardItem!
-  createCardSubitem(data: CardSubitemCreateInput!): CardSubitem!
   createOrder(data: OrderCreateInput!): Order!
+  createRestaurant(data: RestaurantCreateInput!): Restaurant!
+  createCardSubitem(data: CardSubitemCreateInput!): CardSubitem!
+  createCardCategory(data: CardCategoryCreateInput!): CardCategory!
   createOrderItem(data: OrderItemCreateInput!): OrderItem!
+  createCardItem(data: CardItemCreateInput!): CardItem!
   updateOrganization(
     data: OrganizationUpdateInput!
     where: OrganizationWhereUniqueInput!
   ): Organization
-  updateRestaurant(
-    data: RestaurantUpdateInput!
-    where: RestaurantWhereUniqueInput!
-  ): Restaurant
   updateEmployment(
     data: EmploymentUpdateInput!
     where: EmploymentWhereUniqueInput!
   ): Employment
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCard(data: CardUpdateInput!, where: CardWhereUniqueInput!): Card
-  updateCardCategory(
-    data: CardCategoryUpdateInput!
-    where: CardCategoryWhereUniqueInput!
-  ): CardCategory
-  updateCardItem(
-    data: CardItemUpdateInput!
-    where: CardItemWhereUniqueInput!
-  ): CardItem
+  updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
+  updateRestaurant(
+    data: RestaurantUpdateInput!
+    where: RestaurantWhereUniqueInput!
+  ): Restaurant
   updateCardSubitem(
     data: CardSubitemUpdateInput!
     where: CardSubitemWhereUniqueInput!
   ): CardSubitem
-  updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
+  updateCardCategory(
+    data: CardCategoryUpdateInput!
+    where: CardCategoryWhereUniqueInput!
+  ): CardCategory
   updateOrderItem(
     data: OrderItemUpdateInput!
     where: OrderItemWhereUniqueInput!
   ): OrderItem
+  updateCardItem(
+    data: CardItemUpdateInput!
+    where: CardItemWhereUniqueInput!
+  ): CardItem
   deleteOrganization(where: OrganizationWhereUniqueInput!): Organization
-  deleteRestaurant(where: RestaurantWhereUniqueInput!): Restaurant
   deleteEmployment(where: EmploymentWhereUniqueInput!): Employment
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCard(where: CardWhereUniqueInput!): Card
-  deleteCardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
-  deleteCardItem(where: CardItemWhereUniqueInput!): CardItem
-  deleteCardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
   deleteOrder(where: OrderWhereUniqueInput!): Order
+  deleteRestaurant(where: RestaurantWhereUniqueInput!): Restaurant
+  deleteCardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
+  deleteCardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
   deleteOrderItem(where: OrderItemWhereUniqueInput!): OrderItem
+  deleteCardItem(where: CardItemWhereUniqueInput!): CardItem
   upsertOrganization(
     where: OrganizationWhereUniqueInput!
     create: OrganizationCreateInput!
     update: OrganizationUpdateInput!
   ): Organization!
-  upsertRestaurant(
-    where: RestaurantWhereUniqueInput!
-    create: RestaurantCreateInput!
-    update: RestaurantUpdateInput!
-  ): Restaurant!
   upsertEmployment(
     where: EmploymentWhereUniqueInput!
     create: EmploymentCreateInput!
@@ -2065,38 +2075,39 @@ type Mutation {
     create: CardCreateInput!
     update: CardUpdateInput!
   ): Card!
-  upsertCardCategory(
-    where: CardCategoryWhereUniqueInput!
-    create: CardCategoryCreateInput!
-    update: CardCategoryUpdateInput!
-  ): CardCategory!
-  upsertCardItem(
-    where: CardItemWhereUniqueInput!
-    create: CardItemCreateInput!
-    update: CardItemUpdateInput!
-  ): CardItem!
-  upsertCardSubitem(
-    where: CardSubitemWhereUniqueInput!
-    create: CardSubitemCreateInput!
-    update: CardSubitemUpdateInput!
-  ): CardSubitem!
   upsertOrder(
     where: OrderWhereUniqueInput!
     create: OrderCreateInput!
     update: OrderUpdateInput!
   ): Order!
+  upsertRestaurant(
+    where: RestaurantWhereUniqueInput!
+    create: RestaurantCreateInput!
+    update: RestaurantUpdateInput!
+  ): Restaurant!
+  upsertCardSubitem(
+    where: CardSubitemWhereUniqueInput!
+    create: CardSubitemCreateInput!
+    update: CardSubitemUpdateInput!
+  ): CardSubitem!
+  upsertCardCategory(
+    where: CardCategoryWhereUniqueInput!
+    create: CardCategoryCreateInput!
+    update: CardCategoryUpdateInput!
+  ): CardCategory!
   upsertOrderItem(
     where: OrderItemWhereUniqueInput!
     create: OrderItemCreateInput!
     update: OrderItemUpdateInput!
   ): OrderItem!
+  upsertCardItem(
+    where: CardItemWhereUniqueInput!
+    create: CardItemCreateInput!
+    update: CardItemUpdateInput!
+  ): CardItem!
   updateManyOrganizations(
     data: OrganizationUpdateInput!
     where: OrganizationWhereInput
-  ): BatchPayload!
-  updateManyRestaurants(
-    data: RestaurantUpdateInput!
-    where: RestaurantWhereInput
   ): BatchPayload!
   updateManyEmployments(
     data: EmploymentUpdateInput!
@@ -2104,36 +2115,40 @@ type Mutation {
   ): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyCards(data: CardUpdateInput!, where: CardWhereInput): BatchPayload!
-  updateManyCardCategories(
-    data: CardCategoryUpdateInput!
-    where: CardCategoryWhereInput
+  updateManyOrders(
+    data: OrderUpdateInput!
+    where: OrderWhereInput
   ): BatchPayload!
-  updateManyCardItems(
-    data: CardItemUpdateInput!
-    where: CardItemWhereInput
+  updateManyRestaurants(
+    data: RestaurantUpdateInput!
+    where: RestaurantWhereInput
   ): BatchPayload!
   updateManyCardSubitems(
     data: CardSubitemUpdateInput!
     where: CardSubitemWhereInput
   ): BatchPayload!
-  updateManyOrders(
-    data: OrderUpdateInput!
-    where: OrderWhereInput
+  updateManyCardCategories(
+    data: CardCategoryUpdateInput!
+    where: CardCategoryWhereInput
   ): BatchPayload!
   updateManyOrderItems(
     data: OrderItemUpdateInput!
     where: OrderItemWhereInput
   ): BatchPayload!
+  updateManyCardItems(
+    data: CardItemUpdateInput!
+    where: CardItemWhereInput
+  ): BatchPayload!
   deleteManyOrganizations(where: OrganizationWhereInput): BatchPayload!
-  deleteManyRestaurants(where: RestaurantWhereInput): BatchPayload!
   deleteManyEmployments(where: EmploymentWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCards(where: CardWhereInput): BatchPayload!
-  deleteManyCardCategories(where: CardCategoryWhereInput): BatchPayload!
-  deleteManyCardItems(where: CardItemWhereInput): BatchPayload!
-  deleteManyCardSubitems(where: CardSubitemWhereInput): BatchPayload!
   deleteManyOrders(where: OrderWhereInput): BatchPayload!
+  deleteManyRestaurants(where: RestaurantWhereInput): BatchPayload!
+  deleteManyCardSubitems(where: CardSubitemWhereInput): BatchPayload!
+  deleteManyCardCategories(where: CardCategoryWhereInput): BatchPayload!
   deleteManyOrderItems(where: OrderItemWhereInput): BatchPayload!
+  deleteManyCardItems(where: CardItemWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -2155,6 +2170,7 @@ interface Node {
 type Order implements Node {
   id: ID!
   number: Int
+  status: OrderStatus!
   items(
     where: OrderItemWhereInput
     orderBy: OrderItemOrderByInput
@@ -2185,6 +2201,7 @@ type OrderConnection {
 
 input OrderCreateInput {
   number: Int
+  status: OrderStatus
   tip: Float!
   items: OrderItemCreateManyInput
 }
@@ -2523,6 +2540,9 @@ input OrderItemWhereInput {
   subitems_some: CardSubitemWhereInput
   subitems_none: CardSubitemWhereInput
   restaurant: RestaurantWhereInput
+  _MagicalBackRelation_OrderToOrderItem_every: OrderWhereInput
+  _MagicalBackRelation_OrderToOrderItem_some: OrderWhereInput
+  _MagicalBackRelation_OrderToOrderItem_none: OrderWhereInput
 }
 
 input OrderItemWhereUniqueInput {
@@ -2534,6 +2554,8 @@ enum OrderOrderByInput {
   id_DESC
   number_ASC
   number_DESC
+  status_ASC
+  status_DESC
   tip_ASC
   tip_DESC
   updatedAt_ASC
@@ -2545,7 +2567,15 @@ enum OrderOrderByInput {
 type OrderPreviousValues {
   id: ID!
   number: Int
+  status: OrderStatus!
   tip: Float!
+}
+
+enum OrderStatus {
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  PICKED_UP
 }
 
 type OrderSubscriptionPayload {
@@ -2595,6 +2625,7 @@ input OrderSubscriptionWhereInput {
 
 input OrderUpdateInput {
   number: Int
+  status: OrderStatus
   tip: Float
   items: OrderItemUpdateManyInput
 }
@@ -2716,6 +2747,22 @@ input OrderWhereInput {
   All values greater than or equal the given value.
   """
   number_gte: Int
+  status: OrderStatus
+
+  """
+  All values that are not equal to given value.
+  """
+  status_not: OrderStatus
+
+  """
+  All values that are contained in given list.
+  """
+  status_in: [OrderStatus!]
+
+  """
+  All values that are not contained in given list.
+  """
+  status_not_in: [OrderStatus!]
   tip: Float
 
   """
@@ -3258,15 +3305,6 @@ type Query {
     first: Int
     last: Int
   ): [Organization]!
-  restaurants(
-    where: RestaurantWhereInput
-    orderBy: RestaurantOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [Restaurant]!
   employments(
     where: EmploymentWhereInput
     orderBy: EmploymentOrderByInput
@@ -3294,33 +3332,6 @@ type Query {
     first: Int
     last: Int
   ): [Card]!
-  cardCategories(
-    where: CardCategoryWhereInput
-    orderBy: CardCategoryOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [CardCategory]!
-  cardItems(
-    where: CardItemWhereInput
-    orderBy: CardItemOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [CardItem]!
-  cardSubitems(
-    where: CardSubitemWhereInput
-    orderBy: CardSubitemOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [CardSubitem]!
   orders(
     where: OrderWhereInput
     orderBy: OrderOrderByInput
@@ -3330,6 +3341,33 @@ type Query {
     first: Int
     last: Int
   ): [Order]!
+  restaurants(
+    where: RestaurantWhereInput
+    orderBy: RestaurantOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Restaurant]!
+  cardSubitems(
+    where: CardSubitemWhereInput
+    orderBy: CardSubitemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CardSubitem]!
+  cardCategories(
+    where: CardCategoryWhereInput
+    orderBy: CardCategoryOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CardCategory]!
   orderItems(
     where: OrderItemWhereInput
     orderBy: OrderItemOrderByInput
@@ -3339,16 +3377,25 @@ type Query {
     first: Int
     last: Int
   ): [OrderItem]!
+  cardItems(
+    where: CardItemWhereInput
+    orderBy: CardItemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CardItem]!
   organization(where: OrganizationWhereUniqueInput!): Organization
-  restaurant(where: RestaurantWhereUniqueInput!): Restaurant
   employment(where: EmploymentWhereUniqueInput!): Employment
   user(where: UserWhereUniqueInput!): User
   card(where: CardWhereUniqueInput!): Card
-  cardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
-  cardItem(where: CardItemWhereUniqueInput!): CardItem
-  cardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
   order(where: OrderWhereUniqueInput!): Order
+  restaurant(where: RestaurantWhereUniqueInput!): Restaurant
+  cardSubitem(where: CardSubitemWhereUniqueInput!): CardSubitem
+  cardCategory(where: CardCategoryWhereUniqueInput!): CardCategory
   orderItem(where: OrderItemWhereUniqueInput!): OrderItem
+  cardItem(where: CardItemWhereUniqueInput!): CardItem
   organizationsConnection(
     where: OrganizationWhereInput
     orderBy: OrganizationOrderByInput
@@ -3358,15 +3405,6 @@ type Query {
     first: Int
     last: Int
   ): OrganizationConnection!
-  restaurantsConnection(
-    where: RestaurantWhereInput
-    orderBy: RestaurantOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): RestaurantConnection!
   employmentsConnection(
     where: EmploymentWhereInput
     orderBy: EmploymentOrderByInput
@@ -3394,33 +3432,6 @@ type Query {
     first: Int
     last: Int
   ): CardConnection!
-  cardCategoriesConnection(
-    where: CardCategoryWhereInput
-    orderBy: CardCategoryOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): CardCategoryConnection!
-  cardItemsConnection(
-    where: CardItemWhereInput
-    orderBy: CardItemOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): CardItemConnection!
-  cardSubitemsConnection(
-    where: CardSubitemWhereInput
-    orderBy: CardSubitemOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): CardSubitemConnection!
   ordersConnection(
     where: OrderWhereInput
     orderBy: OrderOrderByInput
@@ -3430,6 +3441,33 @@ type Query {
     first: Int
     last: Int
   ): OrderConnection!
+  restaurantsConnection(
+    where: RestaurantWhereInput
+    orderBy: RestaurantOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): RestaurantConnection!
+  cardSubitemsConnection(
+    where: CardSubitemWhereInput
+    orderBy: CardSubitemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): CardSubitemConnection!
+  cardCategoriesConnection(
+    where: CardCategoryWhereInput
+    orderBy: CardCategoryOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): CardCategoryConnection!
   orderItemsConnection(
     where: OrderItemWhereInput
     orderBy: OrderItemOrderByInput
@@ -3439,6 +3477,15 @@ type Query {
     first: Int
     last: Int
   ): OrderItemConnection!
+  cardItemsConnection(
+    where: CardItemWhereInput
+    orderBy: CardItemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): CardItemConnection!
 
   """
   Fetches an object given its ID
@@ -4090,6 +4137,9 @@ input RestaurantWhereInput {
   cards_every: CardWhereInput
   cards_some: CardWhereInput
   cards_none: CardWhereInput
+  _MagicalBackRelation_OrderItemToRestaurant_every: OrderItemWhereInput
+  _MagicalBackRelation_OrderItemToRestaurant_some: OrderItemWhereInput
+  _MagicalBackRelation_OrderItemToRestaurant_none: OrderItemWhereInput
 }
 
 input RestaurantWhereUniqueInput {
@@ -4101,25 +4151,25 @@ type Subscription {
   organization(
     where: OrganizationSubscriptionWhereInput
   ): OrganizationSubscriptionPayload
-  restaurant(
-    where: RestaurantSubscriptionWhereInput
-  ): RestaurantSubscriptionPayload
   employment(
     where: EmploymentSubscriptionWhereInput
   ): EmploymentSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   card(where: CardSubscriptionWhereInput): CardSubscriptionPayload
-  cardCategory(
-    where: CardCategorySubscriptionWhereInput
-  ): CardCategorySubscriptionPayload
-  cardItem(where: CardItemSubscriptionWhereInput): CardItemSubscriptionPayload
+  order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
+  restaurant(
+    where: RestaurantSubscriptionWhereInput
+  ): RestaurantSubscriptionPayload
   cardSubitem(
     where: CardSubitemSubscriptionWhereInput
   ): CardSubitemSubscriptionPayload
-  order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
+  cardCategory(
+    where: CardCategorySubscriptionWhereInput
+  ): CardCategorySubscriptionPayload
   orderItem(
     where: OrderItemSubscriptionWhereInput
   ): OrderItemSubscriptionPayload
+  cardItem(where: CardItemSubscriptionWhereInput): CardItemSubscriptionPayload
 }
 
 type User implements Node {

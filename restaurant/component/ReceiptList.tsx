@@ -72,3 +72,8 @@ export const ReceiptRestaurantTitle = styled('div')`
   margin: 10px 0 0 40px;
   padding: 10px;
 `;
+
+export const ReceiptButtonGroup = styled('div')`
+  text-align: center;
+  padding: 10px;
+`;

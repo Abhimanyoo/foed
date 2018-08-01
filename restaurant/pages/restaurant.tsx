@@ -10,6 +10,7 @@ const ORDERS = gql`
     unfinishedRestaurantOrders(restaurantId: $id) {
       id
       number
+      status
       items {
         id
         completedAt

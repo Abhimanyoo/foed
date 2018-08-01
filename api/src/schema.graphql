@@ -2,7 +2,7 @@
 # import Query.organizations, Query.organization, Query.organizationsConnection, Mutation.createOrganization, Mutation.updateOrganization, Mutation.deleteOrganization from "./generated/prisma.graphql"
 # import Employment, Query.employments, Query.employmentsConnection, Mutation.deleteEmployment from "./generated/prisma.graphql"
 # import Query.cards, Query.card, Query.cardsConnection, Query.cardCategory, Mutation.createCard, Mutation.updateCard, Mutation.deleteCard from "./generated/prisma.graphql"
-# import Query.restaurants, Query.restaurant, Query.restaurantsConnection, Mutation.createRestaurant, Mutation.updateRestaurant, Mutation.deleteRestaurant, Order from "./generated/prisma.graphql"
+# import Query.restaurants, Query.restaurant, Query.restaurantsConnection, Mutation.createRestaurant, Mutation.updateRestaurant, Mutation.deleteRestaurant, Order, OrderStatus from "./generated/prisma.graphql"
 # import Mutation.signupByInvite, Mutation.signup, Mutation.login, Mutation.changePassword, Mutation.updateCurrentUser, Mutation.triggerPasswordReset, Mutation.passwordReset, Mutation.confirmEmail, UserIdPayload from "../../node_modules/graphql-authentication/schema.graphql"
 
 scalar Upload
@@ -19,6 +19,7 @@ type Mutation {
   imageUpload(file: Upload!): UploadPayload!
   placeOrder(data: PlaceOrderInput): PlaceOrderPayload!
   completeOrderItem(ids: [ID!]!, complete: Boolean!): CompleteOrderPayload!
+  changeOrderStatus(id: ID!, status: OrderStatus!): CompleteOrderPayload!
 }
 
 input InviteUserInput {

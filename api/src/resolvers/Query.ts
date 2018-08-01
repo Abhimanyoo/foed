@@ -46,11 +46,9 @@ export const Query = {
     return ctx.db.query.orders(
       {
         where: {
+          status_in: ['IN_PROGRESS', 'COMPLETED'],
           items_some: {
             restaurant: { id: restaurantId },
-            // TODO: this is nasty, Prisma's typescript bindings disallow us from using `null`, however it does work.
-            // Need to file a PR to fix this one day...
-            completedAt: null as any,
           },
         },
       },

@@ -9,6 +9,13 @@ enum CardSubitemTypes {
   VARIANT
 }
 
+enum OrderStatus {
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  PICKED_UP
+}
+
 type Organization {
   id: ID! @unique
   name: String!
@@ -96,6 +103,7 @@ type CardSubitem {
 type Order {
   id: ID! @unique
   number: Int
+  status: OrderStatus! @default(value: "IN_PROGRESS")
   items: [OrderItem!]! @relation(name: "OrderToOrderItem", onDelete: CASCADE)
   tip: Float!
 }

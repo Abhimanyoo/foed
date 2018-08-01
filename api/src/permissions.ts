@@ -30,5 +30,6 @@ export const permissions = shield({
     deleteCard: isAuth,
     imageUpload: isAuth,
     completeOrderItem: isAuth,
+    changeOrderStatus: isAuth,
   },
 });
