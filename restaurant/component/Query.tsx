@@ -1,11 +1,12 @@
-import { Query as AQuery, QueryProps } from 'react-apollo';
+import { Query as AQuery, QueryProps, OperationVariables } from 'react-apollo';
 import * as React from 'react';
 import Loader from './Loader';
 import { FullCenter } from './FullCenter';
 
-interface Props extends QueryProps {}
-
-export class Query extends React.Component<Props, {}> {
+export class Query<
+  TData = any,
+  TVariables = OperationVariables
+> extends React.Component<QueryProps<TData, TVariables>> {
   render() {
     const { children, ...props } = this.props;
     return (

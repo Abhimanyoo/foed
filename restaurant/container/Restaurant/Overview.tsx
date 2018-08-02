@@ -2,9 +2,10 @@ import { RestaurantListItem } from './ListItem';
 import { Grid, GRID_ITEM_HEIGHT } from 'component/Grid';
 import VirtualList from 'react-virtual-list';
 import { Subheading } from 'component/Header';
+import { currentUserDetails_currentUser } from 'graphqlTypes';
 
 interface Props {
-  employments: any;
+  employments: currentUserDetails_currentUser['employments'];
 }
 
 const MyList = ({ virtual }) => (

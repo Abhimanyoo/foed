@@ -1,12 +1,17 @@
 import { OrderListItem } from './ListItem';
 import { ReceiptEmpty } from 'component/ReceiptList';
 import { Header } from 'component/Header';
+import {
+  restaurantInfoAndOrders_restaurant,
+  restaurantInfoAndOrders_unfinishedRestaurantOrders,
+  currentUserDetails_currentUser_employments,
+} from 'graphqlTypes';
 
 interface Props {
-  orders: any[];
+  orders: restaurantInfoAndOrders_unfinishedRestaurantOrders[];
   refetch: () => void;
-  employments: any[];
-  restaurant: any;
+  employments: currentUserDetails_currentUser_employments[];
+  restaurant: restaurantInfoAndOrders_restaurant;
 }
 
 export const OrderOverview = ({ orders, refetch, employments }: Props) => (

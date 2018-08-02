@@ -4,16 +4,19 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "PORT=3002 ts-node -P tsconfig.server.json server.ts",
+    "start": "npm-run-all --parallel dev-start graphql-types",
+    "dev-start": "PORT=3002 ts-node -P tsconfig.server.json server.ts",
     "now-start": "PORT=3002 NODE_ENV=production node build/server.js",
     "build": "tsc -P tsconfig.server.json && next build",
-    "now-build": "echo"
+    "now-build": "echo",
+    "graphql-types": "apollo codegen:generate graphqlTypes.ts --target=typescript --queries='**/*.tsx' --outputFlat --schema=http://localhost:4000 --passthroughCustomScalars --customScalarsPrefix=GraphQL --watch"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.0.0-beta.49",
     "@types/next": "^6.0.4",
     "@volst/next-routes": "^1.4.1",
     "@zeit/next-typescript": "^1.0.0",
+    "apollo": "^1.6.0",
     "apollo-boost": "^0.1.6",
     "babel-plugin-inline-dotenv": "^1.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -26,6 +29,7 @@
     "mobx-react": "^5.1.2",
     "next": "^6.0.0",
     "next-with-apollo": "^3.0.2",
+    "npm-run-all": "^4.1.3",
     "react": "^16.3.2",
     "react-apollo": "^2.1.4",
     "react-dom": "^16.3.2",

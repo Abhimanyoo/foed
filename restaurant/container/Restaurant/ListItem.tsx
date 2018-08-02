@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { GridItem, GridItemTitle, GridItemImage } from 'component/Grid';
+import { currentUserDetails_currentUser_employments_restaurant } from 'graphqlTypes';
 
 interface Props {
-  restaurant: any;
+  restaurant: currentUserDetails_currentUser_employments_restaurant;
 }
 
 export class RestaurantListItem extends React.Component<Props, {}> {

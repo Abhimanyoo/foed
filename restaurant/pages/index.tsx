@@ -5,6 +5,7 @@ import { Query } from '../component/Query';
 import gql from 'graphql-tag';
 import { RestaurantOverview } from '../container/Restaurant/Overview';
 import R from '../routes';
+import { currentUserDetails } from 'graphqlTypes';
 
 const USER_DETAILS = gql`
   query currentUserDetails {
@@ -35,11 +36,14 @@ export default class Index extends React.Component {
 
   render() {
     return (
-      <Query
+      <Query<currentUserDetails, currentUserDetails>
         query={USER_DETAILS}
         fetchPolicy="cache-and-network"
         onCompleted={data => {
           // If there is only one employment, just redirect immediately to that restaurant instead of showing a useless list with one item
+          if (!('currentUser' in data)) {
+            return;
+          }
           const employments = data.currentUser.employments;
           if (employments.length === 1) {
             R.Router.replaceRoute(

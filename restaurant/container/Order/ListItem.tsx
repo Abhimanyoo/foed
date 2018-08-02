@@ -6,13 +6,19 @@ import { ReceiptButtonGroup } from 'component/ReceiptList';
 import { Button } from 'component/Button';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import {
+  restaurantInfoAndOrders_unfinishedRestaurantOrders,
+  changeOrderStatus,
+  changeOrderStatusVariables,
+  OrderStatus,
+} from 'graphqlTypes';
 
 interface Props {
-  order: any;
+  order: restaurantInfoAndOrders_unfinishedRestaurantOrders;
   refetch: () => void;
 }
 
-const COMPLETE_ORDER_ITEM = gql`
+const CHANGE_ORDER_STATUS = gql`
   mutation changeOrderStatus($id: ID!, $status: OrderStatus!) {
     changeOrderStatus(id: $id, status: $status) {
       id
@@ -22,7 +28,7 @@ const COMPLETE_ORDER_ITEM = gql`
 `;
 
 export class OrderListItem extends React.Component<Props, {}> {
-  changeStatus = async (mutate, status) => {
+  changeStatus = async (mutate, status: OrderStatus) => {
     const { order } = this.props;
     await mutate({
       variables: {
@@ -40,22 +46,26 @@ export class OrderListItem extends React.Component<Props, {}> {
       <div>
         <Subheading>#{order.number}</Subheading>
         <ReceiptBackground>
-          {order.status === 'IN_PROGRESS' &&
+          {order.status === OrderStatus.IN_PROGRESS &&
             order.items.map(item => (
               <OrderListItemItem key={item.id} item={item} />
             ))}
-          <Mutation mutation={COMPLETE_ORDER_ITEM}>
+          <Mutation<changeOrderStatus, changeOrderStatusVariables>
+            mutation={CHANGE_ORDER_STATUS}
+          >
             {mutate => (
               <ReceiptButtonGroup>
                 <Button
                   onClick={() =>
                     this.changeStatus(
                       mutate,
-                      order.status === 'COMPLETED' ? 'PICKED_UP' : 'COMPLETED'
+                      order.status === OrderStatus.COMPLETED
+                        ? OrderStatus.PICKED_UP
+                        : OrderStatus.COMPLETED
                     )
                   }
                 >
-                  {order.status === 'COMPLETED'
+                  {order.status === OrderStatus.COMPLETED
                     ? 'Picked up'
                     : 'Notify customer'}
                 </Button>

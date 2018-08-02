@@ -4,9 +4,13 @@ import redirect from '../lib/redirect';
 import { Query } from '../component/Query';
 import gql from 'graphql-tag';
 import { OrderOverview } from '../container/Order/Overview';
+import {
+  restaurantInfoAndOrders,
+  restaurantInfoAndOrdersVariables,
+} from 'graphqlTypes';
 
 const ORDERS = gql`
-  query unfinishedRestaurantOrders($id: ID!) {
+  query restaurantInfoAndOrders($id: ID!) {
     restaurant(where: { id: $id }) {
       id
       name
@@ -50,7 +54,7 @@ export default class Restaurant extends React.Component<Props> {
   render() {
     const { id, currentUser } = this.props;
     return (
-      <Query
+      <Query<restaurantInfoAndOrders, restaurantInfoAndOrdersVariables>
         query={ORDERS}
         fetchPolicy="cache-and-network"
         variables={{ id }}

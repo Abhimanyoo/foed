@@ -4,6 +4,7 @@ import cookie from 'cookie';
 import redirect from '../lib/redirect';
 import { Button } from '../component/Button';
 import { ApolloClient } from 'apollo-boost';
+import { login, loginVariables } from 'graphqlTypes';
 
 const SIGN_IN = gql`
   mutation login($email: String!, $password: String!) {
@@ -17,7 +18,7 @@ const _LoginBox = ({ client }: { client?: ApolloClient<any> }) => {
   let email, password;
 
   return (
-    <Mutation
+    <Mutation<login, loginVariables>
       mutation={SIGN_IN}
       onCompleted={data => {
         document.cookie = cookie.serialize('token', data.login.token, {
