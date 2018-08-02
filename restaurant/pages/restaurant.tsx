@@ -50,12 +50,7 @@ export default class Restaurant extends React.Component<Props> {
   render() {
     const { id, currentUser } = this.props;
     return (
-      <Query
-        query={ORDERS}
-        fetchPolicy="cache-and-network"
-        variables={{ id }}
-        pollInterval={5000}
-      >
+      <Query query={ORDERS} variables={{ id }} pollInterval={5000}>
         {result => (
           <OrderOverview
             employments={currentUser.employments}
