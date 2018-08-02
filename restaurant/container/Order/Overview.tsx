@@ -14,9 +14,18 @@ interface Props {
   restaurant: restaurantInfoAndOrders_restaurant;
 }
 
-export const OrderOverview = ({ orders, refetch, employments }: Props) => (
+export const OrderOverview = ({
+  orders,
+  refetch,
+  employments,
+  restaurant,
+}: Props) => (
   <div>
-    <Header hideBack={employments.length < 2} backUrl="/" title="Woest" />
+    <Header
+      hideBack={employments.length < 2}
+      backUrl="/"
+      title={restaurant.name}
+    />
     <div>
       {orders.length === 0 && <ReceiptEmpty>No open orders!</ReceiptEmpty>}
       {orders.map(order => (
