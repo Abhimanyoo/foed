@@ -6,7 +6,7 @@
     "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
     "playground": "graphql playground --server-only --port=4005",
     "start-server": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
-    "start": "npm-run-all --parallel start-server playground",
+    "start": "yarn deploy && npm-run-all --parallel start-server playground",
     "now-start": "NODE_ENV=production node build/index.js",
     "precommit": "lint-staged",
     "prisma": "prisma",
