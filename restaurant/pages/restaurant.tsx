@@ -7,6 +7,10 @@ import { OrderOverview } from '../container/Order/Overview';
 
 const ORDERS = gql`
   query unfinishedRestaurantOrders($id: ID!) {
+    restaurant(where: { id: $id }) {
+      id
+      name
+    }
     unfinishedRestaurantOrders(restaurantId: $id) {
       id
       number
@@ -29,6 +33,7 @@ const ORDERS = gql`
 
 interface Props {
   id: string;
+  currentUser: any;
 }
 
 export default class Restaurant extends React.Component<Props> {
@@ -43,7 +48,7 @@ export default class Restaurant extends React.Component<Props> {
   }
 
   render() {
-    const { id } = this.props;
+    const { id, currentUser } = this.props;
     return (
       <Query
         query={ORDERS}
@@ -53,6 +58,8 @@ export default class Restaurant extends React.Component<Props> {
       >
         {result => (
           <OrderOverview
+            employments={currentUser.employments}
+            restaurant={result.data.restaurant}
             orders={result.data.unfinishedRestaurantOrders}
             refetch={result.refetch}
           />
