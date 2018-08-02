@@ -5,6 +5,7 @@ interface ButtonProps {
 }
 
 export const Button = styled<ButtonProps, 'button'>('button')`
+  width: 100%;
   background: ${props => (props.tone === 'secondary' ? '#979797' : '#91a538')};
   color: #fff;
   padding: 10px 20px;

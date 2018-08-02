@@ -3,6 +3,11 @@ import gql from 'graphql-tag';
 import cookie from 'cookie';
 import redirect from '../lib/redirect';
 import { Button } from '../component/Button';
+import { Logo } from '../component/Logo';
+import { Input, InputContainer, InputAddon } from '../component/Input';
+import { LoginBackground, LoginContainer, LoginForm } from '../component/Login';
+import { IconAt } from 'component/icon/At';
+import { IconKey } from 'component/icon/Key';
 import { ApolloClient } from 'apollo-boost';
 
 const SIGN_IN = gql`
@@ -17,58 +22,73 @@ const _LoginBox = ({ client }: { client?: ApolloClient<any> }) => {
   let email, password;
 
   return (
-    <Mutation
-      mutation={SIGN_IN}
-      onCompleted={data => {
-        document.cookie = cookie.serialize('token', data.login.token, {
-          maxAge: 30 * 24 * 60 * 60, // 30 days
-        });
-        client.cache.reset().then(() => {
-          redirect({}, '/');
-        });
-      }}
-      onError={error => {
-        console.log(error);
-      }}
-    >
-      {(login, { error }) => (
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            login({
-              variables: {
-                email: email.value,
-                password: password.value,
-              },
+    <LoginBackground>
+      <LoginContainer>
+        <Logo />
+        <Mutation
+          mutation={SIGN_IN}
+          onCompleted={data => {
+            document.cookie = cookie.serialize('token', data.login.token, {
+              maxAge: 30 * 24 * 60 * 60, // 30 days
             });
-
-            email.value = password.value = '';
+            client.cache.reset().then(() => {
+              redirect({}, '/');
+            });
+          }}
+          onError={error => {
+            console.log(error);
           }}
         >
-          {error && <p>No user found with that information.</p>}
-          <input
-            name="email"
-            placeholder="Email"
-            ref={node => {
-              email = node;
-            }}
-          />
-          <br />
-          <input
-            name="password"
-            placeholder="Password"
-            ref={node => {
-              password = node;
-            }}
-            type="password"
-          />
-          <br />
-          <Button>Login</Button>
-        </form>
-      )}
-    </Mutation>
+          {(login, { error }) => (
+            <LoginForm
+              onSubmit={e => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                login({
+                  variables: {
+                    email: email.value,
+                    password: password.value,
+                  },
+                });
+
+                email.value = password.value = '';
+              }}
+            >
+              {error && <p>No user found with that information.</p>}
+              <InputContainer>
+                <InputAddon>
+                  <IconAt />
+                </InputAddon>
+                <Input
+                  name="email"
+                  addonBefore
+                  placeholder="Your email"
+                  ref={node => {
+                    email = node;
+                  }}
+                />
+              </InputContainer>
+              <InputContainer>
+                <InputAddon>
+                  <IconKey />
+                </InputAddon>
+                <Input
+                  name="password"
+                  addonBefore
+                  placeholder="Your password"
+                  ref={node => {
+                    password = node;
+                  }}
+                  type="password"
+                />
+              </InputContainer>
+              <Button>Log in</Button>
+            </LoginForm>
+          )}
+        </Mutation>
+      </LoginContainer>
+    </LoginBackground>
   );
 };
 

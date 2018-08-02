@@ -1,14 +1,14 @@
 import { css } from 'react-emotion';
 
 const logoStyles = css`
-  margin: 20px 20px 0px;
   display: block;
+  margin: 0 auto 80px;
 `;
 
 export const Logo = () => (
   <svg
-    width="95"
-    height="30"
+    width="200"
+    height="63"
     viewBox="0 0 161 51"
     xmlns="http://www.w3.org/2000/svg"
     className={logoStyles}
