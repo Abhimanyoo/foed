@@ -10,11 +10,7 @@ import {
 } from 'component/ReceiptList';
 import IconCheck from 'component/icon/Check';
 import gql from 'graphql-tag';
-import {
-  restaurantInfoAndOrders_unfinishedRestaurantOrders_items,
-  completeOrderItem,
-  completeOrderItemVariables,
-} from 'graphqlTypes';
+import { restaurantInfoAndOrders_unfinishedRestaurantOrders_items } from 'graphqlTypes';
 
 interface Props {
   item: restaurantInfoAndOrders_unfinishedRestaurantOrders_items;
@@ -49,9 +45,7 @@ export class OrderListItemItem extends React.Component<Props, {}> {
         <ReceiptListItemInfo>
           <ReceiptListItemOrderCount>1</ReceiptListItemOrderCount>
           <ReceiptListItemTitle>{item.cardItem.name}</ReceiptListItemTitle>
-          <Mutation<completeOrderItem, completeOrderItemVariables>
-            mutation={COMPLETE_ORDER_ITEM}
-          >
+          <Mutation mutation={COMPLETE_ORDER_ITEM}>
             {mutate => (
               <ReceiptListItemButton
                 type="button"

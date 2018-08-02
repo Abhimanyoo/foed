@@ -5,7 +5,6 @@ import { Query } from '../component/Query';
 import gql from 'graphql-tag';
 import { RestaurantOverview } from '../container/Restaurant/Overview';
 import R from '../routes';
-import { currentUserDetails } from 'graphqlTypes';
 
 const USER_DETAILS = gql`
   query currentUserDetails {
@@ -36,7 +35,7 @@ export default class Index extends React.Component {
 
   render() {
     return (
-      <Query<currentUserDetails, currentUserDetails>
+      <Query
         query={USER_DETAILS}
         fetchPolicy="cache-and-network"
         onCompleted={data => {

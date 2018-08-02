@@ -8,8 +8,6 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import {
   restaurantInfoAndOrders_unfinishedRestaurantOrders,
-  changeOrderStatus,
-  changeOrderStatusVariables,
   OrderStatus,
 } from 'graphqlTypes';
 
@@ -50,9 +48,7 @@ export class OrderListItem extends React.Component<Props, {}> {
             order.items.map(item => (
               <OrderListItemItem key={item.id} item={item} />
             ))}
-          <Mutation<changeOrderStatus, changeOrderStatusVariables>
-            mutation={CHANGE_ORDER_STATUS}
-          >
+          <Mutation mutation={CHANGE_ORDER_STATUS}>
             {mutate => (
               <ReceiptButtonGroup>
                 <Button
