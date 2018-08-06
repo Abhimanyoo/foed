@@ -64,7 +64,7 @@ const _LoginBox = ({ client }: { client?: ApolloClient<any> }) => {
                   name="email"
                   addonBefore
                   placeholder="Your email"
-                  ref={node => {
+                  innerRef={node => {
                     email = node;
                   }}
                 />
@@ -77,7 +77,7 @@ const _LoginBox = ({ client }: { client?: ApolloClient<any> }) => {
                   name="password"
                   addonBefore
                   placeholder="Your password"
-                  ref={node => {
+                  innerRef={node => {
                     password = node;
                   }}
                   type="password"
