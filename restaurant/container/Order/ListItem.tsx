@@ -42,7 +42,7 @@ export class OrderListItem extends React.Component<Props, {}> {
     const { order } = this.props;
     return (
       <div>
-        <Subheading>#{order.number}</Subheading>
+        <Subheading>Order #{order.number}</Subheading>
         <ReceiptBackground>
           {order.status === OrderStatus.IN_PROGRESS &&
             order.items.map(item => (
