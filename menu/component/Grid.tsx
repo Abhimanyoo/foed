@@ -20,6 +20,7 @@ const linkStyles = css`
 
 export const GridItemTitle = styled('span')`
   margin: 15px 0 0 15px;
+  flex: 1;
 `;
 
 export const GridItemImage = styled(ImageFade)`
