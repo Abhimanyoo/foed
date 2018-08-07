@@ -22,13 +22,13 @@ export const ListItemOrderCount = styled('div')`
   flex-direction: column;
   justify-content: center;
   margin-right: 10px;
-  color: #efffe9;
+  color: #fff;
   font-weight: bold;
 `;
 
 export const ListItemTitle = styled('div')`
   flex: 1;
-  color: #efffe9;
+  color: #fff;
   font-weight: bold;
 `;
 
@@ -93,7 +93,7 @@ export const ListSubitem = styled<{ selected?: boolean }, 'div'>('div')`
   padding: 10px 0;
   height: 40px;
   user-select: none;
-  color: ${props => props.selected && `#efffe9`};
+  color: ${props => props.selected && `#fff`};
 
   &:nth-child(even) {
     background: rgba(255, 255, 255, 0.1);

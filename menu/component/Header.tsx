@@ -20,7 +20,7 @@ function handleBack() {
 export const Subheading = styled('h2')`
   background: #3e93a4;
   font-weight: bold;
-  color: #efffea;
+  color: #fff;
   padding: 20px;
   margin: 0;
   font-size: 38px;
@@ -39,7 +39,7 @@ const headerStyles = css`
 `;
 
 const linkStyles = css`
-  color: #efffea;
+  color: #fff;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -59,20 +59,20 @@ export const Header = observer(
           {backUrl ? (
             <R.Link route={backUrl}>
               <a className={linkStyles}>
-                <IconArrowBack fill="#efffea" />
+                <IconArrowBack fill="#fff" />
                 {backTitle}
               </a>
             </R.Link>
           ) : (
             <button className={linkStyles} onClick={handleBack}>
-              <IconArrowBack fill="#efffea" />
+              <IconArrowBack fill="#fff" />
               {backTitle}
             </button>
           )}
           <R.Link route="/order" prefetch={!disabledOrder}>
             <a className={linkStyles}>
               {store ? (
-                <IconOrder text={store.order.items.length} fill="#efffea" />
+                <IconOrder text={store.order.items.length} fill="#fff" />
               ) : null}
             </a>
           </R.Link>

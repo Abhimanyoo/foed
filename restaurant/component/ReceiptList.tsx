@@ -33,14 +33,14 @@ export const ReceiptListItemInfo = styled('div')`
 export const ReceiptListItemDescription = styled('div')`
   font-size: 14px;
   overflow: hidden;
-  color: #efffe9;
+  color: #fff;
   font-style: italic;
   margin: 5px 20px 0 50px;
 `;
 
 export const ReceiptListItemTitle = styled('div')`
   flex: 1;
-  color: #efffe9;
+  color: #fff;
   font-weight: bold;
 `;
 

@@ -11,7 +11,7 @@ export const Grid = styled('div')`
 const linkStyles = css`
   display: flex;
   width: 100%;
-  color: #efffea;
+  color: #fff;
   font-weight: bold;
   text-decoration: none;
   position: relative;
