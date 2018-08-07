@@ -14,7 +14,7 @@ const floatingStyles = css`
   justify-content: center;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0) 0%,
+    rgba(66, 146, 163, 0) 0%,
     rgba(66, 146, 163, 1) 100%
   );
 `;
