@@ -3,7 +3,9 @@ import R from '../routes';
 import { LinkProps } from '@volst/next-routes';
 import { ImageFade } from './ImageFade';
 
-export const Grid = styled('div')``;
+export const Grid = styled('div')`
+  margin: 15px 0;
+`;
 
 // Can't use `styled('a')` since Next.js' `<Link>` component doesn't recognize the <a> in that case.
 const linkStyles = css`

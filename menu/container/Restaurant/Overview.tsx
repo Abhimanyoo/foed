@@ -24,7 +24,7 @@ export const RestaurantOverview = ({ organization, store }: Props) => (
     <Header
       backTitle="Venues"
       backUrl="/"
-      subTitle={`${organization.name} restaurants`}
+      subTitle={`${organization.name}`}
       store={store}
     />
     <MyVirtualList
