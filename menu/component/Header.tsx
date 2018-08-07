@@ -19,7 +19,7 @@ function handleBack() {
 
 export const Subheading = styled('h2')`
   background: #3e93a4;
-  font-weight: bold;
+  font-weight: 600;
   color: #fff;
   padding: 20px;
   margin: 0;
