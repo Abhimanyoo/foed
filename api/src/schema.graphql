@@ -60,6 +60,7 @@ type UploadPayload {
 input PlaceOrderInput {
   items: [PlaceOrderItems!]!
   tip: Float!
+  subscription: String!
 }
 
 input PlaceOrderItems {

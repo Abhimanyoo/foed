@@ -106,6 +106,7 @@ type Order {
   status: OrderStatus! @default(value: "IN_PROGRESS")
   items: [OrderItem!]! @relation(name: "OrderToOrderItem", onDelete: CASCADE)
   tip: Float!
+  subscription: String
 }
 
 type OrderItem {

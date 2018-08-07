@@ -17,6 +17,15 @@ class MyApp extends App<WithApolloProps<any>> {
   componentDidMount() {
     // This is called only client-side, which is what we want
     this.store.initStorageSync();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then(() => console.log('Service worker started'))
+        .catch(err => console.error('Service worker registration failed', err));
+    } else {
+      console.log('Service worker not supported');
+    }
   }
 
   public render() {

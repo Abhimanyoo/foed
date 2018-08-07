@@ -2341,6 +2341,7 @@ type Order implements Node {
   status: OrderStatus!
   items(where: OrderItemWhereInput, orderBy: OrderItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderItem!]
   tip: Float!
+  subscription: String
 }
 
 """A connection to a list of items."""
@@ -2357,6 +2358,7 @@ input OrderCreateInput {
   number: Int
   status: OrderStatus
   tip: Float!
+  subscription: String
   items: OrderItemCreateManyInput
 }
 
@@ -2620,6 +2622,8 @@ enum OrderOrderByInput {
   status_DESC
   tip_ASC
   tip_DESC
+  subscription_ASC
+  subscription_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2631,6 +2635,7 @@ type OrderPreviousValues {
   number: Int
   status: OrderStatus!
   tip: Float!
+  subscription: String
 }
 
 enum OrderStatus {
@@ -2683,6 +2688,7 @@ input OrderUpdateInput {
   number: Int
   status: OrderStatus
   tip: Float
+  subscription: String
   items: OrderItemUpdateManyInput
 }
 
@@ -2789,6 +2795,46 @@ input OrderWhereInput {
 
   """All values greater than or equal the given value."""
   tip_gte: Float
+  subscription: String
+
+  """All values that are not equal to given value."""
+  subscription_not: String
+
+  """All values that are contained in given list."""
+  subscription_in: [String!]
+
+  """All values that are not contained in given list."""
+  subscription_not_in: [String!]
+
+  """All values less than the given value."""
+  subscription_lt: String
+
+  """All values less than or equal the given value."""
+  subscription_lte: String
+
+  """All values greater than the given value."""
+  subscription_gt: String
+
+  """All values greater than or equal the given value."""
+  subscription_gte: String
+
+  """All values containing the given string."""
+  subscription_contains: String
+
+  """All values not containing the given string."""
+  subscription_not_contains: String
+
+  """All values starting with the given string."""
+  subscription_starts_with: String
+
+  """All values not starting with the given string."""
+  subscription_not_starts_with: String
+
+  """All values ending with the given string."""
+  subscription_ends_with: String
+
+  """All values not ending with the given string."""
+  subscription_not_ends_with: String
   items_every: OrderItemWhereInput
   items_some: OrderItemWhereInput
   items_none: OrderItemWhereInput
@@ -4465,6 +4511,8 @@ export type OrderOrderByInput =
   | 'status_DESC'
   | 'tip_ASC'
   | 'tip_DESC'
+  | 'subscription_ASC'
+  | 'subscription_DESC'
   | 'updatedAt_ASC'
   | 'updatedAt_DESC'
   | 'createdAt_ASC'
@@ -5119,6 +5167,7 @@ export interface OrderCreateInput {
   number?: Int;
   status?: OrderStatus;
   tip: Float;
+  subscription?: String;
   items?: OrderItemCreateManyInput;
 }
 
@@ -5203,6 +5252,20 @@ export interface OrderWhereInput {
   tip_lte?: Float;
   tip_gt?: Float;
   tip_gte?: Float;
+  subscription?: String;
+  subscription_not?: String;
+  subscription_in?: String[] | String;
+  subscription_not_in?: String[] | String;
+  subscription_lt?: String;
+  subscription_lte?: String;
+  subscription_gt?: String;
+  subscription_gte?: String;
+  subscription_contains?: String;
+  subscription_not_contains?: String;
+  subscription_starts_with?: String;
+  subscription_not_starts_with?: String;
+  subscription_ends_with?: String;
+  subscription_not_ends_with?: String;
   items_every?: OrderItemWhereInput;
   items_some?: OrderItemWhereInput;
   items_none?: OrderItemWhereInput;
@@ -5777,6 +5840,7 @@ export interface OrderUpdateInput {
   number?: Int;
   status?: OrderStatus;
   tip?: Float;
+  subscription?: String;
   items?: OrderItemUpdateManyInput;
 }
 
@@ -6182,6 +6246,7 @@ export interface Order extends Node {
   status: OrderStatus;
   items?: OrderItem[];
   tip: Float;
+  subscription?: String;
 }
 
 export interface AggregateCardSubitem {
@@ -6406,6 +6471,7 @@ export interface OrderPreviousValues {
   number?: Int;
   status: OrderStatus;
   tip: Float;
+  subscription?: String;
 }
 
 /*

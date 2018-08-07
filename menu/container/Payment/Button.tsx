@@ -7,6 +7,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Store, PaymentStatus } from 'Store';
 import R from 'routes';
+import { registerPush } from 'lib/registerPush';
 
 const PLACE_ORDER = gql`
   mutation placeOrder($data: PlaceOrderInput!) {
@@ -28,6 +29,7 @@ export class PaymentButton extends React.Component<Props, {}> {
   handlePay = async mutate => {
     const { store } = this.props;
     this.isSubmitting = true;
+    const subscription = await registerPush();
     try {
       const { data } = await mutate({
         variables: {
@@ -38,6 +40,7 @@ export class PaymentButton extends React.Component<Props, {}> {
               restaurant: item.restaurant.id,
             })),
             tip: store.order.tip,
+            subscription,
           },
         },
       });
