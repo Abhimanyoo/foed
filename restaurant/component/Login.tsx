@@ -12,7 +12,7 @@ export const LoginForm = styled('form')`
   background: #4192a3;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 4px 10px 0 rgba(12, 70, 81, 0.36);
+  box-shadow: 0 6px 20px 0 rgba(12, 70, 81, 0.3);
 `;
 
 export const LoginContainer = styled('div')`

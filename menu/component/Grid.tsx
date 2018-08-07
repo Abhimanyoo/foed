@@ -27,7 +27,7 @@ export const GridItemImage = styled(ImageFade)`
   width: 125px;
   height: 125px;
   border-radius: 15px;
-  box-shadow: 0 4px 10px 0 rgba(12, 70, 81, 0.36);
+  box-shadow: 0px 6px 20px 0 rgba(12, 70, 81, 0.3);
   background: rgba(255, 255, 255, 0.3);
   opacity: 0;
   transition: opacity 0.3s;
