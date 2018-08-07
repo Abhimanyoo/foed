@@ -2,9 +2,9 @@ import { forwardTo } from 'prisma-binding';
 import { upload } from 'now-storage';
 import * as streamToArray from 'stream-to-array';
 import * as sharp from 'sharp';
-import * as webpush from 'web-push';
 import { Context } from '../utils';
 import { OrderStatus } from '../generated/prisma';
+import { sendNotification } from '../push';
 
 interface PlaceOrderInput {
   items: { cardItem: string; subitems: string[]; restaurant: string }[];
@@ -130,8 +130,7 @@ export const Mutation = {
     if (status === 'COMPLETED') {
       const order = await ctx.db.query.order({ where: { id } });
       if (order && order.subscription) {
-        const subscriptionJson = JSON.parse(order.subscription);
-        webpush.sendNotification(subscriptionJson, 'Your order is ready!');
+        sendNotification(order.subscription, 'Your order is ready!');
       }
     }
     return await ctx.db.mutation.updateOrder(

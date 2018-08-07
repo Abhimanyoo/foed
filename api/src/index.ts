@@ -1,6 +1,5 @@
 import { ApolloServer } from 'apollo-server';
 import { Prisma } from 'prisma-binding';
-import * as webpush from 'web-push';
 import * as resolvers from './resolvers';
 import { email } from './mailer';
 import { graphqlAuthenticationConfig } from 'graphql-authentication';
@@ -8,6 +7,7 @@ import { GraphqlAuthenticationPrismaAdapter } from 'graphql-authentication-prism
 import { applyMiddleware } from 'graphql-middleware';
 import { permissions } from './permissions';
 import { getSchema } from './schema';
+import './push';
 
 const authOptions = {
   adapter: new GraphqlAuthenticationPrismaAdapter(),
@@ -53,9 +53,3 @@ const server = new ApolloServer({
 });
 
 server.listen().then(({ url }) => console.log(`Server is running on ${url}`));
-
-webpush.setVapidDetails(
-  `mailto:${process.env.BACKEND_MAIL_FROM}`,
-  process.env.BACKEND_VAPID_PUBLIC_KEY,
-  process.env.BACKEND_VAPID_PRIVATE_KEY
-);
