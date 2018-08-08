@@ -19,7 +19,7 @@ export class ModalCardCategoryEdit extends React.Component<Props, {}> {
         title="Edit a menu category"
         footer={
           <React.Fragment>
-            <Button onClick={this.props.onClose}>Close</Button>
+            <Button onClick={this.props.onClose}>Done</Button>
           </React.Fragment>
         }
         theme={{} as any}

@@ -20,7 +20,7 @@ export class ModalCardItemEdit extends React.Component<Props, {}> {
         title="Edit a menu item"
         footer={
           <React.Fragment>
-            <Button onClick={this.props.onClose}>Close</Button>
+            <Button onClick={this.props.onClose}>Done</Button>
           </React.Fragment>
         }
       >
