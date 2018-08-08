@@ -21,7 +21,6 @@ const MyVirtualList = VirtualList()(MyList);
 export const OrganizationOverview = (props: Props) => (
   <div>
     <Logo />
-    <Subheading>Venues</Subheading>
     <MyVirtualList items={props.organizations} itemHeight={GRID_ITEM_HEIGHT} />
   </div>
 );
