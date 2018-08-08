@@ -1,6 +1,7 @@
 import { OrderListItem } from './ListItem';
-import { ReceiptEmpty } from 'component/ReceiptList';
+import { ReceiptEmpty, ReceiptEmptyMessage } from 'component/ReceiptList';
 import { Header } from 'component/Header';
+import IconLemonade from 'component/icon/Lemonade';
 import {
   restaurantInfoAndOrders_restaurant,
   restaurantInfoAndOrders_unfinishedRestaurantOrders,
@@ -27,7 +28,10 @@ export const OrderOverview = ({
       title={restaurant.name}
     />
     <div>
-      {orders.length === 0 && <ReceiptEmpty>No open orders!</ReceiptEmpty>}
+      {orders.length === 0 && <ReceiptEmpty>
+        <IconLemonade />
+        <ReceiptEmptyMessage>You're all set!<br/>There are no active orders.</ReceiptEmptyMessage>
+      </ReceiptEmpty>}
       {orders.map(order => (
         <OrderListItem key={order.id} order={order} refetch={refetch} />
       ))}

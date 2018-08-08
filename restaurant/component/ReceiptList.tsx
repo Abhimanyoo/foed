@@ -2,8 +2,12 @@ import styled from 'react-emotion';
 
 export const ReceiptEmpty = styled('div')`
   text-align: center;
+  padding: 60px 0;
+`;
+
+export const ReceiptEmptyMessage = styled('div')`
   font-size: 18px;
-  padding: 20px;
+  margin-top: 20px;
 `;
 
 export const ReceiptListItem = styled<{ completed?: boolean }, 'div'>('div')`
