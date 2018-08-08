@@ -6,13 +6,14 @@ interface ButtonProps {
 
 export const Button = styled<ButtonProps, 'button'>('button')`
   width: 100%;
-  background: ${props => (props.tone === 'secondary' ? '#979797' : '#91a538')};
+  background: ${props => (props.tone === 'secondary' ? '#979797' : '#333')};
+  box-shadow: 0 10px 20px rgba(51, 51, 51, 0.3);
   color: #fff;
-  padding: 10px 20px;
+  padding: 16px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   font-size: 16px;
-  margin: 8px 8px 8px 0;
+  margin: 10px 10px 10px 0;
   outline: 0;
 
   &:active {
