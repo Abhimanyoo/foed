@@ -15,7 +15,15 @@ export function registerPush() {
             applicationServerKey: urlBase64ToUint8Array(appPubkey),
           });
         })
-        .then(subscription => JSON.stringify(subscription));
+        .then(subscription => JSON.stringify(subscription))
+        .catch(err => {
+          // If notification permissions are rejected we want to continu as normal
+          // Of course FF and Chrome use different error names, why not
+          if (['NotAllowedError', 'AbortError'].includes(err.name)) {
+            return null;
+          }
+          throw err;
+        });
     });
   }
   return Promise.resolve(null);
