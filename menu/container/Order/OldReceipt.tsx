@@ -5,6 +5,7 @@ import { Order } from 'Store';
 import { ReceiptBackground } from 'component/ReceiptBackground';
 import { OrderReceiptPricing } from './ReceiptPricing';
 import { Subheading } from 'component/Header';
+import { uniqueId } from 'lib/uniqueId';
 
 interface Props {
   order: Order;
@@ -20,6 +21,7 @@ export class OrderOldReceipt extends React.Component<Props, {}> {
         <ReceiptBackground>
           {order.groupedItems.map(groupedItem => (
             <OrderOldReceiptListItem
+              key={uniqueId()}
               item={groupedItem.item}
               amount={groupedItem.amount}
             />

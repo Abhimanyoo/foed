@@ -9,6 +9,7 @@ import R from 'routes';
 import { OrderReceipt } from './Receipt';
 import { OrderOldReceipt } from './OldReceipt';
 import { OrderPaymentNotification } from './PaymentNotification';
+import { uniqueId } from 'lib/uniqueId';
 
 interface Props {
   store: Store;
@@ -38,7 +39,9 @@ export class OrderDetails extends React.Component<Props, {}> {
             onRemove={item => store.order.removeItem(item)}
           />
         )}
-        {store.previousOrders.map(order => <OrderOldReceipt order={order} />)}
+        {store.previousOrders.map(order => (
+          <OrderOldReceipt key={uniqueId()} order={order} />
+        ))}
         {hasItems && (
           <FloatingButtons>
             <R.Link route="/payment" prefetch>

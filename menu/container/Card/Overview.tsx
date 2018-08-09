@@ -82,10 +82,9 @@ export class CardOverview extends React.Component<Props, {}> {
                 cardItem.id
               );
               return (
-                <Observer>
+                <Observer key={cardItem.id}>
                   {() => (
                     <CardListItem
-                      key={cardItem.id}
                       item={cardItem}
                       store={store}
                       onAdd={this.handleAddItem}
