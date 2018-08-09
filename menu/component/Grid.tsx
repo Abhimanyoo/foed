@@ -12,7 +12,7 @@ const linkStyles = css`
   display: flex;
   width: 100%;
   color: #fff;
-  font-weight: bold;
+  font-weight: 400;
   text-decoration: none;
   position: relative;
   padding: 0 20px;

@@ -21,6 +21,7 @@ interface StyledLinkProps {
 const StyledLink = styled<StyledLinkProps, 'a'>('a')`
   color: #3e93a4;
   padding: 12px 10px 13px 10px;
+  font-weight: 400;
   display: inline-block;
   vertical-align: middle;
   text-decoration: none;
