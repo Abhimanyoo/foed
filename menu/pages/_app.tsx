@@ -4,7 +4,10 @@ import { ApolloProvider } from 'react-apollo';
 import { withApollo } from '../withApollo';
 import { initStore, Store } from '../Store';
 import { WithApolloProps } from 'next-with-apollo';
+import { useStaticRendering } from 'mobx-react';
 import '../styles';
+
+useStaticRendering(!process.browser);
 
 class MyApp extends App<WithApolloProps<any>> {
   store: Store;

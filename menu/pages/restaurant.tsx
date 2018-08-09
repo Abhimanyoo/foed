@@ -3,6 +3,7 @@ import { Query } from '../component/Query';
 import { CardOverview } from '../container/Card/Overview';
 import gql from 'graphql-tag';
 import { Store } from 'Store';
+import { observer } from 'mobx-react';
 
 interface Props {
   slug: string;
@@ -32,24 +33,20 @@ const RESTAURANT_DETAILS = gql`
   }
 `;
 
+@observer
 export default class CardOverviewPage extends React.Component<Props, {}> {
   static getInitialProps({ query: { slug, categoryId } }) {
     return { slug, categoryId };
   }
 
   componentDidMount() {
+    this.props.store.order.clearPreselected();
     document.body.classList.add('order-page');
   }
 
   componentWillUnmount() {
     this.props.store.order.clearPreselected();
     document.body.classList.remove('order-page');
-  }
-
-  componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.categoryId !== this.props.categoryId) {
-      this.props.store.order.clearPreselected();
-    }
   }
 
   render() {
