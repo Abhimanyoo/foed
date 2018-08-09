@@ -52,4 +52,4 @@ The API automatically seeds data. You can now login on the webapp with the user 
 
 ## Playing with the API
 
-If you want to play around with the API, go to http://localhost:4005/playground.
+If you want to play around with the API, go to http://localhost:4005/playground. Alternatively you can explore the API visually by running `yarn voyager` in `api/`.
