@@ -24,7 +24,8 @@ interface Props {
 
 @observer
 export class PaymentButton extends React.Component<Props, {}> {
-  @observable isSubmitting = false;
+  @observable
+  isSubmitting = false;
 
   handlePay = async mutate => {
     const { store } = this.props;
@@ -36,7 +37,7 @@ export class PaymentButton extends React.Component<Props, {}> {
           data: {
             items: store.order.items.map(item => ({
               cardItem: item.cardItem.id,
-              subitems: item.subitems.map(subitem => subitem.id),
+              options: item.options.map(option => option.id),
               restaurant: item.restaurant.id,
             })),
             tip: store.order.tip,

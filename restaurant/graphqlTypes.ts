@@ -110,7 +110,7 @@ export interface restaurantInfoAndOrders_unfinishedRestaurantOrders_items_cardIt
   name: string;
 }
 
-export interface restaurantInfoAndOrders_unfinishedRestaurantOrders_items_subitems {
+export interface restaurantInfoAndOrders_unfinishedRestaurantOrders_items_options {
   id: string;
   name: string;
 }
@@ -119,7 +119,7 @@ export interface restaurantInfoAndOrders_unfinishedRestaurantOrders_items {
   id: string;
   completedAt: GraphQLDateTime | null;
   cardItem: restaurantInfoAndOrders_unfinishedRestaurantOrders_items_cardItem;
-  subitems: restaurantInfoAndOrders_unfinishedRestaurantOrders_items_subitems[] | null;
+  options: restaurantInfoAndOrders_unfinishedRestaurantOrders_items_options[] | null;
 }
 
 export interface restaurantInfoAndOrders_unfinishedRestaurantOrders {

@@ -30,7 +30,7 @@ export class OrderOldReceiptListItem extends React.Component<Props, {}> {
           </ReceiptListItemPrice>
         </ReceiptListItemInfo>
         <ReceiptListItemDescription>
-          {item.subitems.map(subitem => subitem.name).join(', ')}
+          {item.options.map(option => option.name).join(', ')}
         </ReceiptListItemDescription>
       </ReceiptListItem>
     );

@@ -22,7 +22,7 @@ const ORDERS = gql`
           id
           name
         }
-        subitems {
+        options {
           id
           name
         }

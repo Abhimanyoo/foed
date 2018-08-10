@@ -57,7 +57,7 @@ export class OrderListItemItem extends React.Component<Props, {}> {
           </Mutation>
         </ReceiptListItemInfo>
         <ReceiptListItemDescription>
-          {item.subitems.map(subitem => subitem.name).join(', ')}
+          {item.options.map(subitem => subitem.name).join(', ')}
         </ReceiptListItemDescription>
       </ReceiptListItem>
     );

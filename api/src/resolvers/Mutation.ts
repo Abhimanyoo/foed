@@ -7,7 +7,7 @@ import { OrderStatus } from '../generated/prisma';
 import { sendNotification } from '../push';
 
 interface PlaceOrderInput {
-  items: { cardItem: string; subitems: string[]; restaurant: string }[];
+  items: { cardItem: string; options: string[]; restaurant: string }[];
   tip: number;
   subscription?: string;
 }
@@ -83,23 +83,23 @@ export const Mutation = {
       if (!cardItem) {
         throw new Error(`Cannot find card item ${itemInput.cardItem}`);
       }
-      const cardSubItems = await ctx.db.query.cardSubitems({
-        where: { id_in: itemInput.subitems },
+      const cardOptions = await ctx.db.query.cardItemOptions({
+        where: { id_in: itemInput.options },
       });
 
       let subtotal = cardItem.price;
 
-      const subItemConnects: any[] = [];
-      for (const cardSubitem of cardSubItems) {
-        subtotal += cardSubitem.price;
+      const optionConnects: any[] = [];
+      for (const cardOption of cardOptions) {
+        subtotal += cardOption.price;
 
-        subItemConnects.push({ id: cardSubitem.id });
+        optionConnects.push({ id: cardOption.id });
       }
 
       order.items.create.push({
         subtotal,
         cardItem: { connect: { id: cardItem.id } },
-        subitems: { connect: subItemConnects },
+        options: { connect: optionConnects },
         restaurant: { connect: { id: itemInput.restaurant } },
       });
     }

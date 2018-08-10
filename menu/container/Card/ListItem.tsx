@@ -9,7 +9,7 @@ import {
   ListItemButton,
   ListItemTitle,
 } from 'component/List';
-import { CardListSubitem, ToggleSubItemFn } from './ListSubitem';
+import { CardListGroupOption, ToggleOptionFn } from './ListGroupOption';
 import { floatToDecimal } from 'helpers';
 import { Store } from 'Store';
 import { IconAddCircle } from 'component/icon/AddCircle';
@@ -22,7 +22,7 @@ interface Props {
   disabled: boolean;
   opened: boolean;
   onAdd: (item: CardItem) => void;
-  onToggleSubitem: ToggleSubItemFn;
+  onToggleOption: ToggleOptionFn;
   onToggleOpen: (id: string) => void;
 }
 
@@ -45,7 +45,7 @@ export class CardListItem extends React.Component<Props, {}> {
                 e.stopPropagation();
                 onAdd(item);
               }}
-              disabled={selected && item.subitems.length > 0}
+              disabled={selected && item.optionGroups.length > 0}
             >
               <IconAddCircle />
             </ListItemButton>
@@ -58,13 +58,13 @@ export class CardListItem extends React.Component<Props, {}> {
           </ListItemInfoDescription>
         </ListItem>
         {selected &&
-          item.subitems.map(subitem => (
-            <CardListSubitem
-              key={subitem.id}
+          item.optionGroups.map(optionGroup => (
+            <CardListGroupOption
+              key={optionGroup.id}
               item={item}
-              subitem={subitem}
+              optionGroup={optionGroup}
               store={store}
-              onToggle={this.props.onToggleSubitem}
+              onToggle={this.props.onToggleOption}
             />
           ))}
       </React.Fragment>

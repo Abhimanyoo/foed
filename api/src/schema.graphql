@@ -65,7 +65,7 @@ input PlaceOrderInput {
 
 input PlaceOrderItems {
   cardItem: ID!
-  subitems: [ID!]!
+  options: [ID!]!
   restaurant: ID!
 }
 

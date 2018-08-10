@@ -3,11 +3,15 @@ import {
   Item,
   GroupedItem,
   CardItem,
-  CardSubitem,
+  CardOption,
   GroupedItemByRestaurant,
+  CardOptionGroup,
 } from './types';
 
 const STORAGE_KEY = 'store-data';
+// Increase this number if there is a breaking change in the storage data.
+const STORAGE_VERSION = 2;
+
 let store: Store | null = null;
 export enum PaymentStatus {
   None,
@@ -16,10 +20,14 @@ export enum PaymentStatus {
 }
 
 export class Order {
-  @observable items: Item[] = [];
-  @observable tip = 0;
-  @observable number: number | null = null;
-  @observable paymentStatus: PaymentStatus = PaymentStatus.None;
+  @observable
+  items: Item[] = [];
+  @observable
+  tip = 0;
+  @observable
+  number: number | null = null;
+  @observable
+  paymentStatus: PaymentStatus = PaymentStatus.None;
 
   addItem(
     cardItem: CardItem,
@@ -35,7 +43,7 @@ export class Order {
     }
     this.items.push({
       cardItem,
-      subitems: [],
+      options: [],
       preselect: true,
       organizationId,
       restaurant,
@@ -45,7 +53,7 @@ export class Order {
   cloneItem(item: Item) {
     this.items.push({
       cardItem: item.cardItem,
-      subitems: item.subitems.slice(),
+      options: item.options.slice(),
       preselect: false,
       organizationId: item.organizationId,
       restaurant: item.restaurant,
@@ -59,35 +67,39 @@ export class Order {
     }
   }
 
-  hasSelectedSubitem(cardItem: CardItem, subitem: CardSubitem) {
+  hasSelectedOption(cardItem: CardItem, option: CardOption) {
     const item = this.items.find(
       item => item.preselect && item.cardItem.id === cardItem.id
     );
     if (item) {
-      return item.subitems.some(sItem => sItem.id === subitem.id);
+      return item.options.some(sItem => sItem.id === option.id);
     }
     return false;
   }
 
-  toggleSubitem(cardItem: CardItem, subitem: CardSubitem) {
+  toggleOption(
+    cardItem: CardItem,
+    optionGroup: CardOptionGroup,
+    option: CardOption
+  ) {
     // TODO: this does not work when there are two of the same items that are preselected
     const item = this.items.find(
       item => item.preselect && item.cardItem.id === cardItem.id
     );
     if (item) {
-      const index = item.subitems.findIndex(sItem => sItem.id === subitem.id);
+      const index = item.options.findIndex(iOption => iOption.id === option.id);
       if (index >= 0) {
-        item.subitems.splice(index, 1);
+        item.options.splice(index, 1);
       } else {
-        // Only one subitem of the type variant can be selected at the time
-        if (subitem.type === 'VARIANT') {
-          item.subitems.forEach((sItem, i) => {
-            if (sItem.type === 'VARIANT') {
-              item.subitems.splice(i, 1);
+        // Only one option of the type variant can be selected at the time
+        if (optionGroup.type === 'VARIANT') {
+          item.options.forEach((option, i) => {
+            if (optionGroup.options.some(o => o.id === option.id)) {
+              item.options.splice(i, 1);
             }
           });
         }
-        item.subitems.push(subitem);
+        item.options.push(option);
       }
     }
   }
@@ -119,11 +131,11 @@ export class Order {
   @computed
   get totalPrice() {
     return this.items.reduce((itemPrice, item) => {
-      const subitemsPrice = item.subitems.reduce(
-        (subitemPrice, subitem) => subitem.price + subitemPrice,
+      const optionsPrice = item.options.reduce(
+        (optionPrice, option) => option.price + optionPrice,
         0
       );
-      return item.cardItem.price + subitemsPrice + itemPrice;
+      return item.cardItem.price + optionsPrice + itemPrice;
     }, 0);
   }
 
@@ -134,7 +146,7 @@ export class Order {
       const groupedItem = groupedItems.find(
         gItem => gItem.item.cardItem.id === item.cardItem.id
       );
-      if (!item.cardItem.subitems.length && groupedItem) {
+      if (!item.cardItem.optionGroups.length && groupedItem) {
         groupedItem.amount += 1;
       } else {
         groupedItems.push({
@@ -171,8 +183,10 @@ export class Order {
 }
 
 export class Store {
-  @observable order = new Order();
-  @observable previousOrders: Order[] = [];
+  @observable
+  order = new Order();
+  @observable
+  previousOrders: Order[] = [];
 
   setPaymentAttempt(data?: { id: string; number: number }) {
     if (data) {
@@ -188,8 +202,11 @@ export class Store {
   initStorageSync() {
     const oldPayload = localStorage.getItem(STORAGE_KEY);
     if (oldPayload) {
-      // This implementation probably won't hold up for very long...
       const parsed = JSON.parse(oldPayload);
+      if (!parsed.version || parsed.version < STORAGE_VERSION) {
+        return;
+      }
+      // This implementation probably won't hold up for very long...
       Object.assign(this.order, parsed.data.order);
       this.previousOrders = parsed.data.previousOrders.map(rawOrder => {
         const order = new Order();
@@ -201,6 +218,7 @@ export class Store {
     autorun(() => {
       const payload = {
         createdAt: new Date(),
+        version: STORAGE_VERSION,
         data: {
           order: this.order,
           previousOrders: this.previousOrders,

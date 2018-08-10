@@ -3,20 +3,26 @@ export interface CardItem {
   name: string;
   description: string;
   price: number;
-  subitems: CardSubitem[];
+  optionGroups: CardOptionGroup[];
 }
 
-export interface CardSubitem {
+export interface CardOptionGroup {
   id: string;
   name: string;
   type: 'VARIANT' | 'ADDITION';
+  options: CardOption[];
+}
+
+export interface CardOption {
+  id: string;
+  name: string;
   price: number;
 }
 
 export interface Item {
   preselect?: boolean;
   cardItem: CardItem;
-  subitems: CardSubitem[];
+  options: CardOption[];
   organizationId: string;
   restaurant: BasicRestaurant;
 }

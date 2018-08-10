@@ -86,6 +86,11 @@ export const ListItemButton = styled('button')`
   }
 `;
 
+export const ListSubitemGroupHeading = styled('div')`
+  margin: 15px 0 10px 50px;
+  font-weight: bold;
+`;
+
 export const ListSubitem = styled<{ selected?: boolean }, 'div'>('div')`
   width: 100%;
   font-size: 15px;

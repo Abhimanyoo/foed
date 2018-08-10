@@ -24,11 +24,15 @@ const CARD_ITEM_OVERVIEW = gql`
         name
         price
         description
-        subitems {
+        optionGroups {
           id
           name
           type
-          price
+          options {
+            id
+            name
+            price
+          }
         }
       }
     }
@@ -37,7 +41,8 @@ const CARD_ITEM_OVERVIEW = gql`
 
 @observer
 export class CardOverview extends React.Component<Props, {}> {
-  @observable openItem = '';
+  @observable
+  openItem = '';
 
   handleAddItem = cardItem => {
     const { store, restaurant } = this.props;
@@ -54,9 +59,9 @@ export class CardOverview extends React.Component<Props, {}> {
     store.order.clearPreselected();
   };
 
-  handleToggleSubItem = (cardItem, subitem) => {
+  handleToggleOption = (cardItem, optionGroup, option) => {
     const { store } = this.props;
-    store.order.toggleSubitem(cardItem, subitem);
+    store.order.toggleOption(cardItem, optionGroup, option);
   };
 
   handleToggleOpen = (id: string) => {
@@ -88,7 +93,7 @@ export class CardOverview extends React.Component<Props, {}> {
                       item={cardItem}
                       store={store}
                       onAdd={this.handleAddItem}
-                      onToggleSubitem={this.handleToggleSubItem}
+                      onToggleOption={this.handleToggleOption}
                       selected={itemIsPreselected}
                       opened={this.openItem === cardItem.id}
                       onToggleOpen={this.handleToggleOpen}
