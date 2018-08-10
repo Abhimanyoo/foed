@@ -13,7 +13,13 @@ interface Props {
 }
 
 const initialState = {
-  input: { name: '', description: '', price: '', ordering: 0, subitems: [] },
+  input: {
+    name: '',
+    description: '',
+    price: '',
+    ordering: 0,
+    optionGroups: [],
+  },
 };
 
 export class CreateFormItemAdd extends React.Component<Props, { input: any }> {

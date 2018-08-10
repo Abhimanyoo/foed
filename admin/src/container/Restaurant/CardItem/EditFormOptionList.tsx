@@ -25,46 +25,40 @@ injectGlobal`
 
 interface Props {
   form: FormikProps<any>;
-  item: any;
+  optionGroup: any;
   prefix: string;
-  type: 'ADDITION' | 'VARIANT';
 }
 
 interface SortableListProps {
-  items: any[];
+  options: any[];
   arrayHelpers: ArrayHelpers;
   form: FormikProps<any>;
-  type: Props['type'];
   prefix: string;
 }
 
 const SortableList = SortableContainer(
-  ({ items, form, prefix, type, arrayHelpers }: SortableListProps) => {
-    const initialSubitemState = { name: '', price: '', ordering: 0, type };
+  ({ options, form, prefix, arrayHelpers }: SortableListProps) => {
+    const initialOptionState = { name: '', price: '', ordering: 0 };
     return (
       <Table>
         <TableRow>
           <TableData header>Name</TableData>
           <TableData header>Price</TableData>
           <TableData alignRight>
-            <Button
-              onClick={arrayHelpers.handlePush(initialSubitemState)}
-              small
-            >
+            <Button onClick={arrayHelpers.handlePush(initialOptionState)} small>
               <IconAddCircle />
             </Button>
           </TableData>
         </TableRow>
-        {items.map((subitem, index) => (
+        {options.map((option, index) => (
           <SortableItem
             key={`item-${index}`}
-            item={subitem}
+            item={option}
             index={index}
             index2={index}
             onRemove={arrayHelpers.remove}
             form={form}
             prefix={prefix}
-            type={type}
           />
         ))}
       </Table>
@@ -78,19 +72,17 @@ interface SortableItemProps {
   index2: number;
   onRemove: (index: number) => void;
   form: FormikProps<any>;
-  type: Props['type'];
   prefix: string;
 }
 
 const SortableItem = SortableElement(
-  ({ item, index2, type, form, prefix, onRemove }: SortableItemProps) => {
-    if (item.type !== type) return <div />;
+  ({ item, index2, form, prefix, onRemove }: SortableItemProps) => {
     return (
       <TableRow>
         <TableData>
           <FormField required noPadding>
             <TextInput
-              name={`${prefix}.subitems.${index2}.name`}
+              name={`${prefix}.${index2}.name`}
               value={item.name}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
@@ -100,7 +92,7 @@ const SortableItem = SortableElement(
         <TableData>
           <FormField required noPadding>
             <NumberInput
-              name={`${prefix}.subitems.${index2}.price`}
+              name={`${prefix}.${index2}.price`}
               value={item.price}
               onChange={form.handleChange}
               onBlur={form.handleBlur}
@@ -120,23 +112,23 @@ const SortableItem = SortableElement(
   }
 );
 
-export class CardItemEditFormSubitemTable extends React.Component<Props, {}> {
+export class CardItemEditFormOptionList extends React.Component<Props, {}> {
   render() {
-    const { form, prefix, item, type } = this.props;
+    const { form, prefix, optionGroup } = this.props;
+    const name = `${prefix}.options`;
     return (
       <FieldArray
-        name={`${prefix}.subitems`}
+        name={name}
         render={arrayHelpers => (
           <SortableList
-            items={item.subitems}
+            options={optionGroup.options}
             arrayHelpers={arrayHelpers}
             onSortEnd={({ oldIndex, newIndex }) =>
               arrayHelpers.move(oldIndex, newIndex)
             }
             useDragHandle
             form={form}
-            type={type}
-            prefix={prefix}
+            prefix={name}
             helperClass="sortable-helper"
           />
         )}

@@ -33,9 +33,12 @@ const SCHEME = {
     items: {
       __format: create,
       price: decimalToFloat,
-      subitems: {
+      optionGroups: {
         __format: create,
-        price: decimalToFloat,
+        options: {
+          __format: create,
+          price: decimalToFloat,
+        },
       },
     },
   },

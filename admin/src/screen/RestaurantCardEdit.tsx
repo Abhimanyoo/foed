@@ -39,12 +39,16 @@ const CARD = gql`
           description
           price
           ordering
-          subitems {
+          optionGroups {
             id
             type
             name
-            price
-            ordering
+            options {
+              id
+              name
+              price
+              ordering
+            }
           }
         }
       }
@@ -59,9 +63,12 @@ const SCHEME = {
     items: {
       __format: save,
       price: decimalToFloat,
-      subitems: {
+      optionGroups: {
         __format: save,
-        price: decimalToFloat,
+        options: {
+          __format: save,
+          price: decimalToFloat,
+        },
       },
     },
   },
