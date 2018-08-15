@@ -3,6 +3,8 @@ import styled from 'react-emotion';
 export const ReceiptEmpty = styled('div')`
   text-align: center;
   padding: 60px 0;
+  position: absolute;
+  width: 100%;
 `;
 
 export const ReceiptEmptyMessage = styled('div')`

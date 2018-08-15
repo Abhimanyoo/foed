@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Subheading } from 'component/Header';
+import { Receipt } from 'component/Receipt';
 import { ReceiptBackground } from 'component/ReceiptBackground';
 import { OrderListItemItem } from './ListItemItem';
 import { ReceiptButtonGroup } from 'component/ReceiptList';
@@ -13,6 +14,7 @@ import {
 
 interface Props {
   order: restaurantInfoAndOrders_unfinishedRestaurantOrders;
+  style: object;
   refetch: () => void;
 }
 
@@ -39,9 +41,9 @@ export class OrderListItem extends React.Component<Props, {}> {
   };
 
   render() {
-    const { order } = this.props;
+    const { order, style } = this.props;
     return (
-      <div>
+      <Receipt style={style}>
         <Subheading>Order #{order.number}</Subheading>
         <ReceiptBackground>
           {order.status === OrderStatus.IN_PROGRESS &&
@@ -69,7 +71,7 @@ export class OrderListItem extends React.Component<Props, {}> {
             )}
           </Mutation>
         </ReceiptBackground>
-      </div>
+      </Receipt>
     );
   }
 }

@@ -1,6 +1,7 @@
 import { OrderListItem } from './ListItem';
 import { ReceiptEmpty, ReceiptEmptyMessage } from 'component/ReceiptList';
 import { Header } from 'component/Header';
+import { Transition } from 'react-spring';
 import IconLemonade from 'component/icon/Lemonade';
 import {
   restaurantInfoAndOrders_restaurant,
@@ -28,13 +29,31 @@ export const OrderOverview = ({
       title={restaurant.name}
     />
     <div>
-      {orders.length === 0 && <ReceiptEmpty>
-        <IconLemonade />
-        <ReceiptEmptyMessage>You're all set!<br/>There are no active orders.</ReceiptEmptyMessage>
-      </ReceiptEmpty>}
-      {orders.map(order => (
-        <OrderListItem key={order.id} order={order} refetch={refetch} />
-      ))}
+      {orders.length === 0 && (
+        <ReceiptEmpty>
+          <IconLemonade />
+          <ReceiptEmptyMessage>
+            You're all set!
+            <br />
+            There are no active orders.
+          </ReceiptEmptyMessage>
+        </ReceiptEmpty>
+      )}
+      <Transition
+        keys={orders.map(order => order.id)}
+        from={{ left: '-100%' }}
+        enter={{ left: '0' }}
+        leave={{ left: '100%', pointerEvents: 'none' }}
+      >
+        {orders.map(order => styles => (
+          <OrderListItem
+            style={styles}
+            key={order.id}
+            order={order}
+            refetch={refetch}
+          />
+        ))}
+      </Transition>
     </div>
   </div>
 );
