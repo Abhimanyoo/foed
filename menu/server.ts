@@ -1,5 +1,6 @@
 import { createServer } from 'http';
 import * as next from 'next';
+import * as path from 'path';
 import routes from './routes';
 import { createReadStream } from 'fs';
 
@@ -11,7 +12,9 @@ const handler = routes.getRequestHandler(
   ({ req, res, route, query }: any) => {
     if (route.name === 'service-worker') {
       res.setHeader('content-type', 'text/javascript');
-      createReadStream('./lib/serviceWorker.js').pipe(res);
+      createReadStream(path.join(__dirname, './lib/serviceWorker.js')).pipe(
+        res
+      );
     } else {
       app.render(req, res, route.page, query);
     }
