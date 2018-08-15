@@ -16,7 +16,7 @@ export const Logo = () => (
 );
 
 export const LogoContainer = styled('div')`
-  padding: 60px;
+  padding: 40px;
 `;
 
 export const LogoText = styled('div')`
