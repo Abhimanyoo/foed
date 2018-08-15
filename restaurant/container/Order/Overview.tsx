@@ -27,6 +27,7 @@ export const OrderOverview = ({
       hideBack={employments.length < 2}
       backUrl="/"
       title={restaurant.name}
+      showSettings
     />
     <div>
       {orders.length === 0 && (

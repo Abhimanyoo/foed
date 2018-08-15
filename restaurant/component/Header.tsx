@@ -10,6 +10,7 @@ interface Props {
   backTitle?: string;
   hideBack?: boolean;
   title?: string;
+  showSettings?: boolean;
 }
 
 function handleBack() {
@@ -25,6 +26,10 @@ export const Heading = styled('h1')`
   font-size: 18px;
   display: flex;
   align-items: center;
+`;
+
+export const Spacer = styled('h1')`
+  width: 48px;
 `;
 
 export const Subheading = styled('h2')`
@@ -61,7 +66,7 @@ const linkStyles = css`
 `;
 
 export const Header = observer(
-  ({ hideBack, backUrl, backTitle, title }: Props) => {
+  ({ hideBack, backUrl, backTitle, title, showSettings }: Props) => {
     return (
       <Fragment>
         <div className={headerStyles}>
@@ -80,11 +85,15 @@ export const Header = observer(
               </button>
             ))}
           {title && <Heading>{title}</Heading>}
-          <R.Link route="/settings">
-            <a className={linkStyles}>
-              <IconCog fill="#fff" />
-            </a>
-          </R.Link>
+          {showSettings ? (
+            <R.Link route="/settings">
+              <a className={linkStyles}>
+                <IconCog fill="#fff" />
+              </a>
+            </R.Link>
+          ) : (
+            <Spacer />
+          )}
         </div>
       </Fragment>
     );
