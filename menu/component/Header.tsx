@@ -72,7 +72,7 @@ export const Header = observer(
           <R.Link route="/order" prefetch={!disabledOrder}>
             <a className={linkStyles}>
               {store ? (
-                <IconOrder text={store.order.items.length} fill="#fff" />
+                <IconOrder count={store.order.items.length} fill="#fff" />
               ) : null}
             </a>
           </R.Link>
