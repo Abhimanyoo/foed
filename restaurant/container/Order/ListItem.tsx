@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Receipt, ReceiptHeader } from 'component/Receipt';
 import { OrderListItemItem } from './ListItemItem';
-import { Button } from 'component/Button';
+import { SlideButton } from 'component/SlideButton';
 import { Text } from 'component/Text';
 import { IconDots } from 'component/icon/Dots';
+import { IconCheck } from 'component/icon/Check';
+import { IconBell } from 'component/icon/Bell';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import {
@@ -41,8 +43,6 @@ export class OrderListItem extends React.Component<Props, {}> {
 
   render() {
     const { order, style } = this.props;
-    const buttonText =
-      order.status === OrderStatus.COMPLETED ? 'Picked up' : 'Notify customer';
 
     return (
       <Receipt style={style}>
@@ -52,18 +52,25 @@ export class OrderListItem extends React.Component<Props, {}> {
               <Text size="small" tone="light">
                 #{order.number}
               </Text>
-              <Button
-                onClick={() =>
-                  this.changeStatus(
-                    mutate,
-                    order.status === OrderStatus.COMPLETED
-                      ? OrderStatus.PICKED_UP
-                      : OrderStatus.COMPLETED
-                  )
-                }
-              >
-                {buttonText}
-              </Button>
+              {order.status === OrderStatus.COMPLETED ? (
+                <SlideButton
+                  key="PICKED_UP"
+                  onSlide={() =>
+                    this.changeStatus(mutate, OrderStatus.PICKED_UP)
+                  }
+                  text="Picked up"
+                  icon={<IconCheck fill="#fff" />}
+                />
+              ) : (
+                <SlideButton
+                  key="COMPLETED"
+                  onSlide={() =>
+                    this.changeStatus(mutate, OrderStatus.COMPLETED)
+                  }
+                  text="Notify customer"
+                  icon={<IconBell />}
+                />
+              )}
               <IconDots />
             </ReceiptHeader>
           )}

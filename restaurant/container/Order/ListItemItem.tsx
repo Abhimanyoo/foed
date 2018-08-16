@@ -6,7 +6,7 @@ import {
   ReceiptListItemButton,
   ReceiptListItemTitle,
 } from 'component/ReceiptList';
-import IconCheck from 'component/icon/Check';
+import { IconCheck } from 'component/icon/Check';
 import { Text } from 'component/Text';
 import gql from 'graphql-tag';
 import { restaurantInfoAndOrders_unfinishedRestaurantOrders_items } from 'graphqlTypes';
