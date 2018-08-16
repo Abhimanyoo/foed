@@ -1,0 +1,111 @@
+import * as React from 'react';
+import gql from 'graphql-tag';
+import { RestaurantCardCreateForm } from '../container/Restaurant/Card/CreateForm';
+import { ScreenProps } from '../Props';
+import { Body, ContentContainer, Content } from '@volst/ui-components';
+import { Mutation } from 'react-apollo';
+import { RestaurantTopMenu } from '../container/Restaurant/TopMenu';
+import { FormikActions } from 'formik';
+import {
+  parseFormToMutation,
+  connect,
+  create,
+} from '@volst/graphql-form-helpers';
+import { decimalToFloat } from '../utils/currency';
+import checkLoggedIn from 'lib/checkLoggedIn';
+import redirect from 'lib/redirect';
+import { AppHeader } from 'container/AppHeader';
+
+const CREATE_CARD = gql`
+  mutation createCard($data: CardCreateInput!) {
+    createCard(data: $data) {
+      id
+    }
+  }
+`;
+
+const INITIAL_VALUES = {
+  name: '',
+  categories: [],
+};
+
+const SCHEME = {
+  restaurant: connect,
+  categories: {
+    __format: create,
+    items: {
+      __format: create,
+      price: decimalToFloat,
+      optionGroups: {
+        __format: create,
+        options: {
+          __format: create,
+          price: decimalToFloat,
+        },
+      },
+    },
+  },
+};
+
+export default class RestaurantCardCreate extends React.Component<
+  ScreenProps,
+  {}
+> {
+  static async getInitialProps(context: any) {
+    const { currentUser } = await checkLoggedIn(context.apolloClient);
+
+    if (!currentUser.id) {
+      redirect(context, '/login');
+    }
+
+    return { currentUser, query: context.query };
+  }
+
+  handleSubmit = async (values: any, actions: FormikActions<any>, mutate) => {
+    try {
+      const restaurantId = this.props.query.restaurantId;
+      values.restaurant = restaurantId;
+      const newValues = parseFormToMutation(values, SCHEME);
+      await mutate({
+        variables: { data: newValues },
+      });
+      this.props.addNotification({
+        key: 'requestSave',
+        dismissAfter: 4000,
+        message: 'Saved successfully',
+      });
+      return null;
+    } catch (err) {
+      actions.setSubmitting(false);
+      if (err.graphQLErrors) {
+        // TODO: show actual errors
+        return;
+      }
+      throw err;
+    }
+  };
+
+  render() {
+    const { restaurantId } = this.props.query;
+    return (
+      <Body>
+        <AppHeader user={this.props.currentUser} />
+        <RestaurantTopMenu id={restaurantId} />
+        <ContentContainer>
+          <Content>
+            <Mutation mutation={CREATE_CARD}>
+              {mutate => (
+                <RestaurantCardCreateForm
+                  onSubmit={(values, actions) =>
+                    this.handleSubmit(values, actions, mutate)
+                  }
+                  initialValues={INITIAL_VALUES}
+                />
+              )}
+            </Mutation>
+          </Content>
+        </ContentContainer>
+      </Body>
+    );
+  }
+}

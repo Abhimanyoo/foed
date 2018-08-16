@@ -19,12 +19,12 @@ jobs:
       - run: cd api && yarn build
       - run: cd api && yarn test
       - run: cd admin && yarn build
-      - run: cd admin && yarn test
       - run: cd menu && yarn build
       - run: cd restaurant && yarn build
       - save_cache:
           paths:
             - admin/build
+            - admin/.next
             - api/build
             - menu/build
             - menu/.next
