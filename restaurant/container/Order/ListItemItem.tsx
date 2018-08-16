@@ -2,13 +2,12 @@ import * as React from 'react';
 import { Mutation } from 'react-apollo';
 import {
   ReceiptListItem,
-  ReceiptListItemOrderCount,
   ReceiptListItemInfo,
   ReceiptListItemButton,
-  ReceiptListItemDescription,
   ReceiptListItemTitle,
 } from 'component/ReceiptList';
 import IconCheck from 'component/icon/Check';
+import { Text } from 'component/Text';
 import gql from 'graphql-tag';
 import { restaurantInfoAndOrders_unfinishedRestaurantOrders_items } from 'graphqlTypes';
 
@@ -41,24 +40,23 @@ export class OrderListItemItem extends React.Component<Props, {}> {
   render() {
     const { item } = this.props;
     return (
-      <ReceiptListItem completed={!!item.completedAt}>
-        <ReceiptListItemInfo>
-          <ReceiptListItemOrderCount>1</ReceiptListItemOrderCount>
+      <ReceiptListItem>
+        <ReceiptListItemInfo completed={!!item.completedAt}>
           <ReceiptListItemTitle>{item.cardItem.name}</ReceiptListItemTitle>
-          <Mutation mutation={COMPLETE_ORDER_ITEM}>
-            {mutate => (
-              <ReceiptListItemButton
-                type="button"
-                onClick={() => this.handleCompleted(mutate)}
-              >
-                <IconCheck />
-              </ReceiptListItemButton>
-            )}
-          </Mutation>
+          <Text size="small" tone="warning">
+            {item.options.map(subitem => subitem.name).join(', ')}
+          </Text>
         </ReceiptListItemInfo>
-        <ReceiptListItemDescription>
-          {item.options.map(subitem => subitem.name).join(', ')}
-        </ReceiptListItemDescription>
+        <Mutation mutation={COMPLETE_ORDER_ITEM}>
+          {mutate => (
+            <ReceiptListItemButton
+              type="button"
+              onClick={() => this.handleCompleted(mutate)}
+            >
+              <IconCheck />
+            </ReceiptListItemButton>
+          )}
+        </Mutation>
       </ReceiptListItem>
     );
   }

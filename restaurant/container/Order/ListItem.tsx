@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Subheading } from 'component/Header';
-import { Receipt } from 'component/Receipt';
-import { ReceiptBackground } from 'component/ReceiptBackground';
+import { Receipt, ReceiptHeader } from 'component/Receipt';
 import { OrderListItemItem } from './ListItemItem';
-import { ReceiptButtonGroup } from 'component/ReceiptList';
 import { Button } from 'component/Button';
+import { Text } from 'component/Text';
+import { IconDots } from 'component/icon/Dots';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import {
@@ -42,35 +41,37 @@ export class OrderListItem extends React.Component<Props, {}> {
 
   render() {
     const { order, style } = this.props;
+    const buttonText =
+      order.status === OrderStatus.COMPLETED ? 'Picked up' : 'Notify customer';
+
     return (
       <Receipt style={style}>
-        <Subheading>Order #{order.number}</Subheading>
-        <ReceiptBackground>
-          {order.status === OrderStatus.IN_PROGRESS &&
-            order.items.map(item => (
-              <OrderListItemItem key={item.id} item={item} />
-            ))}
-          <Mutation mutation={CHANGE_ORDER_STATUS}>
-            {mutate => (
-              <ReceiptButtonGroup>
-                <Button
-                  onClick={() =>
-                    this.changeStatus(
-                      mutate,
-                      order.status === OrderStatus.COMPLETED
-                        ? OrderStatus.PICKED_UP
-                        : OrderStatus.COMPLETED
-                    )
-                  }
-                >
-                  {order.status === OrderStatus.COMPLETED
-                    ? 'Picked up'
-                    : 'Notify customer'}
-                </Button>
-              </ReceiptButtonGroup>
-            )}
-          </Mutation>
-        </ReceiptBackground>
+        <Mutation mutation={CHANGE_ORDER_STATUS}>
+          {mutate => (
+            <ReceiptHeader>
+              <Text size="small" tone="light">
+                #{order.number}
+              </Text>
+              <Button
+                onClick={() =>
+                  this.changeStatus(
+                    mutate,
+                    order.status === OrderStatus.COMPLETED
+                      ? OrderStatus.PICKED_UP
+                      : OrderStatus.COMPLETED
+                  )
+                }
+              >
+                {buttonText}
+              </Button>
+              <IconDots />
+            </ReceiptHeader>
+          )}
+        </Mutation>
+        {order.status === OrderStatus.IN_PROGRESS &&
+          order.items.map(item => (
+            <OrderListItemItem key={item.id} item={item} />
+          ))}
       </Receipt>
     );
   }
