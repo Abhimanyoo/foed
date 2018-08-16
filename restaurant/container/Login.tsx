@@ -68,6 +68,7 @@ const _LoginBox = ({ client }: { client?: ApolloClient<any> }) => {
                 innerRef={node => {
                   email = node;
                 }}
+                type="email"
               />
             </InputContainer>
             <InputContainer>
