@@ -4,7 +4,7 @@ Foed is a concept app by Volst.
 
 ## The idea
 
-When you are eating with a group in a [Food Court](https://en.wikipedia.org/wiki/Food_court), it is often a big hassle to order something. First, you find a seat somewhere in the food court. Then you and your group want to start ordering food, but of course everyone wants something from a different vendor. You have to get up, loose your seat and order plus wait there.
+When you are eating with a group in a [Food Court](https://en.wikipedia.org/wiki/Food_court), it is often a big hassle to order something. First, you find a seat somewhere in the food court. Then you and your group want to start ordering food, but of course everyone wants something from a different vendor. You have to get up, lose your seat and order plus wait there.
 
 Our app intends to fix that by allowing you to order from your phone, without installing a native app. We made it open-source for fun.
 
