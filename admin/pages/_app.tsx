@@ -5,8 +5,11 @@ import { withApollo } from '../lib/withApollo';
 import { WithApolloProps } from 'next-with-apollo';
 import { VolstTheme, Body, AppContainer } from '@volst/ui-components';
 import { theme } from 'styles';
+import { NotificationArea } from '../component/NotificationArea';
 
 class MyApp extends App<WithApolloProps<any>> {
+  private notificationRef: NotificationArea | null = null;
+
   render() {
     const { Component, pageProps, apollo } = this.props;
 
@@ -16,9 +19,15 @@ class MyApp extends App<WithApolloProps<any>> {
           <VolstTheme theme={theme}>
             <AppContainer>
               <Body>
-                <Component {...pageProps} />
+                <Component
+                  {...pageProps}
+                  addNotification={msg =>
+                    this.notificationRef!.addNotification(msg)
+                  }
+                />
               </Body>
             </AppContainer>
+            <NotificationArea ref={c => (this.notificationRef = c as any)} />
           </VolstTheme>
         </ApolloProvider>
       </Container>

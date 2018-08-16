@@ -38,7 +38,7 @@ export class CreateFormItemAdd extends React.Component<Props, { input: any }> {
             <TextInput
               name="name"
               value={this.state.input.name}
-              onChange={(name, value) =>
+              onChange={(_name, value) =>
                 this.setState({ input: { ...this.state.input, name: value } })
               }
               onKeyDown={e => {

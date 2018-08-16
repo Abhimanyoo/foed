@@ -48,14 +48,7 @@ interface SortableItemProps {
 }
 
 const SortableItem = SortableElement(
-  ({
-    item,
-    index2,
-    form,
-    categoryIndex,
-    onRemove,
-    ...props
-  }: SortableItemProps) => (
+  ({ item, index2, form, categoryIndex, onRemove }: SortableItemProps) => (
     <CreateFormItemListRow
       item={item}
       index={index2}

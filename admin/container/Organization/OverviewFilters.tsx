@@ -36,7 +36,7 @@ export class OrganizationOverviewFilters extends React.Component<Props, {}> {
         <TextInput
           name="search"
           value={this.input.search}
-          onChange={(name, value) => this.handleChange('search', value)}
+          onChange={(_name, value) => this.handleChange('search', value)}
         />
       </FormField>
     );

@@ -35,7 +35,7 @@ export class CreateFormCategoryAdd extends React.Component<
             <TextInput
               name="name"
               value={this.state.input.name}
-              onChange={(name, value) =>
+              onChange={(_name, value) =>
                 this.setState({ input: { ...this.state.input, name: value } })
               }
               onKeyDown={e => {

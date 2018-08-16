@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormikProps } from '../../../component/Form';
 import { Button, Tone, IconDelete, IconEdit } from '@volst/ui-components';
 import { TableRow, TableData } from '../../../component/FakeTable';
-import { ModalCardItemEdit } from '../../../screen/ModalCardItemEdit';
+import { ModalCardItemEdit } from '../../Modal/CardItemEdit';
 import { DragHandle } from '../../../component/DragHandle';
 
 interface Props {
