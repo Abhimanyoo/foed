@@ -3,7 +3,7 @@ import styled from 'react-emotion';
 const ReceiptContainer = styled('div')`
   position: relative;
   color: #333;
-  margin: 10px;
+  margin: 30px 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   background: #fff;
 
