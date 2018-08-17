@@ -27,4 +27,7 @@ injectGlobal`
   button {
     touch-action: manipulation;
   }
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
 `;
