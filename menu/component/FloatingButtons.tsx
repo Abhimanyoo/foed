@@ -8,6 +8,7 @@ const fillInRoomStyles = css`
 const floatingStyles = css`
   width: 100%;
   position: fixed;
+  z-index: 1;
   bottom: 0;
   padding: 0 12px 20px 20px;
   display: flex;
