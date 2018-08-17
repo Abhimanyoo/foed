@@ -8,6 +8,7 @@ export default apolloClient =>
           currentUser {
             id
             name
+            email
             employments {
               id
             }

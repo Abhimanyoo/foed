@@ -44,7 +44,7 @@ export class AccountDetailsForm extends React.Component<Props, {}> {
       });
       this.props.addNotification({
         key: 'requestSave',
-        dismissAfter: true,
+        dismissAfter: 4000,
         message: 'Changed successfully',
       });
       actions.setSubmitting(false);

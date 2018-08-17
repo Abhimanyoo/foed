@@ -26,8 +26,8 @@ class MyApp extends App<WithApolloProps<any>> {
                   }
                 />
               </Body>
+              <NotificationArea ref={c => (this.notificationRef = c as any)} />
             </AppContainer>
-            <NotificationArea ref={c => (this.notificationRef = c as any)} />
           </VolstTheme>
         </ApolloProvider>
       </Container>
