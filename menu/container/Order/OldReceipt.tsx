@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { observer } from 'mobx-react';
 import { OrderOldReceiptListItem } from './OldReceiptListItem';
 import { Order } from 'Store';
-import { ReceiptBackground } from 'component/ReceiptBackground';
+import { Receipt } from 'component/Receipt';
 import { OrderReceiptPricing } from './ReceiptPricing';
 import { Subheading } from 'component/Header';
 import { uniqueId } from 'lib/uniqueId';
@@ -18,7 +18,7 @@ export class OrderOldReceipt extends React.Component<Props, {}> {
     return (
       <Fragment>
         <Subheading>Order #{order.number}</Subheading>
-        <ReceiptBackground>
+        <Receipt hasCounter>
           {order.groupedItems.map(groupedItem => (
             <OrderOldReceiptListItem
               key={uniqueId()}
@@ -27,7 +27,7 @@ export class OrderOldReceipt extends React.Component<Props, {}> {
             />
           ))}
           <OrderReceiptPricing order={order} />
-        </ReceiptBackground>
+        </Receipt>
       </Fragment>
     );
   }

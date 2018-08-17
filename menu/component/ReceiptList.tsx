@@ -36,14 +36,12 @@ export const ReceiptListItemInfo = styled('div')`
 export const ReceiptListItemDescription = styled('div')`
   font-size: 14px;
   overflow: hidden;
-  color: #fff;
   font-style: italic;
   margin: 5px 20px 0 50px;
 `;
 
 export const ReceiptListItemTitle = styled('div')`
   flex: 1;
-  color: #fff;
   font-weight: bold;
 `;
 
@@ -56,7 +54,6 @@ export const ReceiptListItemPrice = styled('div')`
 `;
 
 export const ReceiptListItemButton = styled('button')`
-  color: #fff;
   background: transparent;
   border: none;
   margin: 0;
@@ -71,7 +68,7 @@ export const ReceiptListItemButton = styled('button')`
 
 export const ReceiptRestaurantTitle = styled('div')`
   font-style: italic;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin: 10px 0 0 40px;
   padding: 10px;
 `;
