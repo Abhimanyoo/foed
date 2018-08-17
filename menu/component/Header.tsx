@@ -21,9 +21,10 @@ export const Subheading = styled('h2')`
   background: #3e93a4;
   font-weight: 500;
   color: #fff;
-  padding: 20px;
+  padding: 10px;
   margin: 0;
-  font-size: 36px;
+  font-size: 24px;
+  font-weight: 500;
 `;
 
 const headerStyles = css`
