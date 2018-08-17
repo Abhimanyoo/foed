@@ -43,8 +43,7 @@ const CounterBackground = styled('div')`
   &:after {
     top: unset;
     bottom: -4px;
-    background-position-x: 0;
-    transform: rotate(180deg);
+    transform: scaleY(-1);
   }
 `;
 
@@ -73,7 +72,7 @@ export const ContentBackground = styled<ContentBackgroundProps, 'div'>('div')`
   &:after {
     top: unset;
     bottom: -4px;
-    transform: rotate(180deg);
+    transform: scaleY(-1);
   }
 `;
 
