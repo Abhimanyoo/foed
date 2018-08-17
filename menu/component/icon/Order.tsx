@@ -65,8 +65,8 @@ const increment = async call => {
   await call({
     to: { fontSize: 16 },
     config: {
-      tension: 50,
-      friction: 50,
+      tension: 200,
+      friction: 10,
       restSpeedThreshold: 1,
       restDisplacementThreshold: 1,
     },
