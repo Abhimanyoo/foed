@@ -2,7 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Header } from 'component/Header';
 import { Store, PaymentStatus } from 'Store';
-import { ReceiptEmpty } from 'component/ReceiptList';
+import { Receipt } from 'component/Receipt';
+import { Text } from 'component/Text';
+import { ReceiptEmpty, ReceiptEmptyMessage } from 'component/ReceiptList';
 import { FloatingButtons } from 'component/FloatingButtons';
 import { Button } from 'component/Button';
 import R from 'routes';
@@ -28,9 +30,16 @@ export class OrderDetails extends React.Component<Props, {}> {
         {status && <OrderPaymentNotification status={status} />}
         {!hasItems &&
           !hasPreviousOrders && (
-            <ReceiptEmpty>
-              You have not added anything to your basket yet!
-            </ReceiptEmpty>
+            <Receipt>
+              <ReceiptEmpty>
+                <Text size="big" tone="light">
+                  Basket is empty.
+                </Text>
+                <ReceiptEmptyMessage>
+                  You can add items when viewing a restaurant.
+                </ReceiptEmptyMessage>
+              </ReceiptEmpty>
+            </Receipt>
           )}
         {hasItems && (
           <OrderReceipt

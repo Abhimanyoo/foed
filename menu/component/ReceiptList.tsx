@@ -1,13 +1,13 @@
 import styled from 'react-emotion';
 
 export const ReceiptEmpty = styled('div')`
-  padding: 40px;
+  padding: 60px 10px;
+  text-align: center;
 `;
 
 export const ReceiptEmptyMessage = styled('div')`
-  text-align: center;
+  padding-top: 20px;
   font-size: 18px;
-  margin: 10px;
 `;
 
 export const ReceiptListItem = styled('div')`
