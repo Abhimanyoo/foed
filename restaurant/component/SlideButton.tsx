@@ -15,23 +15,18 @@ interface Props {
 export class SlideButton extends React.Component<Props, {}> {
   isActivated = false;
 
-  componentDidMount() {
-    console.log('did mount!', this.isActivated);
-  }
-
   render() {
     const { xDelta, down, icon } = this.props;
-    console.log(this.isActivated);
 
     if (!this.isActivated && (!down && xDelta >= 140)) {
       this.isActivated = true;
       this.props.onSlide();
     }
-    let x = this.isActivated ? 140 : down ? xDelta : 0;
+    let x = this.isActivated ? 140 : down ? xDelta + 5 : 0;
     x = x < 0 ? 0 : x > 140 ? 140 : x;
 
     return (
-      <Spring native to={{ x }} immediate={name => down && name === 'x'}>
+      <Spring native to={{ x }} immediate={n => down && n === 'x'}>
         {({ x }) => (
           <Container>
             <Background>
