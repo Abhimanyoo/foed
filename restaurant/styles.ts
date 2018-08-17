@@ -24,4 +24,7 @@ injectGlobal`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  button {
+    touch-action: manipulation;
+  }
 `;

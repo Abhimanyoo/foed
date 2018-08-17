@@ -35,4 +35,7 @@ injectGlobal`
       z-index: -1;
     }
   }
+  button {
+    touch-action: manipulation;
+  }
 `;
