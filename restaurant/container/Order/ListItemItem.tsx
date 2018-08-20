@@ -13,6 +13,7 @@ import { restaurantInfoAndOrders_unfinishedRestaurantOrders_items } from 'graphq
 
 interface Props {
   item: restaurantInfoAndOrders_unfinishedRestaurantOrders_items;
+  allItemIds: string[];
 }
 
 const COMPLETE_ORDER_ITEM = gql`
@@ -27,10 +28,10 @@ const COMPLETE_ORDER_ITEM = gql`
 // I'm very good with names as you can see (pls send help)
 export class OrderListItemItem extends React.Component<Props, {}> {
   handleCompleted = async mutate => {
-    const { item } = this.props;
+    const { item, allItemIds } = this.props;
     await mutate({
       variables: {
-        ids: [item.id],
+        ids: allItemIds,
         complete: !item.completedAt,
       },
     });
@@ -38,11 +39,13 @@ export class OrderListItemItem extends React.Component<Props, {}> {
   };
 
   render() {
-    const { item } = this.props;
+    const { allItemIds, item } = this.props;
     return (
       <ReceiptListItem>
         <ReceiptListItemInfo completed={!!item.completedAt}>
-          <ReceiptListItemTitle>{item.cardItem.name}</ReceiptListItemTitle>
+          <ReceiptListItemTitle>
+            {allItemIds.length} {item.cardItem.name}
+          </ReceiptListItemTitle>
           <Text size="small" tone="warning">
             {item.options.map(subitem => subitem.name).join(', ')}
           </Text>

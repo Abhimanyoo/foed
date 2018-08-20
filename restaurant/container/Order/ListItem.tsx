@@ -10,6 +10,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import {
   restaurantInfoAndOrders_unfinishedRestaurantOrders,
+  restaurantInfoAndOrders_unfinishedRestaurantOrders_items,
   OrderStatus,
 } from 'graphqlTypes';
 
@@ -27,6 +28,38 @@ const CHANGE_ORDER_STATUS = gql`
     }
   }
 `;
+
+interface GroupedItem {
+  item: restaurantInfoAndOrders_unfinishedRestaurantOrders_items;
+  itemIds: string[];
+}
+
+function groupItems(
+  items: restaurantInfoAndOrders_unfinishedRestaurantOrders_items[]
+) {
+  const groupedItems: GroupedItem[] = [];
+  items.forEach(item => {
+    const groupedItem = groupedItems.find(gItem => {
+      // Convoluted way to merge every item together that has the same card id and the exact same options
+      return (
+        gItem.item.cardItem.id === item.cardItem.id &&
+        gItem.item.options.length === item.options.length &&
+        gItem.item.options.every(gItemOption =>
+          item.options.some(itemOption => itemOption.id === gItemOption.id)
+        )
+      );
+    });
+    if (!item.options.length && groupedItem) {
+      groupedItem.itemIds.push(item.id);
+    } else {
+      groupedItems.push({
+        itemIds: [item.id],
+        item,
+      });
+    }
+  });
+  return groupedItems;
+}
 
 export class OrderListItem extends React.Component<Props, {}> {
   changeStatus = async (mutate, status: OrderStatus) => {
@@ -76,8 +109,12 @@ export class OrderListItem extends React.Component<Props, {}> {
           )}
         </Mutation>
         {order.status === OrderStatus.IN_PROGRESS &&
-          order.items.map(item => (
-            <OrderListItemItem key={item.id} item={item} />
+          groupItems(order.items).map(gItem => (
+            <OrderListItemItem
+              key={gItem.item.id}
+              item={gItem.item}
+              allItemIds={gItem.itemIds}
+            />
           ))}
       </Receipt>
     );

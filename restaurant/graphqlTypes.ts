@@ -1,5 +1,3 @@
-
-
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
@@ -19,7 +17,6 @@ export interface loginVariables {
   email: string;
   password: string;
 }
-
 
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
@@ -42,7 +39,6 @@ export interface changeOrderStatusVariables {
   status: OrderStatus;
 }
 
-
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
@@ -63,7 +59,6 @@ export interface completeOrderItemVariables {
   ids: string[];
   complete: boolean;
 }
-
 
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
@@ -91,7 +86,6 @@ export interface currentUserDetails_currentUser {
 export interface currentUserDetails {
   currentUser: currentUserDetails_currentUser | null;
 }
-
 
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
