@@ -1,32 +1,36 @@
 const appPubkey = process.env.REACT_APP_PUSH_PUBLIC_KEY;
 
 export function registerPush() {
-  if ('serviceWorker' in navigator) {
-    return navigator.serviceWorker.ready.then(function(registration) {
-      return registration.pushManager
-        .getSubscription()
-        .then(function(subscription) {
-          if (subscription) {
-            return subscription;
-          }
-
-          return registration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(appPubkey),
-          });
-        })
-        .then(subscription => JSON.stringify(subscription))
-        .catch(err => {
-          // If notification permissions are rejected we want to continu as normal
-          // Of course FF and Chrome use different error names, why not
-          if (['NotAllowedError', 'AbortError'].includes(err.name)) {
-            return null;
-          }
-          throw err;
-        });
-    });
+  if (!('serviceWorker' in navigator)) {
+    return Promise.resolve(null);
   }
-  return Promise.resolve(null);
+  return navigator.serviceWorker.ready.then(function(registration) {
+    // Safari has support for service workers but not push notifications, great.
+    if (!('pushManager' in registration)) {
+      return Promise.resolve(null);
+    }
+    return registration.pushManager
+      .getSubscription()
+      .then(function(subscription) {
+        if (subscription) {
+          return subscription;
+        }
+
+        return registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(appPubkey),
+        });
+      })
+      .then(subscription => JSON.stringify(subscription))
+      .catch(err => {
+        // If notification permissions are rejected we want to continu as normal
+        // Of course FF and Chrome use different error names, why not
+        if (['NotAllowedError', 'AbortError'].includes(err.name)) {
+          return null;
+        }
+        throw err;
+      });
+  });
 }
 
 function urlBase64ToUint8Array(base64String: string) {
