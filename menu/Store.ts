@@ -44,7 +44,7 @@ export class Order {
     this.items.push({
       cardItem,
       options: [],
-      preselect: true,
+      preselect: cardItem.optionGroups.length > 0,
       organizationId,
       restaurant,
     });
