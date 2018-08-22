@@ -62,6 +62,7 @@ export class PaymentButton extends React.Component<Props, {}> {
           <FloatingButtons>
             <Button
               onClick={() => this.handlePay(mutate)}
+              loading={this.isSubmitting}
               disabled={this.isSubmitting}
             >
               Pay
