@@ -26,7 +26,7 @@ export class OrderOldReceipt extends React.Component<Props, {}> {
               amount={groupedItem.amount}
             />
           ))}
-          <OrderReceiptPricing order={order} />
+          <OrderReceiptPricing order={order} disabled />
         </Receipt>
       </Fragment>
     );

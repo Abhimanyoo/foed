@@ -129,7 +129,7 @@ export class Order {
   }
 
   @computed
-  get totalPrice() {
+  get subtotalPrice() {
     return this.items.reduce((itemPrice, item) => {
       const optionsPrice = item.options.reduce(
         (optionPrice, option) => option.price + optionPrice,
@@ -137,6 +137,11 @@ export class Order {
       );
       return item.cardItem.price + optionsPrice + itemPrice;
     }, 0);
+  }
+
+  @computed
+  get totalPrice() {
+    return this.subtotalPrice + this.tip;
   }
 
   @computed
@@ -179,6 +184,12 @@ export class Order {
     });
 
     return restaurantItems;
+  }
+
+  changeTip(tip: number) {
+    if (tip >= 0) {
+      this.tip = tip;
+    }
   }
 }
 
