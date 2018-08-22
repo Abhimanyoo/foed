@@ -16,6 +16,7 @@ import {
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { injectGlobal } from 'react-emotion';
 import { CardItemEditFormOptionList } from './EditFormOptionList';
+import { sortByOrdering, handleNewSort } from 'utils/sort';
 
 // Ugly hack necessary because this component is shown in a modal, so the sortable div is rendered below it.
 //tslint:disable-next-line
@@ -58,7 +59,7 @@ const SortableList = SortableContainer(
             </Button>
           </Col>
         </Row>
-        {optionGroups.map((optionGroup, index) => (
+        {sortByOrdering(optionGroups).map((optionGroup, index) => (
           <SortableItem
             key={`item-${index}`}
             optionGroup={optionGroup}
@@ -148,7 +149,7 @@ export class CardItemEditFormOptionGroupList extends React.Component<
             optionGroups={item.optionGroups}
             arrayHelpers={arrayHelpers}
             onSortEnd={({ oldIndex, newIndex }) =>
-              arrayHelpers.move(oldIndex, newIndex)
+              handleNewSort(form, name, oldIndex, newIndex)
             }
             useDragHandle
             form={form}

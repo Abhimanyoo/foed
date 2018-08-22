@@ -24,7 +24,7 @@ const RESTAURANT_DETAILS = gql`
       }
       activeCard {
         id
-        categories {
+        categories(orderBy: ordering_ASC) {
           id
           name
         }

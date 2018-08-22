@@ -14,6 +14,7 @@ import { Table, TableRow, TableData } from '../../../component/FakeTable';
 // import { DragHandle } from '../../../component/DragHandle';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { injectGlobal } from 'react-emotion';
+import { sortByOrdering, handleNewSort } from 'utils/sort';
 
 // Ugly hack necessary because this component is shown in a modal, so the sortable div is rendered below it.
 //tslint:disable-next-line
@@ -50,7 +51,7 @@ const SortableList = SortableContainer(
             </Button>
           </TableData>
         </TableRow>
-        {options.map((option, index) => (
+        {sortByOrdering(options).map((option, index) => (
           <SortableItem
             key={`item-${index}`}
             item={option}
@@ -124,7 +125,7 @@ export class CardItemEditFormOptionList extends React.Component<Props, {}> {
             options={optionGroup.options}
             arrayHelpers={arrayHelpers}
             onSortEnd={({ oldIndex, newIndex }) =>
-              arrayHelpers.move(oldIndex, newIndex)
+              handleNewSort(form, name, oldIndex, newIndex)
             }
             useDragHandle
             form={form}

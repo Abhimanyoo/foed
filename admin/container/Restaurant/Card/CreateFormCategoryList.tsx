@@ -5,6 +5,7 @@ import { Table } from '../../../component/FakeTable';
 import { CreateFormCategoryAdd } from './CreateFormCategoryAdd';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { CreateFormCategoryListRow } from './CreateFormCategoryListRow';
+import { sortByOrdering, handleNewSort } from 'utils/sort';
 
 interface Props {
   form: FormikProps<any>;
@@ -20,7 +21,7 @@ const SortableList = SortableContainer(
   ({ items, form, onRemove }: SortableListProps) => {
     return (
       <Table>
-        {items.map((category, index) => (
+        {sortByOrdering(items).map((category, index) => (
           <SortableItem
             key={`item-${index}`}
             item={category}
@@ -68,7 +69,7 @@ export class CreateFormCategoryList extends React.Component<Props, {}> {
               onRemove={arrayHelpers.remove}
               form={form}
               onSortEnd={({ oldIndex, newIndex }) =>
-                arrayHelpers.move(oldIndex, newIndex)
+                handleNewSort(form, 'categories', oldIndex, newIndex)
               }
               useDragHandle
             />

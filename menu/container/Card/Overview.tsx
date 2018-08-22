@@ -19,16 +19,16 @@ const CARD_ITEM_OVERVIEW = gql`
   query getCardCategory($id: ID!) {
     cardCategory(where: { id: $id }) {
       id
-      items {
+      items(orderBy: ordering_ASC) {
         id
         name
         price
         description
-        optionGroups {
+        optionGroups(orderBy: ordering_ASC) {
           id
           name
           type
-          options {
+          options(orderBy: ordering_ASC) {
             id
             name
             price

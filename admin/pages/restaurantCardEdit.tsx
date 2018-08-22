@@ -46,6 +46,7 @@ const CARD = gql`
             id
             type
             name
+            ordering
             options {
               id
               name
