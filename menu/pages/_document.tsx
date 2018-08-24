@@ -57,6 +57,10 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <Main />
+          <noscript>
+            You have disabled JavaScript so you can only browse and not order
+            anything.
+          </noscript>
           <NextScript />
         </body>
       </html>
