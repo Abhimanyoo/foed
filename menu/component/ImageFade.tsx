@@ -3,6 +3,7 @@ import * as React from 'react';
 interface Props {
   className?: string;
   src: string;
+  alt?: string;
 }
 
 export class ImageFade extends React.Component<Props, { loaded: boolean }> {

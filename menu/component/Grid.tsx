@@ -3,7 +3,7 @@ import R from '../routes';
 import { LinkProps } from '@volst/next-routes';
 import { ImageFade } from './ImageFade';
 
-export const Grid = styled('div')`
+export const Grid = styled('main')`
   margin: 15px 0;
 `;
 

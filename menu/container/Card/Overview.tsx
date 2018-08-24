@@ -72,7 +72,7 @@ export class CardOverview extends React.Component<Props, {}> {
     const { restaurant, categoryId, store } = this.props;
     const amountOfPreselections = store.order.getAmountOfPreselections();
     return (
-      <div>
+      <React.Fragment>
         <Header
           backTitle={restaurant.organization.name}
           backUrl={`/organization/${restaurant.organization.slug}`}
@@ -80,38 +80,42 @@ export class CardOverview extends React.Component<Props, {}> {
           store={store}
         />
         <CardCategoryMenu restaurant={restaurant} categoryId={categoryId} />
-        <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
-          {result =>
-            result.data.cardCategory.items.map(cardItem => {
-              const itemIsPreselected = store.order.isCardItemPreselected(
-                cardItem.id
-              );
-              return (
-                <Observer key={cardItem.id}>
-                  {() => (
-                    <CardListItem
-                      item={cardItem}
-                      store={store}
-                      onAdd={this.handleAddItem}
-                      onToggleOption={this.handleToggleOption}
-                      selected={itemIsPreselected}
-                      opened={this.openItem === cardItem.id}
-                      onToggleOpen={this.handleToggleOpen}
-                      disabled={!itemIsPreselected && amountOfPreselections > 0}
-                    />
-                  )}
-                </Observer>
-              );
-            })
-          }
-        </Query>
+        <main>
+          <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
+            {result =>
+              result.data.cardCategory.items.map(cardItem => {
+                const itemIsPreselected = store.order.isCardItemPreselected(
+                  cardItem.id
+                );
+                return (
+                  <Observer key={cardItem.id}>
+                    {() => (
+                      <CardListItem
+                        item={cardItem}
+                        store={store}
+                        onAdd={this.handleAddItem}
+                        onToggleOption={this.handleToggleOption}
+                        selected={itemIsPreselected}
+                        opened={this.openItem === cardItem.id}
+                        onToggleOpen={this.handleToggleOpen}
+                        disabled={
+                          !itemIsPreselected && amountOfPreselections > 0
+                        }
+                      />
+                    )}
+                  </Observer>
+                );
+              })
+            }
+          </Query>
+        </main>
         <CardToolbar
           onCancel={this.clearItems}
           onAdd={this.handleAddFinish}
           preselectedAmount={amountOfPreselections}
           store={store}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }

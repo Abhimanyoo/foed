@@ -11,7 +11,9 @@ export class RestaurantListItem extends React.Component<Props, {}> {
     return (
       <GridItem route={`/restaurant/${restaurant.slug}`} prefetch>
         <React.Fragment>
-          {restaurant.imageUrl && <GridItemImage src={restaurant.imageUrl} />}
+          {restaurant.imageUrl && (
+            <GridItemImage src={restaurant.imageUrl} alt={restaurant.name} />
+          )}
           <GridItemTitle>{restaurant.name}</GridItemTitle>
         </React.Fragment>
       </GridItem>

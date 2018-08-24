@@ -12,7 +12,10 @@ export class OrganizationListItem extends React.Component<Props, {}> {
       <GridItem route={`/organization/${organization.slug}`} prefetch>
         <React.Fragment>
           {organization.imageUrl && (
-            <GridItemImage src={organization.imageUrl} />
+            <GridItemImage
+              src={organization.imageUrl}
+              alt={organization.name}
+            />
           )}
           <GridItemTitle>{organization.name}</GridItemTitle>
         </React.Fragment>

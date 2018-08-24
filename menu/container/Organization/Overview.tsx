@@ -1,3 +1,4 @@
+import React from 'react';
 import { OrganizationListItem } from './ListItem';
 import { Grid, GRID_ITEM_HEIGHT } from 'component/Grid';
 import { Logo } from 'component/Logo';
@@ -18,8 +19,8 @@ const MyList = ({ virtual }) => (
 const MyVirtualList = VirtualList()(MyList);
 
 export const OrganizationOverview = (props: Props) => (
-  <div>
+  <React.Fragment>
     <Logo />
     <MyVirtualList items={props.organizations} itemHeight={GRID_ITEM_HEIGHT} />
-  </div>
+  </React.Fragment>
 );

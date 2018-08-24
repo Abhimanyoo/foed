@@ -25,40 +25,42 @@ export class OrderDetails extends React.Component<Props, {}> {
     const hasItems = store.order.groupedItems.length > 0;
     const hasPreviousOrders = store.previousOrders.length > 0;
     return (
-      <div>
+      <React.Fragment>
         <Header store={store} subTitle="Your order" />
-        {status && <OrderPaymentNotification status={status} />}
-        {!hasItems &&
-          !hasPreviousOrders && (
-            <Receipt>
-              <ReceiptEmpty>
-                <Text size="big" tone="light">
-                  Basket is empty.
-                </Text>
-                <ReceiptEmptyMessage>
-                  You can add items when viewing a restaurant.
-                </ReceiptEmptyMessage>
-              </ReceiptEmpty>
-            </Receipt>
+        <main>
+          {status && <OrderPaymentNotification status={status} />}
+          {!hasItems &&
+            !hasPreviousOrders && (
+              <Receipt>
+                <ReceiptEmpty>
+                  <Text size="big" tone="light">
+                    Basket is empty.
+                  </Text>
+                  <ReceiptEmptyMessage>
+                    You can add items when viewing a restaurant.
+                  </ReceiptEmptyMessage>
+                </ReceiptEmpty>
+              </Receipt>
+            )}
+          {hasItems && (
+            <OrderReceipt
+              order={store.order}
+              onAdd={item => store.order.cloneItem(item)}
+              onRemove={item => store.order.removeItem(item)}
+            />
           )}
-        {hasItems && (
-          <OrderReceipt
-            order={store.order}
-            onAdd={item => store.order.cloneItem(item)}
-            onRemove={item => store.order.removeItem(item)}
-          />
-        )}
-        {store.previousOrders.map(order => (
-          <OrderOldReceipt key={uniqueId()} order={order} />
-        ))}
-        {hasItems && (
-          <FloatingButtons>
-            <R.Link route="/payment" prefetch>
-              <Button>Pay</Button>
-            </R.Link>
-          </FloatingButtons>
-        )}
-      </div>
+          {store.previousOrders.map(order => (
+            <OrderOldReceipt key={uniqueId()} order={order} />
+          ))}
+          {hasItems && (
+            <FloatingButtons>
+              <R.Link route="/payment" prefetch>
+                <Button>Pay</Button>
+              </R.Link>
+            </FloatingButtons>
+          )}
+        </main>
+      </React.Fragment>
     );
   }
 }
