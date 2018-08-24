@@ -24,17 +24,10 @@ yarn
 cd api/database
 docker-compose up -d
 cd ..
-yarn start
+yarn start # you may have to wait till the Docker container has started
 ```
 
 Keep this running while developing.
-
-In a second tab (only once):
-
-```bash
-cd api
-yarn deploy
-```
 
 Now the API is running, you can start one of the frontend apps.
 
