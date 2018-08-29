@@ -1,5 +1,5 @@
 # source: http://localhost:4466/foed/dev
-# timestamp: Fri Aug 10 2018 11:33:58 GMT+0200 (Central European Summer Time)
+# timestamp: Wed Aug 29 2018 16:21:26 GMT+0200 (Central European Summer Time)
 
 type AggregateCard {
   count: Int!
@@ -480,9 +480,6 @@ input CardCategoryWhereInput {
   items_every: CardItemWhereInput
   items_some: CardItemWhereInput
   items_none: CardItemWhereInput
-  _MagicalBackRelation_CardToCardCategory_every: CardWhereInput
-  _MagicalBackRelation_CardToCardCategory_some: CardWhereInput
-  _MagicalBackRelation_CardToCardCategory_none: CardWhereInput
 }
 
 input CardCategoryWhereUniqueInput {
@@ -1026,9 +1023,6 @@ input CardItemOptionGroupWhereInput {
   options_every: CardItemOptionWhereInput
   options_some: CardItemOptionWhereInput
   options_none: CardItemOptionWhereInput
-  _MagicalBackRelation_CardItemOptionGroups_every: CardItemWhereInput
-  _MagicalBackRelation_CardItemOptionGroups_some: CardItemWhereInput
-  _MagicalBackRelation_CardItemOptionGroups_none: CardItemWhereInput
 }
 
 input CardItemOptionGroupWhereUniqueInput {
@@ -1358,12 +1352,6 @@ input CardItemOptionWhereInput {
   All values greater than or equal the given value.
   """
   price_gte: Float
-  _MagicalBackRelation_CardItemOptionToOrderItem_every: OrderItemWhereInput
-  _MagicalBackRelation_CardItemOptionToOrderItem_some: OrderItemWhereInput
-  _MagicalBackRelation_CardItemOptionToOrderItem_none: OrderItemWhereInput
-  _MagicalBackRelation_CardItemOptions_every: CardItemOptionGroupWhereInput
-  _MagicalBackRelation_CardItemOptions_some: CardItemOptionGroupWhereInput
-  _MagicalBackRelation_CardItemOptions_none: CardItemOptionGroupWhereInput
 }
 
 input CardItemOptionWhereUniqueInput {
@@ -1777,12 +1765,6 @@ input CardItemWhereInput {
   optionGroups_every: CardItemOptionGroupWhereInput
   optionGroups_some: CardItemOptionGroupWhereInput
   optionGroups_none: CardItemOptionGroupWhereInput
-  _MagicalBackRelation_CardCategoryToCardItem_every: CardCategoryWhereInput
-  _MagicalBackRelation_CardCategoryToCardItem_some: CardCategoryWhereInput
-  _MagicalBackRelation_CardCategoryToCardItem_none: CardCategoryWhereInput
-  _MagicalBackRelation_CardItemToOrderItem_every: OrderItemWhereInput
-  _MagicalBackRelation_CardItemToOrderItem_some: OrderItemWhereInput
-  _MagicalBackRelation_CardItemToOrderItem_none: OrderItemWhereInput
 }
 
 input CardItemWhereUniqueInput {
@@ -2916,9 +2898,6 @@ input OrderItemWhereInput {
   options_some: CardItemOptionWhereInput
   options_none: CardItemOptionWhereInput
   restaurant: RestaurantWhereInput
-  _MagicalBackRelation_OrderToOrderItem_every: OrderWhereInput
-  _MagicalBackRelation_OrderToOrderItem_some: OrderWhereInput
-  _MagicalBackRelation_OrderToOrderItem_none: OrderWhereInput
 }
 
 input OrderItemWhereUniqueInput {
@@ -4604,9 +4583,6 @@ input RestaurantWhereInput {
   cards_every: CardWhereInput
   cards_some: CardWhereInput
   cards_none: CardWhereInput
-  _MagicalBackRelation_OrderItemToRestaurant_every: OrderItemWhereInput
-  _MagicalBackRelation_OrderItemToRestaurant_some: OrderItemWhereInput
-  _MagicalBackRelation_OrderItemToRestaurant_none: OrderItemWhereInput
 }
 
 input RestaurantWhereUniqueInput {
