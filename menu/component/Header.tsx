@@ -10,12 +10,24 @@ interface Props {
   backUrl?: string;
   backTitle?: string;
   subTitle?: string;
+  title?: string;
   store?: Store;
 }
 
 function handleBack() {
   R.Router.back();
 }
+
+export const Heading = styled('h1')`
+  background: #3e93a4;
+  font-weight: bold;
+  color: #fff;
+  padding: 10px 10px;
+  margin: 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+`;
 
 export const Subheading = styled('h2')`
   background: #3e93a4;
@@ -52,7 +64,7 @@ const linkStyles = css`
 `;
 
 export const Header = observer(
-  ({ backUrl, backTitle, subTitle, store }: Props) => {
+  ({ backUrl, backTitle, subTitle, store, title }: Props) => {
     const disabledOrder = store.order.items.length;
     return (
       <Fragment>
@@ -70,6 +82,7 @@ export const Header = observer(
               {backTitle}
             </button>
           )}
+          {title && <Heading>{title}</Heading>}
           <R.Link route="/order" prefetch={!disabledOrder}>
             <a className={linkStyles}>
               {store ? (

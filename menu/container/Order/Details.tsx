@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Header } from 'component/Header';
+import { Header, Subheading } from 'component/Header';
 import { Store, PaymentStatus } from 'Store';
 import { Receipt } from 'component/Receipt';
 import { Text } from 'component/Text';
@@ -26,22 +26,27 @@ export class OrderDetails extends React.Component<Props, {}> {
     const hasPreviousOrders = store.previousOrders.length > 0;
     return (
       <React.Fragment>
-        <Header store={store} subTitle="Your order" />
+        <Header store={store} title="Orders" />
         <main>
           {status && <OrderPaymentNotification status={status} />}
-          {!hasItems &&
-            !hasPreviousOrders && (
-              <Receipt>
-                <ReceiptEmpty>
-                  <Text size="big" tone="light">
-                    Basket is empty.
-                  </Text>
+          <Subheading>
+            Your {hasPreviousOrders && 'new '}
+            order
+          </Subheading>
+          {!hasItems && (
+            <Receipt>
+              <ReceiptEmpty>
+                <Text size="big" tone="light">
+                  Basket is empty.
+                </Text>
+                {!hasPreviousOrders && (
                   <ReceiptEmptyMessage>
                     You can add items when viewing a restaurant.
                   </ReceiptEmptyMessage>
-                </ReceiptEmpty>
-              </Receipt>
-            )}
+                )}
+              </ReceiptEmpty>
+            </Receipt>
+          )}
           {hasItems && (
             <OrderReceipt
               order={store.order}
