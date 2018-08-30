@@ -45,7 +45,11 @@ export class OrderReceiptPricing extends React.Component<Props, {}> {
           <ReceiptPriceItemName>Tip</ReceiptPriceItemName>
           <ReceiptPriceItemAmount>
             {!this.props.disabled && (
-              <ReceiptListItemButton type="button" onClick={this.decreaseTip}>
+              <ReceiptListItemButton
+                disabled={!order.tip}
+                type="button"
+                onClick={this.decreaseTip}
+              >
                 <IconRemoveCircle />
               </ReceiptListItemButton>
             )}

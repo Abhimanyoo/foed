@@ -57,12 +57,16 @@ export const ReceiptListItemButton = styled('button')`
   background: transparent;
   border: none;
   margin: 0;
-  padding: 0 20px;
+  padding: 0 10px;
   font-size: 20px;
   outline: 0;
 
   &:active {
     opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.3;
   }
 `;
 
