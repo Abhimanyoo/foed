@@ -46,18 +46,18 @@ export const ReceiptListItemTitle = styled('div')`
 `;
 
 export const ReceiptListItemPrice = styled('div')`
-  width: 50px;
-  margin: 0 10px;
+  min-width: 75px;
+  padding-right: 20px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 export const ReceiptListItemButton = styled('button')`
   background: transparent;
   border: none;
   margin: 0;
-  padding: 0 10px;
+  padding: 0 8px;
   font-size: 20px;
   outline: 0;
 

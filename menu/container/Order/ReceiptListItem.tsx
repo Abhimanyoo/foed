@@ -33,15 +33,15 @@ export class OrderReceiptListItem extends React.Component<Props, {}> {
         <ReceiptListItemInfo>
           <ReceiptListItemOrderCount>{amount}</ReceiptListItemOrderCount>
           <ReceiptListItemTitle>{item.cardItem.name}</ReceiptListItemTitle>
-          <ReceiptListItemPrice>
-            €{floatToDecimal(item.cardItem.price)}
-          </ReceiptListItemPrice>
           <ReceiptListItemButton type="button" onClick={() => onRemove(item)}>
             <IconRemoveCircle />
           </ReceiptListItemButton>
           <ReceiptListItemButton type="button" onClick={() => onAdd(item)}>
             <IconAddCircle />
           </ReceiptListItemButton>
+          <ReceiptListItemPrice>
+            €{floatToDecimal(item.cardItem.price)}
+          </ReceiptListItemPrice>
         </ReceiptListItemInfo>
         <ReceiptListItemDescription>
           {item.options.map(option => option.name).join(', ')}

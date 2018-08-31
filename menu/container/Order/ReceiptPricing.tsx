@@ -8,7 +8,10 @@ import {
   ReceiptPriceLine,
 } from 'component/ReceiptPricing';
 import { floatToDecimal } from 'helpers';
-import { ReceiptListItemButton } from 'component/ReceiptList';
+import {
+  ReceiptListItemButton,
+  ReceiptListItemPrice,
+} from 'component/ReceiptList';
 import { IconAddCircle } from 'component/icon/AddCircle';
 import { IconRemoveCircle } from 'component/icon/RemoveCircle';
 
@@ -43,23 +46,23 @@ export class OrderReceiptPricing extends React.Component<Props, {}> {
         </ReceiptPriceItem>
         <ReceiptPriceItem>
           <ReceiptPriceItemName>Tip</ReceiptPriceItemName>
-          <ReceiptPriceItemAmount>
-            {!this.props.disabled && (
-              <ReceiptListItemButton
-                disabled={!order.tip}
-                type="button"
-                onClick={this.decreaseTip}
-              >
-                <IconRemoveCircle />
-              </ReceiptListItemButton>
-            )}
+          {!this.props.disabled && (
+            <ReceiptListItemButton
+              disabled={!order.tip}
+              type="button"
+              onClick={this.decreaseTip}
+            >
+              <IconRemoveCircle />
+            </ReceiptListItemButton>
+          )}
+          {!this.props.disabled && (
+            <ReceiptListItemButton type="button" onClick={this.increaseTip}>
+              <IconAddCircle />
+            </ReceiptListItemButton>
+          )}
+          <ReceiptListItemPrice>
             €{floatToDecimal(order.tip)}
-            {!this.props.disabled && (
-              <ReceiptListItemButton type="button" onClick={this.increaseTip}>
-                <IconAddCircle />
-              </ReceiptListItemButton>
-            )}
-          </ReceiptPriceItemAmount>
+          </ReceiptListItemPrice>
         </ReceiptPriceItem>
         <ReceiptPriceLine />
         <ReceiptPriceItem bold>
