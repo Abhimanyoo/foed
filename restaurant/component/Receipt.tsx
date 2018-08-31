@@ -12,15 +12,15 @@ const ReceiptContainer = styled('div')`
     content: '';
     display: block;
     position: absolute;
-    height: 4px;
+    height: 3px;
     width: 100%;
-    top: -4px;
+    top: -3px;
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNSA0Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCw0bDcuMy00TDE1LDRIMHoiLz48L3N2Zz4=);
   }
 
   &:after {
     top: unset;
-    bottom: -4px;
+    bottom: -3px;
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNSA0Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTUsMEw3LjcsNEwwLDBIMTV6Ii8+PC9zdmc+);
   }
 `;
