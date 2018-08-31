@@ -29,30 +29,33 @@ export class OrderDetails extends React.Component<Props, {}> {
         <Header store={store} title="Orders" />
         <main>
           {status && <OrderPaymentNotification status={status} />}
-          <Subheading>
-            Your {hasPreviousOrders && 'new '}
-            order
-          </Subheading>
-          {!hasItems && (
-            <Receipt>
-              <ReceiptEmpty>
-                <Text size="big" tone="light">
-                  Basket is empty.
-                </Text>
-                {!hasPreviousOrders && (
-                  <ReceiptEmptyMessage>
-                    You can add items when viewing a restaurant.
-                  </ReceiptEmptyMessage>
-                )}
-              </ReceiptEmpty>
-            </Receipt>
-          )}
-          {hasItems && (
-            <OrderReceipt
-              order={store.order}
-              onAdd={item => store.order.cloneItem(item)}
-              onRemove={item => store.order.removeItem(item)}
-            />
+          {(hasItems || !hasPreviousOrders) && (
+            <React.Fragment>
+              <Subheading>
+                Your {hasPreviousOrders && 'new '}
+                order
+              </Subheading>
+              {hasItems ? (
+                <OrderReceipt
+                  order={store.order}
+                  onAdd={item => store.order.cloneItem(item)}
+                  onRemove={item => store.order.removeItem(item)}
+                />
+              ) : (
+                <Receipt>
+                  <ReceiptEmpty>
+                    <Text size="big" tone="light">
+                      Basket is empty.
+                    </Text>
+                    {!hasPreviousOrders && (
+                      <ReceiptEmptyMessage>
+                        You can add items when viewing a restaurant.
+                      </ReceiptEmptyMessage>
+                    )}
+                  </ReceiptEmpty>
+                </Receipt>
+              )}
+            </React.Fragment>
           )}
           {store.previousOrders.map(order => (
             <OrderOldReceipt key={uniqueId()} order={order} />
