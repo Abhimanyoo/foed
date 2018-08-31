@@ -4,10 +4,10 @@ import {
   ReceiptListItem,
   ReceiptListItemOrderCount,
   ReceiptListItemInfo,
-  ReceiptListItemPrice,
   ReceiptListItemDescription,
   ReceiptListItemTitle,
 } from 'component/ReceiptList';
+import { ReceiptPriceItemAmount } from 'component/ReceiptPricing';
 import { floatToDecimal } from 'helpers';
 import { Item } from 'types';
 
@@ -25,9 +25,9 @@ export class OrderOldReceiptListItem extends React.Component<Props, {}> {
         <ReceiptListItemInfo>
           <ReceiptListItemOrderCount>{amount}</ReceiptListItemOrderCount>
           <ReceiptListItemTitle>{item.cardItem.name}</ReceiptListItemTitle>
-          <ReceiptListItemPrice>
+          <ReceiptPriceItemAmount>
             €{floatToDecimal(item.cardItem.price)}
-          </ReceiptListItemPrice>
+          </ReceiptPriceItemAmount>
         </ReceiptListItemInfo>
         <ReceiptListItemDescription>
           {item.options.map(option => option.name).join(', ')}

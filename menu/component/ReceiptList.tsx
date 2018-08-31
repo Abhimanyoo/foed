@@ -22,10 +22,8 @@ export const ReceiptListItem = styled('div')`
 export const ReceiptListItemOrderCount = styled('div')`
   width: 40px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  text-align: center;
-  margin-right: 10px;
+  align-items: center;
 `;
 
 export const ReceiptListItemInfo = styled('div')`
@@ -43,14 +41,6 @@ export const ReceiptListItemDescription = styled('div')`
 export const ReceiptListItemTitle = styled('div')`
   flex: 1;
   font-weight: bold;
-`;
-
-export const ReceiptListItemPrice = styled('div')`
-  min-width: 75px;
-  padding-right: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 `;
 
 export const ReceiptListItemButton = styled('button')`

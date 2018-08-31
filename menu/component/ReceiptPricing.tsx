@@ -16,12 +16,12 @@ export const ReceiptPriceItemName = styled('div')`
   padding-right: 10px;
   display: flex;
   align-items: center;
-  padding-left: 60px;
+  padding-left: 50px;
 `;
 
 export const ReceiptPriceItemAmount = styled('div')`
   min-width: 75px;
-  padding-right: 20px;
+  padding-right: 10px;
   display: flex;
   align-items: center;
   justify-content: flex-end;

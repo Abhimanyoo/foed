@@ -7,11 +7,9 @@ import {
   ReceiptPriceItemAmount,
   ReceiptPriceLine,
 } from 'component/ReceiptPricing';
+
 import { floatToDecimal } from 'helpers';
-import {
-  ReceiptListItemButton,
-  ReceiptListItemPrice,
-} from 'component/ReceiptList';
+import { ReceiptListItemButton } from 'component/ReceiptList';
 import { IconAddCircle } from 'component/icon/AddCircle';
 import { IconRemoveCircle } from 'component/icon/RemoveCircle';
 
@@ -60,9 +58,9 @@ export class OrderReceiptPricing extends React.Component<Props, {}> {
               <IconAddCircle />
             </ReceiptListItemButton>
           )}
-          <ReceiptListItemPrice>
+          <ReceiptPriceItemAmount>
             €{floatToDecimal(order.tip)}
-          </ReceiptListItemPrice>
+          </ReceiptPriceItemAmount>
         </ReceiptPriceItem>
         <ReceiptPriceLine />
         <ReceiptPriceItem bold>
