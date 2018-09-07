@@ -1,75 +1,8 @@
-# import Query.users, Query.user, Query.usersConnection, Mutation.deleteUser, UserUpdateInput from "./generated/prisma.graphql"
-# import Query.organizations, Query.organization, Query.organizationsConnection, Mutation.createOrganization, Mutation.updateOrganization, Mutation.deleteOrganization from "./generated/prisma.graphql"
-# import Employment, Query.employments, Query.employmentsConnection, Mutation.deleteEmployment from "./generated/prisma.graphql"
-# import Query.cards, Query.card, Query.cardsConnection, Query.cardCategory, Mutation.createCard, Mutation.updateCard, Mutation.deleteCard from "./generated/prisma.graphql"
-# import Query.restaurants, Query.restaurant, Query.restaurantsConnection, Mutation.createRestaurant, Mutation.updateRestaurant, Mutation.deleteRestaurant, Order, OrderItem, OrderStatus from "./generated/prisma.graphql"
-# import Mutation.signupByInvite, Mutation.signup, Mutation.login, Mutation.changePassword, Mutation.updateCurrentUser, Mutation.triggerPasswordReset, Mutation.passwordReset, Mutation.confirmEmail, UserIdPayload from "../../node_modules/graphql-authentication/schema.graphql"
+# import Query.*, Mutation.*, * from "./card/typeDefs.graphql"
+# import Query.*, Mutation.*, * from "./file/typeDefs.graphql"
+# import Query.*, Mutation.*, * from "./order/typeDefs.graphql"
+# import Query.*, Mutation.*, * from "./organization/typeDefs.graphql"
+# import Query.*, Mutation.*, * from "./restaurant/typeDefs.graphql"
+# import Query.*, Mutation.*, * from "./user/typeDefs.graphql"
 
-scalar Upload
-
-type Query {
-  currentUser: User
-  generateRestaurantSlug(name: String!): GenerateSlugPayload!
-  generateOrganizationSlug(name: String!): GenerateSlugPayload!
-  unfinishedRestaurantOrders(restaurantId: ID!): [Order]!
-  orders(ids: [ID!]!): [Order]!
-}
-
-type Mutation {
-  inviteUser(data: InviteUserInput): UserIdPayload!
-  imageUpload(file: Upload!): UploadPayload!
-  placeOrder(data: PlaceOrderInput): Order!
-  completeOrderItem(ids: [ID!]!, complete: Boolean!): [OrderItem!]!
-  changeOrderStatus(id: ID!, status: OrderStatus!): Order!
-}
-
-input InviteUserInput {
-  email: String!
-  restaurantId: ID!
-  permission: RestaurantPermission!
-}
-
-type User {
-  id: ID!
-  email: String!
-  name: String!
-  inviteAccepted: Boolean!
-  emailConfirmed: Boolean!
-  deletedAt: DateTime
-  lastLogin: DateTime
-  joinedAt: DateTime!
-  isSuper: Boolean!
-  employments(
-    where: EmploymentWhereInput
-    orderBy: EmploymentOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [Employment!]
-}
-
-type GenerateSlugPayload {
-  slug: String!
-}
-
-type UploadPayload {
-  url: String!
-}
-
-input PlaceOrderInput {
-  items: [PlaceOrderItems!]!
-  tip: Float!
-  subscription: String
-}
-
-input PlaceOrderItems {
-  cardItem: ID!
-  options: [ID!]!
-  restaurant: ID!
-}
-
-type CompleteOrderPayload {
-  ok: Boolean!
-}
+type Query

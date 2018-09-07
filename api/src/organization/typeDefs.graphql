@@ -1,0 +1,9 @@
+# import Query.organizations, Query.organization, Query.organizationsConnection, Mutation.createOrganization, Mutation.updateOrganization, Mutation.deleteOrganization from "../generated/prisma.graphql"
+
+type Query {
+  generateOrganizationSlug(name: String!): GenerateSlugPayload!
+}
+
+type GenerateSlugPayload {
+  slug: String!
+}

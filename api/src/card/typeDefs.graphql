@@ -1,0 +1,3 @@
+# import Query.cards, Query.card, Query.cardsConnection, Query.cardCategory, Mutation.createCard, Mutation.updateCard, Mutation.deleteCard from "../generated/prisma.graphql"
+
+type Query

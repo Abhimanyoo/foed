@@ -1,0 +1,9 @@
+scalar Upload
+
+type Mutation {
+  imageUpload(file: Upload!): UploadPayload!
+}
+
+type UploadPayload {
+  url: String!
+}

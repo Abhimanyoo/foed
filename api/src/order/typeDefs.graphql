@@ -1,0 +1,28 @@
+# import Order, OrderItem, OrderStatus from "../generated/prisma.graphql"
+
+type Query {
+  unfinishedRestaurantOrders(restaurantId: ID!): [Order]!
+  orders(ids: [ID!]!): [Order]!
+}
+
+type Mutation {
+  placeOrder(data: PlaceOrderInput): Order!
+  completeOrderItem(ids: [ID!]!, complete: Boolean!): [OrderItem!]!
+  changeOrderStatus(id: ID!, status: OrderStatus!): Order!
+}
+
+input PlaceOrderInput {
+  items: [PlaceOrderItems!]!
+  tip: Float!
+  subscription: String
+}
+
+input PlaceOrderItems {
+  cardItem: ID!
+  options: [ID!]!
+  restaurant: ID!
+}
+
+type CompleteOrderPayload {
+  ok: Boolean!
+}

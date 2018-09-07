@@ -1,0 +1,9 @@
+# import Query.restaurants, Query.restaurant, Query.restaurantsConnection, Mutation.createRestaurant, Mutation.updateRestaurant, Mutation.deleteRestaurant from "../generated/prisma.graphql"
+
+type Query {
+  generateRestaurantSlug(name: String!): GenerateSlugPayload!
+}
+
+type GenerateSlugPayload {
+  slug: String!
+}

@@ -1,13 +1,13 @@
 import { ApolloServer } from 'apollo-server';
 import { Prisma } from 'prisma-binding';
-import * as resolvers from './resolvers';
-import { email } from './mailer';
+import { resolvers } from './resolvers';
+import { email } from './utils/mailer';
 import { graphqlAuthenticationConfig } from 'graphql-authentication';
 import { GraphqlAuthenticationPrismaAdapter } from 'graphql-authentication-prisma';
 import { applyMiddleware } from 'graphql-middleware';
 import { permissions } from './permissions';
 import { getSchema } from './schema';
-import './push';
+import './utils/push';
 
 const authOptions = {
   adapter: new GraphqlAuthenticationPrismaAdapter(),

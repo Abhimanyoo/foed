@@ -1,10 +1,6 @@
-import { forwardTo } from 'prisma-binding';
-import { upload } from 'now-storage';
-import * as streamToArray from 'stream-to-array';
-import * as sharp from 'sharp';
-import { Context } from '../utils';
+import { Context } from '../context';
 import { OrderStatus } from '../generated/prisma';
-import { sendNotification } from '../push';
+import { sendNotification } from '../utils/push';
 
 interface PlaceOrderInput {
   items: { cardItem: string; options: string[]; restaurant: string }[];
@@ -13,45 +9,6 @@ interface PlaceOrderInput {
 }
 
 export const Mutation = {
-  createRestaurant: forwardTo('db'),
-  updateRestaurant: forwardTo('db'),
-  deleteRestaurant: forwardTo('db'),
-  createOrganization: forwardTo('db'),
-  updateOrganization: forwardTo('db'),
-  deleteOrganization: forwardTo('db'),
-  deleteEmployment: forwardTo('db'),
-  createCard: forwardTo('db'),
-  updateCard: forwardTo('db'),
-  deleteCard: forwardTo('db'),
-  imageUpload: async (obj, { file }, ctx) => {
-    const { filename, stream } = await file;
-    const buffers = await streamToArray(stream);
-    const originalContent = Buffer.concat(buffers);
-
-    const content = await sharp(originalContent)
-      .resize(225, 225)
-      .background('black')
-      .jpeg({
-        quality: 70,
-        chromaSubsampling: '4:4:4',
-      })
-      .toBuffer();
-
-    // TODO: needs better error handling
-    // TODO: add a max file size
-    const { url } = await upload(
-      process.env.BACKEND_NOW_TOKEN,
-      {
-        name: filename,
-        content,
-      },
-      {
-        deploymentName: 'foed-media',
-        teamId: 'volst',
-      }
-    );
-    return { url: `https://${url}` };
-  },
   async placeOrder(
     parent: any,
     { data }: { data: PlaceOrderInput },
@@ -140,5 +97,34 @@ export const Mutation = {
       },
       info
     );
+  },
+};
+
+export const Query = {
+  async unfinishedRestaurantOrders(
+    parent: any,
+    { restaurantId }: { restaurantId: string },
+    ctx: Context,
+    info: any
+  ) {
+    return ctx.db.query.orders(
+      {
+        where: {
+          status_in: ['IN_PROGRESS', 'COMPLETED'],
+          items_some: {
+            restaurant: { id: restaurantId },
+          },
+        },
+      },
+      info
+    );
+  },
+  async orders(
+    parent: any,
+    { ids }: { ids: string[] },
+    ctx: Context,
+    info: any
+  ) {
+    return ctx.db.query.orders({ where: { id_in: ids } }, info);
   },
 };
