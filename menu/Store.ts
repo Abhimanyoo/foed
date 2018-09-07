@@ -135,14 +135,18 @@ export class Order {
     return this.items.filter(item => item.preselect).length;
   }
 
+  getPriceForItem(item: Item) {
+    const optionsPrice = item.options.reduce(
+      (optionPrice, option) => option.price + optionPrice,
+      0
+    );
+    return item.cardItem.price + optionsPrice;
+  }
+
   @computed
   get subtotalPrice() {
     return this.items.reduce((itemPrice, item) => {
-      const optionsPrice = item.options.reduce(
-        (optionPrice, option) => option.price + optionPrice,
-        0
-      );
-      return item.cardItem.price + optionsPrice + itemPrice;
+      return this.getPriceForItem(item) + itemPrice;
     }, 0);
   }
 

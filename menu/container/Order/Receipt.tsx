@@ -27,6 +27,7 @@ export class OrderReceipt extends React.Component<Props, {}> {
             {groupedRestaurantItem.items.map(groupedItem => (
               <OrderReceiptListItem
                 key={uniqueId()}
+                order={order}
                 item={groupedItem.item}
                 amount={groupedItem.amount}
                 onAdd={this.props.onAdd}

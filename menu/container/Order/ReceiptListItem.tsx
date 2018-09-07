@@ -13,11 +13,13 @@ import { floatToDecimal } from 'helpers';
 import { IconAddCircle } from 'component/icon/AddCircle';
 import { IconRemoveCircle } from 'component/icon/RemoveCircle';
 import { Item } from 'types';
+import { Order } from 'Store';
 
 export type OnAddFn = (item: Item) => void;
 export type OnRemoveFn = (item: Item) => void;
 
 interface Props {
+  order: Order;
   item: Item;
   amount: number;
   onAdd: OnAddFn;
@@ -27,7 +29,7 @@ interface Props {
 @observer
 export class OrderReceiptListItem extends React.Component<Props, {}> {
   render() {
-    const { item, amount, onRemove, onAdd } = this.props;
+    const { item, order, amount, onRemove, onAdd } = this.props;
     return (
       <ReceiptListItem>
         <ReceiptListItemInfo>
@@ -40,7 +42,7 @@ export class OrderReceiptListItem extends React.Component<Props, {}> {
             <IconAddCircle />
           </ReceiptListItemButton>
           <ReceiptPriceItemAmount>
-            €{floatToDecimal(item.cardItem.price)}
+            €{floatToDecimal(order.getPriceForItem(item))}
           </ReceiptPriceItemAmount>
         </ReceiptListItemInfo>
         <ReceiptListItemDescription>
