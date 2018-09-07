@@ -10,12 +10,13 @@ import { uniqueId } from 'lib/uniqueId';
 
 interface Props {
   order: Order;
+  orderExtra?: { id: string; items: { id: string; completedAt: Date }[] };
 }
 
 @observer
 export class OrderOldReceipt extends React.Component<Props, {}> {
   render() {
-    const { order } = this.props;
+    const { order, orderExtra } = this.props;
     return (
       <Fragment>
         <Subheading>Order #{order.number}</Subheading>
@@ -30,6 +31,12 @@ export class OrderOldReceipt extends React.Component<Props, {}> {
                   key={uniqueId()}
                   item={groupedItem.item}
                   amount={groupedItem.amount}
+                  completed={
+                    !!orderExtra &&
+                    !!orderExtra.items.find(
+                      eItem => eItem.id === groupedItem.item.id
+                    ).completedAt
+                  }
                 />
               ))}
             </React.Fragment>

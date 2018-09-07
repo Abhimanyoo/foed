@@ -20,6 +20,7 @@ export interface CardOption {
 }
 
 export interface Item {
+  id?: string;
   preselect?: boolean;
   cardItem: CardItem;
   options: CardOption[];

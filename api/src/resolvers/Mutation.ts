@@ -104,7 +104,7 @@ export const Mutation = {
       });
     }
 
-    return await ctx.db.mutation.createOrder({ data: order });
+    return await ctx.db.mutation.createOrder({ data: order }, info);
   },
   async completeOrderItem(
     parent: any,

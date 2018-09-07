@@ -14,6 +14,9 @@ const PLACE_ORDER = gql`
     placeOrder(data: $data) {
       id
       number
+      items {
+        id
+      }
     }
   }
 `;

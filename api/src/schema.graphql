@@ -12,12 +12,13 @@ type Query {
   generateRestaurantSlug(name: String!): GenerateSlugPayload!
   generateOrganizationSlug(name: String!): GenerateSlugPayload!
   unfinishedRestaurantOrders(restaurantId: ID!): [Order]!
+  orders(ids: [ID!]!): [Order]!
 }
 
 type Mutation {
   inviteUser(data: InviteUserInput): UserIdPayload!
   imageUpload(file: Upload!): UploadPayload!
-  placeOrder(data: PlaceOrderInput): PlaceOrderPayload!
+  placeOrder(data: PlaceOrderInput): Order!
   completeOrderItem(ids: [ID!]!, complete: Boolean!): [OrderItem!]!
   changeOrderStatus(id: ID!, status: OrderStatus!): Order!
 }
@@ -67,11 +68,6 @@ input PlaceOrderItems {
   cardItem: ID!
   options: [ID!]!
   restaurant: ID!
-}
-
-type PlaceOrderPayload {
-  id: ID!
-  number: Int!
 }
 
 type CompleteOrderPayload {

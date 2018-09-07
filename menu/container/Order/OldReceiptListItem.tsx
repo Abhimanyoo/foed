@@ -14,17 +14,20 @@ import { Item } from 'types';
 interface Props {
   item: Item;
   amount: number;
+  completed: boolean;
 }
 
 @observer
 export class OrderOldReceiptListItem extends React.Component<Props, {}> {
   render() {
-    const { item, amount } = this.props;
+    const { item, amount, completed } = this.props;
     return (
       <ReceiptListItem>
         <ReceiptListItemInfo>
           <ReceiptListItemOrderCount>{amount}</ReceiptListItemOrderCount>
-          <ReceiptListItemTitle>{item.cardItem.name}</ReceiptListItemTitle>
+          <ReceiptListItemTitle>
+            {item.cardItem.name} {completed && '(completed)'}
+          </ReceiptListItemTitle>
           <ReceiptPriceItemAmount>
             €{floatToDecimal(item.cardItem.price)}
           </ReceiptPriceItemAmount>

@@ -55,4 +55,12 @@ export const Query = {
       info
     );
   },
+  async orders(
+    parent: any,
+    { ids }: { ids: string[] },
+    ctx: Context,
+    info: any
+  ) {
+    return ctx.db.query.orders({ where: { id_in: ids } }, info);
+  },
 };

@@ -18,8 +18,15 @@ export enum PaymentStatus {
   Error,
   Success,
 }
+type OrderPaymentResponse = {
+  id: string;
+  number: number;
+  items: { id: string }[];
+};
 
 export class Order {
+  @observable
+  id: string | null = null;
   @observable
   items: Item[] = [];
   @observable
@@ -191,6 +198,15 @@ export class Order {
       this.tip = tip;
     }
   }
+
+  parseFromBackend(data: OrderPaymentResponse) {
+    this.paymentStatus = PaymentStatus.Success;
+    this.id = data.id;
+    this.number = data.number;
+    data.items.forEach((item, i) => {
+      this.items[i].id = item.id;
+    });
+  }
 }
 
 export class Store {
@@ -199,10 +215,9 @@ export class Store {
   @observable
   previousOrders: Order[] = [];
 
-  setPaymentAttempt(data?: { id: string; number: number }) {
+  setPaymentAttempt(data?: OrderPaymentResponse) {
     if (data) {
-      this.order.paymentStatus = PaymentStatus.Success;
-      this.order.number = data.number;
+      this.order.parseFromBackend(data);
       this.previousOrders.unshift(this.order);
       this.order = new Order();
     } else {
