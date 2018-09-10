@@ -98,6 +98,7 @@ export const ListSubitem = styled<{ selected?: boolean }, 'div'>('div')`
   padding: 12px 0;
   user-select: none;
   border-top: 1px solid #eee;
+  -webkit-tap-highlight-color: transparent;
 
   &:last-child {
     border-bottom: 1px solid #eee;
