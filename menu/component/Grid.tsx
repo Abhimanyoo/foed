@@ -19,7 +19,7 @@ const linkStyles = css`
   font-size: 18px;
 
   &:active {
-    background: #0da7bb;
+    background: #0da2b5;
   }
 `;
 
