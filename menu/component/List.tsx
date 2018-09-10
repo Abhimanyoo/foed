@@ -99,12 +99,14 @@ export const ListSubitem = styled<{ selected?: boolean }, 'div'>('div')`
   user-select: none;
   border-top: 1px solid #eee;
   -webkit-tap-highlight-color: transparent;
+  transition: background 150ms ease;
 
   &:last-child {
     border-bottom: 1px solid #eee;
   }
 
   &:active {
+    transition-duration: 0s;
     background: #f5f5f5;
   }
 `;

@@ -17,9 +17,11 @@ const linkStyles = css`
   position: relative;
   padding: 10px 20px;
   font-size: 18px;
+  transition: background 150ms ease;
 
   &:active {
     background: #0da2b5;
+    transition-duration: 0s;
   }
 `;
 
