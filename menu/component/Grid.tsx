@@ -15,9 +15,12 @@ const linkStyles = css`
   font-weight: 400;
   text-decoration: none;
   position: relative;
-  padding: 0 20px;
-  margin-bottom: 20px;
+  padding: 10px 20px;
   font-size: 18px;
+
+  &:active {
+    background: #0da7bb;
+  }
 `;
 
 export const GridItemTitle = styled('span')`
