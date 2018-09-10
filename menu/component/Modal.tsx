@@ -16,11 +16,15 @@ const ModalContainer = styled('div')`
   z-index: 100000;
 `;
 
+export const ModalBody = styled('div')`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
 export const ModalContent = styled('div')`
   flex: 1;
   overflow: auto;
-  display: flex;
-  flex-direction: column;
 `;
 
 const ModalHeader = styled('div')`
@@ -84,7 +88,7 @@ export class Modal extends React.Component<ModalProps, {}> {
                 </button>
                 <ModalTitle>{title}</ModalTitle>
               </ModalHeader>
-              <ModalContent>{children}</ModalContent>
+              <ModalBody>{children}</ModalBody>
             </ModalContainer>
           ))}
       </Transition>
