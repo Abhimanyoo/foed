@@ -46,7 +46,9 @@ export class CardItemCustomize extends React.Component<Props, {}> {
           <React.Fragment>
             <ModalContent>
               <CustomizeDetails>
-                <CustomizeDescription>{item.description}</CustomizeDescription>
+                <CustomizeDescription>
+                  {item.description ? item.description : item.name}
+                </CustomizeDescription>
                 <ListSubitemPrice>
                   €{floatToDecimal(item.price)}
                 </ListSubitemPrice>
