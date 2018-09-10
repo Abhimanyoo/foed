@@ -18,7 +18,7 @@ export class CardToolbar extends React.Component<Props, {}> {
       return (
         <FloatingButtons>
           <R.Link route="/order">
-            <Button>Finish order</Button>
+            <Button tone="secondary">Finish order</Button>
           </R.Link>
         </FloatingButtons>
       );

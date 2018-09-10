@@ -32,14 +32,10 @@ export class CardItemCustomize extends React.Component<Props, {}> {
     store.order.toggleOption(cardItem, optionGroup, option);
   };
 
-  handleIncreaseAmount = () => {};
-  handleDecreaseAmount = () => {};
-
   render() {
     const { item, store } = this.props;
 
     const visible = !!item;
-    const amountOfPreselections = store.order.getAmountOfPreselections();
 
     return (
       <Modal
@@ -67,11 +63,6 @@ export class CardItemCustomize extends React.Component<Props, {}> {
               ))}
             </ModalContent>
             <ModalFooter>
-              <Amount
-                onIncrease={this.handleIncreaseAmount}
-                onDecrease={this.handleDecreaseAmount}
-                amount={amountOfPreselections}
-              />
               <Button onClick={this.handleAdd}>Add to cart</Button>
             </ModalFooter>
           </React.Fragment>

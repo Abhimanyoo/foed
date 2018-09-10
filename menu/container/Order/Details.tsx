@@ -97,7 +97,7 @@ export class OrderDetails extends React.Component<Props, {}> {
           {hasItems && (
             <FloatingButtons>
               <R.Link route="/payment" prefetch>
-                <Button>Pay</Button>
+                <Button tone="secondary">Pay</Button>
               </R.Link>
             </FloatingButtons>
           )}

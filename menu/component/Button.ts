@@ -12,8 +12,8 @@ const sweep = keyframes`
 `;
 
 export const Button = styled<ButtonProps, 'button'>('button')`
-  background: ${props => (props.tone === 'secondary' ? '#979797' : '#91a538')};
-  color: #fff;
+  background: ${props => (props.tone === 'secondary' ? '#fff' : '#3e93a4')};
+  color: ${props => (props.tone === 'secondary' ? '#333' : '#fff')};
   padding: 10px 20px;
   border: none;
   border-radius: 5px;

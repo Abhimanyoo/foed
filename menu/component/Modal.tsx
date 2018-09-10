@@ -34,7 +34,7 @@ const ModalHeader = styled('div')`
 export const ModalFooter = styled('div')`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   border-top: 1px solid #eee;
 `;
 

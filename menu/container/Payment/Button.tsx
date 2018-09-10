@@ -67,6 +67,7 @@ export class PaymentButton extends React.Component<Props, {}> {
               onClick={() => this.handlePay(mutate)}
               loading={this.isSubmitting}
               disabled={this.isSubmitting}
+              tone="secondary"
             >
               Pay
             </Button>
