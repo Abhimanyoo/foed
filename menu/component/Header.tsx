@@ -11,7 +11,7 @@ interface Props {
   backTitle?: string;
   subTitle?: string;
   title?: string;
-  store?: Store;
+  store: Store;
 }
 
 function handleBack() {

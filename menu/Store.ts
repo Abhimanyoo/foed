@@ -131,6 +131,11 @@ export class Order {
     return this._getByCardItem(cardItemId).some(item => item.preselect);
   }
 
+  getPreselectedCardItem() {
+    const firstPreselectedItem = this.items.find(item => item.preselect);
+    return firstPreselectedItem ? firstPreselectedItem.cardItem : null;
+  }
+
   getAmountOfPreselections() {
     return this.items.filter(item => item.preselect).length;
   }

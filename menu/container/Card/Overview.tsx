@@ -7,7 +7,7 @@ import { CardListItem } from './ListItem';
 import { CardCategoryMenu } from './CategoryMenu';
 import { Store } from 'Store';
 import { CardToolbar } from './Toolbar';
-import { observable } from 'mobx';
+import { CardItemCustomize } from './ItemCustomize';
 
 interface Props {
   restaurant: any;
@@ -41,52 +41,28 @@ const CARD_ITEM_OVERVIEW = gql`
 
 @observer
 export class CardOverview extends React.Component<Props, {}> {
-  @observable
-  openItem = '';
-
   handleAddItem = cardItem => {
     const { store, restaurant } = this.props;
     store.order.addItem(cardItem, restaurant, restaurant.organization.id);
   };
 
-  handleAddFinish = () => {
-    const { store } = this.props;
-    store.order.pinPreselected();
-  };
-
-  clearItems = () => {
-    const { store } = this.props;
-    store.order.clearPreselected();
-  };
-
-  handleToggleOption = (cardItem, optionGroup, option) => {
-    const { store } = this.props;
-    store.order.toggleOption(cardItem, optionGroup, option);
-  };
-
-  handleToggleOpen = (id: string) => {
-    this.openItem = this.openItem === id ? '' : id;
-  };
-
   render() {
     const { restaurant, categoryId, store } = this.props;
-    const amountOfPreselections = store.order.getAmountOfPreselections();
+    const preselectedCardItem = store.order.getPreselectedCardItem();
+
     return (
-      <React.Fragment>
-        <Header
-          backTitle={restaurant.organization.name}
-          backUrl={`/organization/${restaurant.organization.slug}`}
-          subTitle={restaurant.name}
-          store={store}
-        />
-        <CardCategoryMenu restaurant={restaurant} categoryId={categoryId} />
-        <main>
-          <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
-            {result =>
-              result.data.cardCategory.items.map(cardItem => {
-                const itemIsPreselected = store.order.isCardItemPreselected(
-                  cardItem.id
-                );
+      <Query query={CARD_ITEM_OVERVIEW} variables={{ id: categoryId }}>
+        {result => (
+          <React.Fragment>
+            <Header
+              backTitle={restaurant.organization.name}
+              backUrl={`/organization/${restaurant.organization.slug}`}
+              subTitle={restaurant.name}
+              store={store}
+            />
+            <CardCategoryMenu restaurant={restaurant} categoryId={categoryId} />
+            <main>
+              {result.data.cardCategory.items.map(cardItem => {
                 return (
                   <Observer key={cardItem.id}>
                     {() => (
@@ -94,28 +70,17 @@ export class CardOverview extends React.Component<Props, {}> {
                         item={cardItem}
                         store={store}
                         onAdd={this.handleAddItem}
-                        onToggleOption={this.handleToggleOption}
-                        selected={itemIsPreselected}
-                        opened={this.openItem === cardItem.id}
-                        onToggleOpen={this.handleToggleOpen}
-                        disabled={
-                          !itemIsPreselected && amountOfPreselections > 0
-                        }
                       />
                     )}
                   </Observer>
                 );
-              })
-            }
-          </Query>
-        </main>
-        <CardToolbar
-          onCancel={this.clearItems}
-          onAdd={this.handleAddFinish}
-          preselectedAmount={amountOfPreselections}
-          store={store}
-        />
-      </React.Fragment>
+              })}
+            </main>
+            <CardToolbar store={store} />
+            <CardItemCustomize store={store} item={preselectedCardItem} />
+          </React.Fragment>
+        )}
+      </Query>
     );
   }
 }

@@ -40,7 +40,7 @@ export const ListItemInfo = styled('div')`
 `;
 
 interface ListItemInfoDescriptionProps {
-  opened?: boolean;
+  folded?: boolean;
 }
 
 export const ListItemInfoDescription = styled<
@@ -54,7 +54,7 @@ export const ListItemInfoDescription = styled<
   cursor: default;
   user-select: none;
   ${props =>
-    !props.opened &&
+    props.folded &&
     `
   white-space: nowrap;
   text-overflow: ellipsis;`};
@@ -62,7 +62,7 @@ export const ListItemInfoDescription = styled<
 
 export const ListItemPrice = styled('div')`
   width: 50px;
-  margin: 0 10px;
+  margin: 0 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,31 +87,33 @@ export const ListItemButton = styled('button')`
 `;
 
 export const ListSubitemGroupHeading = styled('div')`
-  margin: 15px 0 10px 50px;
   font-weight: bold;
+  padding: 30px 12px 10px;
 `;
 
 export const ListSubitem = styled<{ selected?: boolean }, 'div'>('div')`
   width: 100%;
   font-size: 15px;
   display: flex;
-  padding: 10px 0;
-  height: 40px;
+  padding: 12px 0;
   user-select: none;
-  color: ${props => props.selected && `#fff`};
+  border-top: 1px solid #eee;
 
-  &:nth-child(even) {
-    background: rgba(255, 255, 255, 0.1);
+  &:last-child {
+    border-bottom: 1px solid #eee;
+  }
+
+  &:active {
+    background: #f5f5f5;
   }
 `;
 
 export const ListSubitemCheck = styled('div')`
-  width: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
+  margin: 0 12px;
 `;
 
 export const ListSubitemInfo = styled('div')`
@@ -122,9 +124,10 @@ export const ListSubitemInfo = styled('div')`
 `;
 
 export const ListSubitemPrice = styled('div')`
-  width: 50px;
-  margin: 0 10px;
+  margin: 0 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #777;
+  font-size: 14px;
 `;

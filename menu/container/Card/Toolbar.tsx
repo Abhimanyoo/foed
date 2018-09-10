@@ -6,30 +6,14 @@ import R from 'routes';
 import { Store } from 'Store';
 
 interface Props {
-  preselectedAmount: number;
   store: Store;
-  onCancel: () => void;
-  onAdd: () => void;
 }
 
 @observer
 export class CardToolbar extends React.Component<Props, {}> {
   render() {
-    const { store, preselectedAmount } = this.props;
-    if (preselectedAmount > 0) {
-      return (
-        <FloatingButtons>
-          <Button onClick={this.props.onCancel} tone="secondary">
-            Cancel
-          </Button>
-          <Button onClick={this.props.onAdd}>
-            {preselectedAmount === 1
-              ? 'Add item'
-              : `Add ${preselectedAmount} items`}
-          </Button>
-        </FloatingButtons>
-      );
-    }
+    const { store } = this.props;
+
     if (store.order.items.length > 0) {
       return (
         <FloatingButtons>

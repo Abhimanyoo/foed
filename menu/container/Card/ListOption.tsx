@@ -8,7 +8,8 @@ import {
 } from 'component/List';
 import { floatToDecimal } from 'helpers';
 import { Store } from 'Store';
-import IconCheck from 'component/icon/Check';
+import IconCheckCircle from 'component/icon/CheckCircle';
+import IconCheckCircleBlank from 'component/icon/CheckCircleBlank';
 import { CardItem, CardOption } from 'types';
 
 interface Props {
@@ -24,12 +25,12 @@ export class CardListOption extends React.Component<Props, {}> {
     const { item, option, store, onClick } = this.props;
     const selected = store.order.hasSelectedOption(item, option);
     return (
-      <ListSubitem onClick={onClick} selected={selected}>
+      <ListSubitem onClick={onClick}>
         <ListSubitemCheck>
-          <IconCheck fill={selected ? '#ecfee9' : 'rgba(255, 255, 255, 0.2)'} />
+          {selected ? <IconCheckCircle /> : <IconCheckCircleBlank />}
         </ListSubitemCheck>
         <ListSubitemInfo>{option.name}</ListSubitemInfo>
-        <ListSubitemPrice>€{floatToDecimal(option.price)}</ListSubitemPrice>
+        <ListSubitemPrice>+€ {floatToDecimal(option.price)}</ListSubitemPrice>
       </ListSubitem>
     );
   }
