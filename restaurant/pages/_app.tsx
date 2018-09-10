@@ -6,6 +6,11 @@ import { WithApolloProps } from 'next-with-apollo';
 import '../styles';
 
 class MyApp extends App<WithApolloProps<any>> {
+  componentDidMount() {
+    // Hack to enable CSS active states on iOS.
+    document.addEventListener('touchstart', () => {});
+  }
+
   render() {
     const { Component, pageProps, apollo } = this.props;
 

@@ -21,6 +21,9 @@ class MyApp extends App<WithApolloProps<any>> {
     // This is called only client-side, which is what we want
     this.store.initStorageSync();
 
+    // Hack to enable CSS active states on iOS.
+    document.addEventListener('touchstart', () => {});
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/service-worker.js')
