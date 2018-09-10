@@ -2,7 +2,6 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Modal, ModalContent, ModalFooter } from 'component/Modal';
 import { Button } from 'component/Button';
-import { Amount } from 'component/Amount';
 import { CardItem } from 'types';
 import { Store } from 'Store';
 import { CardListGroupOption } from './ListGroupOption';
