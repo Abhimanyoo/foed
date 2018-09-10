@@ -18,7 +18,7 @@ injectGlobal`
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
     color: #fff;
     margin: 0;
-    background: #3e93a4;
+    background: #0398ab;
     background-attachment: fixed;
     height: 100%;
     -webkit-font-smoothing: antialiased;
@@ -31,7 +31,7 @@ injectGlobal`
       left: 0;
       top: 0;
       bottom: 0;
-      background: #378291;
+      background: #008c9e;
       z-index: -1;
     }
   }

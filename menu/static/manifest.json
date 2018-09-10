@@ -1,7 +1,7 @@
 {
   "name": "Foed",
   "short_name": "Foed",
-  "background_color": "#3e93a4",
+  "background_color": "#0398ab",
   "theme_color": "#eba04f",
   "description": "Order food from your phone.",
   "display": "standalone",

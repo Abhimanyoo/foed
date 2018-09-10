@@ -18,7 +18,7 @@ function handleBack() {
 }
 
 export const Heading = styled('h1')`
-  background: #3e93a4;
+  background: #0398ab;
   font-weight: bold;
   color: #fff;
   padding: 10px 10px;
@@ -33,7 +33,7 @@ export const Spacer = styled('h1')`
 `;
 
 export const Subheading = styled('h2')`
-  background: #3e93a4;
+  background: #0398ab;
   font-weight: 500;
   color: #fff;
   padding: 20px;
@@ -42,7 +42,7 @@ export const Subheading = styled('h2')`
 `;
 
 const headerStyles = css`
-  background: #3e93a4;
+  background: #0398ab;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
