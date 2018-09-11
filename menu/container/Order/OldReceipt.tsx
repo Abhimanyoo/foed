@@ -5,6 +5,7 @@ import { Order } from 'Store';
 import { Receipt, ReceiptRestaurant, ReceiptHeader } from 'component/Receipt';
 import { uniqueId } from 'lib/uniqueId';
 import { Text } from 'component/Text';
+import { OrderStatus } from 'component/OrderStatus';
 import { IconDots } from 'component/icon/Dots';
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 export class OrderOldReceipt extends React.Component<Props, {}> {
   render() {
     const { order, orderExtra } = this.props;
+
     return (
       <Fragment>
         <Receipt>
@@ -31,6 +33,16 @@ export class OrderOldReceipt extends React.Component<Props, {}> {
                 <Text size="medium">
                   {groupedRestaurantItem.restaurant.name}
                 </Text>
+                <OrderStatus
+                  totalAmount={groupedRestaurantItem.items.reduce(
+                    (total, item) => total + item.amount,
+                    0
+                  )}
+                  completedAmount={
+                    orderExtra &&
+                    orderExtra.items.filter(eItem => eItem.completedAt).length
+                  }
+                />
               </ReceiptHeader>
               {groupedRestaurantItem.items.map(groupedItem => (
                 <OrderOldReceiptListItem
