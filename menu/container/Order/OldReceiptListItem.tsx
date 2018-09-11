@@ -2,14 +2,15 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import {
   ReceiptListItem,
-  ReceiptListItemOrderCount,
+  ReceiptListItemOrderCountOld,
   ReceiptListItemInfo,
-  ReceiptListItemDescription,
+  ReceiptListStatus,
   ReceiptListItemTitle,
 } from 'component/ReceiptList';
-import { ReceiptPriceItemAmount } from 'component/ReceiptPricing';
-import { floatToDecimal } from 'helpers';
+import { Text } from 'component/Text';
 import { Item } from 'types';
+import IconCheckCircle from 'component/icon/CheckCircle';
+import IconProgressClock from 'component/icon/ProgressClock';
 
 interface Props {
   item: Item;
@@ -24,17 +25,21 @@ export class OrderOldReceiptListItem extends React.Component<Props, {}> {
     return (
       <ReceiptListItem>
         <ReceiptListItemInfo>
-          <ReceiptListItemOrderCount>{amount}</ReceiptListItemOrderCount>
+          <ReceiptListItemOrderCountOld>{amount}</ReceiptListItemOrderCountOld>
           <ReceiptListItemTitle>
-            {item.cardItem.name} {completed && '(completed)'}
+            {item.cardItem.name}
+            <Text size="small" tone="warning">
+              {item.options.map(option => option.name).join(', ')}
+            </Text>
           </ReceiptListItemTitle>
-          <ReceiptPriceItemAmount>
-            €{floatToDecimal(item.cardItem.price)}
-          </ReceiptPriceItemAmount>
+          <ReceiptListStatus>
+            {completed ? (
+              <IconCheckCircle fill="#FD326A" />
+            ) : (
+              <IconProgressClock />
+            )}
+          </ReceiptListStatus>
         </ReceiptListItemInfo>
-        <ReceiptListItemDescription>
-          {item.options.map(option => option.name).join(', ')}
-        </ReceiptListItemDescription>
       </ReceiptListItem>
     );
   }

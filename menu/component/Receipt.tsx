@@ -4,7 +4,7 @@ import styled from 'react-emotion';
 const ReceiptContainer = styled('div')`
   position: relative;
   color: #333;
-  margin: 4px 10px 30px;
+  margin: 4px 10px 50px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   background: #fff;
 `;
@@ -12,6 +12,10 @@ const ReceiptContainer = styled('div')`
 const ReceiptContent = styled('div')`
   position: relative;
   z-index: 1;
+`;
+
+export const ReceiptRestaurant = styled('div')`
+  padding-bottom: 20px;
 `;
 
 export const ReceiptHeader = styled('div')`

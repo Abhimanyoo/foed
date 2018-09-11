@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
 import { observer } from 'mobx-react';
 import { OrderOldReceiptListItem } from './OldReceiptListItem';
-import { ReceiptRestaurantTitle } from 'component/ReceiptList';
 import { Order } from 'Store';
-import { Receipt } from 'component/Receipt';
-import { OrderReceiptPricing } from './ReceiptPricing';
-import { Subheading } from 'component/Header';
+import { Receipt, ReceiptRestaurant, ReceiptHeader } from 'component/Receipt';
 import { uniqueId } from 'lib/uniqueId';
+import { Text } from 'component/Text';
+import { IconDots } from 'component/icon/Dots';
 
 interface Props {
   order: Order;
@@ -19,13 +18,20 @@ export class OrderOldReceipt extends React.Component<Props, {}> {
     const { order, orderExtra } = this.props;
     return (
       <Fragment>
-        <Subheading>Order #{order.number}</Subheading>
-        <Receipt hasCounter>
+        <Receipt>
+          <ReceiptHeader>
+            <Text size="small" tone="light">
+              #{order.number}
+            </Text>
+            <IconDots />
+          </ReceiptHeader>
           {order.groupedItemsByRestaurant.map(groupedRestaurantItem => (
-            <React.Fragment key={uniqueId()}>
-              <ReceiptRestaurantTitle>
-                {groupedRestaurantItem.restaurant.name}
-              </ReceiptRestaurantTitle>
+            <ReceiptRestaurant key={uniqueId()}>
+              <ReceiptHeader>
+                <Text size="medium">
+                  {groupedRestaurantItem.restaurant.name}
+                </Text>
+              </ReceiptHeader>
               {groupedRestaurantItem.items.map(groupedItem => (
                 <OrderOldReceiptListItem
                   key={uniqueId()}
@@ -39,9 +45,8 @@ export class OrderOldReceipt extends React.Component<Props, {}> {
                   }
                 />
               ))}
-            </React.Fragment>
+            </ReceiptRestaurant>
           ))}
-          <OrderReceiptPricing order={order} disabled />
         </Receipt>
       </Fragment>
     );

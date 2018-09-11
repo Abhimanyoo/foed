@@ -16,7 +16,12 @@ export const ReceiptListItem = styled('div')`
   flex-direction: column;
   justify-content: center;
   padding: 10px 0;
-  min-height: 80px;
+  border-bottom: 1px solid #eee;
+  min-height: 60px;
+
+  &:last-child {
+    border-bottom: 0;
+  }
 `;
 
 export const ReceiptListItemOrderCount = styled('div')`
@@ -24,6 +29,17 @@ export const ReceiptListItemOrderCount = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const ReceiptListItemOrderCountOld = styled('div')`
+  width: 20px;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+`;
+
+export const ReceiptListStatus = styled('div')`
+  margin: 0 20px;
 `;
 
 export const ReceiptListItemInfo = styled('div')`

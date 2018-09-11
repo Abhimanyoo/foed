@@ -1,7 +1,7 @@
 import styled from 'react-emotion';
 
 interface TextProps {
-  size?: 'small' | 'big';
+  size?: 'small' | 'medium' | 'big';
   tone?: 'light' | 'warning';
 }
 
@@ -11,7 +11,14 @@ export const Text = styled<TextProps, 'div'>('div')`
       case 'small':
         return `
           font-size: 13px;
+          font-weight: 700;
+        `;
+        break;
+      case 'medium':
+        return `
+          font-size: 20px;
           font-weight: 600;
+          line-height: 22px;
         `;
         break;
       case 'big':
