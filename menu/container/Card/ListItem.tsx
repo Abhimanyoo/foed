@@ -42,7 +42,7 @@ export class CardListItem extends React.Component<Props, {}> {
               <IconAddCircle />
             </ListItemButton>
           </ListItemInfo>
-          <ListItemInfoDescription folded={!!item.optionGroups}>
+          <ListItemInfoDescription folded={!!item.optionGroups.length}>
             {item.description}
           </ListItemInfoDescription>
         </ListItem>
