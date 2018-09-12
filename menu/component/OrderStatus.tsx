@@ -1,14 +1,23 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import styled from 'react-emotion';
+import styled, { keyframes } from 'react-emotion';
+
+const backgroundSweep = keyframes`
+  from {
+    background-position-x: 0%;
+  }
+
+  to {
+    background-position-x: -300%;
+  }
+`;
 
 interface StatusProps {
   active?: boolean;
 }
 
 export const Status = styled<StatusProps, 'div'>('div')`
-  background: ${props => (props.active ? '#FD326A' : '#525252')};
-  color: #fff;
+  background: #fd326a;
   font-size: 12px;
   font-weight: 600;
   height: 24px;
@@ -16,6 +25,19 @@ export const Status = styled<StatusProps, 'div'>('div')`
   padding: 0 12px;
   display: flex;
   align-items: center;
+
+  ${props =>
+    !props.active &&
+    `
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: ${backgroundSweep};
+    animation-timing-function: linear;
+    background: #525252;
+    background: linear-gradient(to right, #777 0%, #222 100%);
+    background-size: 300%;
+  `} color: #fff;
 `;
 
 interface OrderStatusProps {
