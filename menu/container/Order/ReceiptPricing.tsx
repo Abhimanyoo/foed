@@ -5,7 +5,6 @@ import {
   ReceiptPriceItem,
   ReceiptPriceItemName,
   ReceiptPriceItemAmount,
-  ReceiptPriceLine,
 } from 'component/ReceiptPricing';
 
 import { floatToDecimal } from 'helpers';
@@ -35,7 +34,6 @@ export class OrderReceiptPricing extends React.Component<Props, {}> {
     const { order } = this.props;
     return (
       <Fragment>
-        <ReceiptPriceLine />
         <ReceiptPriceItem>
           <ReceiptPriceItemName>Subtotal</ReceiptPriceItemName>
           <ReceiptPriceItemAmount>
@@ -62,7 +60,6 @@ export class OrderReceiptPricing extends React.Component<Props, {}> {
             €{floatToDecimal(order.tip)}
           </ReceiptPriceItemAmount>
         </ReceiptPriceItem>
-        <ReceiptPriceLine />
         <ReceiptPriceItem bold>
           <ReceiptPriceItemName>Total</ReceiptPriceItemName>
           <ReceiptPriceItemAmount>

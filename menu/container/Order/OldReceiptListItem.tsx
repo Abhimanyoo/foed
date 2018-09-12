@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import {
   ReceiptListItem,
-  ReceiptListItemOrderCountOld,
+  ReceiptListItemOrderCount,
   ReceiptListItemInfo,
   ReceiptListStatus,
   ReceiptListItemTitle,
@@ -25,7 +25,7 @@ export class OrderOldReceiptListItem extends React.Component<Props, {}> {
     return (
       <ReceiptListItem>
         <ReceiptListItemInfo>
-          <ReceiptListItemOrderCountOld>{amount}</ReceiptListItemOrderCountOld>
+          <ReceiptListItemOrderCount>{amount}</ReceiptListItemOrderCount>
           <ReceiptListItemTitle>
             {item.cardItem.name}
             <Text size="small" tone="warning">

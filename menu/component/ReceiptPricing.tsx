@@ -26,10 +26,3 @@ export const ReceiptPriceItemAmount = styled('div')`
   align-items: center;
   justify-content: flex-end;
 `;
-
-export const ReceiptPriceLine = styled('div')`
-  width: 100%;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.1);
-  margin: 10px 0;
-`;

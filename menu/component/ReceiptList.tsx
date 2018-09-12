@@ -25,14 +25,7 @@ export const ReceiptListItem = styled('div')`
 `;
 
 export const ReceiptListItemOrderCount = styled('div')`
-  width: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const ReceiptListItemOrderCountOld = styled('div')`
-  width: 20px;
+  width: 30px;
   margin-left: 20px;
   display: flex;
   align-items: center;
@@ -48,16 +41,12 @@ export const ReceiptListItemInfo = styled('div')`
 `;
 
 export const ReceiptListItemDescription = styled('div')`
-  font-size: 14px;
-  overflow: hidden;
-  font-style: italic;
-  margin: 5px 20px 0 50px;
+  margin-left: 50px;
 `;
 
 export const ReceiptListItemTitle = styled('div')`
   flex: 1;
   font-weight: bold;
-  margin-left: 10px;
 `;
 
 export const ReceiptListItemButton = styled('button')`
@@ -75,11 +64,4 @@ export const ReceiptListItemButton = styled('button')`
   &:disabled {
     opacity: 0.3;
   }
-`;
-
-export const ReceiptRestaurantTitle = styled('div')`
-  font-style: italic;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin-left: 40px;
-  padding: 10px;
 `;

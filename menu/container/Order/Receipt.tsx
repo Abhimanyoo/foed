@@ -2,8 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { OrderReceiptListItem, OnAddFn, OnRemoveFn } from './ReceiptListItem';
 import { Order } from 'Store';
-import { Receipt } from 'component/Receipt';
-import { ReceiptRestaurantTitle } from 'component/ReceiptList';
+import { Receipt, ReceiptHeader, ReceiptRestaurant } from 'component/Receipt';
+import { Text } from 'component/Text';
 import { OrderReceiptPricing } from './ReceiptPricing';
 import { uniqueId } from 'lib/uniqueId';
 
@@ -11,19 +11,27 @@ interface Props {
   order: Order;
   onAdd: OnAddFn;
   onRemove: OnRemoveFn;
+  hasPreviousOrders: boolean;
 }
 
 @observer
 export class OrderReceipt extends React.Component<Props, {}> {
   render() {
-    const { order } = this.props;
+    const { order, hasPreviousOrders } = this.props;
+
     return (
-      <Receipt hasCounter>
+      <Receipt>
+        <ReceiptHeader>
+          <Text size="small" tone="light">
+            Your {hasPreviousOrders && 'new '}
+            order
+          </Text>
+        </ReceiptHeader>
         {order.groupedItemsByRestaurant.map(groupedRestaurantItem => (
-          <React.Fragment key={uniqueId()}>
-            <ReceiptRestaurantTitle>
-              {groupedRestaurantItem.restaurant.name}
-            </ReceiptRestaurantTitle>
+          <ReceiptRestaurant key={uniqueId()}>
+            <ReceiptHeader>
+              <Text size="medium">{groupedRestaurantItem.restaurant.name}</Text>
+            </ReceiptHeader>
             {groupedRestaurantItem.items.map(groupedItem => (
               <OrderReceiptListItem
                 key={uniqueId()}
@@ -34,7 +42,7 @@ export class OrderReceipt extends React.Component<Props, {}> {
                 onRemove={this.props.onRemove}
               />
             ))}
-          </React.Fragment>
+          </ReceiptRestaurant>
         ))}
         <OrderReceiptPricing order={order} />
       </Receipt>

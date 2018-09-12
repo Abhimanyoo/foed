@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Query } from 'react-apollo';
-import { Header, Subheading } from 'component/Header';
+import { Header } from 'component/Header';
 import { Store, PaymentStatus } from 'Store';
 import { Receipt } from 'component/Receipt';
 import { Text } from 'component/Text';
@@ -45,15 +45,12 @@ export class OrderDetails extends React.Component<Props, {}> {
           {status && <OrderPaymentNotification status={status} />}
           {(hasItems || !hasPreviousOrders) && (
             <React.Fragment>
-              <Subheading>
-                Your {hasPreviousOrders && 'new '}
-                order
-              </Subheading>
               {hasItems ? (
                 <OrderReceipt
                   order={store.order}
                   onAdd={item => store.order.cloneItem(item)}
                   onRemove={item => store.order.removeItem(item)}
+                  hasPreviousOrders={hasPreviousOrders}
                 />
               ) : (
                 <Receipt>

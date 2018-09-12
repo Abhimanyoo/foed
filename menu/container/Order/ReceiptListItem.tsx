@@ -14,6 +14,7 @@ import { IconAddCircle } from 'component/icon/AddCircle';
 import { IconRemoveCircle } from 'component/icon/RemoveCircle';
 import { Item } from 'types';
 import { Order } from 'Store';
+import { Text } from 'component/Text';
 
 export type OnAddFn = (item: Item) => void;
 export type OnRemoveFn = (item: Item) => void;
@@ -46,7 +47,9 @@ export class OrderReceiptListItem extends React.Component<Props, {}> {
           </ReceiptPriceItemAmount>
         </ReceiptListItemInfo>
         <ReceiptListItemDescription>
-          {item.options.map(option => option.name).join(', ')}
+          <Text size="small" tone="warning">
+            {item.options.map(option => option.name).join(', ')}
+          </Text>
         </ReceiptListItemDescription>
       </ReceiptListItem>
     );
